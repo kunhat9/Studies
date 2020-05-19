@@ -1,0 +1,96 @@
+﻿@model int
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">Hàng hóa</h5>
+        </div>
+        <div class="modal-body">
+            <!-- Voucher info -->
+            <div class="panel panel-flat">
+                <div class="panel-body" style="max-height: @(Model)px;overflow-y: auto;">
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Mã sản phẩm</label>
+                                    <input type="text" id="PRODUCT_CODE" class="form-control not-empty">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Tên sản phẩm</label>
+                                    <input type="text" id="PRODUCT_NAME" class="form-control not-empty">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Đơn vị</label>
+                                    <input type="text" id="PRODUCT_UNIT" class="form-control">
+                                </div>
+                                <div class="col-md-6" hidden>
+                                    <label>Sản phẩm tồn kho</label>
+                                    <input type="text" id="PRODUCT_INVENTORY" value="0" onkeypress="return checkNumber(event)" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Đơn vị</label>
+                                    <input type="text" id="PRODUCT_UNIT" class="form-control" >
+                                </div>
+                                <div class="col-md-6" hidden>
+                                    <label>Giá sản phẩm</label>
+                                    <input type="text" id="PRODUCT_PRICE" value="0" onkeypress="return checkNumber(event)" class="form-control currency not-empty" />
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Hình ảnh</label>
+                                    <input type="file" id="PRODUCT_IMAGE" onchange="readFile(event)" class="file-input" data-show-preview="false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Mô tả</label>
+                                    <textarea rows="8" id="PRODUCT_DESCRIPTION" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Voucher info -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btnSave">Save changes</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function readFile(event) {
+        if (event.target.files) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function (e) {
+                debugger;
+                var string = e.target.result.toLocaleString();
+                let modalItems = $("#modal_default").find("input,textarea,select.form-control");
+                for (let i = 0; i < modalItems.length; i++) {
+                    if (modalItems[i].type == "file") {
+                        modalItems[i].name = string;
+                    }
+                }
+            });
+            FR.readAsDataURL(event.target.files[0]);
+        }
+    }
+    features.insertOrUpdate("/Ajax/AddOrUpdateProduct", data, getParamsForSearch);
+</script>

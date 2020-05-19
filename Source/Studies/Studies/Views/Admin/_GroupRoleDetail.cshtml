@@ -1,0 +1,49 @@
+﻿<div class="form-group">
+    <label>Danh sách Role</label>
+    <div class="tree-checkbox-hierarchical well" style="height: 367px;overflow-y: auto;">
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function getNestedChildren(models, parentId) {
+            const nestedTreeStructure = [];
+            const length = models.length;
+
+            for (let i = 0; i < length; i++) {
+                const model = models[i];
+                let xxx = {
+                    "title": models[i].ROLE_NAME,
+                    "expanded": true,
+                    "folder": false,
+                    "key": models[i].ROLE_ID,
+                    "data": {
+                        id: models[i].ROLE_ID
+                    },
+                    "selected": model.IS_SELECTED == 1 ? true:false
+
+                }
+                if (model.ACTION_PARENT_ID == parentId) {
+                    const children = getNestedChildren(models, model.ROLE_ID);
+
+                    if (children.length > 0) {
+                        xxx.folder = true;
+                        xxx.children = children;
+                    }
+
+                    nestedTreeStructure.push(xxx);
+                }
+            }
+            return nestedTreeStructure;
+        }
+        let xxx = getNestedChildren(@Html.Raw(Json.Encode(Model)), null);
+
+        $(".tree-checkbox-hierarchical").fancytree({
+            checkbox: true,
+            source: xxx,
+            selectMode: 3
+        });
+    });
+
+</script>

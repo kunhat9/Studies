@@ -1,0 +1,90 @@
+﻿@using System.Globalization;
+@model List<AFD.Tables.GYM_EXPENSE>
+
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+    List<AFD.Tables.GYM_EXPENSE_TYPES> list = ViewBag.listType;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th class="fixed-col">STT</th>
+                        <th>Loại Chi Phí</th>
+                        <th>Ngày</th>
+                        <th>Số Tiền</th>
+                        <th>Người nhập</th>
+                        <th class="text-center">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@list.Where(x => x.TYPE_ID.Equals(Model[i].EXPENSE_TYPE_ID)).FirstOrDefault().TYPE_NAME</td>
+                            <td>@Model[i].EXPENSE_CREATETIME.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)</td>
+                            <td class="txtCurrency">@Model[i].EXPENSE_AMOUNT.ToString().Replace(".00", "") VNĐ</td>
+                            <td>@Model[i].EXPENSE_CREATEBY</td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="btnEdit" data-index=@i>
+                                        <button type="button" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
+                                    </li>
+                                    <li class="btnDelete" data-id=@Model[i].EXPENSE_ID><button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
+    let url_get = "/ChiPhi/_DanhSach";
+    let data = @Html.Raw(Json.Encode(Model));
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "keyText": $(".txtSearch").val(),
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single").val(),
+        };
+    }
+
+    let subParams = (index) => {
+        let model = features.dataModel
+        if (features.update) {
+            return {
+                EXPENSE_AMOUNT:$("#EXPENSE_AMOUNT").val().replace(/\,/g, ''),
+                EXPENSE_CREATEBY: data[features.index].EXPENSE_CREATEBY,
+                EXPENSE_CREATETIME: viewBag[features.index],
+            }
+        } else {
+            return {
+                EXPENSE_AMOUNT:$("#EXPENSE_AMOUNT").val().replace(/\,/g, ''),
+                EXPENSE_CREATEBY: "admin",
+                EXPENSE_CREATETIME: new Date().toLocaleString(),
+            }
+        }
+    }
+    var features = new Features(url_get,data,getParamsForSearch);
+    $(".txtCurrency").each(function () {
+        $(this).text(features.FormatCurency($(this).text().split(",")[0]));
+    });
+    for(let i=0;i<data.length;i++){
+        data[i].EXPENSE_CREATETIME = features.formatJSONDate(data[i].EXPENSE_CREATETIME)
+    }
+
+    features.Delete("/Ajax/DeleteExpense",getParamsForSearch);
+    features.CheckUpdateAndFillInfo();
+    features.insertOrUpdate("/Ajax/AddOrUpdateExpense",subParams,getParamsForSearch);
+</script>

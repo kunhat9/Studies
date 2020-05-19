@@ -1,0 +1,142 @@
+﻿@model  AFD.Tables.SYS_BOXES
+
+<div class="">
+    <div>
+        <h5>@(string.IsNullOrEmpty(Model.BOX_ID) ? "Thêm mới Chi nhánh (" + ViewBag.parentName + ")" : "Chi tiết Chi nhánh (" + Model.BOX_NAME + ")")</h5>
+    </div>
+    <div>
+        <input type="hidden" id="BOX_ID" value="@Model.BOX_ID" />
+        <input type="hidden" id="BOX_PARENT_ID" value="@Model.BOX_PARENT_ID" />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Tên Chi nhánh</label>
+                    <div class="input-group w-100">
+                        <input type="text" id="BOX_NAME" value="@Model.BOX_NAME" class="form-control not-empty">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Địa chỉ</label>
+                    <div class="input-group w-100">
+                        <input type="text" id="BOX_ADDRESS" value="@Model.BOX_ADDRESS" class="form-control not-empty">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Mô tả</label>
+                    <textarea rows="3" id="BOX_DESCRIPTION" class="form-control" style="resize: vertical;">@Model.BOX_DESCRIPTION</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Bản đồ</label>
+                    <input type="text" class="form-control" id="BOX_LOCATION" value='@Model.BOX_LOCATION'
+                           readonly data-toggle="modal" data-target="#modal_default" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        @if (string.IsNullOrEmpty(Model.BOX_ID))
+        {
+            <button type="button" id="btnSave" class="btn btn-primary">Thêm mới</button>
+        }
+        else
+        {
+            <button type="button" id="btnUpdate" class="btn btn-primary">Cập nhật</button>
+        }
+    </div>
+</div>
+<style>
+    .pac-container {
+        z-index: 100000 !important;
+    }
+</style>
+<div id="modal_default" class="modal fade">
+    @{ Html.RenderAction("_MapDetail", new { location = Model.BOX_LOCATION }); }
+</div>
+
+<script>
+    function validate() {
+        if ($("#BOX_NAME").val() == '') {
+            alert('Tên Chi nhánh không được để trống');
+            $("#BOX_NAME").focus();
+            return false;
+        }
+        return true;
+    }
+    function getParams() {
+        let params = {
+            BOX_ID: $("#BOX_ID").val(),
+            BOX_NAME: $("#BOX_NAME").val(),
+            BOX_LOCATION: $("#BOX_LOCATION").val(),
+            BOX_ADDRESS: $("#BOX_ADDRESS").val(),
+            BOX_ISROOT: '@string.IsNullOrEmpty(Model.BOX_PARENT_ID)',
+            BOX_DESCRIPTION: $("#BOX_DESCRIPTION").val(),
+            BOX_CREATEBY: '@Model.BOX_CREATEBY',
+            BOX_CREATETIME: '@Model.BOX_CREATETIME',
+            BOX_PARENT_ID: $("#BOX_PARENT_ID").val()
+        }
+        return params;
+    }
+    $("#btnSave").click(function () {
+        if (validate()) {
+            $.ajax({
+                url: '/Ajax/BoxInsert',
+                type: "post",
+                data: getParams(),
+                success: function (data) {
+                    debugger;
+                    if (data.Code == 0) {
+                        toastr.success(data.Result);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        toastr.info(data.Result);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            }).done(function (result) {
+
+            });
+        }
+    })
+    $("#btnUpdate").click(function () {
+        if (validate()) {
+            $.ajax({
+                url: '/Ajax/BoxUpdate',
+                type: "post",
+                data: getParams(),
+                success: function (data) {
+                    debugger;
+                    if (data.Code == 0) {
+                        toastr.success(data.Result);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
+                       
+                    } else {
+                        toastr.info(data.Result);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            }).done(function (result) {
+
+            });
+        }
+    })
+</script>

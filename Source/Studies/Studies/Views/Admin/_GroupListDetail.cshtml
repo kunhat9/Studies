@@ -1,0 +1,65 @@
+﻿@model List<AFD.Tables.SYS_USERS>
+
+<table class="table ">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id=@("checkUser"+ViewBag.className)></th>
+            <th>Tên user</th>
+            <th>Tài khoản</th>
+            <th>Ngày tạo</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @for (int i = 0; i < Model.Count; i++)
+            {
+            <tr>
+                <td>
+                    <input type="checkbox" data-id=@Model[i].USER_ID class=@ViewBag.className>
+                </td>
+                <td>@Model[i].USER_FULLNAME</td>
+                <td>@Model[i].USER_LOGIN_PN</td>
+                <td>@Model[i].USER_CREATETIME.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id=@("pagination"+ViewBag.className)>
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    $('#checkUser' + '@ViewBag.className').click(function () {
+        $('.' + '@ViewBag.className' + ':checkbox').prop('checked', this.checked);
+    });
+
+    $('.' + '@ViewBag.className' + ':checkbox').change(function () {
+        let check = false;
+        $('.' + '@ViewBag.className' + ':checkbox').each(function () {
+            if (!$(this).prop('checked')) {
+                check = true;
+            }
+        })
+        $('#checkUser' + '@ViewBag.className').prop('checked', !check);
+    })
+    param = new URL(location.href).searchParams.get("GROUP_ID");
+    var url;
+    if ('@ViewBag.className' == 'ingGroup') {
+        url = '/Admin/_GroupListDetail?GROUP_ID=' + param + "&isGroup=I";
+    } else {
+        url = '/Admin/_GroupListDetail?GROUP_ID=' + param + "&isGroup=O";
+    }
+
+    classWrapperName = '@ViewBag.className' + 'Wrapper';
+    $('.' + '@ViewBag.className' + 'Wrapper ' + ".page").click(function () {
+        let pageNumber = parseInt($(this).find(".page-link").text());
+        new Features(url, null, getParamsForSearch).ajax_getTableData(getParamsForSearch(pageNumber, 0), classWrapperName);
+    })
+    $('.' + '@ViewBag.className' + 'Wrapper ' + ".prev").not(".disabled").click(function () {
+        let pageNumber = parseInt($(".active>.page-link").text());
+        new Features(url, null, getParamsForSearch).ajax_getTableData(getParamsForSearch(pageNumber, -1), classWrapperName);
+    })
+    $('.' + '@ViewBag.className' + 'Wrapper ' + ".next").not(".disabled").click(function () {
+        let pageNumber = parseInt($(".active>.page-link").text());
+        new Features(url, null, getParamsForSearch).ajax_getTableData(getParamsForSearch(pageNumber, 1), classWrapperName);
+    })
+</script>

@@ -1,0 +1,61 @@
+﻿@model List<AFD.Tables.GYM_EXPENSE_TYPES>
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th class="fixed-col">STT</th>
+                        <th>Loại Danh Mục</th>
+                        <th>Mô tả</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@Model[i].TYPE_NAME</td>
+                            <td>@Model[i].TYPE_DESCRIPTION</td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="btnEdit" data-index=@i>
+                                        <button type="button" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
+                                    </li>
+                                    <li class="btnDelete" data-id=@Model[i].TYPE_ID>
+                                        <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/ChiPhi/_DanhMuc";
+    let data = @Html.Raw(Json.Encode(Model));
+    let getParamsForSearch = (pageNumber, isNext) => {
+        return {
+            "keyText": $(".txtSearch").val(),
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single").val(),
+        };
+    }
+
+    var features = new Features(url_get, data, getParamsForSearch);
+    features.Delete("/Ajax/DeleteExpenseType",getParamsForSearch);
+    features.CheckUpdateAndFillInfo();
+    features.insertOrUpdate("/Ajax/AddOrUpdateExpenseType", null, getParamsForSearch);
+</script>

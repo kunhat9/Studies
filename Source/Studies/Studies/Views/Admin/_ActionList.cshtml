@@ -1,0 +1,65 @@
+﻿@model List<AFD.Tables.SYS_ACTIONS>
+
+@helper GenListAction(List<AFD.Tables.SYS_ACTIONS> list, string parent, string name)
+{
+    <ul class="fancytree-container">
+        <li class="">
+            <a onclick="showDetail('0', '@parent', '@name')">
+                <span style="color:red;text-transform: uppercase;">Thêm mới</span>
+            </a>
+        </li>
+        @foreach (var item in list)
+        {
+            if (string.IsNullOrEmpty(parent) && item.ACTION_ISROOT || item.ACTION_PARENT_ID == parent)
+            {
+                <li class="">
+                    <span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+                        <a onclick="showDetail('@item.ACTION_ID', '@parent', '@item.ACTION_NAME')" style="@if (item.ACTION_ISMODULE) { <text>text-transform: uppercase;</text> } @if (!item.ACTION_ISSHOW) { <text>text-decoration: line-through;</text> }">
+                            @if (!string.IsNullOrEmpty(item.ACTION_ICON_CLASS))
+                            {
+                                <text><i class="@item.ACTION_ICON_CLASS"></i></text>
+                            }
+                            <span>@item.ACTION_NAME</span>
+                        </a>
+                    </span>
+                    @if (item.ACTION_ISMODULE)// list.Any(x => x.ACTION_PARENT_ID == item.ACTION_ID))
+                    {
+                        @GenListAction(list, item.ACTION_ID, item.ACTION_NAME)
+                    }
+                </li>
+            }
+        }
+    </ul>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            @GenListAction(Model, null, "ROOT")
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="actionDetailRender" class="well">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        showDetail('0', '', 'ROOT');
+    });
+    function showDetail(id, parentId, name) {
+        $.ajax({
+            url: '/Admin/_ActionDetail',
+            type: "post",
+            data: {
+                id: id,
+                parentId: parentId,
+                parentName: name
+            },
+        }).done(function (result) {
+            $("#actionDetailRender").html(result);
+        });
+    }
+</script>

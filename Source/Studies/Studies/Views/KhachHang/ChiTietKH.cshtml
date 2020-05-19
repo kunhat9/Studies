@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết thành viên";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="page-header page-header-default">
+    <div class="page-header-content" style="background-color: #fcfcfc;">
+        <div class="page-title" style="padding: 20px 0;">
+            <h4>
+                <a href="javascript:void(0);" onclick="history.go(-1);"><i class="icon-arrow-left52 position-left"></i></a>
+                <span class="text-semibold">Thành viên </span> - Chi tiết thành viên
+            </h4>
+        </div>
+    </div>
+</div>
+<div class="div-h100 div-top69">
+    <div class="panel-body div-h100-body">
+        <div class="navbar navbar-default navbar-component navbar-xs">
+            <ul class="nav navbar-nav visible-xs-block">
+                <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-filter">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#settings" data-toggle="tab">
+                            <i class="icon-cog3 position-left"></i> Thông tin chung
+                        </a>
+                    </li>
+                    <li><a href="#packets" data-toggle="tab"><i class="icon-calendar position-left"></i> Thông tin gói tập</a></li>
+                    <li><a href="#body-indexs" data-toggle="tab"><i class="icon-accessibility position-left"></i> Thông tin chỉ số</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="div-h100 div-top64">
+            <div class="div-h100-body tab-content" style="overflow: auto;">
+                <!-- Thông tin học viên -->
+                <div class="tab-pane fade in active" id="settings">
+                    @{ Html.RenderAction("_ThongTinKhachHang", new { userID = ViewBag.userID });}
+                </div>
+                <!-- Thông tin gói tập -->
+                <div class="tab-pane fade in" id="packets">
+                    @{ Html.RenderAction("_ThongTinGoiTap", new { userID = ViewBag.userID });}
+                </div>
+                <!-- Thông tin chỉ số -->
+                <div class="tab-pane fade in" id="body-indexs">
+                    @{ Html.RenderAction("_ThongTinChiSo", new { userID = ViewBag.userID });}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

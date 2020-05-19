@@ -1,0 +1,98 @@
+22:20:51
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:24:49
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:24:58
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:25:00
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:25:03
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:25:40
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:27:46
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:32:39
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51
+
+22:36:17
+System.Exception: SelectFromStoreOutParam::'SP_GYM_EXPENSE_GetAllBy'.
+Cannot find table 1. ---> System.IndexOutOfRangeException: Cannot find table 1.
+   at System.Data.DataTableCollection.get_Item(Int32 index)
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 85
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStoreOutParam(String storeName, Object& obj, Object[] values) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 90
+   at AFD.Internal.GYM_EXPENSESql.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Internal\G\GYM_EXPENSESql.cs:line 28
+   at AFD.Services.GYM_EXPENSEFactory.GetAllByOutCount(String keyText, String boxId, String startDate, String endDate, Int32 pageNumber, Int32 pageSize, Int32& count) in C:\Users\Nothing\Desktop\AFD_Gyms\KienNT\CORE\AFD\Services\G\GYM_EXPENSEFactory.cs:line 12
+   at WebAdmin.Controllers.ChiPhiController._DanhSach(String keyText, String startDate, String endDate, Int32 pageNumber, Int32 pageSize) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\ChiPhiController.cs:line 51

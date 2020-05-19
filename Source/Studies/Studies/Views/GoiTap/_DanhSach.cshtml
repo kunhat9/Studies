@@ -1,0 +1,98 @@
+﻿@model List<AFD.Tables.GYM_PACKAGES>
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table ">
+                <thead>
+                    <tr class="text-center">
+                        <th class="fixed-col">STT</th>
+                        <th>Tên gói tập</th>
+                        <th>Loại gói tập</th>
+                        <th>Số ngày tập</th>
+                        <th>Số lần tập</th>
+                        <th colspan="2" class="text-center">Thời gian tập</th>
+                        <th>Giá gói tập</th>
+                        <th>Mô tả</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@Model[i].PACKAGE_NAME</td>
+                            <td>@(Model[i].PACKAGE_TYPE == 0 ? "Tập theo lần" : "Tập theo tháng")</td>
+                            <td>@Model[i].PACKAGE_DAYS</td>
+                            <td>@Model[i].PACKAGE_TIMES</td>
+                            <td>@Model[i].PACKAGE_TIME_START.ToString("hh':'mm") </td>
+                            <td>@Model[i].PACKAGE_TIME_END.ToString("hh':'mm") </td>
+                            <td class="txtCurrency">@Model[i].PACKAGE_PRICE.ToString().Replace(".00", "") VNĐ</td>
+                            <td>@Model[i].PACKAGE_DESCRIPTION</td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="btnEdit" data-index=@i>
+                                        <button type="button" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
+                                    </li>
+                                    <li class="btnDelete" data-id='@Model[i].PACKAGE_ID' data-title="Bạn có chắc chắn muốn xóa gói tập này không ?">
+                                        <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/GoiTap/_DanhSach";
+    let data = @Html.Raw(Json.Encode(Model));
+
+    for(let i=0;i<data.length;i++){
+        data[i].PACKAGE_TIME_END = data[i].PACKAGE_TIME_END.TotalMinutes;
+        data[i].PACKAGE_TIME_START = data[i].PACKAGE_TIME_START.TotalMinutes;
+    }
+
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "keyText": $(".txtSearch").val(),
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single").val(),
+        };
+    }
+
+    let subParam = ()=>{
+        return {
+            PACKAGE_TIME_END: convertStringToTimeSpan($("#PACKAGE_TIME_END_root .picker__list-item--highlighted").data("pick")),
+            PACKAGE_TIME_START: convertStringToTimeSpan($("#PACKAGE_TIME_START_root .picker__list-item--highlighted").data("pick")),
+            PACKAGE_PRICE: $("#PACKAGE_PRICE").val().replace(/\,/g, '')
+        };
+    }
+
+    function convertStringToTimeSpan(minutes){
+        console.log(minutes)
+        minutes = parseInt(minutes);
+        let hour = Math.floor(minutes / 60);
+        minutes = minutes - 60* hour;
+        return hour + ":" + minutes + ":00"
+    }
+
+    var features = new Features(url_get, data,getParamsForSearch);
+    $(".txtCurrency").each(function () {
+        $(this).text(features.FormatCurency($(this).text().split(",")[0]));
+    });
+
+    features.CheckUpdateAndFillInfo();
+    features.insertOrUpdate("/Ajax/AddOrUpdatePackage", subParam, getParamsForSearch);
+    features.Delete("/Ajax/DeletePackage",getParamsForSearch);
+</script>

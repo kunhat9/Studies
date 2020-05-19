@@ -1,0 +1,57 @@
+﻿
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">Chi phí</h5>
+        </div>
+        <div class="modal-body">
+            <!-- Voucher info -->
+            <div class="panel panel-flat">
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" value="" class="form-control" id="EXPENSE_ID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Số Tiền</label>
+                                    <input type="text" value="" id="EXPENSE_AMOUNT" onkeypress="return checkNumber(event)" class="form-control currency">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Chọn Loại Chi Phí</label>
+                                        <select class="select form-control select-search select2-hidden-accessible w-100" id="EXPENSE_TYPE_ID" tabindex="-1" aria-hidden="true">
+                                            @for (int i = 0; i < ViewBag.listExpenseType.Count; i++)
+                                            {
+                                                <option value=@ViewBag.listExpenseType[i].TYPE_ID>@ViewBag.listExpenseType[i].TYPE_NAME</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Voucher info -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btnSave btn-primary" data-dismiss="modal">Save changes</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    features.insertOrUpdate("/Ajax/AddOrUpdateExpense", subParams, getParamsForSearch);
+</script>

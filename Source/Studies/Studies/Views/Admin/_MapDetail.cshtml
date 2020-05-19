@@ -1,0 +1,51 @@
+﻿@model int
+@{
+    string[] arr = (string[])ViewBag.location;
+    string lat = "";
+    string lng = "";
+    if (arr.Length > 0) { lat = arr[0]; }
+    if (arr.Length > 1) { lng = arr[1]; }
+}
+
+<div class="modal-dialog">
+    <div class="modal-content" style="width: 850px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">Bản đồ</h5>
+        </div>
+        <div class="modal-body">
+            <div class="panel panel-flat">
+                <div class="panel-body" style="height: @(Model)px;">
+                    <div class="form-group" style="height: 100%;">
+                        <div class="row" style="height: 100%;">
+                            <div class="col-md-12" style="height: 100%;">
+                                <input id="search-input" class="form-control search-map" type="text" placeholder="Search Box">
+                                <div id="map" style="height: 100%;" data-lat="@lat" data-lng="@lng"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btnSaveLocation" data-dismiss="modal">Save changes</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".btnSaveLocation").click(function () {
+        let position = myMarker.getPosition().lat() + "," + myMarker.getPosition().lng();
+        console.log(position);
+        $("#BOX_LOCATION").val(position);
+    })
+    let location = '@ViewBag.location';
+    let pos = {};
+    location = location.split(",");
+
+    pos.lat = parseFloat(location[0]);
+    pos.lng = parseFloat(location[1]);
+</script>
+<script src="~/Assets/js/map.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv_wyUBpNXPwUFK2Kt3kSgorRWyeEPz_8&libraries=places&callback=initMap"
+        async defer></script>

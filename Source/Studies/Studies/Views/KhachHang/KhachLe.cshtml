@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "KhachLe";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Page header -->
+<div class="page-header page-header-default">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Khách Hàng</span>
+                - Danh sách khách hàng
+            </h4>
+        </div>
+    </div>
+
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li><a href="index.html"><i class="icon-home2 position-left"></i>Khách Hàng</a></li>
+            <li><a href="#">Danh sách khách hàng</a></li>
+        </ul>
+    </div>
+</div>
+<!-- /page header -->
+<!-- Content area -->
+<div class="panel panel-flat">
+    <div class="panel-body">
+        <form action="#" class="main-search">
+
+            <div class="col-md-3">
+                <label>Loại tài khoản</label>
+                <select class="form-control input-xlg txtboxes text-center no-padding">
+                    <option value="">All</option>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <option value=@Model[i].BOX_ID>@Model[i].BOX_NAME</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Chi nhánh</label>
+                <select class="form-control input-xlg txtTypes text-center no-padding">
+                    <option value="">All</option>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <option value=@Model[i].BOX_ID>@Model[i].BOX_NAME</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label>Thời gian bắt đầu</label>
+                <input type="text" value="" class="form-control datefrom input-xlg pickadate">
+            </div>
+            <div class="col-md-3">
+                <label>Thời gian kết thúc</label>
+                <input type="text" value="" class="form-control dateto input-xlg pickadate">
+            </div>
+
+            <div class="col-md-12" style="margin-top: 10px;">
+                <label>Từ khóa</label>
+                <input type="text" class="form-control txtSearch input-xlg">
+            </div>
+
+        </form>
+        <div class="col-md-offset-4 col-md-3 mt-10">
+            <button type="submit" class="btn btn-primary btn-xlg btnSearch">Search</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <label><span>Show:</span> </label>
+        <select class="select2-selection--single select2-selection__rendered d-inline" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" tabindex="-1" aria-hidden="true">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+        <button class="btn btn-primary btn-xlg float-right " data-toggle="modal" data-target="#modal_default">
+            <i class="fa fa-plus"></i> Thêm Khách Hàng
+        </button>
+    </div>
+    <div class="data-table">
+        @{Html.RenderAction("_DanhSach", new { typeUser = "1" });}
+    </div>
+</div>
+<!-- /content area -->
+<div id="modal_default" class="modal fade">
+    @{Html.RenderAction("_ChiTiet"); }
+</div>
+
+
+

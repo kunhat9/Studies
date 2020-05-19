@@ -1,0 +1,17 @@
+00:52:02
+::1
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AFD.Services.SYS_USERFactory.InsertUserFromAdmin(SYS_USERS user, String boxID, String createBy) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Services\SYS_USERFactory.cs:line 84
+   at WebAdmin.Controllers.AjaxController.UserInsert(SYS_USERS value) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\AjaxController.cs:line 926
+
+00:54:13
+::1
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AFD.Services.SYS_USERFactory.InsertUserFromAdmin(SYS_USERS user, String boxID, String createBy) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Services\SYS_USERFactory.cs:line 84
+   at WebAdmin.Controllers.AjaxController.UserInsert(SYS_USERS value) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\AjaxController.cs:line 926
+
+00:56:01
+::1
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AFD.Services.SYS_USERFactory.InsertUserFromAdmin(SYS_USERS user, String boxID, String createBy) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Services\SYS_USERFactory.cs:line 84
+   at WebAdmin.Controllers.AjaxController.UserInsert(SYS_USERS value) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\AjaxController.cs:line 926

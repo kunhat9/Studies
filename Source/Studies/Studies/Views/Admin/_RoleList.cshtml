@@ -1,0 +1,62 @@
+﻿@model List<AFD.Tables.SYS_ROLES>
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Tên quyền</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Người tạo</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td>@(i + 1)</td>
+                            <td>@Model[i].ROLE_NAME</td>
+                            <td>@Model[i].ROLE_DESCRIPTION</td>
+                            <td>@(Model[i].ROLE_ACTIVE == false ? "Không kích hoạt" : "Kích hoạt")</td>
+                            <td>@Model[i].ROLE_CREATEBY</td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li>
+                                        <a class="btn btn-default btn-sm text-primary-600"
+                                           href=@Url.Action("RoleListDetail", new { ROLE_ID = @Model[i].ROLE_ID })>
+                                            <i class="icon-pencil7"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/Admin/_RoleList";
+    let getParamsForSearch = (pageNumber, isNext) => {
+        return {
+            "keyText": $(".txtSearch").val(),
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single").val(),
+            "isActive": $("#actionType").val()
+        };
+    }
+
+    var features = new Features(url_get, null, getParamsForSearch);
+</script>

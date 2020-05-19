@@ -1,0 +1,125 @@
+﻿@model List<AFD.Tables.GYM_HEALTH>
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h6 class="panel-title">Thông tin chỉ số cơ thể</h6>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="table-responsive panel-body">
+            <table class="table table-framed text-center">
+                <thead>
+                    <tr>
+                        <th></th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_DATE.ToString("dd-MM-yyyy")</th>
+                        }
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Chiều cao</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_HEIGHT</th>
+                        }
+                    </tr>
+                    <tr>
+                        <th>Cân nặng</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_WEIGHT</th>
+                        }
+                    </tr>
+                    <tr>
+                        <th>Độ rộng vai</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_SHOULDER_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Kích thước cổ</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_NECK_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Bắp tay</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_BICEPS_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Cẳng tay</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_FOREARM_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Vòng eo</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_RUMP_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Vòng ngực</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_CHEST_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Vòng hông</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_RUMP_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Đùi</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_THIGH_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Bắp chân</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_CALF_SIZE</th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>Lượng mỡ</th>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <th class="text-center">@Model[i].HEALTH_MASS_FAT</th>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

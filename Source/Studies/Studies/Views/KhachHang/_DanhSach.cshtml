@@ -1,0 +1,76 @@
+﻿@using System.Globalization
+@using AFD.Views
+@using WebAdmin.AppSession
+
+@model List<AFD.Tables.SYS_USERS>
+
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+    var jsonModel = serializer.Serialize(Model);
+    var ok = jsonModel;
+    string boxid = ((VIEW_INFO_USER_LOGIN)Session[AppSessionKeys.USER_INFO]).BOX_ID;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Tên học viên</th>
+                        <th>Ngày sinh</th>
+                        <th>Email </th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày tạo</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@Model[i].USER_FULLNAME</td>
+                            <td>@Model[i].USER_BIRTHDAY.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)</td>
+                            <td>@Model[i].USER_LOGIN_EM</td>
+                            <td>@Model[i].USER_LOGIN_PN </td>
+                            <td>@Model[i].USER_CREATETIME.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)</td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="btnEdit">
+                                        <a href=@Url.Action("/ChiTietKH",new { userID = @Model[i].USER_ID }) class="btn btn-default btn-sm text-primary-600">
+                                            <i class="icon-pencil7"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/KhachHang/_DanhSach";
+    let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "keyText": $(".txtSearch").val() ,
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single.select2-selection__rendered.d-inline").val() ,
+            "dateFrom": $(".datefrom ").val().split("/").reverse().join("/"),
+            "dateTo": $(".dateto").val().split("/").reverse().join("/") ,
+            "boxID":$(".txtboxes").val() ? $(".txtboxes").val() : '@boxid'
+        };
+    }
+
+    var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+</script>

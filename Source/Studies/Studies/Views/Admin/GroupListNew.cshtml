@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "GroupListNew";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="page-header page-header-default">
+    <div class="page-header-content" style="background-color: #fcfcfc;">
+        <div class="page-title" style="padding: 20px 0;">
+            <h4>
+                <a href="javascript:void(0);" onclick="history.go(-1);"><i class="icon-arrow-left52 position-left"></i></a>
+                <span class="text-semibold">Hệ thống</span> - Chi tiết Group
+            </h4>
+        </div>
+    </div>
+</div>
+<div class="div-h100 div-top69">
+    <div class="panel-body div-h100-body" style="overflow: auto;">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Tên nhóm</label>
+                    <input type="text" id="GROUP_NAME" value=@ViewBag.group.GROUP_NAME class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea cols="30" rows="6" id="GROUP_DESCRIPTION" class="form-control " style="resize: none">@ViewBag.group.GROUP_DESCRIPTION</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái</label><br>
+                    <div class="checkbox checkbox-switchery">
+                        <label>
+                            <input type="checkbox" class="switchery" id="GROUP_ACTIVE" checked="checked">
+                            <span>Kích hoạt</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Chi nhánh</label><br>
+                    <select class="form-control" id="boxes">
+                        @for (int i = 0; i < ViewBag.listBoxes.Count; i++)
+                        {
+                            <option value=@ViewBag.listBoxes[i].BOX_ID>@ViewBag.listBoxes[i].BOX_NAME</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                @{ Html.RenderAction("_GroupRoleDetail", new { groupid = "" }); }
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6 form-group table-responsive">
+                <label for="">Danh sách user trong nhóm</label>
+                <div class="inGroupWrapper">
+
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="">Danh sách user không trong nhóm</label>
+                <div class="outGroupWrapper">
+                    @{ Html.RenderAction("_GroupListDetail", new { isGroup = "O" }); }
+                </div>
+            </div>
+            <div class="btn-group float-right">
+                <button type="button" class="btn btn-primary btn-xlg btnUpdate" data-action="THEMMOI">Tạo mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".btnUpdate").click(function () {
+        let dataGroup = {
+            GROUP_ID: "",
+            GROUP_NAME: $("#GROUP_NAME").val(),
+            GROUP_ACTIVE: $("#GROUP_ACTIVE").prop("checked"),
+            GROUP_DESCRIPTION: $("#GROUP_DESCRIPTION").val(),
+            GROUP_CREATEBY: "admin",
+            GROUP_CREATETIME: new Date().toLocaleString(),
+            GROUP_BOXID: $("#boxes").val()
+        }
+        if (dataGroup.GROUP_NAME == "") {
+            toastr.error("Trường này không được trống");
+            $("#GROUP_NAME").focus();
+            return false;
+        }
+        let listUserId = [];
+        let action = $(this).data("action");
+        $('.outGroup:checkbox').each(function () {
+            if ($(this).prop('checked')) {
+                listUserId.push($(this).data("id"));
+            }
+        });
+        let listRoleId = [];
+        let dataTreeNode = $(".tree-checkbox-hierarchical").fancytree("getTree").getSelectedNodes();
+        for (let i = 0; i < dataTreeNode.length; i++) {
+            if (dataTreeNode[i].data.id != undefined) {
+                listRoleId.push(dataTreeNode[i].data.id.toString());
+            }
+        }
+
+        $.ajax({
+            url: "/Ajax/AddOrUpdateGroup",
+            type: "post",
+            data: {
+                group: dataGroup,
+                createBy: '@ViewBag.User',
+                listUserId: listUserId,
+                listRoleId: listRoleId,
+                action: action
+            },
+        }).done(function (result) {
+            if (result) {
+                window.location = "/Admin/GroupList";
+            } else {
+                toastr.error("Thêm nhóm thất bại !!!");
+            }
+        });
+
+    })
+
+
+    let getParamsForSearch = (pageNumber, isNext) => {
+        return {
+            "pageNumber": pageNumber + isNext,
+            "pageSize": 10
+        };
+    }
+</script>
+

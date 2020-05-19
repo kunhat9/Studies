@@ -1,0 +1,241 @@
+﻿@using AFD.Tables
+@model List<WebAdmin.Models.ACTION_TREE>
+@{
+    ViewBag.Title = "RoleListDetail";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    SYS_ROLES role = (SYS_ROLES)ViewBag.role;
+}
+
+<div class="page-header page-header-default">
+    <div class="page-header-content" style="background-color: #fcfcfc;">
+        <div class="page-title" style="padding: 20px 0;">
+            <h4>
+                <a href="javascript:void(0);" onclick="history.go(-1);"><i class="icon-arrow-left52 position-left"></i></a>
+                <span class="text-semibold">Hệ thống</span> - Quản lý Role
+            </h4>
+        </div>
+    </div>
+</div>
+<div class="div-h100 div-top69">
+    <div class="panel-body div-h100-body">
+        <div class="div-h100 div-bottom56">
+            <div class="div-h100-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="well">
+                            <div class="form-group">
+                                <label>Tên role</label>
+                                <input type="text" id="ROLE_NAME" value="@role.ROLE_NAME" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mô tả</label>
+                                <textarea cols="30" rows="6" id="ROLE_DESCRIPTION" class="form-control " style="resize: none">@role.ROLE_DESCRIPTION</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Trạng thái</label><br>
+                                <div class="checkbox checkbox-switchery">
+                                    <label>
+                                        <input type="checkbox" class="switchery" id="ROLE_ACTIVE" @(role.ROLE_ACTIVE ? "checked" : "")>
+                                        <span>Kích hoạt</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="tree-checkbox-hierarchical well">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right div-p-20-0">
+            @if (string.IsNullOrEmpty(role.ROLE_ID))
+            {
+                <button type="button" id="" class="btn btn-primary btnCreate">Tạo mới</button>
+            }
+            else
+            {
+                <button type="button" id="" class="btn btn-primary btnUpdateRole">Cập nhật thông tin role</button>
+                <button type="button" id="" class="btn btn-primary btnUpdateAction">Cập nhật Action</button>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function getNestedChildren(models, parentId) {
+            const nestedTreeStructure = [];
+            const length = models.length;
+
+            for (let i = 0; i < length; i++) { // for-loop for perf reasons, huge difference in ie11
+                const model = models[i];
+                let xxx = {
+                    "title": models[i].ACTION_NAME,
+                    "expanded": true,
+                    "folder": false,
+                    "key": models[i].ACTION_ID,
+                    "autoExpand":true,
+                    "data": {
+                        id: models[i].ACTION_ID
+                    },
+                    "selected": models[i].IS_SELECTED == 0 ? false : true
+                }
+                if (model.ACTION_PARENT_ID == parentId) {
+                    const children = getNestedChildren(models, model.ACTION_ID);
+
+                    if (children.length > 0) {
+                        xxx.folder = true;
+                        xxx.children = children;
+                    }
+
+                    nestedTreeStructure.push(xxx);
+                }
+            }
+
+            return nestedTreeStructure;
+        }
+        let xxx = getNestedChildren(@Html.Raw(Json.Encode(Model)),null);
+
+        $(".tree-checkbox-hierarchical").fancytree({
+            checkbox: true,
+            source:xxx,
+            selectMode: 3
+        });
+    });
+
+    function validateRoleInfo() {
+        if ($("#ROLE_NAME").val() == "") {
+            $("#ROLE_NAME").focus();
+            toastr.error("Trường này không được trống !!!");
+            return false;
+        }
+        return true;
+    }
+
+    function validateActionSelected() {
+        if ($(".tree-checkbox-hierarchical").fancytree("getTree").getSelectedNodes().length == 0) {
+            toastr.error("Vui lòng chọn Action.");
+            return false;
+        }
+        return true;
+    }
+
+    function getListAction() {
+        let data = [];
+        let dataTreeNode = $(".tree-checkbox-hierarchical").fancytree("getTree").getSelectedNodes();
+        for (let i = 0; i < dataTreeNode.length; i++) {
+            if (dataTreeNode[i].data.id != undefined) {
+                data.push(dataTreeNode[i].data.id.toString());
+                if(data.filter(x=>x == dataTreeNode[i].parent.data.id).length ==0){
+                    if (dataTreeNode[i].parent.data.id != undefined) {
+                        data.push(dataTreeNode[i].parent.data.id.toString());
+                    }
+                }
+            }
+        }
+        return data;
+    }
+
+    function alertResult(result, roleid) {
+        if (result.Code == 0) {
+            toastr.success(result.Result);
+            setTimeout(function () {
+                //window.location = "/Admin/RoleListDetail?ROLE_ID=" + roleid;
+                window.location = "/Admin/RoleList";
+            }, 1000);
+        } else {
+            toastr.error(result.Result);
+        }
+    }
+
+    $(".btnUpdateRole").click(function () {
+        if (!validateRoleInfo()) return;
+
+        let dataGroup = {
+            ROLE_ID: '@ViewBag.role.ROLE_ID',
+            ROLE_NAME: $("#ROLE_NAME").val(),
+            ROLE_ACTIVE: $("#ROLE_ACTIVE").prop("checked"),
+            ROLE_DESCRIPTION: $("#ROLE_DESCRIPTION").val(),
+            ROLE_CREATEBY: '@ViewBag.role.ROLE_CREATEBY',
+            ROLE_CREATETIME: '@ViewBag.role.ROLE_CREATETIME'
+        }
+        $.ajax({
+            url: "/Ajax/UpdateRoleInfo",
+            type: "post",
+            data: {
+                role: dataGroup
+            },
+        }).done(function (result) {
+            alertResult(result, dataGroup.ROLE_ID);
+        });
+    });
+
+    $(".btnUpdateAction").click(function () {
+        if (!validateActionSelected()) return;
+
+        let params = {
+            roleid: new URL(location.href).searchParams.get("ROLE_ID"),
+            createBy: '@ViewBag.User',
+            list: getListAction()
+        };
+
+        $.ajax({
+            url: '/Ajax/AddOrRemoveActionInRole',
+            type: "post",
+            data: params,
+        }).done(function (result) {
+            alertResult(result, params.roleid);
+        });
+    });
+
+    $(".btnCreate").click(function () {
+        if (!validateRoleInfo()) return;
+
+        let dataGroup = {
+            ROLE_NAME: $("#ROLE_NAME").val(),
+            ROLE_ACTIVE: $("#ROLE_ACTIVE").prop("checked"),
+            ROLE_DESCRIPTION: $("#ROLE_DESCRIPTION").val(),
+            ROLE_CREATEBY: '@ViewBag.User',
+            ROLE_CREATETIME: new Date().toLocaleString()
+        }
+        $.ajax({
+            url: "/Ajax/CreateRole",
+            type: "post",
+            data: {
+                role: dataGroup
+            },
+        }).done(function (result) {
+            if (result.Code == 0) {
+                addAction(result.Result);
+            } else {
+                toastr.error(result.Result);
+            }
+        });
+    })
+
+    function addAction(roleid) {
+        if (!validateActionSelected()) return;
+
+        let params = {
+            roleid: roleid,
+            createBy: '@ViewBag.User',
+            list: getListAction(),
+            isDelete: false
+        };
+
+        $.ajax({
+            url: '/Ajax/AddOrRemoveActionInRole',
+            type: "post",
+            data: params,
+        }).done(function (result) {
+            alertResult(result, roleid);
+        });
+    }
+
+    let data = @Html.Raw(Json.Encode(Model));
+
+</script>

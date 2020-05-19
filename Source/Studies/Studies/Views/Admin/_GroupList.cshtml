@@ -1,0 +1,60 @@
+﻿@model List<AFD.Tables.SYS_GROUPS>
+@{
+    int startPage = (ViewBag.pageNumber - 1) * ViewBag.pageSize + 1;
+    int? totalPage = (int?)ViewBag.maxNumber;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Tên nhóm</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Chi nhánh</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@(startPage + i)</td>
+                            <td>@Model[i].GROUP_NAME</td>
+                            <td>@Model[i].GROUP_DESCRIPTION</td>
+                            <td>@(Model[i].GROUP_ACTIVE == false ? "Không kích hoạt" : "Kích hoạt")</td>
+                            <td>@Model[i].GROUP_BOXID</td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li>
+                                        <a href=@Url.Action("GroupListDetail", new { GROUP_ID = @Model[i].GROUP_ID }) class="btn btn-default btn-sm text-primary-600">
+                                            <i class="icon-pencil7"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/Admin/_GroupList";
+    let getParamsForSearch = (pageNumber, isNext) => {
+        return {
+            "keyText": $(".txtSearch").val(),
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single").val(),
+        };
+    }
+    var features = new Features(url_get, null, getParamsForSearch);
+</script>

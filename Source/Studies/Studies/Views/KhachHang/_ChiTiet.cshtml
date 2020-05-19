@@ -1,0 +1,84 @@
+﻿
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">Thông tin</h5>
+        </div>
+        <div class="modal-body">
+            <!-- Voucher info -->
+            <div class="panel panel-flat">
+                <div class="panel-body">
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Tên khách hàng</label>
+                                    <div class="input-group w-100">
+                                        <input type="text" id="USER_FULLNAME" class="form-control not-empty">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Tài khoản</label>
+                                    <input type="text" id="USER_LOGIN_ID" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Mật khẩu</label>
+                                    <div class="input-group w-100">
+                                        <input type="password" id="USER_PASSWORD" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                    <input type="text" id="USER_EMAIL" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Chi nhánh</label>
+                                    <input type="text" id="USER_DEPARTMENT" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Tài khoản facebook</label>
+                                    <input type="text" id="USER_LOGIN_FB" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tài khoản google</label>
+                                    <input type="text" id="USER_LOGIN_GG" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>Trạng thái</label><br>
+                                    <div class="checkbox checkbox-switchery">
+                                        <label>
+                                            <input type="checkbox" id="USER_ISLOCKED" class="switchery ">
+                                            <span class="active-label">Kích hoạt</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Voucher info -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Save changes</button>
+        </div>
+    </div>
+</div>

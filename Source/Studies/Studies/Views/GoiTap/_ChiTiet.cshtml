@@ -1,0 +1,143 @@
+﻿@model int
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">Gói tập</h5>
+        </div>
+        <div class="modal-body">
+            <!-- Voucher info -->
+            <div class="panel panel-flat">
+                <div class="panel-body" style="max-height: @(Model)px;overflow-y: auto;">
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" class="form-control" id="PACKAGE_ID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Tên gói tập</label>
+                                    <input type="text" class="form-control not-empty" id="PACKAGE_NAME">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Giá gói tập</label>
+                                    <input type="text" class="form-control currency not-empty" onkeypress="return checkNumber(event)" id="PACKAGE_PRICE">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Loại gói tập</label>
+                                    <select id="PACKAGE_TYPE" class="select-search form-control not-empty" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" tabindex="-1" aria-hidden="true">
+                                        <option value="" selected>-- Loại gói tập --</option>
+                                        <option value="0">Tập theo lần</option>
+                                        <option value="1">Tập theo tháng</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Áp dụng cho chi nhánh:</label>
+                                    <select class="form-control select-search not-empty" id="PACKAGE_BOX_ID">
+                                        <option value="">-- Chọn Chi nhánh --</option>
+                                        @for (int i = 0; i < ViewBag.listBoxes.Count; i++)
+                                        {
+                                            <option value=@ViewBag.listBoxes[i].BOX_ID>@ViewBag.listBoxes[i].BOX_NAME</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Số lần tập</label>
+                                    <input type="text" value="0" class="form-control" onkeypress="return checkNumber(event)" id="PACKAGE_TIMES">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Số tháng </label>
+                                    <input type="text" value="0" class="form-control" onkeypress="return checkNumber(event)" id="PACKAGE_MONTH">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Số ngày</label>
+                                    <input type="text" value="0" class="form-control" onkeypress="return checkNumber(event)" id="PACKAGE_DAYS">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Thời gian bắt đầu</label>
+                                    <div class="input-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-alarm"></i></span>
+                                            <input type="text" class="form-control pickatime" id="PACKAGE_TIME_START">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Thơi gian kết thúc</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-alarm"></i></span>
+                                        <input type="text" id="PACKAGE_TIME_END" class="form-control pickatime">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Trạng thái</label>
+                                    <br>
+                                    <div class="checkbox checkbox-switchery">
+                                        <label>
+                                            <input type="checkbox" class="switchery" id="PACKAGE_STATE" style="display:inline-block">
+                                            <span class="active-label PACKAGE_STATE">Kích hoạt</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Mô tả</label>
+                                    <textarea rows="8" id="PACKAGE_DESCRIPTION" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Voucher info -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btnSave">Save changes</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#PACKAGE_TYPE").change(function () {
+        let state = $(this).val();
+
+        if (state == "") {
+            $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").val("0");
+            $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").prop("disabled", true);
+        } else if (state == 0) {
+            $("#PACKAGE_MONTH,#PACKAGE_DAYS").val("0");
+            $("#PACKAGE_TIMES").prop("disabled", false);
+            $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", true);
+        } else {
+            $("#PACKAGE_TIMES").val("0")
+            $("#PACKAGE_TIMES").prop("disabled", true);
+            $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", false);
+        }
+    });
+    features.insertOrUpdate("/Ajax/AddOrUpdatePackage", subParam, getParamsForSearch);
+</script>

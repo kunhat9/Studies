@@ -1,0 +1,92 @@
+﻿@using System.Globalization;
+@model List<AFD.Tables.GYM_VOUCHERS>
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Mã khuyến mại</th>
+                        <th>Tên khuyến mại</th>
+                        <th>Thời gian khuyến mại</th>
+                        <th>Trạng Thái</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td style="display: none">@Model[i].VOUCHER_ID</td>
+                            <td>@Model[i].VOUCHER_CODE</td>
+                            <td>@Model[i].VOUCHER_NAME</td>
+                            <td>@Model[i].VOUCHER_BEGIN.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) - @Model[i].VOUCHER_END.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)</td>
+                            <td style="display: none">@Model[i].VOUCHER_BEGIN</td>
+                            <td style="display: none">@Model[i].VOUCHER_END</td>
+                            <td>@(Model[i].VOUCHER_STATE == 1 ? "Kích hoạt" : "Không kích hoạt")</td>
+                            <td style="display: none">@Model[i].VOUCHER_DESCRIPTION</td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="btnEdit" data-index=@i>
+                                        <button type="button" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
+                                    </li>
+                                    <li class="btnDelete" data-id=@Model[i].VOUCHER_ID>
+                                        <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "Home", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/KhuyenMai/_DanhSach";
+    let data = @Html.Raw(Json.Encode(Model));
+
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "keyText": $(".txtSearch").val(),
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single").val(),
+        };
+    }
+
+    for(let i=0;i<data.length;i++){
+        data[i].VOUCHER_BEGIN = formatJSONDate(data[i].VOUCHER_BEGIN)
+        data[i].VOUCHER_END = formatJSONDate(data[i].VOUCHER_END);
+        let tmp = data[i].VOUCHER_BEGIN.split("/");
+        data[i].VOUCHER_BEGIN = tmp[1]+"/"+tmp[0]+"/"+tmp[2];
+        tmp = data[i].VOUCHER_END.split("/");
+        data[i].VOUCHER_END = tmp[1]+"/"+tmp[0]+"/"+tmp[2];
+    }
+
+    function formatJSONDate(jsonDate) {
+        var date = new Date(parseInt(jsonDate.substr(6)));
+        return date.toLocaleDateString('en-US');
+    }
+    let subParams = ()=> {
+        return {
+            "VOUCHER_ADDDAY" : $("#VOUCHER_ADDDAY").val() == "" ? "0" :$("#VOUCHER_ADDDAY").val(),
+            "VOUCHER_BEGIN":$("#VOUCHER_BEGIN").val().split("/").reverse().join("/"),
+            "VOUCHER_END":$("#VOUCHER_END").val().split("/").reverse().join("/")
+        }
+    }
+
+    var features = new Features(url_get,data,getParamsForSearch);
+    features.CheckUpdateAndFillInfo();
+    features.Delete("/Ajax/DeleteVoucher",getParamsForSearch);
+    features.insertOrUpdate("/Ajax/AddOrUpdateVoucher", subParams, getParamsForSearch)
+</script>

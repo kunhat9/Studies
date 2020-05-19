@@ -1,0 +1,67 @@
+22:57:43
+System.Exception: SelectFromStore::'SP_LOGIN_CHECK'.
+The stored procedure 'SP_LOGIN_CHECK' doesn't exist. ---> System.InvalidOperationException: The stored procedure 'SP_LOGIN_CHECK' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at AFD.Helpers.SqlHelperParameterCache.DiscoverSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2444
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSetInternal(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2616
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2593
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2575
+   at AFD.Helpers.SqlHelper.ExecuteReader(SqlConnection connection, String spName, Object[] parameterValues) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 979
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 65
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 70
+   at AFD.Internal.VIEW_INFO_USER_LOGINSql.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Internal\VIEW_INFO_USER_LOGINSql.cs:line 22
+   at AFD.Services.VIEW_INFO_USER_LOGINFactory.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Services\VIEW_INFO_USER_LOGINFactory.cs:line 17
+   at WebAdmin.Controllers.BaseController.GetLoginInfo(String username, String password) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\BaseController.cs:line 51
+
+22:57:57
+System.Exception: SelectFromStore::'SP_LOGIN_CHECK'.
+The stored procedure 'SP_LOGIN_CHECK' doesn't exist. ---> System.InvalidOperationException: The stored procedure 'SP_LOGIN_CHECK' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at AFD.Helpers.SqlHelperParameterCache.DiscoverSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2444
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSetInternal(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2616
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2593
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2575
+   at AFD.Helpers.SqlHelper.ExecuteReader(SqlConnection connection, String spName, Object[] parameterValues) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 979
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 65
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 70
+   at AFD.Internal.VIEW_INFO_USER_LOGINSql.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Internal\VIEW_INFO_USER_LOGINSql.cs:line 22
+   at AFD.Services.VIEW_INFO_USER_LOGINFactory.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Services\VIEW_INFO_USER_LOGINFactory.cs:line 17
+   at WebAdmin.Controllers.BaseController.GetLoginInfo(String username, String password) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\BaseController.cs:line 51
+
+22:59:00
+System.Exception: SelectFromStore::'SP_LOGIN_CHECK'.
+The stored procedure 'SP_LOGIN_CHECK' doesn't exist. ---> System.InvalidOperationException: The stored procedure 'SP_LOGIN_CHECK' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at AFD.Helpers.SqlHelperParameterCache.DiscoverSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2444
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSetInternal(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2616
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2593
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2575
+   at AFD.Helpers.SqlHelper.ExecuteReader(SqlConnection connection, String spName, Object[] parameterValues) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 979
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 65
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 70
+   at AFD.Internal.VIEW_INFO_USER_LOGINSql.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Internal\VIEW_INFO_USER_LOGINSql.cs:line 22
+   at AFD.Services.VIEW_INFO_USER_LOGINFactory.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Services\VIEW_INFO_USER_LOGINFactory.cs:line 17
+   at WebAdmin.Controllers.BaseController.GetLoginInfo(String username, String password) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\BaseController.cs:line 51
+
+22:59:07
+System.Exception: SelectFromStore::'SP_LOGIN_CHECK'.
+The stored procedure 'SP_LOGIN_CHECK' doesn't exist. ---> System.InvalidOperationException: The stored procedure 'SP_LOGIN_CHECK' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at AFD.Helpers.SqlHelperParameterCache.DiscoverSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2444
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSetInternal(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2616
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName, Boolean includeReturnValueParameter) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2593
+   at AFD.Helpers.SqlHelperParameterCache.GetSpParameterSet(SqlConnection connection, String spName) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 2575
+   at AFD.Helpers.SqlHelper.ExecuteReader(SqlConnection connection, String spName, Object[] parameterValues) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Helpers\SqlHelper.cs:line 979
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 65
+   --- End of inner exception stack trace ---
+   at AFD.Base.DataAccessObject`1.SelectFromStore(String storeName, Object[] values) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Base\DataAccessObject.cs:line 70
+   at AFD.Internal.VIEW_INFO_USER_LOGINSql.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Internal\VIEW_INFO_USER_LOGINSql.cs:line 22
+   at AFD.Services.VIEW_INFO_USER_LOGINFactory.CheckLogin(String userName, String passWord) in E:\AFD\Projects\GymPro\KienNT\CORE\AFD\Services\VIEW_INFO_USER_LOGINFactory.cs:line 17
+   at WebAdmin.Controllers.BaseController.GetLoginInfo(String username, String password) in E:\AFD\Projects\GymPro\KienNT\WebAdmin\WebAdmin\Controllers\BaseController.cs:line 51

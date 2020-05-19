@@ -1,0 +1,108 @@
+﻿@model List<AFD.Tables.SYS_BOXES>
+
+@helper GenListBox(List<AFD.Tables.SYS_BOXES> list, string parent, string name)
+{
+    <ul class="fancytree-container">
+        @if(string.IsNullOrEmpty(ViewBag.BoxRootID))
+        {
+            <li class="">
+                <a onclick="showDetail('', '@parent', '@name')">
+                    <span style="color:red;text-transform: uppercase;">Thêm mới</span>
+                </a>
+            </li>
+        }
+
+        @foreach (var item in list)
+        {
+            bool check = false;
+            if (string.IsNullOrEmpty(parent))
+            {
+                if (item.BOX_ISROOT || item.BOX_PARENT_ID == parent)
+                {
+                    check = true;
+                }
+            }
+            else
+            {
+                if(item.BOX_ID == ViewBag.BoxRootID || item.BOX_ID != ViewBag.BoxRootID && item.BOX_PARENT_ID == parent)
+                {
+                    check = true;
+                }
+            }
+            if (check)
+            {
+                <li class="">
+                    <span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+                        <a onclick="showDetail('@item.BOX_ID', '', '@item.BOX_NAME')" style="@if(item.BOX_ISROOT) { <text>text-transform: uppercase;</text> } ">
+                            <span>@item.BOX_NAME</span>
+                        </a>
+                    </span>
+                    @if (list.Any(x => x.BOX_PARENT_ID == item.BOX_ID) && item.BOX_ID != ViewBag.BoxRootID)
+                    {
+                        @GenListBox(list, item.BOX_ID, item.BOX_NAME)
+                    }
+                    else
+                    {
+                        <ul>
+                            <li>
+                                <a onclick="showDetail('', '@item.BOX_ID', '@item.BOX_NAME')">
+                                    <span style="color:red;text-transform: uppercase;">Thêm mới</span>
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                </li>
+            }
+        }
+    </ul>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            @if (string.IsNullOrEmpty(ViewBag.BoxRootID))
+            {
+                <ul class="fancytree-container">
+                    <li class="">
+                        <a onclick="showDetail('', 'ROOT')">
+                            <span>ROOT</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        @GenListBox(Model, ViewBag.BoxRootID, ViewBag.BoxRootName)
+                    </li>
+                </ul>
+            }
+            else
+            {
+                @GenListBox(Model, ViewBag.BoxRootID, ViewBag.BoxRootName)
+            }
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="boxDetailRender" class="well">
+            <input type="hidden" id="boxID" value="@ViewBag.BoxRootID" />
+            <input type="hidden" id="boxName" value="@ViewBag.BoxRootName" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        showDetail('', $('#boxID').val(), $('#boxName').val());
+    });
+    function showDetail(id, parentId, name) {
+        $.ajax({
+            url: '/Admin/_BoxDetail',
+            type: "post",
+            data: {
+                id: id,
+                parentId: parentId,
+                parentName: '' + name
+            }
+        }).done(function (result) {
+            $("#boxDetailRender").html(result);
+        });
+    }
+</script>
