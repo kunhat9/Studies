@@ -13,5 +13,24 @@ namespace WebAdmin.Controllers
         {
             return View();
         }
+        public ActionResult Schedules()
+        {
+            return View();
+        }
+        
+        public ActionResult RollCall()
+        {
+            return View();
+        }
+        
+        public ActionResult Tuition()
+        {
+            return View();
+        }
+        
+        public ActionResult Score()
+        {
+            return View();
+        }
     }
 }

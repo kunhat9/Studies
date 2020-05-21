@@ -1,1 +1,358 @@
-﻿<p>header</p>
+﻿<!-- Header Area Start -->
+<header class="header-area section" xmlns="http://www.w3.org/1999/html">
+    <!-- Header Top -->
+    <div class="header-top section">
+        <div class="container">
+            <div class="row">
+                <!-- Header Top Left -->
+                <div class="header-top-left text-left col-sm-6 ">
+                    <p style="padding-top:40px;">Have any question? +968 547856 254</p>
+                </div>
+                <!-- Header Top Right -->
+                <div class="header-top-right text-right col-sm-5 main-menu hidden-xs">
+                    <nav>
+                    <ul>
+                        <li><a href="#" data-toggle="modal" data-target="#loginModal">Log In</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#registerModal">Register</a></li>
+                        <li>
+                            <a href="#">ThanhLD</a>
+                            <ul class="sub-menu">
+                                <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Schedules</a></li>
+                                <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/RollCall">Roll Call</a></li>
+                                <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Tuition</a></li>
+                                <li style="float: none"><a  style="color: #337ab7;" href="/Infomation/Score">Score</a></li>
+                                <li style="float: none"><a style="color: #337ab7;" href="/Logout">Logout</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Bottom -->
+    <div class="header-bottom bg-white sticker section sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                       <!-- Header Logo -->
+                    <div class="header-logo float-left">
+                        <a href="/"><img src="~/Assets/img/logo/logo.png" alt="logo"></a>
+                    </div>
+                    <!-- Header Buttons -->
+                    <div class="header-buttons float-right">
+                        <div class="header-search float-left">
+                            <button class="search-toggle"><i class="zmdi zmdi-search"></i></button>
+                            <div class="search-form">
+                                <form action="#">
+                                    <input type="text" placeholder="Search here..." name="search" />
+                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
+                                </form>                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Main Menu -->
+                    <div class="main-menu float-right hidden-xs">
+                        <nav>
+                            <ul>
+                                <li class="active"><a href="/Home">Home</a></li>
+                                <li><a href="/Introduce">About</a></li>
+                                <li><a href="/Teacher">Teachers</a></li>
+                                <li><a href="/Class">Class</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#enrollmentModal">Enrollment</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#teachingModal">Teaching Schedules</a></li>
+
+
+                                @* <li><a href="courses.html">Courses</a> *@
+                                @*     <ul class="sub-menu"> *@
+                                @*         <li><a href="courses.html">Courses</a></li> *@
+                                @*         <li><a href="course-details.html">Course Details</a></li> *@
+                                @*     </ul> *@
+                                @* </li> *@
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="mobile-menu"></div>
+                </div>
+            </div>
+        </div>
+    </div>   
+</header>
+<!-- End of Header Area -->
+
+@* LOGIN *@
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="email" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username">
+                    <small id="username-error" class="form-text text-danger">Username must be not null</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" placeholder="Password">
+                      <small id="password-error" class="form-text text-danger">Password must be not null</small>
+                  </div>
+
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* END LOGIN *@
+
+@* REGISTER *@
+
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="email" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username">
+                        <small id="username-error" class="form-text text-danger">Username must be not null</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <small id="password-error" class="form-text text-danger">Password must be not null</small>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* END REGISTER *@
+
+@* ENROLLMENT *@
+
+
+<div class="modal fade" id="enrollmentModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enrollment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="fullname">Fullname </label>
+                        <input type="text" class="form-control" id="fullname" aria-describedby="emailHelp" placeholder="Username">
+                        <small id="username-error" class="form-text text-danger">Fullname must be not null</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="studying-at"">Studying At</label>
+                        <input type="text" class="form-control" id="studying-at" placeholder="Studying At">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone-number">Phone Number</label>
+                        <input type="text" class="form-control" id="phone-numer" placeholder="Phone number">
+                        <small id="phone-number-error" class="form-text text-danger">Phone Number must be not null</small>
+                    </div>                    
+                    <div class="form-group">
+                        <label for="password">Grade</label>
+                        <select class="form-control form-control-sm">
+                            <option>Select</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+                    </div>     
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* END ENROLLMENT *@
+
+@* TEACHING SCHEDULES *@
+
+
+<div class="modal fade bd-example-modal-xl" id="teachingModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Schedules</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label >Level </label>
+                        <br/>
+                        <input class="form-check-input position-static" id="primary-school" type="radio" name="blankRadio" value="primary-school" >
+                        <label for="primary-school">Primary School</label>
+                        <br/>
+                        <input class="form-check-input position-static" id="junior-high-school" type="radio" name="blankRadio" value="junior-high-school" >
+                        <label for="junior-high-school">Junior High School</label>
+                        <br/>
+                        <input class="form-check-input position-static" id="high-school" type="radio" name="blankRadio" value="high-school" >
+                        <label for="high-school">High School</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Grade</label>
+                        <select class="form-control form-control-sm">
+                            <option>Select</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+                    </div>     
+                    <div class="form-group"><label for="password">Subjects</label>
+                        <select class="form-control form-control-sm">
+                            <option>Select</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option> 
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+                    </div> 
+                    <div class="form-group"><label for="password">Schedules</label>
+                        <table class="table text-center">
+                            <thead>
+                            <tr class="text-center">
+                                <th></th>
+                                <th class="text-center">07:30 - 09:30</th>
+                                <th class="text-center">09:30 - 11:30</th>
+                                <th class="text-center">14:00 - 16:00</th>
+                                <th class="text-center">16:00 - 18:00</th>
+                                <th class="text-center">18:00 - 20:00</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-center">
+                                <td>Thứ Hai</td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>Thứ Ba</td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>Thứ Tư</td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>Thứ Năm</td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>Thứ Sáu</td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>Thứ Bảy</td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td>Chủ Nhật</td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" class="schedule-checkbox"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div> 
+                    
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* END TEACHING SCHEDULES *@

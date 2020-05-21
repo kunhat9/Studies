@@ -10,8 +10,6 @@ namespace WebAdmin.Controllers
     public class BaseController : Controller
     {
     
-
-
         protected string GetMD5Hash(string rawString)
         {
             UnicodeEncoding encode = new UnicodeEncoding();
