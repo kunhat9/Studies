@@ -81,31 +81,21 @@ CREATE TABLE TB_SCHEDULE_DETAILS	-- Chi tiết
 	, CONSTRAINT FK_ScheduleDetailScheduleId FOREIGN KEY (ScheduleDetailScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)   
 )
 GO
-CREATE TABLE TB_CLASS  -- lớp học 
+CREATE TABLE TB_CLASSES  -- lớp học 
 (
 	ClassId INT IDENTITY PRIMARY KEY
-	, ClassName nvarchar(max) -- Tên lớp 
-	, ClassCode nvarchar(50) -- mã lớp
-	, ClassDateBegin  datetime       -- ngày bắt đầu
-	, ClassDateEnd    datetime  -- ngày kết thúc
-	, ClassTimeStart  time      -- giờ bắt đầu
-	, ClassTimeEnd    time      -- giờ kết thúc
 	, ClassUserId     INT       -- Học sinh 
 	, CONSTRAINT FK_ClassUserId FOREIGN KEY (ClassUserId) REFERENCES TB_USERS(UserId) 
 	, ClassScheduleId INT
 	, CONSTRAINT FK_ClassScheduleId FOREIGN KEY (ClassScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)
-	, ClassBoxSubjectId INT -- Môn học theo khối
-	, CONSTRAINT FK_ClassBoxSubjectId FOREIGN KEY (ClassBoxSubjectId) REFERENCES TB_BOX_SUBJECTS(BoxSubjectId) 
 )
 GO
-CREATE TABLE TB_POINT -- BẢNG ĐIỂM
+CREATE TABLE TB_POINTS -- BẢNG ĐIỂM
 (
 	PointId INT IDENTITY PRIMARY KEY
 	, PointNumber decimal(18,2)  -- Số điểm
 	, PointClassId INT
-	, CONSTRAINT FK_PointClassId FOREIGN KEY (PointClassId) REFERENCES TB_CLASS(ClassId)
-	, PointUserId INT
-	, CONSTRAINT FK_PointUserId FOREIGN KEY (PointUserId) REFERENCES TB_USERS(UserId) 
+	, CONSTRAINT FK_PointClassId FOREIGN KEY (PointClassId) REFERENCES TB_CLASSES(ClassId)
 )
 GO
 CREATE TABLE TB_REGISTERS	-- Đăng ký học
