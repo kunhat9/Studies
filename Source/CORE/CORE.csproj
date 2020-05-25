@@ -69,6 +69,7 @@
     <Compile Include="InvalidBusinessObjectException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TB_BOXESFactory.cs" />
+    <Compile Include="Services\TB_BOX_SUBJECTSFactory.cs" />
     <Compile Include="Services\TB_HEADQUARTERSFactory.cs" />
     <Compile Include="Services\TB_REGISTERSFactory.cs" />
     <Compile Include="Services\TB_SCHEDULESFactory.cs" />

@@ -9,14 +9,18 @@ GO
 CREATE TABLE TB_USERS		-- Người dùng
 (
 	UserId int IDENTITY PRIMARY KEY
-	, UserName nvarchar(30)
-	, UserPassword nvarchar(30)
-	, UserType nvarchar(20)		-- Phân loại: ADMIN / STAFF / STUDIES
-	, UserStatus nvarchar(20)	-- Trạng thái - A/D
-	, UserNote nvarchar(100)	-- Ghi chú
+	, UserName nvarchar(30) NOT NULL
+	, UserPassword nvarchar(30) NOT NULL
+	, UserType nvarchar(20) NOT NULL		-- Phân loại: ADMIN / STAFF / STUDIES
+	, UserPhone varchar(50) NOT NULL
+	, UserEmail varchar(50)
+	, UserAddress varchar(50)
+	, UserAcademicLevel varchar(50)
+	, UserStatus nvarchar(20) DEFAULT('D')	-- Trạng thái - A/D
+	, UserNote nvarchar(100)	DEFAULT ('HE THONG TU SINH')-- Ghi chú
 )
 GO
-CREATE TABLE TB_HEADQUARTERS
+CREATE TABLE TB_HEADQUARTERS -- cơ sở 
 (
 	HeadQuarterId INT IDENTITY PRIMARY KEY
 	,HeadQuarterName nvarchar(500)
@@ -41,7 +45,7 @@ CREATE TABLE TB_SUBJECTS	-- Môn học
 	, SubjectName nvarchar(20) NOT NULL		-- Tên môn học
 )
 GO
-CREATE TABLE TB_BOX_SUBJECTS
+CREATE TABLE TB_BOX_SUBJECTS -- Môn học của khối
 (
 	BoxSubjectId INT IDENTITY PRIMARY KEY
 	,BoxSubjectBoxId INT NOT NULL
@@ -51,7 +55,7 @@ CREATE TABLE TB_BOX_SUBJECTS
 	, CONSTRAINT Unique_BoxSubjectBoxId_BoxSubjectSubjectId UNIQUE(BoxSubjectBoxId,BoxSubjectSubjectId)
 )
 GO
-CREATE TABLE TB_SCHEDULES	-- Đăng ký lịch dạy
+CREATE TABLE TB_SCHEDULES	-- Lớp dạy của giáo viên
 (
 	ScheduleId int IDENTITY PRIMARY KEY
 	, ScheduleCode nvarchar(20)		-- Mã lớp
@@ -75,6 +79,33 @@ CREATE TABLE TB_SCHEDULE_DETAILS	-- Chi tiết
 	,ScheduleDetailNote varchar(50)-- mô tả
 	,ScheduleDetailScheduleId INT
 	, CONSTRAINT FK_ScheduleDetailScheduleId FOREIGN KEY (ScheduleDetailScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)   
+)
+GO
+CREATE TABLE TB_CLASS  -- lớp học 
+(
+	ClassId INT IDENTITY PRIMARY KEY
+	, ClassName nvarchar(max) -- Tên lớp 
+	, ClassCode nvarchar(50) -- mã lớp
+	, ClassDateBegin  datetime       -- ngày bắt đầu
+	, ClassDateEnd    datetime  -- ngày kết thúc
+	, ClassTimeStart  time      -- giờ bắt đầu
+	, ClassTimeEnd    time      -- giờ kết thúc
+	, ClassUserId     INT       -- Học sinh 
+	, CONSTRAINT FK_ClassUserId FOREIGN KEY (ClassUserId) REFERENCES TB_USERS(UserId) 
+	, ClassScheduleId INT
+	, CONSTRAINT FK_ClassScheduleId FOREIGN KEY (ClassScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)
+	, ClassBoxSubjectId INT -- Môn học theo khối
+	, CONSTRAINT FK_ClassBoxSubjectId FOREIGN KEY (ClassBoxSubjectId) REFERENCES TB_BOX_SUBJECTS(BoxSubjectId) 
+)
+GO
+CREATE TABLE TB_POINT -- BẢNG ĐIỂM
+(
+	PointId INT IDENTITY PRIMARY KEY
+	, PointNumber decimal(18,2)  -- Số điểm
+	, PointClassId INT
+	, CONSTRAINT FK_PointClassId FOREIGN KEY (PointClassId) REFERENCES TB_CLASS(ClassId)
+	, PointUserId INT
+	, CONSTRAINT FK_PointUserId FOREIGN KEY (PointUserId) REFERENCES TB_USERS(UserId) 
 )
 GO
 CREATE TABLE TB_REGISTERS	-- Đăng ký học

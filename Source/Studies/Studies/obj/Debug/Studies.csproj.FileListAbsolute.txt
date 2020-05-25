@@ -38,3 +38,7 @@ C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Studies\Source\Studies\Studies\bin\Syst
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Studies\Source\Studies\Studies\obj\Debug\Studies.csprojResolveAssemblyReference.cache
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Studies\Source\Studies\Studies\obj\Debug\WebAdmin.dll
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Studies\Source\Studies\Studies\obj\Debug\WebAdmin.pdb
+C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\bin\roslyn\VBCSCompiler.exe
