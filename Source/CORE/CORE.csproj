@@ -59,7 +59,9 @@
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Internal\TB_BOXESSql.cs" />
     <Compile Include="Internal\TB_BOX_SUBJECTSSql.cs" />
+    <Compile Include="Internal\TB_CLASSESSql.cs" />
     <Compile Include="Internal\TB_HEADQUARTERSSql.cs" />
+    <Compile Include="Internal\TB_POINTSSql.cs" />
     <Compile Include="Internal\TB_REGISTERSSql.cs" />
     <Compile Include="Internal\TB_SCHEDULESSql.cs" />
     <Compile Include="Internal\TB_SCHEDULE_DETAILSSql.cs" />
@@ -70,7 +72,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TB_BOXESFactory.cs" />
     <Compile Include="Services\TB_BOX_SUBJECTSFactory.cs" />
+    <Compile Include="Services\TB_CLASSESFactory.cs" />
     <Compile Include="Services\TB_HEADQUARTERSFactory.cs" />
+    <Compile Include="Services\TB_POINTSFactory.cs" />
     <Compile Include="Services\TB_REGISTERSFactory.cs" />
     <Compile Include="Services\TB_SCHEDULESFactory.cs" />
     <Compile Include="Services\TB_SCHEDULE_DETAILSFactory.cs" />
@@ -79,7 +83,9 @@
     <Compile Include="Services\TB_USERSFactory.cs" />
     <Compile Include="Tables\TB_BOXES.cs" />
     <Compile Include="Tables\TB_BOX_SUBJECTS.cs" />
+    <Compile Include="Tables\TB_CLASSES.cs" />
     <Compile Include="Tables\TB_HEADQUARTERS.cs" />
+    <Compile Include="Tables\TB_POINTS.cs" />
     <Compile Include="Tables\TB_REGISTERS.cs" />
     <Compile Include="Tables\TB_SCHEDULES.cs" />
     <Compile Include="Tables\TB_SCHEDULE_DETAILS.cs" />

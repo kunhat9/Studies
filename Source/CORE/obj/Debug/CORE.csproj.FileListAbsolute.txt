@@ -11,3 +11,4 @@ C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\bin\Debug\CORE.dll
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\bin\Debug\CORE.pdb
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\obj\Debug\CORE.dll
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\obj\Debug\CORE.pdb
+C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\obj\Debug\CORE.csprojResolveAssemblyReference.cache
