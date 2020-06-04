@@ -44,4 +44,153 @@ VALUES(N'Địa lý')
 INSERT INTO TB_SUBJECTS(SubjectName)
 VALUES(N'Tiếng Anh')
 GO
-
+-- INSERT USER ADMIN
+INSERT INTO TB_USERS(
+       [UserName]
+	  ,[UserFullName]
+      ,[UserPassword]
+      ,[UserType]
+      ,[UserPhone]
+      ,[UserEmail]
+      ,[UserAddress]
+      ,[UserAcademicLevel]
+      ,[UserStatus]
+      ,[UserNote])
+VALUES(
+	'ADMIN'
+	,N'Lê Văn Nhật'
+	, '1'
+	, 'ADMIN'
+	, ''
+	, ''
+	, ''
+	, ''
+	, 'A'
+	, 'ADMINSTRATOR'
+)
+GO
+ -- INSERT DATA HARD 
+ INSERT INTO TB_USERS(
+       [UserName]
+	  ,[UserFullName]
+      ,[UserPassword]
+      ,[UserType]
+      ,[UserPhone]
+      ,[UserEmail]
+      ,[UserAddress]
+      ,[UserAcademicLevel]
+      ,[UserStatus]
+      ,[UserNote]
+	  ,[UserNumberSalary])
+VALUES(
+	'nhatlv1'
+	,N'Lê Văn Một'
+	, '1'
+	, 'TEACHER'
+	, ''
+	, ''
+	, ''
+	, ''
+	, 'A'
+	, N'GIÁO VIÊN '
+	,0.7
+)
+GO
+INSERT INTO TB_USERS(
+       [UserName]
+	  ,[UserFullName]
+      ,[UserPassword]
+      ,[UserType]
+      ,[UserPhone]
+      ,[UserEmail]
+      ,[UserAddress]
+      ,[UserAcademicLevel]
+      ,[UserStatus]
+      ,[UserNote]
+	  ,[UserNumberSalary])
+VALUES(
+	'nhatlv2'
+	,N'Lê Văn Hai'
+	, '1'
+	, 'TEACHER'
+	, ''
+	, ''
+	, ''
+	, ''
+	, 'A'
+	, N'GIÁO VIÊN'
+	,0.5
+)
+GO
+INSERT INTO TB_USERS(
+       [UserName]
+	  ,[UserFullName]
+      ,[UserPassword]
+      ,[UserType]
+      ,[UserPhone]
+      ,[UserEmail]
+      ,[UserAddress]
+      ,[UserAcademicLevel]
+      ,[UserStatus]
+      ,[UserNote])
+VALUES(
+	'nhatlv3'
+	,N'Lê Văn Ba'
+	, '1'
+	, 'STUDIES'
+	, ''
+	, ''
+	, ''
+	, ''
+	, 'A'
+	, N'HỌC SINH '
+)
+GO
+INSERT INTO TB_USERS(
+       [UserName]
+	  ,[UserFullName]
+      ,[UserPassword]
+      ,[UserType]
+      ,[UserPhone]
+      ,[UserEmail]
+      ,[UserAddress]
+      ,[UserAcademicLevel]
+      ,[UserStatus]
+      ,[UserNote])
+VALUES(
+	'nhatlv4'
+	,N'Lê Văn Bốn'
+	, '1'
+	, 'STUDIES'
+	, ''
+	, ''
+	, ''
+	, ''
+	, 'A'
+	, N'HỌC SINH'
+)
+GO
+INSERT INTO TB_USERS(
+       [UserName]
+	  ,[UserFullName]
+      ,[UserPassword]
+      ,[UserType]
+      ,[UserPhone]
+      ,[UserEmail]
+      ,[UserAddress]
+      ,[UserAcademicLevel]
+      ,[UserStatus]
+      ,[UserNote])
+VALUES(
+	'nhatlv5'
+	,N'Lê Văn Năm'
+	, '1'
+	, 'STUDIES'
+	, ''
+	, ''
+	, ''
+	, ''
+	, 'A'
+	, N'HỌC SINH'
+)
+GO

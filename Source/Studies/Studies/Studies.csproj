@@ -2561,6 +2561,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminController\ClassController.cs" />
+    <Compile Include="Areas\Admin\AdminController\HomeAdminController.cs" />
+    <Compile Include="Areas\Admin\AdminController\ReportController.cs" />
+    <Compile Include="Areas\Admin\AdminController\SubjectController.cs" />
+    <Compile Include="Areas\Admin\AdminController\UserController.cs" />
     <Compile Include="Common\ConvertData.cs" />
     <Compile Include="Common\RandomGenerator.cs" />
     <Compile Include="Configuration\AppConfigInfo.cs" />
@@ -2620,7 +2625,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\AdminController\" />
+    <Folder Include="Areas\Admin\Views\Class\" />
+    <Folder Include="Areas\Admin\Views\HomeAdmin\" />
+    <Folder Include="Areas\Admin\Views\Report\" />
+    <Folder Include="Areas\Admin\Views\Subject\" />
+    <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="Assets\css\_main_full\" />
     <Folder Include="Files\icons\" />
     <Folder Include="Views\Ajax\" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CORE.Services;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
@@ -9,7 +10,8 @@ namespace WebAdmin.Controllers
     [AuthorizeBusiness]
     public class BaseController : Controller
     {
-    
+
+        protected TB_TRACKINGSFactory Tracking_Serivce = new TB_TRACKINGSFactory();
         protected string GetMD5Hash(string rawString)
         {
             UnicodeEncoding encode = new UnicodeEncoding();

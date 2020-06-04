@@ -11,7 +11,7 @@ namespace CORE.Tables
     {
         [PrimaryKey]
         public int ScheduleDetailId { get; set; }
-        public DateTime ScheduleDetailDate { get; set; }
+        public string ScheduleDetailDayOfWeek { get; set; }
         public TimeSpan ScheduleDetailTimeFrom { get; set; }
         public TimeSpan ScheduleDetailTimeTo { get; set; }
         public string ScheduleDetailNote { get; set; }

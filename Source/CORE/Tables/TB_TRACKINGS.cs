@@ -14,6 +14,7 @@ namespace CORE.Tables
         public DateTime TrackingDate { get; set; }
         public string TrackingNote { get; set; }
         public int TrackingUserId { get; set; }
+        public int TrackingScheduleId { get; set; }
         public TB_TRACKINGS() { }
 
     }

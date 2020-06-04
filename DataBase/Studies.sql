@@ -9,15 +9,17 @@ GO
 CREATE TABLE TB_USERS		-- Người dùng
 (
 	UserId int IDENTITY PRIMARY KEY
-	, UserName nvarchar(30) NOT NULL
-	, UserPassword nvarchar(30) NOT NULL
-	, UserType nvarchar(20) NOT NULL		-- Phân loại: ADMIN / STAFF / STUDIES
-	, UserPhone varchar(50) NOT NULL
+	, UserName nvarchar(30) NOT NULL        -- Tài khoản 
+	, UserFullName nvarchar(255) NOT NULL   -- Họ tên
+	, UserPassword nvarchar(30) NOT NULL    -- mật khẩu 
+	, UserType nvarchar(20) NOT NULL		-- Phân loại: ADMIN / STAFF / STUDIES / TEACHER
+	, UserPhone varchar(50) NOT NULL        -- điện thoại
 	, UserEmail varchar(50)
 	, UserAddress varchar(50)
 	, UserAcademicLevel varchar(50)
 	, UserStatus nvarchar(20) DEFAULT('D')	-- Trạng thái - A/D
 	, UserNote nvarchar(100)	DEFAULT ('HE THONG TU SINH')-- Ghi chú
+	, UserNumberSalary decimal(18,2) DEFAULT(0.00)        -- hệ số lương nếu type = teacher
 )
 GO
 CREATE TABLE TB_HEADQUARTERS -- cơ sở 
@@ -55,11 +57,22 @@ CREATE TABLE TB_BOX_SUBJECTS -- Môn học của khối
 	, CONSTRAINT Unique_BoxSubjectBoxId_BoxSubjectSubjectId UNIQUE(BoxSubjectBoxId,BoxSubjectSubjectId)
 )
 GO
+CREATE TABLE TB_TEACHING_SCHEDULES -- ĐĂNG KÍ LỊCH DẠY CỦA GIÁO VIÊN
+(
+	 TeachingScheduleId INT IDENTITY PRIMARY KEY
+	,TeachingScheduleDayOfWeek VARCHAR(50)         -- NGÀY TRONG TUẦN
+	,TeachingScheduleTimeFrom time                 -- THỜI GIAN BẮT ĐẦU
+	,TeachingScheduleTimeTo time                   -- THỜI GIAN KẾT THÚC
+	, TeachingScheduleNote nvarchar(max)           -- MÔ TẢ
+	, TeachingScheduleUserId INT                   -- GẮN VỚI GIÁO VIÊN NÀO 
+	, CONSTRAINT FK_TeachingScheduleUserId FOREIGN KEY (TeachingScheduleUserId) REFERENCES TB_USERS(UserId) 
+)
+GO
 CREATE TABLE TB_SCHEDULES	-- Lớp dạy của giáo viên
 (
 	ScheduleId int IDENTITY PRIMARY KEY
-	, ScheduleCode nvarchar(20)		-- Mã lớp
-	, ScheduleDateCreate datetime	-- Ngày đăng ký
+	, ScheduleCode nvarchar(20) UNIQUE NOT NULL		-- Mã lớp
+	, ScheduleDateCreate datetime	-- Ngày mở lớp
 	, ScheduleStatus nvarchar(10)	-- Trạng thái
 	, ScheduleDateBegin nvarchar(10)	-- Ngày bắt đầu
 	, ScheduleDateEnd nvarchar(10)		-- Ngày kết thúc
@@ -73,7 +86,7 @@ GO
 CREATE TABLE TB_SCHEDULE_DETAILS	-- Chi tiết
 (
 	ScheduleDetailId int IDENTITY PRIMARY KEY
-	,ScheduleDetailDate date  -- ngày dạy học 
+	,ScheduleDetailDayOfWeek varchar(50)  -- ngày trong tuần
 	,ScheduleDetailTimeFrom time  -- từ giờ 
 	,ScheduleDetailTimeTo time -- đến giờ
 	,ScheduleDetailNote varchar(50)-- mô tả
@@ -116,6 +129,8 @@ CREATE TABLE TB_TRACKINGS	-- Điểm danh
 	,TrackingNote nvarchar(500) -- mô tả
 	,TrackingUserId INT -- mã học viên 
 	, CONSTRAINT FK_TrackingUserId  FOREIGN KEY (TrackingUserId) REFERENCES TB_USERS(UserId)
+	, TrackingScheduleId INT
+	, CONSTRAINT FK_TrackingScheduleId FOREIGN KEY (TrackingScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)
 )
 GO
 /*
@@ -139,6 +154,8 @@ STUDENT
 		Điểm
 */
 /*
+-- tổng số buổi học theo lớp theo thời gian
+-- cộng tổng lại theo thời gian
 - Quản lý khối, môn -> Có thể hard
 - Quản lý đăng ký lịch dạy ->> Cần mô tả: Từ ngày - đến ngày, giá tiền ai đưa ra? admin có sửa đc giá tiền?
 - Quản lý đăng ký học ->> Cần mô tả: Cung cấp username-password ntn? / có duyệt ko?

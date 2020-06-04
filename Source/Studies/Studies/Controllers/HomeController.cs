@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CORE.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -21,7 +22,8 @@ namespace WebAdmin.Controllers
         #region OutLogin
 
         public ActionResult Index()
-        {     
+        {
+            List<V_TRACKING_USER_CLASS> list = Tracking_Serivce.GetTrackingUser("","1","2020/06/10", "2020/06/10");
             return View();
         }
 

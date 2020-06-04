@@ -1,5 +1,7 @@
 ﻿using CORE.Internal;
+using CORE.Internal.ViewSql;
 using CORE.Tables;
+using CORE.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +32,15 @@ namespace CORE.Services
         {
             return new TB_SCHEDULESSql().SelectAll();
         }
+        // lay danh sach lop hoc cua giao vien , hoc sinh 
+        public List<V_SCHEDULE_DETAILS> GetInfoClassBy(int userId , string userType, out int count)
+        {
+            object cTemp;
+            List<V_SCHEDULE_DETAILS> list = new List<V_SCHEDULE_DETAILS>();
+            list = new V_SCHEDULE_DETAILSSql().SelectFromStoreOutParam(AppSettingKeys.GET_INFO_CLASS_BY, out cTemp, userId, userType);
+            count = (int)cTemp;
+            return list;
+        }
+        
     }
 }
