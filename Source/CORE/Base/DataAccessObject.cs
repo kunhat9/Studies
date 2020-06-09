@@ -102,7 +102,7 @@ namespace CORE.Base
                 ds = SqlHelper.ExecuteDataset(MainConnection, storeName, values);
                 ecode = ds.Tables[0].Rows[0]["ECODE"].ToString();
                 edesc = ds.Tables[0].Rows[0]["EDESC"].ToString();
-                if (ecode == "000" && ds.Tables.Count > 1)
+                if (ds.Tables.Count > 1)
                 {
                     IDataReader dataReader = ds.Tables[1].CreateDataReader();
                     return PopulateObjectsFromReader(dataReader);

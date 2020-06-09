@@ -23,7 +23,7 @@ namespace WebAdmin.Controllers
 
         public ActionResult Index()
         {
-            List<V_TRACKING_USER_CLASS> list = Tracking_Serivce.GetTrackingUser("","1","2020/06/10", "2020/06/10");
+            V_INFO_LOGIN_CLIENT list = User_Service.CheckLogin("ADMIN","1");
             return View();
         }
 
