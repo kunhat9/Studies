@@ -12,6 +12,8 @@ namespace WebAdmin.Controllers
     {
 
         protected TB_TRACKINGSFactory Tracking_Serivce = new TB_TRACKINGSFactory();
+        protected TB_USERSFactory User_Service = new TB_USERSFactory();
+
         protected string GetMD5Hash(string rawString)
         {
             UnicodeEncoding encode = new UnicodeEncoding();

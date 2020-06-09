@@ -59,6 +59,18 @@ namespace WebAdmin.Controllers
 
         #endregion
 
+        [HttpPost]
+        public ActionResult Login(String username,String password)
+        {
+
+            V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
+            if (info == null)
+            {
+                @ViewBag.error = "Username or password are incorrect";
+            }
+                
+            return View("Index",info);
+        }
         public ActionResult NotPermission()
         {
             return View();
