@@ -45,16 +45,16 @@ namespace CORE.Services
         public V_INFO_LOGIN_CLIENT CheckLogin(string userName, string passWord)
         {
             string ecode, edesc;
-            List<V_INFO_LOGIN_CLIENT> list = new List<V_INFO_LOGIN_CLIENT>();
-            list = new V_INFO_LOGIN_CLIENTSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.CHECK_LOGIN_CLIENT, userName, passWord);
-            V_INFO_LOGIN_CLIENT reuslt = new V_INFO_LOGIN_CLIENT();
-            reuslt = list.Select(x => new V_INFO_LOGIN_CLIENT
+            List<TB_USERS> list = new List<TB_USERS>();
+            list = new TB_USERSSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.CHECK_LOGIN_CLIENT, userName, passWord);
+            V_INFO_LOGIN_CLIENT result = new V_INFO_LOGIN_CLIENT();
+            result = list.Select(x => new V_INFO_LOGIN_CLIENT
             {
-                ecode = x.ecode,
-                edesc = x.edesc,
-                user = x.user
+                ecode = ecode,
+                edesc = edesc,
+                user = list.FirstOrDefault()
             }).FirstOrDefault();
-            return reuslt;
+            return result;
         }
         // tinh luogn cho giao vien
         public List<V_SALARY_TEACHER> GetSalaryTeacher(int userId , int scheduleId , string startDate, string endDate , int pageNumber , int pageSize)

@@ -31,8 +31,9 @@ BEGIN TRY
 					SET @edesc ='DANG NHAP THANH CONG'
 				END
 		END
-	SELECT * FROM TB_USERS WHERE UserName = @userName AND UserPassword = @passWord 
 	SELECT @ecode ecode , @edesc edesc
+	SELECT * FROM TB_USERS WHERE UserName = @userName AND UserPassword = @passWord 
+	
 
 END TRY
 BEGIN CATCH

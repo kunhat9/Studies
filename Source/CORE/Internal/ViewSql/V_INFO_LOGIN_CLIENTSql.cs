@@ -10,7 +10,7 @@ namespace CORE.Internal.ViewSql
 {
     internal class V_INFO_LOGIN_CLIENTSql : DataAccessTable<V_INFO_LOGIN_CLIENT>
     {
-        public V_INFO_LOGIN_CLIENTSql() : base("Studies.ConeectionString")
+        public V_INFO_LOGIN_CLIENTSql() : base("Studies.ConnectionString")
         {
         }
     }
