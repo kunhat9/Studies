@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using CORE.Tables;
 using WebAdmin.AppSession;
 
 namespace WebAdmin.Controllers
@@ -23,15 +24,17 @@ namespace WebAdmin.Controllers
 
         public ActionResult Index()
         {
-            V_INFO_LOGIN_CLIENT list = User_Service.CheckLogin("ADMIN","1");
             return View();
         }
 
         [ChildActionOnly]
         public PartialViewResult _HomeHeader()
         {
-            //ViewBag.userName = ((VIEW_INFO_USER_LOGIN)Session[AppSessionKeys.USER_INFO]).USER_LOGIN;
-            return PartialView();
+            TB_USERS user = null;
+            if(Session[AppSessionKeys.USER_INFO] != null){
+                user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+            }
+            return PartialView(user);
         }
 
         [ChildActionOnly]
@@ -62,14 +65,74 @@ namespace WebAdmin.Controllers
         [HttpPost]
         public ActionResult Login(String username,String password)
         {
-
-            V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
-            if (info == null)
+            try
             {
-                @ViewBag.error = "Username or password are incorrect";
+                Subject_Service.GetAll();
+                V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
+                if (info == null)
+                {
+                    ViewBag.error = "Username or Password are incorrect";
+                }
+                else if (info.ecode.Equals("200"))
+                {
+                    Session[AppSessionKeys.USER_INFO] = info.user;
+                }
+                else
+                {
+                    ViewBag.error = info.edesc;
+                }
             }
-                
-            return View("Index",info);
+            catch (Exception e)
+            {
+                ViewBag.error = e.Message;
+            }
+            
+            return View("Index");
+        }
+        [HttpPost]
+        public ActionResult Register(String username,String password,String fullname,String phone,String confirmpassword)
+        {
+            try
+            {
+                V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
+                if (info == null)
+                {
+                    ViewBag.error = "Username or Password are incorrect";
+                }
+                bool check = true;
+                if (!password.Equals(confirmpassword))
+                {
+                    ViewBag.error = "Password and confirm password must match";
+                    check = false;
+                }
+                else if (username.Equals("") || fullname.Equals("") || password.Equals(""))
+                {
+                    ViewBag.error = "Please fill all the fields";
+                    check = false;
+                }
+
+            
+                TB_USERS users = new TB_USERS()
+                    {
+                        UserName =  username,
+                        UserPassword = password,
+                        UserFullName = fullname,
+                        UserPhone =  phone,
+                        UserType = "STUDIES"
+                    };
+                check = User_Service.Insert(users);
+                if (!check)
+                {
+                    ViewBag.error = "An error occurred while processing your request";
+                }
+
+                return View("Index");
+            }
+            catch (Exception e)
+            {
+                ViewBag.error = e.Message;
+                return View("Index");
+            }
         }
         public ActionResult NotPermission()
         {

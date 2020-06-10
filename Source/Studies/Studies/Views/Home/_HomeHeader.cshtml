@@ -1,4 +1,9 @@
-﻿<!-- Header Area Start -->
+﻿@using CORE.Tables
+
+@model TB_USERS
+
+
+<!-- Header Area Start -->
 <header class="header-area section" xmlns="http://www.w3.org/1999/html">
     <!-- Header Top -->
     <div class="header-top section">
@@ -6,25 +11,32 @@
             <div class="row">
                 <!-- Header Top Left -->
                 <div class="header-top-left text-left col-sm-6 ">
-                    <p style="padding-top:40px;">Have any question? +968 547856 254</p>
+                    <p style="padding-top:40px;">Have any question? +968 547856 254 </p>
                 </div>
                 <!-- Header Top Right -->
                 <div class="header-top-right text-right col-sm-5 main-menu hidden-xs">
                     <nav>
                     <ul>
-                        <li><a href="#" data-toggle="modal" data-target="#loginModal">Log In</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#registerModal">Register</a></li>
-                        <li>
-                            <a href="#">ThanhLD</a>
-                            <ul class="sub-menu">
-                                <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Schedules</a></li>
-                                <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/RollCall">Roll Call</a></li>
-                                <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Tuition</a></li>
-                                <li style="float: none"><a  style="color: #337ab7;" href="/Infomation/Score">Score</a></li>
-                                <li style="float: none"><a style="color: #337ab7;" href="/Logout">Logout</a></li>
+                        @if (Model == null)
+                        {
+                            <li><a href="#" data-toggle="modal" data-target="#loginModal">Log In</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#registerModal">Register</a></li>
+                        }
+                        
+                        @if (Model != null)
+                        {
+                            <li >
+                                <a href="#">@Model.UserFullName</a>
+                                <ul class="sub-menu">
+                                    <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Schedules</a></li>
+                                    <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/RollCall">Roll Call</a></li>
+                                    <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Tuition</a></li>
+                                    <li style="float: none"><a  style="color: #337ab7;" href="/Infomation/Score">Score</a></li>
+                                    <li style="float: none"><a style="color: #337ab7;" href="/Home/Logout">Logout</a></li>
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                     </nav>
                 </div>
@@ -132,23 +144,33 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="/Home/Register" method="post">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="email" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username">
-                        <small id="username-error" class="form-text text-danger">Username must be not null</small>
+                        <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Username">
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
-                        <small id="password-error" class="form-text text-danger">Password must be not null</small>
+                        <label for="fullname">Full name</label>
+                        <input type="text" class="form-control" name="fullname" aria-describedby="emailHelp" placeholder="Fullname">
                     </div>
-
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone" name="phone" aria-describedby="emailHelp" placeholder="Phone">
+                        </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-primary">Register</button>
-            </div>
+
         </div>
     </div>
 </div>
