@@ -6,6 +6,21 @@ namespace CORE.Helpers
 {
     public static class IOHelper
     {
+        public static void CreateFolder(string path)
+        {
+            if (!CheckFolderExists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+        public static bool CheckFileExists(string path)
+        {
+            return File.Exists(path);
+        }
+        public static bool CheckFolderExists(string path)
+        {
+            return Directory.Exists(path);
+        }
         public static void WriteLog(string pathRoot, params string[] content)
         {
             try

@@ -32,7 +32,7 @@ namespace CORE.Services
         }
         public List<TB_SUBJECTS> GetByBox(int boxId)
         {
-            return new TB_SUBJECTSSql().SelectFromStore(AppSettingKeys.GET_SUBJECT_BY_BOX_ID,boxId);
+            return new TB_SUBJECTSSql().SelectFromStore(AppSettingKeys.GET_SUBJECT_BY_BOX_ID, boxId);
         }
        
     }

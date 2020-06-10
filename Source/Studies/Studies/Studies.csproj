@@ -2571,6 +2571,7 @@
     <Compile Include="Configuration\AppConfigInfo.cs" />
     <Compile Include="Configuration\AppFilterAttributeConfig.cs" />
     <Compile Include="Configuration\AuthorizeBusiness.cs" />
+    <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\ContactController.cs" />

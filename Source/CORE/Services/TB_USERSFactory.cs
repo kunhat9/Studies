@@ -61,5 +61,14 @@ namespace CORE.Services
         {
             return new V_SALARY_TEACHERSql().SelectFromStore(AppSettingKeys.GET_SALARY_TEACHER, userId,scheduleId,startDate,endDate,pageNumber,pageSize);
         }
+
+        public List<TB_USERS> GetAllBy(string keyText, string status , string scheduleId, string type , int pageNumber, int pageSize, out int count)
+        {
+            object cTemp;
+            List<TB_USERS> list = new List<TB_USERS>();
+            list = new TB_USERSSql().SelectFromStoreOutParam(AppSettingKeys.GET_ALL_USER_BY, out cTemp, keyText, status, scheduleId, type, pageNumber, pageSize);
+            count = (int)cTemp;
+            return list;
+        }
     }
 }

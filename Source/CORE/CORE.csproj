@@ -60,6 +60,7 @@
     <Compile Include="Internal\TB_BOXESSql.cs" />
     <Compile Include="Internal\TB_BOX_SUBJECTSSql.cs" />
     <Compile Include="Internal\TB_CLASSESSql.cs" />
+    <Compile Include="Internal\TB_FILESSql.cs" />
     <Compile Include="Internal\TB_HEADQUARTERSSql.cs" />
     <Compile Include="Internal\TB_POINTSSql.cs" />
     <Compile Include="Internal\TB_REGISTERSSql.cs" />
@@ -69,6 +70,8 @@
     <Compile Include="Internal\TB_TEACHING_SCHEDULESSql.cs" />
     <Compile Include="Internal\TB_TRACKINGSSql.cs" />
     <Compile Include="Internal\TB_USERSSql.cs" />
+    <Compile Include="Internal\ViewSql\V_BOX_SUBJECTSql.cs" />
+    <Compile Include="Internal\ViewSql\V_CLASSSql.cs" />
     <Compile Include="Internal\ViewSql\V_INFO_LOGIN_CLIENTSql.cs" />
     <Compile Include="Internal\ViewSql\V_SALARY_TEACHERSql.cs" />
     <Compile Include="Internal\ViewSql\V_SCHEDULE_DETAILSSql.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Services\TB_BOXESFactory.cs" />
     <Compile Include="Services\TB_BOX_SUBJECTSFactory.cs" />
     <Compile Include="Services\TB_CLASSESFactory.cs" />
+    <Compile Include="Services\TB_FILESFactory.cs" />
     <Compile Include="Services\TB_HEADQUARTERSFactory.cs" />
     <Compile Include="Services\TB_POINTSFactory.cs" />
     <Compile Include="Services\TB_REGISTERSFactory.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="Tables\TB_BOXES.cs" />
     <Compile Include="Tables\TB_BOX_SUBJECTS.cs" />
     <Compile Include="Tables\TB_CLASSES.cs" />
+    <Compile Include="Tables\TB_FILES.cs" />
     <Compile Include="Tables\TB_HEADQUARTERS.cs" />
     <Compile Include="Tables\TB_POINTS.cs" />
     <Compile Include="Tables\TB_REGISTERS.cs" />
@@ -98,6 +103,8 @@
     <Compile Include="Tables\TB_TEACHING_SCHEDULES.cs" />
     <Compile Include="Tables\TB_TRACKINGS.cs" />
     <Compile Include="Tables\TB_USERS.cs" />
+    <Compile Include="Views\V_BOX_SUBJECT.cs" />
+    <Compile Include="Views\V_CLASS.cs" />
     <Compile Include="Views\V_INFO_LOGIN_CLIENT.cs" />
     <Compile Include="Views\V_SALARY_TEACHER.cs" />
     <Compile Include="Views\V_SCHEDULE_DETAILS.cs" />
