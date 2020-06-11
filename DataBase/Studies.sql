@@ -133,6 +133,18 @@ CREATE TABLE TB_TRACKINGS	-- Điểm danh
 	, CONSTRAINT FK_TrackingScheduleId FOREIGN KEY (TrackingScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)
 )
 GO
+CREATE TABLE TB_FILES	-- Hình ảnh
+(
+	FileId int IDENTITY PRIMARY KEY
+	,FileUrl nvarchar(255)
+	,FileRef nvarchar(MAX) -- id cua anh xa
+	,[FileName] nvarchar(100)
+	,FileType nvarchar(255)
+	,FileService varchar(50) -- dinh dang xem no la cua user , lop hoc, tin tuc hay cai gi 
+)
+GO
+CREATE SEQUENCE TB_SCHEDULESEQ START WITH 1 INCREMENT BY 1
+GO
 /*
 GENERAL
 	Trang chủ

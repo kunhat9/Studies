@@ -1,3 +1,7 @@
 ﻿Lưu ý nhỏ : 
 định dạng ngày lúc đưa dữ liệu vào luôn để dạng : yyyy-MM-dd 
 Hiển thị là : dd/MM/yyyy
+
+-- ở trong uplod file có trường FileService
+1. nếu upfile là ảnh thỳ key là : USER , tương ứng với FileRef sẽ là userId
+2. nếu up file là ảnh của lớp học : CLASS , tương ứng sẽ là ScheduleId

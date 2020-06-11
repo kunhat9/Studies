@@ -1,5 +1,7 @@
 ﻿using CORE.Internal;
+using CORE.Internal.ViewSql;
 using CORE.Tables;
+using CORE.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +25,22 @@ namespace CORE.Services
                 return false;
             }
         }
-        
-
-
-
+        public TB_BOX_SUBJECTS GetById(int boxSubjectId)
+        {
+            return new TB_BOX_SUBJECTSSql().SelectByPrimaryKey(boxSubjectId);
+        }
+        public List<TB_BOX_SUBJECTS> GetAll()
+        {
+            return new TB_BOX_SUBJECTSSql().SelectAll();
+        }
+      
+        public List<V_BOX_SUBJECT> GetAllBy(string keyText, int pageNumber ,int pageSize, out int count)
+        {
+            object cTemp;
+            List<V_BOX_SUBJECT> list = new List<V_BOX_SUBJECT>();
+            list = new V_BOX_SUBJECTSql().SelectFromStoreOutParam(AppSettingKeys.GET_SUBJECT_BY, out cTemp, keyText, pageNumber, pageSize);
+            count = (int)cTemp;
+            return list;
+        }
     }
 }
