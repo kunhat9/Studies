@@ -24,16 +24,45 @@ namespace WebAdmin.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            List<TB_SUBJECTS> list = new List<TB_SUBJECTS>();
+            try
+            {
+                list = Subjects_Service.GetAll();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+           
+            return View(list);
         }
 
         [ChildActionOnly]
         public PartialViewResult _HomeHeader()
         {
+            List<TB_BOXES> lstBoxes = new List<TB_BOXES>();
             TB_USERS user = null;
-            if(Session[AppSessionKeys.USER_INFO] != null){
-                user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+
+            try
+            {
+                lstBoxes = Boxes_Service.GetAll();
+                ViewBag.boxes = lstBoxes;
+                
+                if(Session[AppSessionKeys.USER_INFO] != null){
+                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                    ViewBag.id = user.UserId;
+
+                }
+                
+                
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
             return PartialView(user);
         }
 
@@ -67,7 +96,6 @@ namespace WebAdmin.Controllers
         {
             try
             {
-                Subject_Service.GetAll();
                 V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
                 if (info == null)
                 {
@@ -86,8 +114,8 @@ namespace WebAdmin.Controllers
             {
                 ViewBag.error = e.Message;
             }
-            
-            return View("Index");
+
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult Register(String username,String password,String fullname,String phone,String confirmpassword)
@@ -126,7 +154,7 @@ namespace WebAdmin.Controllers
                     ViewBag.error = "An error occurred while processing your request";
                 }
 
-                return View("Index");
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {

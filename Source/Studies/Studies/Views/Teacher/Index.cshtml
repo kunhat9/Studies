@@ -3,6 +3,8 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
+@model List<CORE.Tables.TB_USERS>
+
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
     <div class="container">
@@ -35,133 +37,140 @@
             <!-- Teacher Slider -->
             <div class="teacher-slider">
                 <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/1.jpg" alt="">
-                        <div class="content">
-                            <h4>Julie Jimenez</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
+                @foreach (var user in Model)
+                {
+                    if (user.UserType.Equals("TEACHER"))
+                    {
+                        <div class="col-xs-12">
+                            <div class="single-teacher text-center">
+                                <img src="~/Assets/img/teacher/1.jpg" alt="">
+                                <div class="content">
+                                    <h4>@user.UserFullName</h4>
+                                    <h5>Teacher</h5>
+                                    @* <div class="social-links"> *@
+                                    @*     <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                                    @*     <a href="#"><i class="fa fa-twitter"></i></a> *@
+                                    @*     <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                                    @*     <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                                    @* </div> *@
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    }
+                }
+                
                 <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/2.jpg" alt="">
-                        <div class="content">
-                            <h4>Ronald Wilson</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/3.jpg" alt="">
-                        <div class="content">
-                            <h4>Sarah Burke</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/4.jpg" alt="">
-                        <div class="content">
-                            <h4>Tiffany Bryant</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/1.jpg" alt="">
-                        <div class="content">
-                            <h4>Julie Jimenez</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/2.jpg" alt="">
-                        <div class="content">
-                            <h4>Ronald Wilson</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/3.jpg" alt="">
-                        <div class="content">
-                            <h4>Sarah Burke</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Teacher -->
-                <div class="col-xs-12">
-                    <div class="single-teacher text-center">
-                        <img src="~/Assets/img/teacher/4.jpg" alt="">
-                        <div class="content">
-                            <h4>Tiffany Bryant</h4>
-                            <h5>Teacher</h5>
-                            <div class="social-links">
-                                <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @* <div class="col-xs-12"> *@
+                @*     <div class="single-teacher text-center"> *@
+                @*         <img src="~/Assets/img/teacher/2.jpg" alt=""> *@
+                @*         <div class="content"> *@
+                @*             <h4>Ronald Wilson</h4> *@
+                @*             <h5>Teacher</h5> *@
+                @*             <div class="social-links"> *@
+                @*                 <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-twitter"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                @*                 <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+                @* <!-- Single Teacher --> *@
+                @* <div class="col-xs-12"> *@
+                @*     <div class="single-teacher text-center"> *@
+                @*         <img src="~/Assets/img/teacher/3.jpg" alt=""> *@
+                @*         <div class="content"> *@
+                @*             <h4>Sarah Burke</h4> *@
+                @*             <h5>Teacher</h5> *@
+                @*             <div class="social-links"> *@
+                @*                 <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-twitter"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                @*                 <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+                @* <!-- Single Teacher --> *@
+                @* <div class="col-xs-12"> *@
+                @*     <div class="single-teacher text-center"> *@
+                @*         <img src="~/Assets/img/teacher/4.jpg" alt=""> *@
+                @*         <div class="content"> *@
+                @*             <h4>Tiffany Bryant</h4> *@
+                @*             <h5>Teacher</h5> *@
+                @*             <div class="social-links"> *@
+                @*                 <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-twitter"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                @*                 <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+                @* <!-- Single Teacher --> *@
+                @* <div class="col-xs-12"> *@
+                @*     <div class="single-teacher text-center"> *@
+                @*         <img src="~/Assets/img/teacher/1.jpg" alt=""> *@
+                @*         <div class="content"> *@
+                @*             <h4>Julie Jimenez</h4> *@
+                @*             <h5>Teacher</h5> *@
+                @*             <div class="social-links"> *@
+                @*                 <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-twitter"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                @*                 <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+                @* <!-- Single Teacher --> *@
+                @* <div class="col-xs-12"> *@
+                @*     <div class="single-teacher text-center"> *@
+                @*         <img src="~/Assets/img/teacher/2.jpg" alt=""> *@
+                @*         <div class="content"> *@
+                @*             <h4>Ronald Wilson</h4> *@
+                @*             <h5>Teacher</h5> *@
+                @*             <div class="social-links"> *@
+                @*                 <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-twitter"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                @*                 <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+                @* <!-- Single Teacher --> *@
+                @* <div class="col-xs-12"> *@
+                @*     <div class="single-teacher text-center"> *@
+                @*         <img src="~/Assets/img/teacher/3.jpg" alt=""> *@
+                @*         <div class="content"> *@
+                @*             <h4>Sarah Burke</h4> *@
+                @*             <h5>Teacher</h5> *@
+                @*             <div class="social-links"> *@
+                @*                 <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-twitter"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                @*                 <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+                @* <!-- Single Teacher --> *@
+                @* <div class="col-xs-12"> *@
+                @*     <div class="single-teacher text-center"> *@
+                @*         <img src="~/Assets/img/teacher/4.jpg" alt=""> *@
+                @*         <div class="content"> *@
+                @*             <h4>Tiffany Bryant</h4> *@
+                @*             <h5>Teacher</h5> *@
+                @*             <div class="social-links"> *@
+                @*                 <a href="www.facebook.com"><i class="fa fa-facebook"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-twitter"></i></a> *@
+                @*                 <a href="#"><i class="fa fa-linkedin"></i></a> *@
+                @*                 <a href="www.instagram.com"><i class="fa fa-instagram"></i></a> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
             </div>
         </div>
     </div>

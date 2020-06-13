@@ -4,6 +4,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
+using CORE.Tables;
 using WebAdmin.Configuration;
 
 namespace WebAdmin.Controllers
@@ -14,6 +15,20 @@ namespace WebAdmin.Controllers
         protected TB_FILESFactory Files_Service = new TB_FILESFactory();
         protected TB_TRACKINGSFactory Tracking_Serivce = new TB_TRACKINGSFactory();
         protected TB_USERSFactory User_Service = new TB_USERSFactory();
+        protected TB_TEACHING_SCHEDULESFactory TeachingSchedules_Service = new TB_TEACHING_SCHEDULESFactory();
+        protected TB_REGISTERSFactory Registers_Service = new TB_REGISTERSFactory();
+        protected TB_BOXESFactory Boxes_Service = new TB_BOXESFactory();
+        protected TB_POINTSFactory Points_Service = new TB_POINTSFactory();
+        protected TB_CLASSESFactory Classes_Service = new TB_CLASSESFactory();
+        protected TB_SCHEDULESFactory Schedules_Service = new TB_SCHEDULESFactory();
+        protected TB_TRACKINGSFactory Trackings_Service = new TB_TRACKINGSFactory();
+        protected TB_SUBJECTSFactory Subjects_Service = new TB_SUBJECTSFactory();
+
+        
+
+
+
+        
         protected string GetMD5Hash(string rawString)
         {
             UnicodeEncoding encode = new UnicodeEncoding();

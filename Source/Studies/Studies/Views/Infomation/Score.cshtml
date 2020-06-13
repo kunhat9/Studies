@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 
 }
+
+@model List<WebAdmin.Models.ScoreModel>
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
     <div class="container">
@@ -28,54 +30,25 @@
         <!-- Section Title -->
         <div class="row">
             <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Subject</th>
-                    <th>Score 1</th>
-                    <th>Score 1</th>
-                    <th>Score 1</th>
-                    <th>Score 1</th>
-                    <th>Score 1</th>
-                    <th>Score 1</th>
-                    <th>Score 1</th>
-                    <th>Score 1</th>
-                  </tr>
-                </thead>
+                 <thead>
+                   <tr>
+                       <th>Subject</th>
+                       <th>Score</th>
+
+
+                   </tr>
+                 </thead>
                 <tbody>
-                  <tr>
-                     <th>English</th>
-                      <td>6</td>
-                      <td>9</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                  </tr>
-                  <tr>
-                     <th>Math</th>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                      <td>8</td>
-                  </tr>
-                <tr>
-                     <th>Physical</th>
-                    <td>8</td>
-                    <td>8</td>
-                    <td>8</td>
-                    <td>8</td>
-                    <td>8</td>
-                    <td>8</td>
-                    <td>8</td>
-                    <td>8</td>
-                </tr>
-                
+                @foreach (var score in Model)
+                {
+                    <tr>
+                        <th>@score.PointClassId</th>
+                        @foreach(var x in score.PointNumber)
+                        {
+                            <th>@x</th>
+                        }
+                    </tr>
+                }
                 </tbody>
               </table>
         </div>

@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 
 }
+
+@model List<CORE.Tables.TB_SCHEDULES>
+
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
     <div class="container">
@@ -31,21 +34,23 @@
                 <thead>
                   <tr>
                     <th>Subject</th>
-                    <th>Days</th>
                     <th>Tuition</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                     <th>Math</th>
-                      <td>69</td>
-                      <td>6969696969</td>
-                  </tr>
-                <tr>
-                     <th class="text-right" colspan="2">Total</th>
-                    <td>6969696969</td>
-                </tr>
+                 @foreach (var schedule in Model)
+                 {
+                     <tr>
+                         <th>@schedule.ScheduleCode</th>
+                         <td>@schedule.SchedulePrice</td>
+                     </tr>
+                 }
                 
+                <tr>
+                    <th class="text-right">Total</th>
+                    <td>@Model.Sum(x => x.SchedulePrice)</td>
+                </tr>
+
                 </tbody>
               </table>
         </div>

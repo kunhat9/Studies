@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAdmin.Configuration;
 using WebAdmin.Models;
 
 namespace WebAdmin.Controllers
@@ -70,5 +71,63 @@ namespace WebAdmin.Controllers
         }
 
         #endregion
+        
+
+        public JsonResult TeachingSchedules(List<TB_TEACHING_SCHEDULES> schedules,int userid)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                TB_USERS user = User_Service.GetById(userid);
+
+                int quantity = TeachingSchedules_Service.InsertTeacherAndSchedule(user, schedules);
+
+                if (quantity > 0)
+                {
+                    Result.Code = 0;
+                    Result.Result = "Đăng kí lịch học thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                IOHelper.WriteLog(StartUpPath, IpAddress, "Product::_ChiTiet:GetAllProvider:", Ex.Message, Ex.ToString());
+                throw;
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+        
+        public JsonResult Enrollment(TB_REGISTERS register)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                bool check = Registers_Service.Insert(register);
+
+                if (check)
+                {
+                    Result.Code = 0;
+                    Result.Result = "Đăng kí lịch học thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                IOHelper.WriteLog(StartUpPath, IpAddress, "Product::_ChiTiet:GetAllProvider:", Ex.Message, Ex.ToString());
+                throw;
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
     }
+
 }

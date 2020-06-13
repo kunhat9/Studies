@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 
 }
+
+@model List<CORE.Tables.TB_SCHEDULES>
+
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
     <div class="container">
@@ -28,54 +31,21 @@
         <!-- Section Title -->
         <div class="row">
             <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Subject</th>
-                    <th>Day 1</th>
-                    <th>Day 1</th>
-                    <th>Day 1</th>
-                    <th>Day 1</th>
-                    <th>Day 1</th>
-                    <th>Day 1</th>
-                    <th>Day 1</th>
-                    <th>Day 1</th>
-                  </tr>
-                </thead>
+                 <thead>
+                   <tr>
+                     <th>Code</th>
+                     <th>Time</th>
+                   </tr>
+                 </thead>
                 <tbody>
-                  <tr>
-                     <th>Subject</th>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                  </tr>
-                  <tr>
-                     <th>Math</th>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                      <td>01/03</td>
-                  </tr>
-                <tr>
-                     <th>Physical</th>
-                    <td>01/03</td>
-                    <td>01/03</td>
-                    <td>01/03</td>
-                    <td>01/03</td>
-                    <td>01/03</td>
-                    <td>01/03</td>
-                    <td>01/03</td>
-                    <td>01/03</td>
-                </tr>
-                
+                @foreach (var schedule in Model)
+                {
+                    <tr>
+                        <th>@schedule.ScheduleCode</th>
+                        <th>@schedule.ScheduleDateBegin - @schedule.ScheduleDateEnd</th>
+                    </tr>
+                }
+
                 </tbody>
               </table>
         </div>
