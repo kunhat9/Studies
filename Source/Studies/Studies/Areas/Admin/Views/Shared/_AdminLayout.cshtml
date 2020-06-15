@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @if (ViewBag.Title == null || ViewBag.Title == "")
     {
-        ViewBag.Title = "AFD Web Admin";
+        ViewBag.Title = "Web Admin";
     }
     <title>@ViewBag.Title</title>
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="~/Assets/js/toastr.min.css" rel="stylesheet" />
     <link href="~/Assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="~/Assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/css/core.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/css/components.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/css/colors.css" rel="stylesheet" type="text/css">
@@ -55,18 +55,18 @@
     @*@Styles.Render("~/Content/CssDefault")*@
 </head>
 <body class="navbar-top">
-    @{Html.RenderAction("_HomeHeader", "Home"); }
+    @{Html.RenderAction("_HomeHeader", "HomeAdmin"); }
     <div class="page-container">
         <div class="page-content">
             <div class="sidebar sidebar-main">
-                @{Html.RenderAction("_HomeMenuLeft", "Home"); }
+                @{Html.RenderAction("_HomeMenuLeft", "HomeAdmin"); }
             </div>
             <div class="content-wrapper">
                 @RenderBody()
             </div>
         </div>
     </div>
-    @{Html.RenderAction("_HomeFooter", "Home"); }
+    @* @{Html.RenderAction("_HomeFooter", "Home"); } *@
 
     @*@Scripts.Render("~/bundles/ScriptDefault") *@
     @*<script type="text/javascript" src="~/Assets/js/pages/extra_trees.js"></script>*@

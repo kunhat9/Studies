@@ -111,7 +111,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\HomeAdmin\_HomeHeader.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\_HomeMenuLeft.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\_Pagination.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Students.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Students.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Students_Details.cshtml" />
     <Content Include="Assets\css\bootstrap.css" />
+    <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\colors.css" />
     <Content Include="Assets\css\components.css" />
     <Content Include="Assets\css\core.css" />
@@ -2528,6 +2536,7 @@
     <Content Include="Assets\locales\en.json" />
     <Content Include="Assets\locales\ru.json" />
     <Content Include="Assets\locales\ua.json" />
+    <None Include="Areas\Admin\Views\web.config" />
     <None Include="Properties\PublishProfiles\GYMFIT.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2537,7 +2546,6 @@
     <Content Include="Views\Infomation\Schedules.cshtml" />
     <Content Include="Views\Infomation\Score.cshtml" />
     <Content Include="Views\Infomation\Tuition.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2549,6 +2557,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\AdminController\ClassController.cs" />
     <Compile Include="Areas\Admin\AdminController\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\AdminController\ReportController.cs" />

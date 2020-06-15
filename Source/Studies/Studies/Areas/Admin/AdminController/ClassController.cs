@@ -15,5 +15,10 @@ namespace WebAdmin.Areas.Admin.AdminController
         {
             return View();
         }
+        
+        public ActionResult Students()
+        {
+            return View();
+        }
     }
 }

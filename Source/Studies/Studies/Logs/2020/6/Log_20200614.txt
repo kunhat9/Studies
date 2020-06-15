@@ -1,0 +1,8 @@
+18:47:35
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00006] in <12b418a7818c4ca0893feeaaf67f1e7f>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <3f8e65967b6249f0b2700b3abbf23463>:0 
