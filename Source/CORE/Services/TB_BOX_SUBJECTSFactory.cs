@@ -14,8 +14,9 @@ namespace CORE.Services
     {
         public bool InsertOrUpdate(int boxId, List<string> listSubjectId)
         {
+            string list = string.Join(",", listSubjectId);
             string ecode = null, edesc = null;
-            new TB_BOX_SUBJECTSSql().SelectFromStore(out ecode,out edesc, AppSettingKeys.INSERT_OR_UPDATE_SUBJECT_TO_BOX, boxId, listSubjectId);
+            new TB_BOX_SUBJECTSSql().SelectFromStore(out ecode,out edesc, AppSettingKeys.INSERT_OR_UPDATE_SUBJECT_TO_BOX, boxId, list);
             if (ecode.Equals("00"))
             {
                 return true;

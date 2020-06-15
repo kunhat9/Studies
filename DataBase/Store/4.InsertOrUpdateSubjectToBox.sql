@@ -41,7 +41,7 @@ BEGIN
 	END TRY
 	BEGIN CATCH
 		ROLLBACK
-		SET @ecode = '00'
+		SET @ecode = '100'
 		SET @edesc =ERROR_MESSAGE()
 	END CATCH
 	SELECT @ecode ECODE , @edesc EDESC 

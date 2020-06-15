@@ -1,4 +1,4 @@
-﻿using CORE.Internal;
+﻿    using CORE.Internal;
 using CORE.Internal.ViewSql;
 using CORE.Tables;
 using CORE.Views;
