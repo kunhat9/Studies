@@ -21,6 +21,8 @@
                         <th>Họ tên</th>
                         <th>Địa chỉ </th>
                         <th>Số điện thoại</th>
+                        <th>Học vị</th>
+                        <th>Hệ số lương</th>
                         <th>Mô tả </th>
                         <th>Hành động</th>
                     </tr>
@@ -34,8 +36,9 @@
                             <td>@Model[i].UserFullName</td>
                             <td>@Model[i].UserAddress</td>
                             <td>@Model[i].UserPhone</td>
+                            <td>@Model[i].UserAcademicLevel</td>
+                            <td>@Model[i].UserNumberSalary</td>
                             <td>@Model[i].UserNote</td>
-
                             <td class="text-center">
                                 <ul class="icons-list">
                                     <li class="btnEdit" data-index=@i>
@@ -58,7 +61,7 @@
 </div>
 
 <script>
-    let url_get = "/Admin/User/_Students";
+    let url_get = "/Admin/User/_Teachers";
     let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
     let getParamsForSearch = (pageNumber,isNext)=>{
         return {

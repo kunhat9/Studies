@@ -63,9 +63,9 @@ namespace WebAdmin.Controllers
             }
             catch (Exception Ex)
             {
-                Result.Code = 0;
-                IOHelper.WriteLog(StartUpPath, IpAddress, "Product::_ChiTiet:GetAllProvider:", Ex.Message, Ex.ToString());
-                throw;
+                Result.Code = 1;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "UploadFile:", Ex.Message, Ex.ToString());
             }
             return Json(new JsonResult() { Data = Result });
         }
@@ -96,8 +96,8 @@ namespace WebAdmin.Controllers
             catch (Exception Ex)
             {
                 Result.Code = 1;
-                IOHelper.WriteLog(StartUpPath, IpAddress, "Product::_ChiTiet:GetAllProvider:", Ex.Message, Ex.ToString());
-                throw;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "TeachingSchedules:", Ex.Message, Ex.ToString());
             }
             return Json(new JsonResult() { Data = Result });
         }

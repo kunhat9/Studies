@@ -23,6 +23,7 @@ namespace WebAdmin.Controllers
         protected TB_SCHEDULESFactory Schedules_Service = new TB_SCHEDULESFactory();
         protected TB_TRACKINGSFactory Trackings_Service = new TB_TRACKINGSFactory();
         protected TB_SUBJECTSFactory Subjects_Service = new TB_SUBJECTSFactory();
+        protected TB_BOX_SUBJECTSFactory Subjects_Boxes_Service = new TB_BOX_SUBJECTSFactory();
 
         
 

@@ -11,27 +11,16 @@ class Features {
         this.Search(this, getParamsForSearch);
         this.changePageNumber(this, getParamsForSearch);
         this.key = {
-            "VOUCHER_CODE": "mã khuyến mãi",
-            "VOUCHER_NAME": "tên khuyến mãi",
-            "PACKAGE_NAME": "tên gói tập",
-            "PACKAGE_BOX_ID": "chi nhánh",
-            "PRODUCT_CODE": "mã sản phẩm",
-            "PRODUCT_NAME": "tên sản phẩm",
-            "PRODUCT_PRICE": "giá sản phẩm",
-            "TYPE_NAME": "tên loại danh mục",
-            "ACTION_PARENT_ID": "mã action cha",
-            "ACTION_NAME": "tên action",
-            "ACTION_CONTROLPATH": "đường dẫn action",
-            "VOUCHER_TYPE": "kiểu khuyến mãi",
-            "PACKAGE_PRICE": "giá gói tập",
-            "PACKAGE_TYPE": "loại gọi tập",
-            "BOX_ADDRESS": "địa chỉ",
-            "USER_FULLNAME": "họ tên"
+            "UserName": "Tài khoản",
+            "UserFullName" :"Họ tên",
+            "UserPassword" :"Mật khẩu",
+            "UserPhone" :"Số điện thoại",
+            
+            
         }
     }
     // Set event
     Pagination(mySelf, getParamsForSearch) {
-        debugger;
         $(".page").unbind();
         $(".page").click(function () {
             let pageNumber = parseInt($(this).find(".page-link").text());
@@ -124,7 +113,6 @@ class Features {
 
     setValueForEdit(myselft, list) {
         let modalItems = $("#modal_default").find("input,textarea,select.form-control");
-        debugger;
         for (let i = 0; i < modalItems.length; i++) {
             if (modalItems[i].type == "file") {
                 modalItems[i].files = null;
@@ -135,18 +123,8 @@ class Features {
                 console.log(list[modalItems[i].id])
                 if (list[modalItems[i].id] == 1) {
                     $("." + modalItems[i].id).parent().find('.switchery').prop('checked', true).trigger("click");
-                    $(".active-label").each(function () {
-                        if ($(this).hasClass(modalItems[i].id)) {
-                            $(this).text("Kích hoạt");
-                        }
-                    })
                 } else {
                     $("." + modalItems[i].id).parent().find('.switchery').prop('checked', false).trigger("click");
-                    $(".active-label").each(function () {
-                        if ($(this).hasClass(modalItems[i].id)) {
-                            $(this).text("Không kích hoạt");
-                        }
-                    })
                 }
                 continue;
             } else if ($("#" + modalItems[i].id).hasClass("pickatime")) {
@@ -165,33 +143,37 @@ class Features {
     }
 
     getValueFromModal() {
-        let modalItems = $("#modal_default").find("input,textarea,select.form-control");
-        let myself = this;
-        //Parse value to json
         let params = "{";
-        for (let i = 0; i < modalItems.length; i++) {
-            if (modalItems[i].id != "") {
-                if (modalItems[i].type == "checkbox") {
-                    params += myself.getCheckBoxValue(modalItems[i]);
-                    continue;
-                }
-                if (modalItems[i].type == 'file') {
-                    params += "\"" + modalItems[i].id + "\": \"" + modalItems[i].name + "\",";
-                    continue;
-                }
-                let res = myself.checkValid(modalItems[i]);
-                if (res.valid) {
-                    params += "\"" + modalItems[i].id + "\": \"" + modalItems[i].value.replace(/\n/g, "") + "\",";
-                } else {
-                    toastr.error(res.message);
-                    return false;
+        try {
+            let modalItems = $("#modal_default").find("input,textarea,select.form-control");
+            let myself = this;
+            //Parse value to json
+            for (let i = 0; i < modalItems.length; i++) {
+                if (modalItems[i].id != "") {
+                    if (modalItems[i].type == "checkbox") {
+                        params += myself.getCheckBoxValue(modalItems[i]);
+                        continue;
+                    }
+                    if (modalItems[i].type == 'file') {
+                        params += "\"" + modalItems[i].id + "\": \"" + modalItems[i].name + "\",";
+                        continue;
+                    }
+                    let res = myself.checkValid(modalItems[i]);
+                    if (res.valid) {
+                        params += "\"" + modalItems[i].id + "\": \"" + modalItems[i].value.replace(/\n/g, "") + "\",";
+                    } else {
+                        toastr.error(res.message);
+                        return false;
 
+                    }
                 }
             }
+            params = params.substring(0, params.length - 1);
+            params += "}";
+            params = JSON.parse(params);
+        } catch (e) {
+            params = {}
         }
-        params = params.substring(0, params.length - 1);
-        params += "}";
-        params = JSON.parse(params);
         return params;
     }
 
@@ -294,9 +276,9 @@ class Features {
                 value: params,
                 isUpdate: myself.update
             },
-        }).done(function (result) {
-            if (result.Code == 0) {
-                toastr.success(result.Result);
+        }).done(function ({Data}) {
+            if (Data.Code == 0) {
+                toastr.success(Data.Result);
                 $("#modal_default").modal("hide");
                 if (reload != undefined) {
                     setTimeout(function () {
@@ -306,7 +288,7 @@ class Features {
                     myself.ajax_getTableData(getParamsForSeach(1, 0));
                 }
             } else {
-                toastr.error(result.Result);
+                toastr.error(Data.Result);
             }
         });
     }
@@ -317,8 +299,8 @@ class Features {
             url: url,
             type: "post",
             data: param,
-        }).done(function (result) {
-            if (result) {
+        }).done(function ({Data}) {
+            if (Data) {
                 toastr.success(message);
                 myself.ajax_getTableData(getParamsForSeach(1, 0));
             } else {

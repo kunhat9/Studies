@@ -115,9 +115,15 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\_HomeMenuLeft.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\_Pagination.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\_Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Students.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Teachers.cshtml" />
     <Content Include="Areas\Admin\Views\User\_Students.cshtml" />
     <Content Include="Areas\Admin\Views\User\_Students_Details.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Teachers.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Teachers_Details.cshtml" />
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\colors.css" />
@@ -451,6 +457,7 @@
     <Content Include="Assets\images\users\d5.jpg" />
     <Content Include="Assets\images\users\profile.png" />
     <Content Include="Assets\js\ajax-mail.js" />
+    <Content Include="Assets\js\bootstrap.css" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\charts\c3\c3_advanced.js" />
     <Content Include="Assets\js\charts\c3\c3_axis.js" />
@@ -2558,6 +2565,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\AdminController\AjaxController.cs" />
     <Compile Include="Areas\Admin\AdminController\ClassController.cs" />
     <Compile Include="Areas\Admin\AdminController\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\AdminController\ReportController.cs" />
