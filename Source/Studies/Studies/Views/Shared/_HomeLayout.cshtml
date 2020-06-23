@@ -1,9 +1,9 @@
 ﻿@using System.Text.RegularExpressions;
-
-<!DOCTYPE html>
+<globalization uiCulture="en" culture="en-US" />
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @if (ViewBag.Title == null || ViewBag.Title == "")
     {
@@ -52,6 +52,7 @@
     <div class="page-content">
         <div class="sidebar sidebar-main">
             @{Html.RenderAction("_HomeMenuLeft", "Home"); }
+           
         </div>
         <div class="content-wrapper">
             @RenderBody()

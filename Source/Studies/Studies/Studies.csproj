@@ -2543,7 +2543,9 @@
     <Content Include="Assets\locales\en.json" />
     <Content Include="Assets\locales\ru.json" />
     <Content Include="Assets\locales\ua.json" />
-    <None Include="Areas\Admin\Views\web.config" />
+    <None Include="Areas\Admin\Views\web.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\GYMFIT.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2623,6 +2625,7 @@
     <Content Include="Views\Home\_NotPermission.cshtml" />
     <Content Include="Views\Home\NotPermission.cshtml" />
     <Content Include="Views\Introduce\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2633,20 +2636,15 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Class\" />
-    <Folder Include="Areas\Admin\Views\HomeAdmin\" />
     <Folder Include="Areas\Admin\Views\Report\" />
-    <Folder Include="Areas\Admin\Views\Subject\" />
-    <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="Assets\css\_main_full\" />
     <Folder Include="Files\icons\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Class\" />
     <Folder Include="Views\Contact\" />
-    <Folder Include="Views\Infomation\" />
     <Folder Include="Views\Media\" />
     <Folder Include="Views\News\" />
-    <Folder Include="Views\Teacher\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CORE\CORE.csproj">

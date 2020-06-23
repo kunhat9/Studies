@@ -19,6 +19,7 @@ namespace CORE.Tables
         public string UserPhone { get; set; }
         public string UserEmail { get; set; }
         public string UserAddress { get; set; }
+        public DateTime UserDateCreated { get; set; }
         public string UserAcademicLevel { get; set; }
         public decimal UserNumberSalary { get; set; }
         public string UserNote { get; set; }

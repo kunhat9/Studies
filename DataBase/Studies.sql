@@ -16,6 +16,7 @@ CREATE TABLE TB_USERS		-- Người dùng
 	, UserPhone varchar(50) NOT NULL        -- điện thoại
 	, UserEmail varchar(50)
 	, UserAddress varchar(50)
+	, UserDateCreated datetime 
 	, UserAcademicLevel varchar(50)
 	, UserStatus nvarchar(20) DEFAULT('D')	-- Trạng thái - A/D
 	, UserNote nvarchar(100)	DEFAULT ('HE THONG TU SINH')-- Ghi chú

@@ -15,6 +15,8 @@
         public const string GET_SUBJECT_BY = "GetSubjectBy";
         public const string GET_CLASS_BY = "GetClassBy";
         public const string INSERT_OR_UPDATE_CLASS_FROM_ADMIN = "InsertOrUpdateClassFromAdmin";
+        public const string GET_HOME_PAGE = "GetHomePage";
+        public const string REPORT_REVENUE_CHART = "ReportRevenueChart";
 
 
 

@@ -1,5 +1,7 @@
 ﻿using CORE.Internal;
+using CORE.Internal.ViewSql;
 using CORE.Tables;
+using CORE.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +33,6 @@ namespace CORE.Services
         {
             return new TB_HEADQUARTERSSql().SelectByPrimaryKey(id);
         }
+       
     }
 }
