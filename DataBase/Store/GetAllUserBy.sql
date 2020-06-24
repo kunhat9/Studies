@@ -54,7 +54,7 @@ BEGIN
 				AND (@type IS NULL OR UserType = @type)
 				AND (@scheduleId IS NULL OR TB_CLASSES.ClassScheduleId = @scheduleId)
 		END
-	SELECT [UserId]
+	SELECT[UserId]
       ,[UserName]
       ,[UserFullName]
       ,[UserPassword]
@@ -66,6 +66,7 @@ BEGIN
       ,[UserStatus]
       ,[UserNote]
       ,[UserNumberSalary]
+      ,[UserDateCreated]
 	FROM [dbo].[TB_USERS]
 	WHERE [UserId] IN
 		(SELECT [UserId]

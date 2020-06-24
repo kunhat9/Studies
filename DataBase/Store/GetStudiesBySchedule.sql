@@ -38,6 +38,7 @@ BEGIN
       ,[UserStatus]
       ,[UserNote]
       ,[UserNumberSalary]
+      ,[UserDateCreated]
 	FROM [dbo].TB_USERS
 	WHERE [UserId] IN
 		(SELECT [UserId]
