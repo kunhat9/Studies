@@ -139,3 +139,10 @@ function fnExcelReport() {
 
     return (sa);
 }
+
+function convertToYYMMDD(date) {
+    if(date == "") return date
+    
+    date = date.split("/").reverse().join("/");
+    return  date;
+}

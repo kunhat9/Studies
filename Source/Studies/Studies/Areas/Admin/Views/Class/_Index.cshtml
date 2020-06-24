@@ -1,0 +1,88 @@
+@using System.Web.Mvc.Html
+@using CORE.Tables
+@model System.Collections.Generic.List<CORE.Views.V_CLASS>
+
+
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+    var jsonModel = serializer.Serialize(Model);
+    var ok = jsonModel;
+    var boxSubjects = (List<TB_BOX_SUBJECTS>) ViewBag.boxSubjects;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Mã lớp</th>
+                        <th>Mã khôi</th>
+                        <th>Mã môn học</th>
+                        <th>Giờ bắt đầu - Giờ kết thúc</th>
+                        <th>Giá</th>
+                        <th>Giáo viên chính</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@Model[i].ScheduleCode</td>
+
+                            @foreach(var boxSubject in boxSubjects)
+                            {
+                                if (boxSubject.BoxSubjectId.Equals(Model[i].ScheduleIdBoxSubjectId))
+                                {
+                                    <td>@boxSubject.BoxSubjectBoxId</td>
+                                    <td>@boxSubject.BoxSubjectSubjectId</td>
+                                }
+                            }
+                            <td>@Model[i].ScheduleDetailTimeFrom - @Model[i].ScheduleDetailTimeTo</td>
+                            <td>@Model[i].SchedulePrice</td>
+                            <td>@Model[i].UserFullName</td>
+                            <td>@Model[i].ScheduleDetailNote</td>
+
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li>
+                                        <a href="Class/Class_Detail?id=@Model[i].ScheduleId" class="btn btn-default btn-sm text-primary-600" ><i class="icon-pencil7"></i></a>
+                                    </li>
+                                    <li class="btnDelete" data-id='@Model[i].ScheduleId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                        <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "HomeAdmin", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/Admin/User/_Students";
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "keyText": $(".txtSearch").val() ,
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single.select2-selection__rendered.d-inline page-size").val() ,
+            "status" : $("#user-status").val()
+        };
+    }
+
+     var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+     features.CheckUpdateAndFillInfo();
+     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
+     features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
+</script>

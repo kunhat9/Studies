@@ -1,0 +1,44 @@
+07:19:55
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <a7819e26182e42d391e44eff5029cb17>:0 
+
+07:32:52
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
+
+09:52:37
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <a8728000699040819eb7074445ed3539>:0 
+
+14:03:43
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <5896e9e313074f30a176c5edd9c49c72>:0 
+
+17:28:26
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <f7be2e03f6e541f5bde2bdaf5ed85262>:0 

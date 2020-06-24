@@ -1,0 +1,412 @@
+20:35:53
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6e9453a2038345eba8336f0c8c9d7221>:0 
+
+20:35:57
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in <6e9453a2038345eba8336f0c8c9d7221>:0 
+
+20:36:03
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6e9453a2038345eba8336f0c8c9d7221>:0 
+
+20:38:54
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in <6e9453a2038345eba8336f0c8c9d7221>:0 
+
+20:39:34
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6e9453a2038345eba8336f0c8c9d7221>:0 
+
+20:44:25
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6e9453a2038345eba8336f0c8c9d7221>:0 
+
+21:56:29
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6e9453a2038345eba8336f0c8c9d7221>:0 
+
+22:02:56
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <8038ede0674743a99206f332a65881a6>:0 
+
+22:02:59
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <8038ede0674743a99206f332a65881a6>:0 
+
+22:02:59
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in <8038ede0674743a99206f332a65881a6>:0 
+
+22:29:00
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:29:01
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:36:10
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:36:10
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:37:01
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:37:01
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:39:16
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:39:16
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:39:17
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:39:17
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:39:18
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0002d] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x0008d] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x00040] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in <a1d84a2115fb453999699b548e62890e>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <a1d84a2115fb453999699b548e62890e>:0 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x0000c] in <a1d84a2115fb453999699b548e62890e>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <eb049837d2f049fab472403cd84fd976>:0 
+
+22:43:18
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x00025] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:23 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x00075] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:35 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:47 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:53 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:133 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0004f] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:137 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x00007] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:69 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:73 
+
+22:43:21
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:96 
+
+22:43:26
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
+
+22:43:27
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
+
+22:43:28
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
+
+22:45:57
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 

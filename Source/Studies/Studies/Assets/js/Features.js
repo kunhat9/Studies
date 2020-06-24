@@ -56,6 +56,8 @@ class Features {
         $(".btnAdd").unbind();
         $(".btnEdit").unbind();
         $(".btnAdd").click(function () {
+            debugger
+
             myselft.index = $(this).data("index");
             myselft.update = false;
             myselft.setValueForCreate(myselft);

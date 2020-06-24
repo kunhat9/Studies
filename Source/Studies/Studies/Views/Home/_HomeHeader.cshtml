@@ -31,10 +31,17 @@
                             <li >
                                 <a href="#">@Model.UserFullName</a>
                                 <ul class="sub-menu">
-                                    <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Lịch học</a></li>
-                                    <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/RollCall">Điểm danh</a></li>
-                                    <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Lương</a></li>
-                                    <li style="float: none"><a  style="color: #337ab7;" href="/Infomation/Score">Điểm số</a></li>
+                                    @if (Model.UserType.Equals("TEACHER"))
+                                    {
+                                        <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Lương</a></li>
+                                    }
+                                    @if (Model.UserType.Equals("STUDIES"))
+                                    {
+                                        <li style="float: none"><a  style="color: #337ab7;" href="/Infomation/Score">Điểm số</a></li>
+                                        <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Lịch học</a></li>
+                                        <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/RollCall">Điểm danh</a></li>
+                                    }
+                                    
                                     <li style="float: none"><a style="color: #337ab7;" href="/Home/Logout">Đăng xuất</a></li>
 
                                 </ul>
@@ -75,11 +82,15 @@
                                 <li><a href="/Introduce">Giới thiệu</a></li>
                                 <li><a href="/Teacher">Giáo viên</a></li>
                                 <li><a href="/Class">Lớp học</a></li>
-                                @if (Model != null)
+                                @if (Model != null && Model.UserType.Equals("TEACHER"))
+                                {
+                                    <li><a href="#" data-toggle="modal" data-target="#teachingModal">Đăng ký dạy học</a></li>
+                                } 
+                                @if (Model != null && Model.UserType.Equals("STUDIES"))
                                 {
                                     <li><a href="#" data-toggle="modal" data-target="#enrollmentModal">Đăng ký học</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#teachingModal">Đăng ký dạy học</a></li>
                                 }
+
                                 
 
                                 @* <li><a href="courses.html">Courses</a> *@

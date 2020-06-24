@@ -1,0 +1,122 @@
+@using System.Globalization
+@using CORE.Tables
+@model CORE.Views.HomePage
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var teachers = (List<TB_USERS>) ViewBag.teachers;
+}
+
+
+<div class="page-header page-header-default">
+    <div class="page-header-content" style="background-color: #fcfcfc;">
+        <div class="page-title" style="padding: 20px 0;">
+            <h4>
+                <a href="javascript:void(0);" onclick="history.go(-1);"><i class="icon-arrow-left52 position-left"></i></a>
+                <span class="text-semibold">Home</span> - Dashboard
+            </h4>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <!-- Quick stats boxes -->
+    <div class="row mt-5">
+        <div  class="col-lg-3">
+            <!-- Members online -->
+            <div id="view_financy" class="panel bg-teal-400" style="height: 125px;">
+                <div class="panel-body">
+                    <div class="heading-elements">
+
+                    </div>
+                    <h3 class="no-margin text-center">Só học sinh đăng kí mới</h3> 
+                    <div class="text-muted text-center text-size-small">@Model.CountNewStudies học sinh</div>
+                </div>
+            </div>
+            <!-- /members online -->
+        </div>
+        <div class="col-lg-3">
+            <!-- Current financy -->
+            <div id="view_revenue" class="panel bg-pink-400" style="height: 125px;" >
+                <div class="panel-body">
+                    <div class="heading-elements">
+
+                    </div>
+                    <h3 class="no-margin text-center"> Số giáo viên mới gia nhập </h3> 
+                    <div class="text-muted text-center text-size-small">@Model.CountNewTeacher giáo viên</div>
+                </div>
+            </div>
+            <!-- /current financy -->
+        </div>
+        <div class="col-lg-3">
+            <!-- Today's revenue -->
+            <div id="view_profit" class="panel bg-blue-400" style="height: 125px;" >
+                <div class="panel-body">
+                    <div class="heading-elements">
+
+                    </div>
+                    <h3 class="no-margin text-center">Lớp học mới mở</h3> 
+                    <div class="text-muted text-center text-size-small">@Model.CountNewClass lớp</div>
+                </div>
+            </div>
+            <!-- /today's revenue -->
+        </div>
+        <div  class="col-lg-3">
+            <!-- Total member -->
+            <div class="panel bg-success-400" style="height: 125px;">
+                <div class="panel-body">
+                    <div class="heading-elements">
+
+                    </div>
+                    <h3 class="no-margin text-center">Doanh thu theo tháng</h3> 
+                    <div class="text-muted text-center text-size-small">@Model.TotalRevenue VNĐ</div>
+                </div>
+            </div>
+            <!-- /total member -->
+        </div>
+    </div>
+    <!-- /quick stats boxes -->
+    <!-- Dashboard content -->
+    <div class="div-h100 ">
+        <p>Danh sách giáo viên chưa được xác nhận</p>
+        <div class="div-h100-body">
+            <div class="well">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Tên giáo viên</th>
+                        <th>Học vị</th>
+                        <th>Hệ số lương yêu cầu</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for (int i = 0; i < teachers.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@teachers[i].UserFullName</td>
+                            <td>@teachers[i].UserAcademicLevel</td>
+                            <td>@teachers[i].UserNumberSalary</td>
+
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#view_financy").click(function () {
+        $("#financy").toggleClass("hidden");
+    })
+
+    $("#view_revenue").click(function () {
+        $("#revenue").toggleClass("hidden");
+    })
+    $(".txtCurrency").each(function () {
+        $(this).text(Features.FormatCurency($(this).text().split(",")[0]));
+    });
+</script>

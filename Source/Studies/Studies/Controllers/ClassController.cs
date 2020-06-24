@@ -3,15 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CORE.Helpers;
+using CORE.Tables;
 
 namespace WebAdmin.Controllers
 {
-    public class ClassController : Controller
+    public class ClassController : BaseController
     {
         // GET: Class
         public ActionResult Index()
         {
-            return View();
+            var classes = new List<TB_CLASSES>();
+            try
+            {
+                classes = Classes_Service.GetAll();
+            }
+            catch (Exception Ex)
+            {
+                IOHelper.WriteLog(StartUpPath, IpAddress, "Class:", Ex.Message, Ex.ToString());
+
+            }
+            return View(classes);
         }
     }
 }

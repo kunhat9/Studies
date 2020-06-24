@@ -1,0 +1,56 @@
+
+@{
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+    var jsonModel = serializer.Serialize(Model);
+}
+
+<div class="div-h100 div-top69">
+    <div class="panel-body div-h100-body">
+        <div class="well chart-container">
+            <div class="chart" id="c3-line-chart"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        let data = @Html.Raw(Json.Encode(Model));
+        let arr = [
+            ['Doanh thu'],
+            ['Chi Phí'],
+            ['Ngày làm việc']
+        ];
+        for(let i=data.length - 1;i>=0;i--){
+            arr[0].push(data[i].Thu);
+            arr[1].push(data[i].Chi);
+            arr[2].push(data[i].NgayLamViec);
+        }
+        var line_chart = c3.generate({
+            bindto: '#c3-line-chart',
+            data: {
+                columns: arr,
+                type: 'bar'
+                },
+                bar: {
+                    width: {
+                        ratio: 0.5
+                    }
+                }
+        });
+
+    });
+    
+     let url_get = "/Admin/Report/_Index";
+     
+      let getParamsForSearch = ()=>{
+            return {
+                start:convertToYYMMDD($("#dateStart").val()),
+                end:convertToYYMMDD($("#dateEnd").val()),
+                type: $("#type").val()
+            };
+      }
+        
+     var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+     
+</script>

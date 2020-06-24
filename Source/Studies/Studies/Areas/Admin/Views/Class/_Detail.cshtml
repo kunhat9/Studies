@@ -1,0 +1,167 @@
+@using CORE.Tables
+@{
+    var boxes = (List<TB_BOXES>) ViewBag.boxes;
+    var subjects = (List<TB_SUBJECTS>) ViewBag.subjects;
+    var teachers = (List<TB_USERS>) ViewBag.teachers;
+
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">Chi tiết</h5>
+        </div>
+        <div class="modal-body">
+            <!-- Voucher info -->
+            <div class="panel panel-flat">
+                <div class="panel-body" style="max-height: 600px;overflow-y: auto;">
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" value="" class="form-control" id="ScheduleId">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Tên môn học:</label>
+                                    <select class="form-control select-search" id="SubjectId">
+                                        @foreach (var subject in subjects)
+                                        {
+                                            <option value="@subject.SubjectId">@subject.SubjectName</option>
+                                        }
+
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Khối</label>
+                                    <select class="form-control select-search" id="BoxId">
+                                        @foreach (var box in boxes)
+                                        {
+                                            <option value="@box.BoxId">@box.BoxCode</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Giờ vào</label>
+                                    <div class="input-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-alarm"></i></span>
+                                            <div class="input-group">
+                                                <input type="text" placeholder="dd/mm/yyyy" class="form-control pickatime" id="TimeStart">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Giờ kết thúc</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-alarm"></i></span>
+                                        <div class="input-group">
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control pickatime" id="TimeEnd">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Giờ vào</label>
+                                    <div class="input-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-alarm"></i></span>
+                                            <input type="text" class="form-control pickadate" id="DateStart" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Giờ kết thúc</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-alarm"></i></span>
+                                        <input type="text" id="DateEnd" class="form-control pickadate " >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Giá</label>
+                                    <input type="text" class="form-control not-empty" id="Price" onchange="checkNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Trạng thái:</label>
+                                    <select class="form-control select-search" id="Status">
+                                        <option value="active" selected="selected">ACTIVE</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Giáo viên chính</label>
+                                    <select class="form-control select-search txtboxes text-center no-padding" id="UserId">
+                                        <option value="">-- Chọn giáo viên --</option>
+                                        @for (int i = 0; i < teachers.Count; i++)
+                                        {
+                                            <option value="@teachers[i].UserId">@teachers[i].UserFullName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Mô tả</label>
+                                    <textarea rows="8" id="UserNote" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Voucher info -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary btnSave">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // $("#PACKAGE_TYPE").change(function () {
+    //     let state = $(this).val();
+    //
+    //     if (state == "") {
+    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").val("0");
+    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").prop("disabled", true);
+    //     } else if (state == 0) {
+    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").val("0");
+    //         $("#PACKAGE_TIMES").prop("disabled", false);
+    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", true);
+    //     } else {
+    //         $("#PACKAGE_TIMES").val("0")
+    //         $("#PACKAGE_TIMES").prop("disabled", true);
+    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", false);
+    //     }
+    // });
+    features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateClass", null, getParamsForSearch);
+</script>

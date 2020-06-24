@@ -15,7 +15,30 @@ namespace WebAdmin.Areas.Admin.AdminController
         // GET: Admin/HomeAdmin
         public ActionResult Index()
         {
-            return View();
+            HomePage homePage = new HomePage();
+            var teachers = new List<TB_USERS>();
+            try
+            {
+                homePage = ReportService.GetHomePage();
+                var users = User_Service.GetAll();
+
+                foreach (var user in users)
+                {
+                    if (user.UserType.Equals("TEACHERS") && user.UserStatus.Equals("D"))
+                    {
+                        teachers.Add(user);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                CORE.Helpers.IOHelper.WriteLog(StartUpPath, "HomeController :", ex.Message, ex.ToString());
+
+            }
+
+            ViewBag.teachers = teachers;
+            return View(homePage);
         }
         
         [ChildActionOnly]

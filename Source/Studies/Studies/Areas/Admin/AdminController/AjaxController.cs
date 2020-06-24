@@ -132,5 +132,91 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
+        
+        public JsonResult InsertOrUpdateClass(ClassModel value,bool isUpdate)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                value.Status = value.Status.Equals("1") ? "A" : "D";
+
+                var scheduleId = value.ScheduleId.Equals(0) ? "" : value.ScheduleId.ToString();
+
+                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId,value.BoxId.ToString(),value.Price,value.DateStart,value.DateEnd,value.SubjectId.ToString(),"",value.TimeStart,value.TimeEnd,value.Status,value.UserId,value.UserNote);
+
+
+                if (check)
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+        
+        public JsonResult DeleteClass(int id)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                bool check = Classes_Service.Delete(id);
+                
+
+                if (check)
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+        public JsonResult AddStudents(int ScheduleId,List<int> Userids)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                bool check = true;
+
+                if (check)
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
     }
 }
