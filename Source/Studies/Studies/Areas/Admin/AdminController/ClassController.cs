@@ -18,19 +18,19 @@ namespace WebAdmin.Areas.Admin.AdminController
             return View();
         }
         
-        public PartialViewResult _Index(string keyText = "",string status = "", int pageNumber = 1, int pageSize = 10)
+        public PartialViewResult _Index(int userId  = 0,string userType = "", int pageNumber = 1, int pageSize = 10)
         {
             ViewBag.pageNumber = pageNumber;
             ViewBag.pageSize = pageSize;
             ViewBag.maxNumber = 0;
-            var classes = new List<V_CLASS>();
+            var classes = new List<V_SCHEDULE_DETAILS>();
 
             try
             {
                 int count = 0;
-                classes = Classes_Service.GetClassBy(keyText,"","","","",status, pageNumber, pageSize, out count);
+                classes = Schedules_Service.GetInfoClassBy(userId,userType,out count);
                 ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
-
+                
                 ViewBag.boxSubjects = Subjects_Boxes_Service.GetAll();
             }
             catch (Exception ex)
@@ -85,8 +85,8 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_USERS> teachers = new List<TB_USERS>();
             List<TB_USERS> studies = new List<TB_USERS>();
             List<TB_USERS> students = new List<TB_USERS>();
-
-            var classes = new TB_CLASSES();
+            var detail = new V_CLASS();
+            var classes = new TB_SCHEDULES();
             var details = new List<V_CLASS>();
             try
             {
@@ -97,7 +97,13 @@ namespace WebAdmin.Areas.Admin.AdminController
                 details = Classes_Service.GetClassBy("","","","","","", 1, Int16.MaxValue, out count);
 
                 studies = User_Service.GetStudiesBySchedule(id, 1, Int16.MaxValue, out count);
-
+                foreach (var tmp in details)
+                {
+                    if (id.Equals(tmp.ScheduleId))
+                    {
+                        detail = tmp;
+                    }
+                }
 
                 foreach (var user in users)
                 {
@@ -115,7 +121,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                     }
                 }
                 
-                classes = Classes_Service.GetById(id);
+                classes = Schedules_Service.GetById(id);
             }
             catch (Exception e)
             {
@@ -126,7 +132,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             ViewBag.subjects = subjects;
             ViewBag.boxes = boxes;
             ViewBag.teachers = teachers;
-            ViewBag.details = details;
+            ViewBag.detail = detail;
             ViewBag.studies = studies;
             ViewBag.students = students;
             ViewBag.id = id;

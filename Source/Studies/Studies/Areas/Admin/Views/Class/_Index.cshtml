@@ -1,6 +1,6 @@
 @using System.Web.Mvc.Html
 @using CORE.Tables
-@model System.Collections.Generic.List<CORE.Views.V_CLASS>
+@model System.Collections.Generic.List<CORE.Views.V_SCHEDULE_DETAILS>
 
 
 @{
@@ -10,6 +10,7 @@
     var jsonModel = serializer.Serialize(Model);
     var ok = jsonModel;
     var boxSubjects = (List<TB_BOX_SUBJECTS>) ViewBag.boxSubjects;
+    var users = (List<TB_USERS>) ViewBag.users;
 }
 
 <div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
@@ -44,10 +45,17 @@
                                     <td>@boxSubject.BoxSubjectSubjectId</td>
                                 }
                             }
-                            <td>@Model[i].ScheduleDetailTimeFrom - @Model[i].ScheduleDetailTimeTo</td>
+                            <td>@Model[i].TeachingScheduleTimeFrom - @Model[i].TeachingScheduleTimeTo</td>
                             <td>@Model[i].SchedulePrice</td>
-                            <td>@Model[i].UserFullName</td>
-                            <td>@Model[i].ScheduleDetailNote</td>
+                            @foreach (var user in users)
+                            {
+                                if (@Model[i].TeachingScheduleId.Equals(user.UserId))
+                                {
+                                    <td>@user.UserFullName</td>
+
+                                }
+                            }
+                            <td>@Model[i].</td>
 
                             <td class="text-center">
                                 <ul class="icons-list">
@@ -80,9 +88,17 @@
             "status" : $("#user-status").val()
         };
     }
+    
+    let getSubParam = ()=>{
+        return {
+            DateStart : convertToYYMMDD($("#DateStart").val()),
+            DateEnd : convertToYYMMDD($("#DateEnd").val()),
+
+        }
+    }
 
      var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
      features.CheckUpdateAndFillInfo();
-     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
+     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", getSubParam, getParamsForSearch);
      features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
 </script>

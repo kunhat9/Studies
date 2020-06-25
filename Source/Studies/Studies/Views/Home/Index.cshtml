@@ -315,9 +315,10 @@
 </div>
 <!-- End of Testimonial Area -->
 
-@if (@ViewBag.error != null)
+@if (@ViewBag.error != "")
 {
     <script>
-        toastr.error("An error occurred while processing your request","Notifications")
+        
+        toastr.error('@ViewBag.error',"Notifications")
     </script>
 }

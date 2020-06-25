@@ -24,6 +24,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                 }
                 else
                 {
+                    value.UserDateCreated = DateTime.Now;
                     check = User_Service.Insert(value);
                 }
                 
@@ -141,7 +142,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                 value.Status = value.Status.Equals("1") ? "A" : "D";
 
                 var scheduleId = value.ScheduleId.Equals(0) ? "" : value.ScheduleId.ToString();
-
+                
                 bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId,value.BoxId.ToString(),value.Price,value.DateStart,value.DateEnd,value.SubjectId.ToString(),"",value.TimeStart,value.TimeEnd,value.Status,value.UserId,value.UserNote);
 
 

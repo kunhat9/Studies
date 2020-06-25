@@ -6,7 +6,7 @@
 
 @using CORE.Tables
 @using CORE.Views
-@model CORE.Tables.TB_CLASSES
+@model CORE.Tables.TB_SCHEDULES
 
 @{
     var subjects = (List<TB_SUBJECTS>) ViewBag.subjects;
@@ -14,7 +14,7 @@
     List<TB_USERS> students =(List<TB_USERS>) ViewBag.students;
     List<TB_USERS> studies =(List<TB_USERS>) ViewBag.studies;
     int id = (int) ViewBag.id;
-
+    var detail = (V_CLASS)ViewBag.detail;
 }
 
 <input type="hidden" id="scheduleId" value="@id">
@@ -37,17 +37,12 @@
                 <div class="row">
                     <div class="col-md-1 " style="padding-top: 7px;">Mã lớp</div>
                     <div class="col-md-5">
-                        <input type="text" readonly="" value="@Model.ClassId" class="form-control" id="ScheduleId">
+                        <input type="text" readonly="" value="@Model.ScheduleId" class="form-control" id="ScheduleId">
                     </div>
-                    <div class="col-md-1 " style="padding-top: 7px;">Tên môn học </div>
+                    <div class="col-md-1 " style="padding-top: 7px;">Thời gian bắt đầu </div>
                     <div class="col-md-5">
-                        @foreach (var subject in subjects)
-                        {
-                            if (subject.SubjectId.Equals(Model.ClassScheduleId))
-                            {
-                                <p class="form-control">@subject.SubjectName</p> 
-                            }
-                        }
+                        <input type="text" readonly="" value="@Model.ScheduleDateBegin" class="form-control" id="ScheduleId">
+
                     </div>
                 </div>
                 <div class="row mt-5">
@@ -56,14 +51,21 @@
                         
                         @foreach (var teacher  in teachers)
                         {
-                            if (teacher.UserId.Equals(Model.ClassUserId))
+                            if (teacher.UserId.Equals(Model.ScheduleUserId))
                             {
                                 <p class="form-control">@teacher.UserFullName</p>
 
                             }
                         }
                     </div>
+                    <div class="col-md-1 " style="padding-top: 7px;">Thời gian kết thúc </div>
+                    <div class="col-md-5">
+                        <input type="text" readonly="" value="@Model.ScheduleDateEnd" class="form-control" id="ScheduleId">
+                    
                     </div>
+                    
+                </div>
+                
                 <div class="data-table div-h100-body">
                     <p >Danh sách học sinh trong lớp</p>
                     <div class="div-h100 ">

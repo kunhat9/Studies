@@ -42,3 +42,215 @@ System.ArgumentNullException: Value cannot be null.
 Parameter name: s
   at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
   at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <f7be2e03f6e541f5bde2bdaf5ed85262>:0 
+
+22:35:12
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <479f1b507a8a4b6ca599abef9834b75c>:0 
+
+22:50:50
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
+
+22:50:55
+UserController :
+SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table.
+System.Exception: SelectFromStoreOutParam::'GetAllUserBy'.
+Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse all.
+Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
+Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+  at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x00025] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:23 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x00075] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:35 
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0000b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:47 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].PopulateObjectsFromReader (System.Data.IDataReader dataReader) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:53 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x00043] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:133 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0004f] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:137 
+  at CORE.Services.TB_USERSFactory.GetAllBy (System.String keyText, System.String status, System.String scheduleId, System.String type, System.Int32 pageNumber, System.Int32 pageSize, System.Int32& count) [0x00007] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:69 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers (System.String status, System.String keyText, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:73 
+
+22:50:55
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:96 
+
+23:17:22
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
+
+23:17:47
+127.0.0.1
+InsertOrUpdateUser:
+Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+System.Exception: Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM. ---> System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+  at System.Data.SqlTypes.SqlDateTime.FromTimeSpan (System.TimeSpan value) [0x00024] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime.FromDateTime (System.DateTime value) [0x0001f] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime..ctor (System.DateTime value) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.MetaType.FromDateTime (System.DateTime dateTime, System.Byte cb) [0x0000c] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteUnterminatedValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00356] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.TdsExecuteRPC (System.Data.SqlClient._SqlRPC[] rpcArray, System.Int32 timeout, System.Boolean inSchema, System.Data.Sql.SqlNotificationRequest notificationRequest, System.Data.SqlClient.TdsParserStateObject stateObj, System.Boolean isCommandProc, System.Boolean sync, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 startRpc, System.Int32 startParam) [0x00e65] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Boolean async, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.Data.SqlClient.SqlDataReader ds) [0x0050b] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReader (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.String method) [0x00079] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery (System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Boolean sendToPipe, System.Int32 timeout, System.Boolean asyncWrite, System.String methodName) [0x00087] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.ExecuteNonQuery () [0x00049] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Helpers.SqlHelper.ExecuteNonQuery (System.Data.SqlClient.SqlConnection connection, System.Data.CommandType commandType, System.String commandText, System.Data.SqlClient.SqlParameter[] commandParameters) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Helpers/SqlHelper.cs:333 
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x00288] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:165 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x0030b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:176 
+  at CORE.Services.TB_USERSFactory.Insert (CORE.Tables.TB_USERS user) [0x00001] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:17 
+  at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser (CORE.Tables.TB_USERS value, System.Boolean isUpdate) [0x00046] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/AjaxController.cs:27 
+
+23:18:01
+127.0.0.1
+InsertOrUpdateUser:
+Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+System.Exception: Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM. ---> System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+  at System.Data.SqlTypes.SqlDateTime.FromTimeSpan (System.TimeSpan value) [0x00024] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime.FromDateTime (System.DateTime value) [0x0001f] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime..ctor (System.DateTime value) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.MetaType.FromDateTime (System.DateTime dateTime, System.Byte cb) [0x0000c] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteUnterminatedValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00356] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.TdsExecuteRPC (System.Data.SqlClient._SqlRPC[] rpcArray, System.Int32 timeout, System.Boolean inSchema, System.Data.Sql.SqlNotificationRequest notificationRequest, System.Data.SqlClient.TdsParserStateObject stateObj, System.Boolean isCommandProc, System.Boolean sync, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 startRpc, System.Int32 startParam) [0x00e65] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Boolean async, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.Data.SqlClient.SqlDataReader ds) [0x0050b] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReader (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.String method) [0x00079] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery (System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Boolean sendToPipe, System.Int32 timeout, System.Boolean asyncWrite, System.String methodName) [0x00087] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.ExecuteNonQuery () [0x00049] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Helpers.SqlHelper.ExecuteNonQuery (System.Data.SqlClient.SqlConnection connection, System.Data.CommandType commandType, System.String commandText, System.Data.SqlClient.SqlParameter[] commandParameters) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Helpers/SqlHelper.cs:333 
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x00288] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:165 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x0030b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:176 
+  at CORE.Services.TB_USERSFactory.Insert (CORE.Tables.TB_USERS user) [0x00001] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:17 
+  at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser (CORE.Tables.TB_USERS value, System.Boolean isUpdate) [0x00046] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/AjaxController.cs:27 
+
+23:18:24
+127.0.0.1
+InsertOrUpdateUser:
+Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+System.Exception: Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM. ---> System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+  at System.Data.SqlTypes.SqlDateTime.FromTimeSpan (System.TimeSpan value) [0x00024] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime.FromDateTime (System.DateTime value) [0x0001f] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime..ctor (System.DateTime value) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.MetaType.FromDateTime (System.DateTime dateTime, System.Byte cb) [0x0000c] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteUnterminatedValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00356] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.TdsExecuteRPC (System.Data.SqlClient._SqlRPC[] rpcArray, System.Int32 timeout, System.Boolean inSchema, System.Data.Sql.SqlNotificationRequest notificationRequest, System.Data.SqlClient.TdsParserStateObject stateObj, System.Boolean isCommandProc, System.Boolean sync, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 startRpc, System.Int32 startParam) [0x00e65] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Boolean async, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.Data.SqlClient.SqlDataReader ds) [0x0050b] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReader (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.String method) [0x00079] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery (System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Boolean sendToPipe, System.Int32 timeout, System.Boolean asyncWrite, System.String methodName) [0x00087] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.ExecuteNonQuery () [0x00049] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Helpers.SqlHelper.ExecuteNonQuery (System.Data.SqlClient.SqlConnection connection, System.Data.CommandType commandType, System.String commandText, System.Data.SqlClient.SqlParameter[] commandParameters) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Helpers/SqlHelper.cs:333 
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x00288] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:165 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x0030b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:176 
+  at CORE.Services.TB_USERSFactory.Insert (CORE.Tables.TB_USERS user) [0x00001] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:17 
+  at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser (CORE.Tables.TB_USERS value, System.Boolean isUpdate) [0x00046] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/AjaxController.cs:27 
+
+23:19:55
+127.0.0.1
+InsertOrUpdateUser:
+Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+System.Exception: Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM. ---> System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+  at System.Data.SqlTypes.SqlDateTime.FromTimeSpan (System.TimeSpan value) [0x00024] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime.FromDateTime (System.DateTime value) [0x0001f] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime..ctor (System.DateTime value) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.MetaType.FromDateTime (System.DateTime dateTime, System.Byte cb) [0x0000c] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteUnterminatedValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00356] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.TdsExecuteRPC (System.Data.SqlClient._SqlRPC[] rpcArray, System.Int32 timeout, System.Boolean inSchema, System.Data.Sql.SqlNotificationRequest notificationRequest, System.Data.SqlClient.TdsParserStateObject stateObj, System.Boolean isCommandProc, System.Boolean sync, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 startRpc, System.Int32 startParam) [0x00e65] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Boolean async, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.Data.SqlClient.SqlDataReader ds) [0x0050b] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReader (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.String method) [0x00079] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery (System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Boolean sendToPipe, System.Int32 timeout, System.Boolean asyncWrite, System.String methodName) [0x00087] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.ExecuteNonQuery () [0x00049] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Helpers.SqlHelper.ExecuteNonQuery (System.Data.SqlClient.SqlConnection connection, System.Data.CommandType commandType, System.String commandText, System.Data.SqlClient.SqlParameter[] commandParameters) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Helpers/SqlHelper.cs:333 
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x00288] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:165 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x0030b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:176 
+  at CORE.Services.TB_USERSFactory.Insert (CORE.Tables.TB_USERS user) [0x00001] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:17 
+  at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser (CORE.Tables.TB_USERS value, System.Boolean isUpdate) [0x00046] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/AjaxController.cs:27 
+
+23:21:02
+127.0.0.1
+InsertOrUpdateUser:
+Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+System.Exception: Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM. ---> System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+  at System.Data.SqlTypes.SqlDateTime.FromTimeSpan (System.TimeSpan value) [0x00024] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime.FromDateTime (System.DateTime value) [0x0001f] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime..ctor (System.DateTime value) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.MetaType.FromDateTime (System.DateTime dateTime, System.Byte cb) [0x0000c] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteUnterminatedValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00356] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.TdsExecuteRPC (System.Data.SqlClient._SqlRPC[] rpcArray, System.Int32 timeout, System.Boolean inSchema, System.Data.Sql.SqlNotificationRequest notificationRequest, System.Data.SqlClient.TdsParserStateObject stateObj, System.Boolean isCommandProc, System.Boolean sync, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 startRpc, System.Int32 startParam) [0x00e65] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Boolean async, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.Data.SqlClient.SqlDataReader ds) [0x0050b] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReader (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.String method) [0x00079] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery (System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Boolean sendToPipe, System.Int32 timeout, System.Boolean asyncWrite, System.String methodName) [0x00087] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.ExecuteNonQuery () [0x00049] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Helpers.SqlHelper.ExecuteNonQuery (System.Data.SqlClient.SqlConnection connection, System.Data.CommandType commandType, System.String commandText, System.Data.SqlClient.SqlParameter[] commandParameters) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Helpers/SqlHelper.cs:333 
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x00288] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:165 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x0030b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:176 
+  at CORE.Services.TB_USERSFactory.Insert (CORE.Tables.TB_USERS user) [0x00001] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:17 
+  at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser (CORE.Tables.TB_USERS value, System.Boolean isUpdate) [0x00046] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/AjaxController.cs:27 
+
+23:22:14
+127.0.0.1
+InsertOrUpdateUser:
+Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+System.Exception: Insert::'TB_USERS'.
+SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM. ---> System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+  at System.Data.SqlTypes.SqlDateTime.FromTimeSpan (System.TimeSpan value) [0x00024] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime.FromDateTime (System.DateTime value) [0x0001f] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlTypes.SqlDateTime..ctor (System.DateTime value) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.MetaType.FromDateTime (System.DateTime dateTime, System.Byte cb) [0x0000c] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteUnterminatedValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00356] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.WriteValue (System.Object value, System.Data.SqlClient.MetaType type, System.Byte scale, System.Int32 actualLength, System.Int32 encodingByteSize, System.Int32 offset, System.Data.SqlClient.TdsParserStateObject stateObj, System.Int32 paramSize, System.Boolean isDataFeed) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.TdsParser.TdsExecuteRPC (System.Data.SqlClient._SqlRPC[] rpcArray, System.Int32 timeout, System.Boolean inSchema, System.Data.Sql.SqlNotificationRequest notificationRequest, System.Data.SqlClient.TdsParserStateObject stateObj, System.Boolean isCommandProc, System.Boolean sync, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 startRpc, System.Int32 startParam) [0x00e65] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Boolean async, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.Data.SqlClient.SqlDataReader ds) [0x0050b] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.RunExecuteReader (System.Data.CommandBehavior cmdBehavior, System.Data.SqlClient.RunBehavior runBehavior, System.Boolean returnStream, System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Int32 timeout, System.Threading.Tasks.Task& task, System.Boolean asyncWrite, System.String method) [0x00079] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery (System.Threading.Tasks.TaskCompletionSource`1[TResult] completion, System.Boolean sendToPipe, System.Int32 timeout, System.Boolean asyncWrite, System.String methodName) [0x00087] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at System.Data.SqlClient.SqlCommand.ExecuteNonQuery () [0x00049] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
+  at CORE.Helpers.SqlHelper.ExecuteNonQuery (System.Data.SqlClient.SqlConnection connection, System.Data.CommandType commandType, System.String commandText, System.Data.SqlClient.SqlParameter[] commandParameters) [0x0002a] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Helpers/SqlHelper.cs:333 
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x00288] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:165 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x0030b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:176 
+  at CORE.Services.TB_USERSFactory.Insert (CORE.Tables.TB_USERS user) [0x00001] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:17 
+  at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser (CORE.Tables.TB_USERS value, System.Boolean isUpdate) [0x00046] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/AjaxController.cs:27 
