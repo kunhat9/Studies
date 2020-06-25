@@ -318,7 +318,7 @@
 @if (@ViewBag.error != "")
 {
     <script>
-        
-        toastr.error('@ViewBag.error',"Notifications")
+        const text =  @Html.Raw(Json.Encode(@ViewBag.error));
+        toastr.error(text,"Notifications")
     </script>
 }

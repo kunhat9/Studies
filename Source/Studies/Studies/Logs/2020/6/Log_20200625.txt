@@ -251,3 +251,67 @@ System.ArgumentNullException: Value cannot be null.
 Parameter name: s
   at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
   at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
+
+09:38:39
+ClassController :
+SelectFromStoreOutParam::'GetInfoClassBy'.
+Parameter count does not match Parameter Value count.
+System.Exception: SelectFromStoreOutParam::'GetInfoClassBy'.
+Parameter count does not match Parameter Value count. ---> System.ArgumentException: Parameter count does not match Parameter Value count.
+  at CORE.Helpers.SqlHelper.AssignParameterValues (System.Data.SqlClient.SqlParameter[] commandParameters, System.Object[] parameterValues) [0x00025] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at CORE.Helpers.SqlHelper.ExecuteDataset (System.Data.SqlClient.SqlConnection connection, System.String spName, System.Object[] parameterValues) [0x0004a] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0000a] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at CORE.Services.TB_SCHEDULESFactory.GetInfoClassBy (System.Int32 userId, System.String userType, System.Int32& count) [0x0000c] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at WebAdmin.Areas.Admin.AdminController.ClassController._Index (System.Int32 userId, System.String userType, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <6d926f3092974937b1646fce5e4b635f>:0 
+
+09:38:47
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6d926f3092974937b1646fce5e4b635f>:0 
+
+09:38:58
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6d926f3092974937b1646fce5e4b635f>:0 
+
+09:38:59
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details (System.String userID) [0x00008] in <6d926f3092974937b1646fce5e4b635f>:0 
+
+09:39:18
+UserController :
+Value cannot be null.
+Parameter name: s
+System.ArgumentNullException: Value cannot be null.
+Parameter name: s
+  at System.Int32.Parse (System.String s) [0x00003] in <f2b3ab7dfff746f594d2ef5b16ec3c90>:0 
+  at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <6d926f3092974937b1646fce5e4b635f>:0 
+
+09:39:24
+ClassController :
+SelectFromStoreOutParam::'GetInfoClassBy'.
+Parameter count does not match Parameter Value count.
+System.Exception: SelectFromStoreOutParam::'GetInfoClassBy'.
+Parameter count does not match Parameter Value count. ---> System.ArgumentException: Parameter count does not match Parameter Value count.
+  at CORE.Helpers.SqlHelper.AssignParameterValues (System.Data.SqlClient.SqlParameter[] commandParameters, System.Object[] parameterValues) [0x00025] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at CORE.Helpers.SqlHelper.ExecuteDataset (System.Data.SqlClient.SqlConnection connection, System.String spName, System.Object[] parameterValues) [0x0004a] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0000a] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+   --- End of inner exception stack trace ---
+  at CORE.Base.DataAccessObject`1[T].SelectFromStoreOutParam (System.String storeName, System.Object& obj, System.Object[] values) [0x0006b] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at CORE.Services.TB_SCHEDULESFactory.GetInfoClassBy (System.Int32 userId, System.String userType, System.Int32& count) [0x0000c] in <81db00a6f13441f5988e1ee27b1ac438>:0 
+  at WebAdmin.Areas.Admin.AdminController.ClassController._Index (System.Int32 userId, System.String userType, System.Int32 pageNumber, System.Int32 pageSize) [0x00125] in <6d926f3092974937b1646fce5e4b635f>:0 
