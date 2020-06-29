@@ -13,10 +13,10 @@ namespace WebAdmin.Controllers
         // GET: Class
         public ActionResult Index()
         {
-            var classes = new List<TB_CLASSES>();
+            var classes = new List<TB_SCHEDULES>();
             try
             {
-                classes = Classes_Service.GetAll();
+                classes = Schedules_Service.GetAll();
             }
             catch (Exception Ex)
             {

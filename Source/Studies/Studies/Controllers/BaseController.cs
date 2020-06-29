@@ -25,7 +25,8 @@ namespace WebAdmin.Controllers
         protected TB_SUBJECTSFactory Subjects_Service = new TB_SUBJECTSFactory();
         protected TB_BOX_SUBJECTSFactory Subjects_Boxes_Service = new TB_BOX_SUBJECTSFactory();
         protected ReportFactory ReportService = new ReportFactory();
-        
+        protected TB_SCHEDULE_DETAILSFactory Schedule_Detail_Service = new TB_SCHEDULE_DETAILSFactory();
+
         
         protected string GetMD5Hash(string rawString)
         {

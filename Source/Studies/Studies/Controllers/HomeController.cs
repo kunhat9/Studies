@@ -22,7 +22,7 @@ namespace WebAdmin.Controllers
 
         #region OutLogin
 
-        public ActionResult Index()
+        public ActionResult Index(string error ="")
         {
             List<TB_SUBJECTS> list = new List<TB_SUBJECTS>();
             try
@@ -34,7 +34,8 @@ namespace WebAdmin.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-           
+
+            ViewBag.error = error;
             return View(list);
         }
 
@@ -99,7 +100,7 @@ namespace WebAdmin.Controllers
                 V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
                 if (info == null)
                 {
-                    ViewBag.error = "Username or Password are incorrect";
+                    ViewBag.error = "Tài khoản hoặc mật khẩu không chính xác";
                 }
                 else if (info.ecode.Equals("200"))
                 {
@@ -115,27 +116,23 @@ namespace WebAdmin.Controllers
                 ViewBag.error = e.Message;
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new {@error=ViewBag.error});
         }
         [HttpPost]
         public ActionResult Register(String username,String password,String fullname,String phone,String confirmpassword)
         {
             try
             {
-                V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
-                if (info == null)
-                {
-                    ViewBag.error = "Username or Password are incorrect";
-                }
+
                 bool check = true;
                 if (!password.Equals(confirmpassword))
                 {
-                    ViewBag.error = "Password and confirm password must match";
+                    ViewBag.error = "Mật khẩu không khớp";
                     check = false;
                 }
                 else if (username.Equals("") || fullname.Equals("") || password.Equals(""))
                 {
-                    ViewBag.error = "Please fill all the fields";
+                    ViewBag.error = "Vui lòng điền tất cả các trường";
                     check = false;
                 }
 
@@ -146,15 +143,16 @@ namespace WebAdmin.Controllers
                         UserPassword = password,
                         UserFullName = fullname,
                         UserPhone =  phone,
-                        UserType = "STUDIES"
+                        UserType = "STUDIES",
+                        UserDateCreated = DateTime.Now
                     };
                 check = User_Service.Insert(users);
                 if (!check)
                 {
-                    ViewBag.error = "An error occurred while processing your request";
+                    ViewBag.error = "Đã có lỗi xảy ra. Vui lòng thử lại";
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new {@error=ViewBag.error});
             }
             catch (Exception e)
             {

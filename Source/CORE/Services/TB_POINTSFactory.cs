@@ -42,7 +42,8 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
-        public V_ResultCallSQL InsertPointStudiesFromClass(string schedulesId, List<V_Point> listPoint)
+        // them diem cho hoc sinh theo lop
+        public V_ResultCallSQL InsertPointStudiesFromClass(string schedulesId, List<V_Point> listPoint, string type)
         {
             V_ResultCallSQL result = new V_ResultCallSQL();
             string xml = "";
@@ -53,11 +54,11 @@ namespace CORE.Services
             string xmlResult = "<row>" + xml + "</row>";
             string ecode, edesc;
             TB_POINTSSql sql = new TB_POINTSSql();
-            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.INSERT_POINT_TO_CLASS, schedulesId, xmlResult);
+            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.INSERT_POINT_TO_CLASS, schedulesId, xmlResult,type);
             result.ecode = ecode;
             result.edesc = edesc;
             return result;
         }
-        // them diem cho hoc sinh theo lop
+       
     }
 }
