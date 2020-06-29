@@ -53,5 +53,21 @@ namespace CORE.Services
                 return false;
             }
         }
+
+        public bool InsertStudiesToClass(int ScheduleId, List<string> Userids)
+        {
+            string ecode, edesc;
+            TB_CLASSESSql sql = new TB_CLASSESSql();
+            string listUserId = String.Join(",", Userids);
+            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.INSERT_STUDIES_TO_CLASS, ScheduleId, listUserId);
+            if (ecode.Equals("00"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

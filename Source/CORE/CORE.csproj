@@ -85,6 +85,9 @@
     <Compile Include="Internal\ViewSql\V_ReportChartSql.cs" />
     <Compile Include="Internal\ViewSql\V_SALARY_TEACHERSql.cs" />
     <Compile Include="Internal\ViewSql\V_SCHEDULE_DETAILSSql.cs" />
+    <Compile Include="Internal\ViewSql\V_TKBStudiesSql.cs" />
+    <Compile Include="Internal\ViewSql\V_TransciptStudiesSql.cs" />
+    <Compile Include="Internal\ViewSql\V_TuitionStudiesSql.cs" />
     <Compile Include="InvalidBusinessObjectException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ReportFactory.cs" />
@@ -118,10 +121,15 @@
     <Compile Include="Views\V_BOX_SUBJECT.cs" />
     <Compile Include="Views\V_CLASS.cs" />
     <Compile Include="Views\V_INFO_LOGIN_CLIENT.cs" />
+    <Compile Include="Views\V_Point.cs" />
     <Compile Include="Views\V_ReportChart.cs" />
+    <Compile Include="Views\V_ResultCallSQL.cs" />
     <Compile Include="Views\V_SALARY_TEACHER.cs" />
     <Compile Include="Views\V_SCHEDULE_DETAILS.cs" />
+    <Compile Include="Views\V_TKBStudies.cs" />
     <Compile Include="Views\V_TRACKING_USER_CLASS.cs" />
+    <Compile Include="Views\V_TransciptStudies.cs" />
+    <Compile Include="Views\V_TuitionStudies.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

@@ -1,20 +1,14 @@
+﻿@using CORE.Tables
 
+@model TB_CLASSES
 @{
     ViewBag.Title = "Studies";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-}
-
-@using CORE.Tables
-@using CORE.Views
-@model CORE.Tables.TB_CLASSES
-
-@{
-    var subjects = (List<TB_SUBJECTS>) ViewBag.subjects;
-    List<TB_USERS> teachers = (List<TB_USERS>) ViewBag.teachers;
-    List<TB_USERS> students =(List<TB_USERS>) ViewBag.students;
-    List<TB_USERS> studies =(List<TB_USERS>) ViewBag.studies;
-    int id = (int) ViewBag.id;
-
+    List<TB_SUBJECTS> subjects = (List<TB_SUBJECTS>)ViewBag.subjects;
+    List<TB_USERS> teachers = (List<TB_USERS>)ViewBag.teachers;
+    List<TB_USERS> students = (List<TB_USERS>)ViewBag.students;
+    List<TB_USERS> studies = (List<TB_USERS>)ViewBag.studies;
+    int id = ViewBag.id;
 }
 
 <input type="hidden" id="scheduleId" value="@id">
@@ -32,20 +26,19 @@
 <div class="div-h100 div-top69">
     <div class="panel-body div-h100-body">
         <div class="div-h100 div-top105">
-         
             <div class="div-h100 div-top56">
                 <div class="row">
                     <div class="col-md-1 " style="padding-top: 7px;">Mã lớp</div>
                     <div class="col-md-5">
-                        <input type="text" readonly="" value="@Model.ClassId" class="form-control" id="ScheduleId">
+                        <input type="text" readonly="" value="@Model.ClassId" class="form-control" id="ScheduleId" />
                     </div>
                     <div class="col-md-1 " style="padding-top: 7px;">Tên môn học </div>
                     <div class="col-md-5">
-                        @foreach (var subject in subjects)
+                        @foreach (TB_SUBJECTS subject in subjects)
                         {
-                            if (subject.SubjectId.Equals(Model.ClassScheduleId))
+                            if (subject.SubjectId == Model.ClassScheduleId)
                             {
-                                <p class="form-control">@subject.SubjectName</p> 
+                                <p class="form-control">@subject.SubjectName</p>
                             }
                         }
                     </div>
@@ -53,126 +46,120 @@
                 <div class="row mt-5">
                     <div class="col-md-1" style="padding-top: 7px;">Giáo viên chính </div>
                     <div class="col-md-5">
-                        
-                        @foreach (var teacher  in teachers)
+                        @foreach (var teacher in teachers)
                         {
                             if (teacher.UserId.Equals(Model.ClassUserId))
                             {
                                 <p class="form-control">@teacher.UserFullName</p>
-
                             }
                         }
                     </div>
-                    </div>
+                </div>
                 <div class="data-table div-h100-body">
-                    <p >Danh sách học sinh trong lớp</p>
+                    <p>Danh sách học sinh trong lớp</p>
                     <div class="div-h100 ">
                         <div class="div-h100-body">
                             <div class="well">
                                 <table class="table">
                                     <thead>
-                                    <tr>
-                                        <th class="fixed-col">STT</th>
-                                        <th>Mã học sinh</th>
-                                        <th>Tên học sinh</th>
-                                        <th>Ngày đăng kí</th>
-                                        <th>Hành động</th>
-                                    </tr>
+                                        <tr>
+                                            <th class="fixed-col">STT</th>
+                                            <th>Mã học sinh</th>
+                                            <th>Tên học sinh</th>
+                                            <th>Ngày đăng kí</th>
+                                            <th>Hành động</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @for (int i =0;i<studies.Count;i++)
-                                    {
-                                        <tr class="text-center">
-                                            <td class="fixed-col">@(i+1)</td>
-                                            <td>@studies[i].UserId</td>
-                                            <td>@studies[i].UserFullName</td>
-                                            <td>@studies[i].UserDateCreated</td>
-                                            <td class="text-center">
-                                                <ul class="icons-list">
-                                                    <li class="btnDelete" data-id='@studies[i].UserId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
-                                                        <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    }
+                                        @for (int i = 0; i < studies.Count; i++)
+                                        {
+                                            <tr class="text-center">
+                                                <td class="fixed-col">@(i + 1)</td>
+                                                <td>@studies[i].UserId</td>
+                                                <td>@studies[i].UserFullName</td>
+                                                <td>@studies[i].UserDateCreated</td>
+                                                <td class="text-center">
+                                                    <ul class="icons-list">
+                                                        <li class="btnDelete" data-id='@studies[i].UserId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                                            <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                
                 <div class="data-table div-h100-body">
-                    
-                    <p >Danh sách học sinh </p>
+                    <p>Danh sách học sinh </p>
                     <div class="div-h100 ">
                         <div class="div-h100-body">
                             <div class="well">
                                 <table class="table">
                                     <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="checkAll" /></th>
-                                        <th class="fixed-col">STT</th>
-                                        <th>Mã học sinh</th>
-                                        <th>Tên học sinh</th>
-                                        <th>Ngày đăng kí</th>
-                                    </tr>
+                                        <tr>
+                                            <th><input type="checkbox" id="checkAll" /></th>
+                                            <th class="fixed-col">STT</th>
+                                            <th>Mã học sinh</th>
+                                            <th>Tên học sinh</th>
+                                            <th>Ngày đăng kí</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @for (int i = 0; i < students.Count; i++)
-                                    {
-                                        <tr class="text-center">
-                                            <td><input type="checkbox" name="userids" value="@students[i].UserId"/></td>
-                                            <td class="fixed-col">@(i + 1)</td>
-                                            <td>@students[i].UserId</td>
-                                            <td>@students[i].UserFullName</td>
-                                            <td>@students[i].UserDateCreated</td>
-
-                                        </tr>
-                                    }
+                                        @for (int i = 0; i < students.Count; i++)
+                                        {
+                                            <tr class="text-center">
+                                                <td><input type="checkbox" name="userids" value="@students[i].UserId" /></td>
+                                                <td class="fixed-col">@(i + 1)</td>
+                                                <td>@students[i].UserId</td>
+                                                <td>@students[i].UserFullName</td>
+                                                <td>@students[i].UserDateCreated</td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-     <button class="btn btn-primary float-right btnAdd" style="right:40px;" type="button" id="btn-update-students"><i class="fa fa-edit"></i> Cập nhật danh sách học sinh</button>
+    <button class="btn btn-primary float-right btnAdd" style="right:40px;" type="button" id="btn-update-students">
+        <i class="fa fa-edit"></i> Cập nhật danh sách học sinh
+    </button>
 </div>
 
-<script >
-    $("#checkAll").click(function(){
+<script>
+    $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
-    
-    $("#btn-update-students").click(()=>{
-        let userids = [];
-        $("input[name=userids]:checked").each(function() { 
-             userids.push($(this).val()); 
-        }); 
-        $.ajax({
-                        url: "/Admin/Ajax/AddStudents",
-                        type: "post",
-                        data: {
-                            ScheduleId : $("#scheduleId").val(),
-                            Userids : userids
-                        },
-                    }).done(function ({Data}) {
-                        if (Data.Code == 0) {
-                            toastr.success(Data.Result);
-                           
-                            setTimeout(function () {
-                                  window.location.reload();
-                             }, 1500);
-                        } else {
-                            toastr.error(Data.Result);
-                        }
-                    });
-    })
-            
 
+    $("#btn-update-students").click(() => {
+        let userids = [];
+        $("input[name=userids]:checked").each(function () {
+            userids.push($(this).val());
+        });
+        $.ajax({
+            url: "/Admin/Ajax/AddStudents",
+            type: "post",
+            data: {
+                ScheduleId: $("#scheduleId").val(),
+                Userids: userids
+            },
+        }).done(function (Data) {
+            if (Data.Code == 0) {
+                toastr.success(Data.Result);
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1500);
+            } else {
+                toastr.error(Data.Result);
+            }
+        });
+    })
 </script>

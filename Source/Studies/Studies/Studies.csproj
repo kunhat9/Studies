@@ -117,7 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Class\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Class\Class_Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Class\_Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Class\_Index.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\Index.cshtml" />
@@ -2555,6 +2554,7 @@
     <Content Include="Assets\locales\en.json" />
     <Content Include="Assets\locales\ru.json" />
     <Content Include="Assets\locales\ua.json" />
+    <Content Include="Areas\Admin\Views\Class\Class_Detail.cshtml" />
     <None Include="Areas\Admin\Views\web.config">
       <SubType>Designer</SubType>
     </None>
@@ -2639,7 +2639,6 @@
     <Content Include="Views\Home\_NotPermission.cshtml" />
     <Content Include="Views\Home\NotPermission.cshtml" />
     <Content Include="Views\Introduce\Index.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2649,13 +2648,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Class\" />
-    <Folder Include="Areas\Admin\Views\Report\" />
     <Folder Include="Assets\css\_main_full\" />
     <Folder Include="Files\icons\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Class\" />
     <Folder Include="Views\Contact\" />
     <Folder Include="Views\Media\" />
     <Folder Include="Views\News\" />

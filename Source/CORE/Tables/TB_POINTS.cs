@@ -13,6 +13,7 @@ namespace CORE.Tables
         public int PointId { get; set; }
         public decimal PointNumber { get; set; }
         public int PointClassId { get; set; }
+        public string PointType { get; set; }
         public TB_POINTS() { }
     }
 }

@@ -109,6 +109,7 @@ CREATE TABLE TB_POINTS -- BẢNG ĐIỂM
 	PointId INT IDENTITY PRIMARY KEY
 	, PointNumber decimal(18,2)  -- Số điểm
 	, PointClassId INT
+	, PointType VARCHAR(50) -- LAN1,LAN2
 	, CONSTRAINT FK_PointClassId FOREIGN KEY (PointClassId) REFERENCES TB_CLASSES(ClassId)
 )
 GO

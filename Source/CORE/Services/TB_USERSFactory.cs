@@ -70,5 +70,20 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
+
+        // lay danh danh thoi khoa bieu hoc sinh
+        public List<V_TKBStudies> GetThoiKhoaBieu(string userId)
+        {
+            return new V_TKBStudiesSql().SelectFromStore(AppSettingKeys.GET_THOI_KHOA_BIEU, userId);
+        }
+        // lay danh sach hoc phi cua hoc sinh 
+        public List<V_TuitionStudies> GetTuiTionStudies(int userId, int scheduleId, string startDate, string endDate, int pageNumber, int pageSize, out int count)
+        {
+            object cTemp;
+            List<V_TuitionStudies> list = new List<V_TuitionStudies>();
+            list = new V_TuitionStudiesSql().SelectFromStoreOutParam(AppSettingKeys.GET_SALARY_TEACHER, out cTemp , userId, scheduleId, startDate, endDate, pageNumber, pageSize);
+            count = (int)cTemp;
+            return list;
+        }
     }
 }

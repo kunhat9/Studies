@@ -16,6 +16,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
+                value.UserDateCreated = DateTime.Now;
                 value.UserStatus = value.UserStatus.Equals("1") ? "A" : "D";
                 bool check = false;
                 if (isUpdate)
@@ -192,14 +193,14 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        public JsonResult AddStudents(int ScheduleId,List<int> Userids)
+        public JsonResult AddStudents(int ScheduleId,List<string> Userids)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
-                bool check = true;
-
-                if (check)
+                //bool check = true;
+                
+                if (Classes_Service.InsertStudiesToClass(ScheduleId,Userids))
                 {
                     Result.Code = 0;
                     Result.Result = "Thành công";

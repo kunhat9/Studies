@@ -17,6 +17,10 @@
         public const string INSERT_OR_UPDATE_CLASS_FROM_ADMIN = "InsertOrUpdateClassFromAdmin";
         public const string GET_HOME_PAGE = "GetHomePage";
         public const string REPORT_REVENUE_CHART = "ReportRevenueChart";
+        public const string INSERT_STUDIES_TO_CLASS = "InsertStudiesInClass";
+        public const string GET_THOI_KHOA_BIEU = "GetThoiKhoaBieuHocSinh";
+        public const string GET_TRANSCIPT_BY = "GetTranscriptBy";
+        public const string INSERT_POINT_TO_CLASS = "InsertPointToClass";
 
 
 
