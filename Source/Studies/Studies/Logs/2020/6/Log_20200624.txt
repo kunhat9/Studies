@@ -44,6 +44,7 @@ Parameter name: s
   at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in <f7be2e03f6e541f5bde2bdaf5ed85262>:0 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 22:22:46
 UserController :
 SelectFromStoreOutParam::'GetAllUserBy'.
@@ -189,6 +190,8 @@ Parameter name: String
 
 22:23:38
 =======
+=======
+>>>>>>> d649b29af164838da9e786883d47e669aa3bc292
 22:35:12
 UserController :
 Value cannot be null.
@@ -208,6 +211,9 @@ Parameter name: s
   at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details (System.String userID) [0x00008] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/UserController.cs:48 
 
 22:50:55
+<<<<<<< HEAD
+>>>>>>> d649b29af164838da9e786883d47e669aa3bc292
+=======
 >>>>>>> d649b29af164838da9e786883d47e669aa3bc292
 UserController :
 SelectFromStoreOutParam::'GetAllUserBy'.
@@ -221,6 +227,7 @@ Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: 
 Error parse.
 Column 'UserDateCreated' does not belong to table Table. ---> System.Exception: Error parse.
 Column 'UserDateCreated' does not belong to table Table. ---> System.ArgumentException: Column 'UserDateCreated' does not belong to table Table.
+<<<<<<< HEAD
 <<<<<<< HEAD
    at System.Data.DataTableReader.GetOrdinal(String name)
    at CORE.Base.DataAccessObject`1.PopulateBusinessObjectFromReader(IDataReader dataReader) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\Base\DataAccessObject.cs:line 23
@@ -380,6 +387,8 @@ Parameter name: String
 23:07:17
 192.168.56.1
 =======
+=======
+>>>>>>> d649b29af164838da9e786883d47e669aa3bc292
   at System.Data.DataTableReader.GetOrdinal (System.String name) [0x0003e] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
   at CORE.Base.DataAccessObject`1[T].PopulateBusinessObjectFromReader (System.Data.IDataReader dataReader) [0x00025] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessObject.cs:23 
    --- End of inner exception stack trace ---
@@ -413,12 +422,16 @@ Parameter name: s
 
 23:17:47
 127.0.0.1
+<<<<<<< HEAD
+>>>>>>> d649b29af164838da9e786883d47e669aa3bc292
+=======
 >>>>>>> d649b29af164838da9e786883d47e669aa3bc292
 InsertOrUpdateUser:
 Insert::'TB_USERS'.
 SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
 System.Exception: Insert::'TB_USERS'.
 SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM. ---> System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+<<<<<<< HEAD
 <<<<<<< HEAD
    at System.Data.SqlClient.TdsParser.TdsExecuteRPC(SqlCommand cmd, _SqlRPC[] rpcArray, Int32 timeout, Boolean inSchema, SqlNotificationRequest notificationRequest, TdsParserStateObject stateObj, Boolean isCommandProc, Boolean sync, TaskCompletionSource`1 completion, Int32 startRpc, Int32 startParam)
    at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
@@ -476,6 +489,8 @@ Parameter name: String
    at System.Int32.Parse(String s)
    at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 48
 =======
+=======
+>>>>>>> d649b29af164838da9e786883d47e669aa3bc292
   at System.Data.SqlTypes.SqlDateTime.FromTimeSpan (System.TimeSpan value) [0x00024] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
   at System.Data.SqlTypes.SqlDateTime.FromDateTime (System.DateTime value) [0x0001f] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
   at System.Data.SqlTypes.SqlDateTime..ctor (System.DateTime value) [0x00000] in <2d547ce14b5c4254936ffeb73ed1353b>:0 
@@ -618,4 +633,7 @@ SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:
   at CORE.Base.DataAccessTable`1[T].Insert (T businessObject, System.Boolean withKey) [0x0030b] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Base/DataAccessTable.cs:176 
   at CORE.Services.TB_USERSFactory.Insert (CORE.Tables.TB_USERS user) [0x00001] in /home/thanhld/Desktop/Freelancer/Studies/Source/CORE/Services/TB_USERSFactory.cs:17 
   at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser (CORE.Tables.TB_USERS value, System.Boolean isUpdate) [0x00046] in /home/thanhld/Desktop/Freelancer/Studies/Source/Studies/Studies/Areas/Admin/AdminController/AjaxController.cs:27 
+<<<<<<< HEAD
+>>>>>>> d649b29af164838da9e786883d47e669aa3bc292
+=======
 >>>>>>> d649b29af164838da9e786883d47e669aa3bc292
