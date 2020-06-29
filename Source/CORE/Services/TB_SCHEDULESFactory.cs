@@ -33,11 +33,11 @@ namespace CORE.Services
             return new TB_SCHEDULESSql().SelectAll();
         }
         // lay danh sach lop hoc cua giao vien , hoc sinh 
-        public List<V_SCHEDULE_DETAILS> GetInfoClassBy(int userId , string userType, out int count)
+        public List<V_SCHEDULE_DETAILS> GetInfoClassBy(int userId , string userType,int pageNumber, int pageSize, out int count)
         {
             object cTemp;
             List<V_SCHEDULE_DETAILS> list = new List<V_SCHEDULE_DETAILS>();
-            list = new V_SCHEDULE_DETAILSSql().SelectFromStoreOutParam(AppSettingKeys.GET_INFO_CLASS_BY, out cTemp, userId, userType);
+            list = new V_SCHEDULE_DETAILSSql().SelectFromStoreOutParam(AppSettingKeys.GET_INFO_CLASS_BY, out cTemp, userId, userType, pageNumber,pageSize);
             count = (int)cTemp;
             return list;
         }
