@@ -10,39 +10,60 @@ namespace WebAdmin.Configuration
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //List<string> notCheck = new List<string> {
-            //    "/Home/Login",
-            //    "/Home/Logout",
-            //    "/Home/_HomeHeader",
-            //    "/Home/_HomeFooter",
-            //    "/Home/_HomeMenuLeft",
-            //    "/Home/_Pagination",
-            //    "/Home/NotPermission",
-            //    "/Home/_NotPermission",
-            //    "/Admin/CreateLisence"
-            //};
-            //string actionName = filterContext.ActionDescriptor.ActionName;
-            //string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-            //string actionUrl = "/" + controllerName + "/" + actionName;
+            List<string> notCheck = new List<string> {
+                "/HomeAdmin/Login",
+                "/HomeAdmin/Logout",
+                "/HomeAdmin/_HomeHeader",
+                "/HomeAdmin/_HomeFooter",
+                "/HomeAdmin/_HomeMenuLeft",
+                "/HomeAdmin/_Pagination",
+                "/HomeAdmin/NotPermission",
+                "/HomeAdmin/_NotPermission",
+                "/Class/Index",
+                 "/Class/Detail",
+                "/Home/Login",
+                "/Home/Index",
+                "/Home/Logout",
+                  "/Home/_HomeHeader",
+                "/Home/_HomeFooter",
+                "/Home/_HomeMenuLeft",
+                "/Home/_Pagination",
+                "/Home/NotPermission",
+                "/Home/_NotPermission",
+                "/Infomation/Index",
+                "/Infomation/Schedules",
+                "/Infomation/RollCall",
+                "/Infomation/Tuition",
+                "/Infomation/Score",
+                "/Infomation/Tracking",
+                "/Infomation/TrackingDetails",
+                "/Introduce/Index",
+                "/Teacher/Index"
 
-            //if (notCheck.Any(x => string.Equals(x, actionUrl, System.StringComparison.OrdinalIgnoreCase)))
-            //{
-            //    return;
-            //}
-            //if (HttpContext.Current.Session[AppSessionKeys.USER_INFO] == null)
-            //{
-            //    string url = HttpContext.Current.Request.CurrentExecutionFilePath;
-            //    if (!string.Equals(actionUrl, "/Home/Login", System.StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        string redirect = "/Login";
-            //        if (!string.IsNullOrEmpty(url) && url != "/")
-            //        {
-            //            redirect += "?url=" + url;
-            //        }
-            //        filterContext.Result = new RedirectResult(redirect);
-            //        return;
-            //    }
-            //}
+
+            };
+            string actionName = filterContext.ActionDescriptor.ActionName;
+            string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            string actionUrl = "/" + controllerName + "/" + actionName;
+
+            if (notCheck.Any(x => string.Equals(x, actionUrl, System.StringComparison.OrdinalIgnoreCase)))
+            {
+                return;
+            }
+            if (HttpContext.Current.Session[AppSessionKeys.USER_INFO] == null)
+            {
+                string url = HttpContext.Current.Request.CurrentExecutionFilePath;
+                if (!string.Equals(actionUrl, "/Admin/HomeAdmin/Login", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    string redirect = "/Admin/HomeAdmin/Login";
+                    if (!string.IsNullOrEmpty(url) && url != "/")
+                    {
+                        redirect += "?url=" + url;
+                    }
+                    filterContext.Result = new RedirectResult(redirect);
+                    return;
+                }
+            }
             //else
             //if (!filterContext.IsChildAction && !filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             //{

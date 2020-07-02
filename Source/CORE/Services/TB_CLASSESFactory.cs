@@ -54,12 +54,12 @@ namespace CORE.Services
             }
         }
 
-        public bool InsertStudiesToClass(int ScheduleId, List<string> Userids)
+        public bool InsertStudiesToClass(int ScheduleId, List<string> Userids, string type)
         {
             string ecode, edesc;
             TB_CLASSESSql sql = new TB_CLASSESSql();
             string listUserId = String.Join(",", Userids);
-            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.INSERT_STUDIES_TO_CLASS, ScheduleId, listUserId);
+            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.INSERT_STUDIES_TO_CLASS, ScheduleId, listUserId, type);
             if (ecode.Equals("00"))
             {
                 return true;

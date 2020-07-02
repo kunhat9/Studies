@@ -18,12 +18,13 @@ namespace CORE.Views
         public decimal SchedulePrice { get; set; }
         public int ScheduleUserId { get; set; }
         public int ScheduleIdBoxSubjectId { get; set; }
-        public int TeachingScheduleId { get; set; }
-        public string TeachingScheduleDayOfWeek { get; set; }
-        public TimeSpan TeachingScheduleTimeFrom { get; set; }
-        public TimeSpan TeachingScheduleTimeTo { get; set; }
-        public string TeachingScheduleNote { get; set; }
-        public int TeachingScheduleUserId { get; set; }
+        public int ScheduleDetailId { get; set; }
+        public string ScheduleDetailDayOfWeek { get; set; }
+        public TimeSpan ScheduleDetailTimeFrom { get; set; }
+        public TimeSpan ScheduleDetailTimeTo { get; set; }
+        public string ScheduleDetailNote { get; set; }
+        public int ScheduleDetailScheduleId { get; set; }
+       
         public V_SCHEDULE_DETAILS() { }
     }
 }

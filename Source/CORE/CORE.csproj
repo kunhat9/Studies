@@ -88,6 +88,7 @@
     <Compile Include="Internal\ViewSql\V_TKBStudiesSql.cs" />
     <Compile Include="Internal\ViewSql\V_TransciptStudiesSql.cs" />
     <Compile Include="Internal\ViewSql\V_TuitionStudiesSql.cs" />
+    <Compile Include="Internal\ViewSql\V_USER_TRACKEDSql.cs" />
     <Compile Include="InvalidBusinessObjectException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ReportFactory.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Views\V_TRACKING_USER_CLASS.cs" />
     <Compile Include="Views\V_TransciptStudies.cs" />
     <Compile Include="Views\V_TuitionStudies.cs" />
+    <Compile Include="Views\V_USER_TRACKED.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

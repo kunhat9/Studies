@@ -14,7 +14,7 @@
             <div class="row">
                 <!-- Header Top Left -->
                 <div class="header-top-left text-left col-sm-6 ">
-                    <p style="padding-top:40px;">Have any question? +968 547856 254 </p>
+                    <p style="padding-top:40px;"> </p>
                 </div>
                 <!-- Header Top Right -->
                 <div class="header-top-right text-right col-sm-5 main-menu hidden-xs">
@@ -33,13 +33,16 @@
                                 <ul class="sub-menu">
                                     @if (Model.UserType.Equals("TEACHER"))
                                     {
+                                        <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Lịch dạy</a></li>
                                         <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Lương</a></li>
+                                        <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/Tracking">Điểm danh</a></li>
                                     }
                                     @if (Model.UserType.Equals("STUDIES"))
                                     {
                                         <li style="float: none"><a  style="color: #337ab7;" href="/Infomation/Score">Điểm số</a></li>
                                         <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Lịch học</a></li>
                                         <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/RollCall">Điểm danh</a></li>
+                                        <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Học phí</a></li>
                                     }
                                     
                                     <li style="float: none"><a style="color: #337ab7;" href="/Home/Logout">Đăng xuất</a></li>
@@ -68,7 +71,7 @@
                             <button class="search-toggle"><i class="zmdi zmdi-search"></i></button>
                             <div class="search-form">
                                 <form action="#">
-                                    <input type="text" placeholder="Search here..." name="search" />
+                                    <input type="text" placeholder="Tìm kiếm tại đây..." name="search" />
                                     <button type="submit"><i class="zmdi zmdi-search"></i></button>
                                 </form>                                
                             </div>

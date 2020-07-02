@@ -11,6 +11,7 @@ CREATE PROCEDURE GetInfoClassBy
 	,@pageSize int
 ) AS
 BEGIN
+	IF @userId ='' OR @userId IS NULL SET @userId =''
 	DECLARE @start int, @end int
 	SET @start = (((@pageNumber - 1) * @pageSize) + 1)
 	SET @end = (@start + @pageSize - 1)
@@ -27,7 +28,7 @@ BEGIN
 			FROM TB_SCHEDULES s
 			JOIN [dbo].[TB_SCHEDULE_DETAILS] d
 			ON s.ScheduleId = d.ScheduleDetailScheduleId
-			WHERE s.ScheduleUserId = @userId
+			WHERE @userId ='' OR s.ScheduleUserId = @userId
 		END
 	ELSE IF @userType ='STUDIES'
 		BEGIN
@@ -40,8 +41,8 @@ BEGIN
 			ON c.ClassScheduleId = s.ScheduleId 
 			WHERE ScheduleId IN (
 				SELECT ClassScheduleId FROM [dbo].[TB_CLASSES]
-				WHERE ClassUserId = @userId
-			) AND c.ClassUserId = @userId
+				WHERE @userId ='' OR ClassUserId = @userId
+			) AND  @userId =''  OR c.ClassUserId = @userId
 		END
 	SELECT [ScheduleId]
       ,[ScheduleCode]

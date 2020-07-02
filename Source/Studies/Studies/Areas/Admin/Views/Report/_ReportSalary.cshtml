@@ -1,0 +1,114 @@
+﻿@using System
+@using System.Web.Mvc.Html
+@using CORE.Views;
+@{
+    int? totalPage = 0;
+    totalPage = (int?)ViewBag.maxNumber;
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+    var jsonModel = serializer.Serialize(Model);
+    var ok = jsonModel;
+
+}
+@{
+    List<V_SALARY_TEACHER> listSalary = ViewBag.Salary;
+    var resultSalary = listSalary.GroupBy(x => x.ScheduleId).Select(t => new
+    {
+        SchedulesId = t.Key,
+        TotalCount = t.ToList()
+    }).ToList();
+    List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedule;
+    List<CORE.Tables.TB_SUBJECTS> listSubject = ViewBag.Subject;
+    List<CORE.Tables.TB_BOX_SUBJECTS> listBoxSujbect = ViewBag.SubjectBox;
+}
+<style>
+    .table > thead > tr > td:first-child {
+        border-left: none;
+    }
+
+    .table > thead > tr > td {
+        border-left: 1px solid #ddd;
+    }
+
+    .table > tbody > tr > td:first-child {
+        border-left: none;
+    }
+
+    .table > tbody > tr > td {
+        border-left: 1px solid #ddd;
+    }
+</style>
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Tên lớp</th>
+                        <th>Tổng buổi</th>
+                        <th>Tổng học phí</th>
+                        <th>Lương</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @{
+                        decimal total = 0;
+                        foreach (var item in resultSalary)
+                        {
+                            total += @item.TotalCount.Sum(x => x.SalaryTeacher);
+                            <tr class="text-center">
+                                <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                                @*<td>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</td>*@
+                                <td>
+                                    @listSubject.Where(x => x.SubjectId ==
+                               (listBoxSujbect.Where(t => t.BoxSubjectSubjectId ==
+                               (list.Where(y => y.ScheduleId == item.SchedulesId)).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault()
+                               .BoxSubjectSubjectId)).FirstOrDefault().SubjectName
+                                </td>
+                                <td>@item.TotalCount.Sum(x => x.CountStudies)</td>
+                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</td>
+                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</td>
+                            </tr>
+                        }
+                        <tr class="text-center">
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right">Tổng lương</td>
+                            <td>@(total > 0 ? CORE.Helpers.ConvertDataWithView.Currency_ToView(total) : "0")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "HomeAdmin", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/Admin/Report/_ReportSalary";
+    let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "userId": $("#userId").val() ,
+            "scheduleId": $("#scheduleId").val() ,
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single.select2-selection__rendered.d-inline page-size").val() ,
+            "startDate" : convertDate($("#startDate").val()),
+            "endDate" : convertDate($("#endDate").val())
+        };
+    }
+    function convertDate(date){
+        if(date =='') return;
+        else return date.split('/').reverse().join('-');
+
+    }
+
+    var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+    //features.CheckUpdateAndFillInfo();
+    //features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
+    //features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
+</script>

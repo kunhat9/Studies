@@ -7,11 +7,21 @@ CREATE PROCEDURE CheckLoginClient
 (
 	@userName VARCHAR(50)
 	, @passWord VARCHAR(50)
+	, @type varchar(50)
 ) AS
 BEGIN
 BEGIN TRY
 	DECLARE @ecode VARCHAR(50), @edesc VARCHAR(50)
-	DECLARE @userId INT = (SELECT UserId FROM TB_USERS WHERE UserName = @userName)
+	DECLARE @userId INT
+	IF @type ='ADMIN'
+		BEGIN
+			SET @userId= (SELECT UserId FROM TB_USERS WHERE UserName = @userName AND UserType=@type)
+		END
+	ELSE 
+		BEGIN
+			SET @userId= (SELECT UserId FROM TB_USERS WHERE UserName = @userName)
+		END
+	 
 	IF @userId ='' OR @userId IS NULL
 		BEGIN
 			SET @ecode ='100'

@@ -24,7 +24,7 @@
         <div class="page-title" style="padding: 20px 0;">
             <h4>
                 <a href="javascript:void(0);" onclick="history.go(-1);"><i class="icon-arrow-left52 position-left"></i></a>
-                <span class="text-semibold">Tài khoản</span> - Danh sách học sinh
+                <span class="text-semibold">Lớp học</span> -Thông tin lớp học
             </h4>
         </div>
     </div>
@@ -91,7 +91,7 @@
                                             <td>@studies[i].UserDateCreated</td>
                                             <td class="text-center">
                                                 <ul class="icons-list">
-                                                    <li class="btnDelete" data-id='@studies[i].UserId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                                    <li class="btnDelete" onclick="onDelete(this)" data-id="@studies[i].UserId" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
                                                         <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
                                                     </li>
                                                 </ul>
@@ -150,7 +150,34 @@
     $("#checkAll").click(function(){
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
-    
+    function onDelete(event){
+        
+            if(confirm('Bạn chắc chắn muốn xóa học sinh ra khỏi lớp')){
+                var id = event.dataset.id;
+                let userids = [];
+                userids.push(id);
+                $.ajax({
+                    url: "/Admin/Ajax/AddStudents",
+                    type: "post",
+                    data: {
+                        ScheduleId : $("#scheduleId").val(),
+                        Userids : userids,
+                        type : "DELETE"
+                    },
+                }).done(function ({Data}) {
+                    if (Data.Code == 0) {
+                        toastr.success(Data.Result);
+                           
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        toastr.error(Data.Result);
+                    }
+                });
+            }
+    }
+   
     $("#btn-update-students").click(()=>{
         let userids = [];
         $("input[name=userids]:checked").each(function() { 
@@ -161,7 +188,8 @@
                         type: "post",
                         data: {
                             ScheduleId : $("#scheduleId").val(),
-                            Userids : userids
+                            Userids : userids,
+                            type : "INSERT"
                         },
                     }).done(function ({Data}) {
                         if (Data.Code == 0) {

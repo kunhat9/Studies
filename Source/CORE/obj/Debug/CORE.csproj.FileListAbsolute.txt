@@ -24,6 +24,6 @@ C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\bin\Debug\Newtonsoft.Json.d
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\bin\Debug\System.Net.Http.Formatting.dll
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\bin\Debug\Newtonsoft.Json.xml
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\bin\Debug\System.Net.Http.Formatting.xml
-C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\obj\Debug\CORE.csprojResolveAssemblyReference.cache
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\obj\Debug\CORE.dll
 C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\obj\Debug\CORE.pdb
+C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\CORE\obj\Debug\CORE.csprojResolveAssemblyReference.cache

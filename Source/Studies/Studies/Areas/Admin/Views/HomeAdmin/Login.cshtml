@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<form action="/Admin/HomeAdmin/Login" method="post" autocomplete="off">
+    <div class="panel panel-body login-form">
+        <div class="text-center">
+            <div class="icon-object border-slate-300 text-slate-300">
+                <i class="icon-reading"></i>
+            </div>
+            <h5 class="content-group">
+                Đăng nhập vào hệ thống
+                <small class="display-block"></small>
+            </h5>
+        </div>
+        <div class="form-group has-feedback has-feedback-left">
+            <input type="text" name="username" class="form-control" placeholder="Tên đăng nhập" value="@ViewBag.username">
+            <div class="form-control-feedback">
+                <i class="icon-user text-muted"></i>
+            </div>
+        </div>
+        <div class="form-group has-feedback has-feedback-left">
+            <input type="password" name="password" class="form-control" placeholder="Mật khẩu" value="@ViewBag.password">
+            <div class="form-control-feedback">
+                <i class="icon-lock2 text-muted"></i>
+            </div>
+        </div>
+        <div class="form-group login-options">
+            <label style="@if (string.IsNullOrEmpty(ViewBag.error)) { <text>display:none;</text> } else { <text>display:block;</text> }">@ViewBag.error</label>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="remember" class="styled" @(ViewBag.password == null || ViewBag.password == "" ? "" : "checked" ) />
+                        Ghi nhớ
+                    </label>
+                </div>
+                @*<div class="col-sm-6 text-right">
+                        <a href="/Forgot">Quên mật khẩu?</a>
+                    </div>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn bg-blue btn-block">
+                Đăng nhập<i class="icon-arrow-right14 position-right"></i>
+            </button>
+        </div>
+        @*<div class="text-center">
+                <label>Bạn chưa có tài khoản?</label>
+                <a href="/Register">Đăng ký</a>
+            </div>*@
+    </div>
+    <div>
+        <input type="hidden" name="url" value=@ViewBag.url />
+    </div>
+</form>

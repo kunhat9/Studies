@@ -194,14 +194,14 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        public JsonResult AddStudents(int ScheduleId,List<string> Userids)
+        public JsonResult AddStudents(int ScheduleId,List<string> Userids, string type)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
                 //bool check = true;
                 
-                if (Classes_Service.InsertStudiesToClass(ScheduleId,Userids))
+                if (Classes_Service.InsertStudiesToClass(ScheduleId,Userids,type))
                 {
                     Result.Code = 0;
                     Result.Result = "Thành công";
@@ -220,5 +220,33 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
+        public JsonResult AddTrackingSchedules(string dateTracking, string note, List<string> listUserId, string schedulesId, string type)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                //bool check = true;
+
+                if (Trackings_Service.AddTrackingSchedules(dateTracking,note,listUserId,schedulesId,type))
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+
+        
     }
 }

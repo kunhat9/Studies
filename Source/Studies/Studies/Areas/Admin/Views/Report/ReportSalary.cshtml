@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Thống kê lương giáo viên";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedule;
+    List<CORE.Tables.TB_USERS> listUser = ViewBag.User;
+}
+
+<div class="page-header page-header-default">
+    <div class="page-header-content" style="background-color: #fcfcfc;">
+        <div class="page-title" style="padding: 20px 0;">
+            <h4>
+                <a href="javascript:void(0);" onclick="history.go(-1);"><i class="icon-arrow-left52 position-left"></i></a>
+                <span class="text-semibold">Lớp học</span> - Danh sách lớp học
+            </h4>
+        </div>
+    </div>
+</div>
+<div class="div-h100 div-top69">
+    <div class="panel-body div-h100-body">
+        <div class="two-columns form-group">
+            <div class="left-full">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Giáo viên</label>
+                        <select class="form-control select-search w-100" id="userId">
+                            <option value="" selected>Chọn giáo viên</option>
+                            @foreach (var item in listUser)
+                            {
+                                <option value="@item.UserId">@item.UserName - @item.UserFullName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Ngày kết thúc</label>
+                        <input type="text" class="form-control pickadate" id="startDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Ngày bắt đầu</label>
+                        <input type="text" class="form-control pickadate" id="endDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Lớp</label>
+                        <select class="form-control select-search w-100" id="scheduleId">
+                            <option value="" selected>Chọn mã lớp</option>
+                            @foreach (var item in list)
+                            {
+                                <option value="@item.ScheduleId">@item.ScheduleCode</option>
+                            }
+                        </select>
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="right-fixed">
+                <button type="button" id="" class="btn btn-primary btnSearch">Tìm kiếm</button>
+            </div>
+          
+        </div>
+        <div class="div-h100 div-top105">
+            <div class="two-columns form-group">
+                <label><span>Hiển thị:</span> </label>
+                <select class="select2-selection--single select2-selection__rendered d-inline page-size" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" tabindex="-1" aria-hidden="true">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                @*<button class="btn btn-primary float-right btnAdd" type="button" data-toggle="modal" data-target="#modal_default">
+                    <i class="fa fa-plus"></i> Thêm mới
+                </button>*@
+            </div>
+            <div class="div-h100 div-top56">
+                <div class="data-table div-h100-body">
+                    @{ Html.RenderAction("_ReportSalary");}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

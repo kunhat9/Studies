@@ -33,20 +33,20 @@ namespace CORE.Services
             return new TB_TRACKINGSSql().SelectAll();
         }
         // them danh sach diem danh theo lop
-        public int AddTrackingSchedules(string dateTracking, string note, List<string> listUserId, string schedulesId)
+        public bool AddTrackingSchedules(string dateTracking, string note, List<string> listUserId, string schedulesId, string type)
         {
             string edesc, ecode;
             TB_TRACKINGSSql sql = new TB_TRACKINGSSql();
-            string listId = string.Join(",", listUserId.ToString());
-            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.ADD_TRACKING_BY_SCHEDULES, dateTracking, note, listId, schedulesId);
+            string listId = String.Join(",", listUserId);
+            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.ADD_TRACKING_BY_SCHEDULES, dateTracking, note, listId, schedulesId, type);
             if (ecode.Equals("00"))
             {
-                return 0;
+                return true;
 
             }
             else
             {
-                return 1;
+                return false;
             }
         }
         // danh sach diem danh cua hoc sinh theo lop

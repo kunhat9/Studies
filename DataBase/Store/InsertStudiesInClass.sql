@@ -33,7 +33,7 @@ BEGIN
 			END
 		ELSE IF @type ='DELETE'
 			BEGIN
-				 DELETE TB_CLASSES WHERE ClassUserId IN (SELECT UserId FROM #ListUserId )
+				 DELETE TB_CLASSES WHERE ClassUserId IN (SELECT UserId FROM #ListUserId) AND ClassScheduleId = @scheduleId
 				 SET @ecode = '00'
 				SET @edesc ='Suscess'
 			END

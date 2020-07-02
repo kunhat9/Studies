@@ -2,10 +2,10 @@
 @{
     ViewBag.Title = "Schedules";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
-
+    List<CORE.Tables.TB_USERS> list = ViewBag.User;
 }
 
-@model List<CORE.Tables.TB_SCHEDULES>
+@model List<CORE.Views.V_SCHEDULE_DETAILS>
 
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
@@ -24,30 +24,38 @@
     </div>
 </div>
 <!-- End of Page Banner Area -->
-
 <!-- Teachers Area Start -->
 <div class="teachers-area section bg-white pt-120 pb-100">
     <div class="container">
         <!-- Section Title -->
         <div class="row">
             <table class="table table-hover">
-                 <thead>
-                   <tr>
-                     <th>Mã lớp</th>
-                     <th>Thời gian</th>
-                   </tr>
-                 </thead>
-                <tbody>
-                @foreach (var schedule in Model)
-                {
+                <thead>
                     <tr>
-                        <th>@schedule.ScheduleCode</th>
-                        <th>@schedule.ScheduleDateBegin - @schedule.ScheduleDateEnd</th>
+                        <th>Mã lớp</th>
+                        <th>Ngày trong tuần</th>
+                        <th>Thời gian bắt đầu</th>
+                        <th>Thời gian kết thúc</th>
+                        <th>Giáo viên</th>
+                        <th>Giá buổi học</th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var schedule in Model)
+                    {
+                        <tr>
+                            <th>@schedule.ScheduleCode</th>
+                            <th>@CORE.Helpers.ConvertDataWithView.Convert_DayOfweek(schedule.ScheduleDetailDayOfWeek)</th>
+                            <th>@schedule.ScheduleDetailTimeFrom</th>
+                            <th>@schedule.ScheduleDetailTimeTo</th>
+                            <th>@list.Where(x=>x.UserId == schedule.ScheduleUserId).FirstOrDefault().UserFullName</th>
+                            <th>@CORE.Helpers.ConvertDataWithView.Currency_ToView(schedule.SchedulePrice)</th>
+                           
+                        </tr>
+                    }
 
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
 </div>

@@ -6,6 +6,10 @@ namespace WebAdmin.Cookie
 {
     public class AppCookieInfo
     {
+        public static string LoginType
+        {
+            get; set;
+        }
         private static int GetInt(string key)
         {
             string ID = CookieHelper.GetCookie(key);

@@ -9,6 +9,7 @@ CREATE PROCEDURE AddTrackingSchedules
 	,@note nvarchar(max)
 	,@listId varchar(max)
 	, @schedulesId varchar(50)
+	,@type varchar(50)
 ) AS
 BEGIN
 BEGIN TRAN
@@ -25,17 +26,27 @@ BEGIN TRY
 	SELECT * FROM FN_SplitStringToTable(@listId,',')
 	UPDATE #ListUserId
 		SET TrackingDate = GETDATE(),
-			TrackingNote = @note,
-			TrackingScheduleId = @schedulesId
-	INSERT INTO [dbo].[TB_TRACKINGS](
-		[TrackingDate]
-      ,[TrackingNote]
-      ,[TrackingUserId]
-      ,[TrackingScheduleId]
-	)
-	SELECT * FROM #ListUserId
-	SET @ecode = '00'
-	SELECT @ecode ECODE , 'SUSCESS' edesc
+		TrackingNote = @note,
+		TrackingScheduleId = @schedulesId
+	IF @type ='INSERT'
+		BEGIN
+			INSERT INTO [dbo].[TB_TRACKINGS](
+				[TrackingDate]
+			  ,[TrackingNote]
+			  ,[TrackingUserId]
+			  ,[TrackingScheduleId]
+			)
+			SELECT * FROM #ListUserId
+			SET @ecode = '00'
+			SELECT @ecode ECODE , 'SUSCESS' edesc
+		END
+	ELSE IF @type ='DELETE'
+		BEGIN
+			DELETE TB_TRACKINGS WHERE TrackingUserId IN (SELECT TrackingUserId FROM #ListUserId ) AND TrackingScheduleId = @schedulesId
+			SET @ecode = '00'
+			SELECT @ecode ECODE , 'SUSCESS' edesc
+		END
+	
 
 COMMIT
 END TRY

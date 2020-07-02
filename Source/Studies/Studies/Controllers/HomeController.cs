@@ -97,7 +97,7 @@ namespace WebAdmin.Controllers
         {
             try
             {
-                V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password);
+                V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password,"CLIENT");
                 if (info == null)
                 {
                     ViewBag.error = "Tài khoản hoặc mật khẩu không chính xác";

@@ -1,8 +1,8 @@
 
 @{
-    ViewBag.Title = "RollCall";
+    ViewBag.Title = "Điểm danh";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
-
+    List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedules;
 }
 
 @model List<CORE.Views.V_TRACKING_USER_CLASS>
@@ -24,36 +24,51 @@
     </div>
 </div>
 <!-- End of Page Banner Area -->
-
 <!-- Teachers Area Start -->
 <div class="teachers-area section bg-white pt-120 pb-100">
     <div class="container">
         <!-- Section Title -->
         <div class="row">
             <table class="table table-hover">
-                 <thead>
-                   <tr>
-                       <th>Class ID</th>
-@*                        @for (int i = 0; i < Model[0].dateTracking.Count; i++) *@
-@*                        { *@
-@*                            <th>Day @(i+1)</th> *@
-@*                        } *@
-                   </tr>
-                 </thead>
-                <tbody>
-                @foreach (var tracking in Model)
-                {
+                <thead>
                     <tr>
-                        <th>@tracking.schedueId</th>
-                        @for (int i = 0; i < tracking.dateTracking.Count; i++)
-                        {
-                            <th>@tracking.dateTracking[i]</th>
-                        }
+                        <th>Mã lớp</th>
+                        <th>Tổng số buổi học</th>
+                        <th>Danh sách ngày điểm danh</th>
+                        @*                        @for (int i = 0; i < Model[0].dateTracking.Count; i++) *@
+                        @*                        { *@
+                        @*                            <th>Day @(i+1)</th> *@
+                        @*                        } *@
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var tracking in Model)
+                    {
+                        var result = "";
+                        <tr>
+                            <th>@(list.Where(x=>x.ScheduleId== tracking.schedueId).FirstOrDefault().ScheduleCode)</th>
+                            <th>@tracking.dateTracking.Count</th>
+                            <th>
+                                @for (int i = 0; i < tracking.dateTracking.Count; i++)
+                                {
+                                    if(i == tracking.dateTracking.Count)
+                                    {
+                                        result += @tracking.dateTracking[i].ToString("dd/MM/yyyy");
+                                    }
+                                    else
+                                    {
+                                        result += @tracking.dateTracking[i].ToString("dd/MM/yyyy") + " - ";
+                                    }
+
+
+                                }
+                                @result
+                            </th>
+                        </tr>
+                    }
 
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
 </div>

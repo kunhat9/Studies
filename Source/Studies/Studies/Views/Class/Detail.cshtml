@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    List<CORE.Tables.TB_BOX_SUBJECTS> box_subject = ViewBag.BoxSubject;
+    List<CORE.Tables.TB_SUBJECTS> subject = ViewBag.Subject;
+    List<CORE.Tables.TB_BOXES> box = ViewBag.Box;
+    List<CORE.Tables.TB_USERS> listUser = ViewBag.User;
+
+    CORE.Tables.TB_USERS user = listUser.Where(x => x.UserId == Model.ScheduleUserId).FirstOrDefault();
+
+
+}
+@model CORE.Views.V_SCHEDULE_DETAILS
+<!-- Page Banner Area Start -->
+<div class="page-banner-area overlay section">
+    <div class="container">
+        <div class="row">
+            <!-- Page Banner -->
+            <div class="page-banner text-center col-xs-12">
+                <h1>Chi tiết thông tin lớp học</h1>
+                <!-- Breadcrumb -->
+                <ul class="breadcrumb">
+                    <li><a href="/Home/Index">Trang chủ</a></li>
+                    <li><a href="#">Chi tiết thông tin lớp học</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Page Banner Area -->
+<!-- Course Area Start -->
+<div class="course-area bg-white section pt-120 pb-70">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-9 col-md-8 col-xs-12 mb-20">
+                <!-- Single Course Details -->
+                <div class="single-course-details">
+                    <div class="image"><img alt="" src="~/Assets/img/course/details.jpg"></div>
+                    <div class="content">
+                        <h4 class="title"> Mã lớp : @Model.ScheduleCode</h4>
+                        <div class="course-info">
+                            <a href="#">Học phí : @CORE.Helpers.ConvertDataWithView.Currency_ToView(Model.SchedulePrice)</a>
+                            <span><i class="zmdi zmdi-calendar-check"></i> Thời gian học : @Model.ScheduleDetailTimeFrom - @Model.ScheduleDetailTimeTo @CORE.Helpers.ConvertDataWithView.Convert_DayOfweek(Model.ScheduleDetailDayOfWeek) các ngày trong tuần</span>
+                        </div>
+                        <div class="course-text-content">
+                            <h3>Mô tả ngắn</h3>
+                            <p>@Model.ScheduleDetailNote</p>
+                        </div>
+                    </div>
+                    <div class="course-duration mt-30">
+                        <div class="duration-title">
+                            <div class="text"><span>Môn học</span> <span class="text-right">Khối</span></div>
+                        </div>
+                        <div class="duration-text">
+                            <div class="text"><span>@subject.Where(x=>x.SubjectId == 
+                                               (box_subject.Where(y=>y.BoxSubjectId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName</span>
+                             <span class="text-right">@box.Where(x => x.BoxId ==
+                                               (box_subject.Where(y => y.BoxSubjectBoxId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectBoxId)).FirstOrDefault().BoxCode</span></div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- Comment -->
+               
+            </div>
+
+            <!-- Sidebar Wrapper -->
+            <div class="col-lg-3 col-md-4 col-xs-12 mb-50">
+                <!-- Department Head -->
+                <div class="single-sidebar">
+                    <div class="sidebar-teacher">
+                        <img src="~/Assets/img/teacher/head.jpg" alt="">
+                        <h4>@user.UserName</h4>
+                        <h5>@user.UserFullName</h5>
+                        <div class="social">
+                            <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="www.plus.google.com"><i class="fa fa-google-plus"></i></a>
+                            <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Category -->
+                <div class="single-sidebar">
+                    <h4>Danh mục</h4>
+                    <ul class="category">
+                        <li><a href="#">Toán</a></li>
+                        <li><a href="#">Lý</a></li>
+                        <li><a href="#">Hóa</a></li>
+                        <li><a href="#">Sinh</a></li>
+                        <li><a href="#">Văn</a></li>
+                        <li><a href="#">Ngoại ngữ</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Course Area-->

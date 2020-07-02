@@ -1,11 +1,28 @@
 
+@using CORE.Views;
 @{
     ViewBag.Title = "Tuition";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    string type = ViewBag.Type;
+    List<V_TuitionStudies> listTuition = ViewBag.Tuititon;
+    var resultTuition = listTuition.GroupBy(x => x.ScheduleId).Select(t => new
+    {
+        SchedulesId = t.Key,
+        TotalCount = t.ToList()
+    }).ToList();
 
+    List<V_SALARY_TEACHER> listSalary = ViewBag.Salary;
+    var resultSalary = listSalary.GroupBy(x => x.ScheduleId).Select(t => new
+    {
+        SchedulesId = t.Key,
+        TotalCount = t.ToList()
+    }).ToList();
+    List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedule;
+    List<CORE.Tables.TB_SUBJECTS> listSubject = ViewBag.Subject;
+    List<CORE.Tables.TB_BOX_SUBJECTS> listBoxSujbect = ViewBag.SubjectBox;
 }
 
-@model List<CORE.Tables.TB_SCHEDULES>
+
 
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
@@ -13,18 +30,32 @@
         <div class="row">
             <!-- Page Banner -->
             <div class="page-banner text-center col-xs-12">
-                <h1>TUITION</h1>
+                @if (type.Equals("STUDIES"))
+                {
+                    <h1>Học phí</h1>
+                }
+                else
+                {
+                    <h1>Lương</h1>
+                }
                 <!-- Breadcrumb -->
                 <ul class="breadcrumb">
                     <li><a href="/Home">Trang chủ</a></li>
-                    <li><a href="#">Lương</a></li>
+                    @if (type.Equals("STUDIES"))
+                    {
+                        <li><a href="#">Học phí</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="#">Lương</a></li>
+                    }
+                    
                 </ul>
             </div>
         </div>
     </div>
 </div>
 <!-- End of Page Banner Area -->
-
 <!-- Teachers Area Start -->
 <div class="teachers-area section bg-white pt-120 pb-100">
     <div class="container">
@@ -32,27 +63,70 @@
         <div class="row">
             <table class="table table-hover">
                 <thead>
-                  <tr>
-                    <th>Môn</th>
-                    <th>Lương</th>
-                  </tr>
+                    <tr>
+                        <th>Mã lớp</th>
+                        <th>Tên môn học</th>
+                        <th>Tổng số buổi</th>
+                        @if (type.Equals("STUDIES"))
+                        {
+                            <th>Học phí</th>
+                        }
+                        else
+                        {
+                            <th>Lương</th>
+                        }
+                    </tr>
                 </thead>
                 <tbody>
-                 @foreach (var schedule in Model)
-                 {
-                     <tr>
-                         <th>@schedule.ScheduleCode</th>
-                         <td>@schedule.SchedulePrice</td>
-                     </tr>
-                 }
-                
-                <tr>
-                    <th class="text-right">Total</th>
-                    <td>@Model.Sum(x => x.SchedulePrice)</td>
-                </tr>
+                    @if (type.Equals("STUDIES"))
+                    {
+                        decimal total = 0;
+                        foreach (var item in resultTuition)
+                        {
+                            total += @item.TotalCount.Sum(x => x.TuitionStudies);
+                            <tr>
+                                <th>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</th>
+                                <th>@listSubject.Where(x=>x.SubjectId == 
+                               (listBoxSujbect.Where(t=>t.BoxSubjectSubjectId == 
+                               (list.Where(y=>y.ScheduleId==item.SchedulesId)).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault()
+                               .BoxSubjectSubjectId)).FirstOrDefault().SubjectName</th>
+                                <th>@item.TotalCount.Sum(x => x.CountNumber)</th>
+                                <th>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.TuitionStudies))</th>
+                            </tr>
+                        }
+                        <tr>
+                            <th class="text-right">Total</th>
+                            <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(total)</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        decimal total = 0;
+                        foreach (var item in resultSalary)
+                        {
+                            total += @item.TotalCount.Sum(x => x.SalaryTeacher);
+                            <tr>
+                                <th>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</th>
+                                <th>
+                                    @listSubject.Where(x => x.SubjectId ==
+                               (listBoxSujbect.Where(t => t.BoxSubjectSubjectId ==
+                               (list.Where(y => y.ScheduleId == item.SchedulesId)).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName
+                            </th>
+                                <th>@item.TotalCount.Sum(x => x.CountStudies)</th>
+                                <th>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</th>
+                            </tr>
+                        }
+                        <tr>
+                            <th class="text-right">Total</th>
+                            <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(total)</td>
+                        </tr>
+                    }
+
+
+
 
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
 </div>

@@ -21,12 +21,8 @@
         public const string GET_THOI_KHOA_BIEU = "GetThoiKhoaBieuHocSinh";
         public const string GET_TRANSCIPT_BY = "GetTranscriptBy";
         public const string INSERT_POINT_TO_CLASS = "InsertPointToClass";
-
-
-
-
-
-
+        public const string GET_TUITION_STUDIES = "GetTuitionStudies";
+        public const string GET_USER_TRACKED = "GetUserTracked";
 
 
         public const string FOMAT_DATE_INPUT = "yyyy/MM/dd";

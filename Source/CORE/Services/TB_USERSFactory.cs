@@ -32,8 +32,16 @@ namespace CORE.Services
         {
             return new TB_USERSSql().SelectAll();
         }
+        public List<TB_USERS> GetAllStudies()
+        {
+            return new TB_USERSSql().FilterByField("UserType","STUDIES");
+        }
+        public List<TB_USERS> GetAllTeacher()
+        {
+            return new TB_USERSSql().FilterByField("UserType", "TEACHER");
+        }
         // LAY DANH SACH THONG TIN HOC SINH CUA 1 LOP HOC 
-        public List<TB_USERS> GetStudiesBySchedule(int scheduleId, int pageNumber, int pageSize, out int count)
+        public List<TB_USERS> GetStudiesBySchedule(string scheduleId, int pageNumber, int pageSize, out int count)
         {
             object cTemp;
             List<TB_USERS> list = new List<TB_USERS>();
@@ -42,11 +50,11 @@ namespace CORE.Services
             return list;
         }
         // login vao webclient
-        public V_INFO_LOGIN_CLIENT CheckLogin(string userName, string passWord)
+        public V_INFO_LOGIN_CLIENT CheckLogin(string userName, string passWord,string type)
         {
             string ecode, edesc;
             List<TB_USERS> list = new List<TB_USERS>();
-            list = new TB_USERSSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.CHECK_LOGIN_CLIENT, userName, passWord);
+            list = new TB_USERSSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.CHECK_LOGIN_CLIENT, userName, passWord, type);
             V_INFO_LOGIN_CLIENT result = new V_INFO_LOGIN_CLIENT();
             result = list.Select(x => new V_INFO_LOGIN_CLIENT
             {
@@ -57,9 +65,12 @@ namespace CORE.Services
             return result;
         }
         // tinh luogn cho giao vien
-        public List<V_SALARY_TEACHER> GetSalaryTeacher(int userId , int scheduleId , string startDate, string endDate , int pageNumber , int pageSize)
+        public List<V_SALARY_TEACHER> GetSalaryTeacher(string userId , string scheduleId , string startDate, string endDate , int pageNumber , int pageSize, out int count)
         {
-            return new V_SALARY_TEACHERSql().SelectFromStore(AppSettingKeys.GET_SALARY_TEACHER, userId,scheduleId,startDate,endDate,pageNumber,pageSize);
+            object cTemp;
+            List<V_SALARY_TEACHER> list =  new V_SALARY_TEACHERSql().SelectFromStoreOutParam(AppSettingKeys.GET_SALARY_TEACHER,out cTemp ,userId,scheduleId,startDate,endDate,pageNumber,pageSize);
+            count = (int)cTemp;
+            return list;
         }
 
         public List<TB_USERS> GetAllBy(string keyText, string status , string scheduleId, string type , int pageNumber, int pageSize, out int count)
@@ -77,11 +88,19 @@ namespace CORE.Services
             return new V_TKBStudiesSql().SelectFromStore(AppSettingKeys.GET_THOI_KHOA_BIEU, userId);
         }
         // lay danh sach hoc phi cua hoc sinh 
-        public List<V_TuitionStudies> GetTuiTionStudies(int userId, int scheduleId, string startDate, string endDate, int pageNumber, int pageSize, out int count)
+        public List<V_TuitionStudies> GetTuiTionStudies(string userId, string scheduleId, string startDate, string endDate, int pageNumber, int pageSize, out int count)
         {
             object cTemp;
             List<V_TuitionStudies> list = new List<V_TuitionStudies>();
-            list = new V_TuitionStudiesSql().SelectFromStoreOutParam(AppSettingKeys.GET_SALARY_TEACHER, out cTemp , userId, scheduleId, startDate, endDate, pageNumber, pageSize);
+            list = new V_TuitionStudiesSql().SelectFromStoreOutParam(AppSettingKeys.GET_TUITION_STUDIES, out cTemp , userId, scheduleId, startDate, endDate, pageNumber, pageSize);
+            count = (int)cTemp;
+            return list;
+        }
+        public List<V_USER_TRACKED> GetUserTracked(string schedulesId,string createdDate, int pageNumber ,int pageSize, out int count)
+        {
+            object cTemp;
+            List<V_USER_TRACKED> list = new List<V_USER_TRACKED>();
+            list = new V_USER_TRACKEDSql().SelectFromStoreOutParam(AppSettingKeys.GET_USER_TRACKED, out cTemp, schedulesId, createdDate, pageNumber, pageSize);
             count = (int)cTemp;
             return list;
         }

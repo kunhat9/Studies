@@ -90,7 +90,7 @@ CREATE TABLE TB_SCHEDULE_DETAILS	-- Chi tiết
 	,ScheduleDetailDayOfWeek varchar(50)  -- ngày trong tuần
 	,ScheduleDetailTimeFrom time  -- từ giờ 
 	,ScheduleDetailTimeTo time -- đến giờ
-	,ScheduleDetailNote varchar(50)-- mô tả
+	,ScheduleDetailNote nvarchar(500)-- mô tả
 	,ScheduleDetailScheduleId INT
 	, CONSTRAINT FK_ScheduleDetailScheduleId FOREIGN KEY (ScheduleDetailScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)   
 )
@@ -98,6 +98,7 @@ GO
 CREATE TABLE TB_CLASSES  -- lớp học 
 (
 	ClassId INT IDENTITY PRIMARY KEY
+	,ClassDateCreated datetime
 	, ClassUserId     INT       -- Học sinh 
 	, CONSTRAINT FK_ClassUserId FOREIGN KEY (ClassUserId) REFERENCES TB_USERS(UserId) 
 	, ClassScheduleId INT

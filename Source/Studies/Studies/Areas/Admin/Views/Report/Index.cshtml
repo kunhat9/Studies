@@ -1,7 +1,7 @@
 @model dynamic
 
 @{
-    ViewBag.Title = "Report";
+    ViewBag.Title = "Biểu đồ chi phí ";
     Layout =  "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -43,8 +43,7 @@
                         <label>Loại</label>
                         <div class="input-group">
                             <select class="form-control select-search w-100" id="type">
-                                <option value="" selected="selected">Chọn</option>
-                                <option value="DAY" >Ngày</option>
+                                <option value="DAY" selected >Ngày</option>
                                 <option value="MONTH">Tháng</option>
                                 <option value="YEAR">Năm</option>
                             </select>

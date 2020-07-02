@@ -1,0 +1,97 @@
+﻿
+
+
+@{ 
+
+
+    List<CORE.Tables.TB_USERS> teacher = ViewBag.Teacher;
+    List<CORE.Tables.TB_USERS> students = ViewBag.User;
+    List<CORE.Views.V_SCHEDULE_DETAILS> details = ViewBag.Schedule;
+    List<CORE.Views.V_USER_TRACKED> studies = ViewBag.UserTracked;
+}
+
+<div class="data-table div-h100-body">
+    <p>Danh sách học sinh đã điểm danh</p>
+    <div class="div-h100 ">
+        <div class="div-h100-body">
+            <div class="well">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="fixed-col">STT</th>
+                            <th>Mã học sinh</th>
+                            <th>Tên học sinh</th>
+                            <th>Ngày đăng kí</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < studies.Count; i++)
+                            {
+                                <tr class="text-center">
+                                    <td class="fixed-col">@(i + 1)</td>
+                                    <td>@studies[i].UserId</td>
+                                    <td>@studies[i].UserFullName</td>
+                                    <td>@studies[i].UserDateCreated</td>
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="btnDelete" onclick="onDelete(this)" data-id="@studies[i].UserId" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                                <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="data-table div-h100-body">
+
+    <p>Danh sách học sinh chưa điểm danh </p>
+    <div class="div-h100 ">
+        <div class="div-h100-body">
+            <div class="well">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkAll" /></th>
+                            <th class="fixed-col">STT</th>
+                            <th>Mã học sinh</th>
+                            <th>Tên học sinh</th>
+                            <th>Ngày đăng kí</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < students.Count; i++)
+                            {
+                                <tr class="text-center">
+                                    <td><input type="checkbox" name="userids" value="@students[i].UserId" /></td>
+                                    <td class="fixed-col">@(i + 1)</td>
+                                    <td>@students[i].UserId</td>
+                                    <td>@students[i].UserFullName</td>
+                                    <td>@students[i].UserDateCreated</td>
+
+                                </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#checkAll").click(function(){
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+    let value = @Html.Raw(Json.Encode(details));
+    let teacher = @Html.Raw(Json.Encode(teacher));
+    debugger;
+    var data = value[0];
+    console.log(data);
+    $('#teacher').val(teacher.filter(x=>x.UserId == data.ScheduleUserId)[0].UserFullName);
+    $('#startDate').val(data.ScheduleDetailTimeFrom.Hours + ":" +data.ScheduleDetailTimeFrom.Minutes+":"+data.ScheduleDetailTimeFrom.Seconds);
+    $('#endDate').val(data.ScheduleDetailTimeFrom.Hours + ":" +data.ScheduleDetailTimeFrom.Minutes+":"+data.ScheduleDetailTimeFrom.Seconds);
+</script>

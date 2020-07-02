@@ -17,8 +17,8 @@ namespace WebAdmin.Areas.Admin.AdminController
         {
             return View();
         }
-        
-        public PartialViewResult _Index(int userId  = 0,string userType = "", int pageNumber = 1, int pageSize = 10)
+
+        public PartialViewResult _Index(string userId = "", string userType = "STUDIES", int pageNumber = 1, int pageSize = 10)
         {
             ViewBag.pageNumber = pageNumber;
             ViewBag.pageSize = pageSize;
@@ -28,9 +28,9 @@ namespace WebAdmin.Areas.Admin.AdminController
             try
             {
                 int count = 0;
-                classes = Schedules_Service.GetInfoClassBy(userId,userType,out count);
+                classes = Schedules_Service.GetInfoClassBy(userId, userType, pageNumber, pageSize, out count);
                 ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
-                
+                ViewBag.users = User_Service.GetAll();
                 ViewBag.boxSubjects = Subjects_Boxes_Service.GetAll();
             }
             catch (Exception ex)
@@ -40,7 +40,7 @@ namespace WebAdmin.Areas.Admin.AdminController
 
             return PartialView(classes);
         }
-        
+
         public PartialViewResult _Detail()
         {
             List<TB_SUBJECTS> subjects = new List<TB_SUBJECTS>();
@@ -61,7 +61,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                         teachers.Add(user);
                     }
                 }
-                
+
 
             }
             catch (Exception e)
@@ -76,7 +76,7 @@ namespace WebAdmin.Areas.Admin.AdminController
 
             return PartialView();
         }
-        
+
         public ActionResult Class_Detail(int id)
         {
             List<TB_SUBJECTS> subjects = new List<TB_SUBJECTS>();
@@ -94,9 +94,9 @@ namespace WebAdmin.Areas.Admin.AdminController
                 boxes = Boxes_Service.GetAll();
                 users = User_Service.GetAll();
                 int count = 0;
-                details = Classes_Service.GetClassBy("","","","","","", 1, Int16.MaxValue, out count);
+                details = Classes_Service.GetClassBy("", "", "", "", "", "", 1, Int16.MaxValue, out count);
 
-                studies = User_Service.GetStudiesBySchedule(id, 1, Int16.MaxValue, out count);
+                studies = User_Service.GetStudiesBySchedule(id.ToString(), 1, Int16.MaxValue, out count);
                 foreach (var tmp in details)
                 {
                     if (id.Equals(tmp.ScheduleId))
@@ -112,7 +112,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                         teachers.Add(user);
                     }
                 }
-                
+
                 foreach (var user in users)
                 {
                     if (user.UserType.Equals("STUDIES"))
@@ -120,7 +120,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                         students.Add(user);
                     }
                 }
-                
+
                 classes = Schedules_Service.GetById(id);
             }
             catch (Exception e)
@@ -128,13 +128,22 @@ namespace WebAdmin.Areas.Admin.AdminController
                 Console.WriteLine(e);
                 throw;
             }
-
+            List<TB_USERS> lst = new List<TB_USERS>();
+            foreach (var item in students)
+            {
+                
+                if(studies.Where(x=>x.UserId == item.UserId).ToList().Count == 0)
+                {
+                    lst.Add(item);
+                }
+            }
+            
             ViewBag.subjects = subjects;
             ViewBag.boxes = boxes;
             ViewBag.teachers = teachers;
             ViewBag.detail = detail;
             ViewBag.studies = studies;
-            ViewBag.students = students;
+            ViewBag.students = lst;
             ViewBag.id = id;
 
 
