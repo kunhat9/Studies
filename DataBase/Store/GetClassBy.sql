@@ -45,7 +45,7 @@ BEGIN
 		AND (@timeIn IS NULL OR  CONVERT(time, @timeIn) <= d.ScheduleDetailTimeTo)
 		AND (@timeEnd IS NULL OR  d.ScheduleDetailTimeFrom <= CONVERT(time, @timeEnd))
 		AND s.ScheduleIdBoxSubjectId IN (
-			SELECT BoxSubjectSubjectId FROM TB_BOX_SUBJECTS
+			SELECT BoxSubjectId FROM TB_BOX_SUBJECTS
 				WHERE  (@boxid IS NULL OR BoxSubjectBoxId = @boxid)
 				AND (@subjectId IS NULL OR BoxSubjectSubjectId = @subjectId)
 		)

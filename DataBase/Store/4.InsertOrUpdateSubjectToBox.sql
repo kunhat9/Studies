@@ -6,7 +6,8 @@ GO
 CREATE PROCEDURE InsertOrUpdateSubjectToBox
 (
 	@boxId nvarchar(50),
-	@listSubjectId varchar(500)
+	@listSubjectId varchar(500),
+	@boxSubjectId varchar(50)
 	
 ) AS
 BEGIN

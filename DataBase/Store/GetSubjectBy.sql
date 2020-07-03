@@ -23,21 +23,21 @@ BEGIN
 	INSERT INTO #TempSubjectId(BoxSubjectId)
 	SELECT BoxSubjectId
 	FROM TB_BOX_SUBJECTS bs
-	JOIN TB_SUBJECTS  s
+	LEFT JOIN TB_SUBJECTS  s
 	ON bs.BoxSubjectId = s.SubjectId
-	JOIN TB_BOXES b
+	LEFT JOIN TB_BOXES b
 	ON bs.BoxSubjectBoxId = b.BoxId
 	WHERE (b.BoxCode LIKE N'%' + @keyText + '%'
 			OR s.SubjectName LIKE N'%' + @keyText + '%'
 			)
 		
-	SELECT bs.BoxSubjectId, b.BoxId,b.BoxCode, s.SubjectId,s.SubjectName
-	FROM TB_BOX_SUBJECTS bs
-	JOIN TB_SUBJECTS  s
-	ON bs.BoxSubjectId = s.SubjectId
-	JOIN TB_BOXES b
-	ON bs.BoxSubjectBoxId = b.BoxId
-	WHERE BoxSubjectId IN
+	
+	
+	SELECT bs.BoxSubjectId,box.BoxCode, box.BoxId,s.SubjectName, s.SubjectId
+	FROM TB_BOX_SUBJECTS bs,TB_BOXES box , TB_SUBJECTS s
+	WHERE bs.BoxSubjectBoxId = box.BoxId
+	AND bs.BoxSubjectSubjectId = s.SubjectId
+	AND BoxSubjectId IN
 		(SELECT BoxSubjectId
 		FROM #TempSubjectId
 		WHERE @start <= [ROW]

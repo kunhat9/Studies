@@ -40,11 +40,11 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
-        public bool InsertOrUpdateClassFromAdmin(string scheduleId, string boxId,string price, string startDate, string endDate, string subjectId, string dayOfWeek, string timeIn , string timeEnd, string status, string userId,string note)
+        public bool InsertOrUpdateClassFromAdmin(string scheduleId, string boxSubjectId,string price, string startDate, string endDate, string dayOfWeek, string timeIn , string timeEnd, string status, string userId,string note)
         {
             string ecode, edesc;
             TB_CLASSESSql sql = new TB_CLASSESSql();
-            sql.SelectFromStore(out ecode, out edesc,AppSettingKeys.INSERT_OR_UPDATE_CLASS_FROM_ADMIN, scheduleId,boxId,price,startDate,endDate, subjectId, dayOfWeek, timeIn, timeEnd, status, userId, note);          
+            sql.SelectFromStore(out ecode, out edesc,AppSettingKeys.INSERT_OR_UPDATE_CLASS_FROM_ADMIN, scheduleId,boxSubjectId,price,startDate,endDate, dayOfWeek, timeIn, timeEnd, status, userId, note);          
             if (ecode.Equals("00"))
             {
                 return true;

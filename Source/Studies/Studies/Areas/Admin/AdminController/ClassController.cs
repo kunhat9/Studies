@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CORE.Tables;
 using CORE.Views;
 using WebAdmin.Controllers;
+using WebAdmin.Configuration;
 
 namespace WebAdmin.Areas.Admin.AdminController
 {
@@ -17,21 +18,22 @@ namespace WebAdmin.Areas.Admin.AdminController
         {
             return View();
         }
-
-        public PartialViewResult _Index(string userId = "", string userType = "STUDIES", int pageNumber = 1, int pageSize = 10)
+        [AjaxChildActionOnly]
+        public PartialViewResult _Index(string keyText="", string boxId="", string subjectId="", string timeIn="", string timeEnd="", string status="", int pageNumber=1, int pageSize=10)
         {
             ViewBag.pageNumber = pageNumber;
             ViewBag.pageSize = pageSize;
             ViewBag.maxNumber = 0;
-            var classes = new List<V_SCHEDULE_DETAILS>();
+            var classes = new List<V_CLASS>();
 
             try
             {
                 int count = 0;
-                classes = Schedules_Service.GetInfoClassBy(userId, userType, pageNumber, pageSize, out count);
+                classes = Classes_Service.GetClassBy(keyText,boxId,subjectId,timeIn,timeEnd,status ,pageNumber, pageSize, out count);
                 ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
                 ViewBag.users = User_Service.GetAll();
-                ViewBag.boxSubjects = Subjects_Boxes_Service.GetAll();
+                int count1 = 0;
+                ViewBag.boxSubjects = Subjects_Boxes_Service.GetAllBy("", 1, short.MaxValue, out count1);
             }
             catch (Exception ex)
             {
@@ -47,10 +49,11 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_BOXES> boxes = new List<TB_BOXES>();
             List<TB_USERS> users = new List<TB_USERS>();
             List<TB_USERS> teachers = new List<TB_USERS>();
-
-
+            List<V_BOX_SUBJECT> boxSubject = new List<V_BOX_SUBJECT>();
+            int count = 0;
             try
             {
+                boxSubject = Subjects_Boxes_Service.GetAllBy("", 1, short.MaxValue,out count);
                 subjects = Subjects_Service.GetAll();
                 boxes = Boxes_Service.GetAll();
                 users = User_Service.GetAll();
@@ -69,7 +72,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                 Console.WriteLine(e);
                 throw;
             }
-
+            ViewBag.BoxSubject = boxSubject;
             ViewBag.subjects = subjects;
             ViewBag.boxes = boxes;
             ViewBag.teachers = teachers;

@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label>Địa chỉ</label>
+                                    <label>Đơn vị công tác</label>
                                     <input type="text" class="form-control" id="UserAddress">
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Hệ số lương</label>
-                                    <input type="number" class="form-control" id="UserNumberSalary">
+                                    <input type="number" class="form-control" onkeyup="checkHeSo(event)" id="UserNumberSalary">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Học vị</label>
@@ -126,6 +126,13 @@
 </div>
 
 <script>
+    function checkHeSo(evt) {
+        var data = $('#UserNumberSalary').val();
+        if (data > 1) {
+            $('#UserNumberSalary').val('');
+            toastr.info("Hệ số lương không quá 1");
+        }
+    }
     // $("#PACKAGE_TYPE").change(function () {
     //     let state = $(this).val();
     //

@@ -54,22 +54,23 @@
                 <tbody class="text-center">
                     @{
                         decimal total = 0;
+                        int i = 0;
                         foreach (var item in resultSalary)
                         {
-                            total += @item.TotalCount.Sum(x => x.SalaryTeacher);
+
+
+                            total += item.TotalCount.Sum(x => x.SalaryTeacher);
                             <tr class="text-center">
                                 <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+
                                 @*<td>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</td>*@
-                                <td>
-                                    @listSubject.Where(x => x.SubjectId ==
-                               (listBoxSujbect.Where(t => t.BoxSubjectSubjectId ==
-                               (list.Where(y => y.ScheduleId == item.SchedulesId)).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault()
-                               .BoxSubjectSubjectId)).FirstOrDefault().SubjectName
-                                </td>
+                                <td>@listSubject.Where(t => t.SubjectId == listBoxSujbect.Where(x => x.BoxSubjectId == list.Where(y => y.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId).FirstOrDefault().SubjectName</td>
+
                                 <td>@item.TotalCount.Sum(x => x.CountStudies)</td>
                                 <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</td>
                                 <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</td>
                             </tr>
+                            i += 1;
                         }
                         <tr class="text-center">
                             <td class="text-right"></td>
@@ -78,6 +79,7 @@
                             <td class="text-right">Tổng lương</td>
                             <td>@(total > 0 ? CORE.Helpers.ConvertDataWithView.Currency_ToView(total) : "0")</td>
                         </tr>
+
                     }
                 </tbody>
             </table>

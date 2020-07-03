@@ -43,7 +43,7 @@ BEGIN
 			INSERT INTO #TempUserId(UserID)
 			SELECT UserId
 			FROM TB_USERS
-			JOIN TB_CLASSES 
+			LEFT JOIN TB_CLASSES 
 			ON TB_USERS.UserId = TB_CLASSES.ClassUserId
 			WHERE (UserFullName LIKE N'%' + @keyText + '%'
 					OR UserAddress LIKE N'%' + @keyText + '%'
@@ -54,7 +54,7 @@ BEGIN
 				AND (@type IS NULL OR UserType = @type)
 				AND (@scheduleId IS NULL OR TB_CLASSES.ClassScheduleId = @scheduleId)
 		END
-	SELECT[UserId]
+	SELECT DISTINCT [UserId]
       ,[UserName]
       ,[UserFullName]
       ,[UserPassword]

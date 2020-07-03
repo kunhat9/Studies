@@ -2,7 +2,7 @@
 @model List<CORE.Tables.TB_SUBJECTS>
 
 @{
-    var boxes = (List<TB_BOXES>) ViewBag.boxes;
+    var boxes = (List<TB_BOXES>)ViewBag.boxes;
 }
 
 <div class="modal-dialog">
@@ -27,14 +27,16 @@
                                             <option selected="selected" value="@box.BoxId">@box.BoxCode</option>
                                         }
                                     </select>
-                                    
+
                                 </div>
                             </div>
                         </div>
-                        
+                        <div class="form-group" hidden>
+                            <input type="text" id="boxSubjectId" />
+                        </div>
                         <div class="form-group">
                             <label>Tên môn học</label>
-                            <select id="subjects" class="multiselect" multiple="multiple">
+                            <select id="subjects" class="multiselect">
                                 @foreach (var subject in Model)
                                 {
                                     <option value="@subject.SubjectId">@subject.SubjectName</option>
@@ -56,26 +58,27 @@
 
 <script>
     $('#subjects').multiselect();
-    
-    $(".btnSave").click(()=>{
-                        $.ajax({
-                             url: "/Admin/Ajax/InsertOrUpdateSubjectBox",
-                             type: "post",
-                             data: {
-                                     box_id:$("#boxId").val(),
-                                     listSubjectId: getSelected()
-                             },
-                         }).done(function ({Data}) {
-                             if (Data.Code == 0) {
-                                 toastr.success(Data.Result);
-                                 setTimeout(function () {
-                                         
-                                     window.location.reload();
-                                     
-                                  }, 1500);
-                             } else {
-                                 toastr.error(Data.Result);
-                             }
-                         });
-        })
+
+    $(".btnSave").click(() => {
+        $.ajax({
+            url: "/Admin/Ajax/InsertOrUpdateSubjectBox",
+            type: "post",
+            data: {
+                box_id: $("#boxId").val(),
+                listSubjectId: getSelected(),
+                boxSubjectId: $('#boxSubjectId').val()
+            },
+        }).done(function (Data) {
+            if (Data.Code == 0) {
+                toastr.success(Data.Result);
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                }, 1500);
+            } else {
+                toastr.error(Data.Result);
+            }
+        });
+    })
 </script>

@@ -6,11 +6,10 @@ GO
 CREATE PROCEDURE InsertOrUpdateClassFromAdmin
 (
 	@scheduleId varchar(50)
-	,@boxId nvarchar(50)
+	,@boxSubjectId nvarchar(50)
 	,@price varchar(50)
 	,@startDate varchar(50)
 	,@endDate varchar(50)
-	,@subjectId varchar(50)
 	,@dayOfWeek varchar(50)
 	,@timeIn varchar(50)
 	,@timeEnd varchar(50)
@@ -29,7 +28,7 @@ BEGIN
 		SET @classCode = (@demo+'CL'+RIGHT('00000000' + CAST(NEXT VALUE FOR TB_SCHEDULESEQ AS varchar), 8))
 		-- kiem tra xem co lop day chua
 		DECLARE @count INT = (SELECT COUNT(1) FROM TB_SCHEDULES WHERE ScheduleId = @scheduleId)
-		DECLARE @boxSubjectId INT = (SELECT BoxSubjectId FROM TB_BOX_SUBJECTS WHERE BoxSubjectBoxId = @boxId AND BoxSubjectSubjectId = @subjectId)
+		
 		IF @count > 0
 			BEGIN
 				-- da co roi thy chi can update lai thoi 

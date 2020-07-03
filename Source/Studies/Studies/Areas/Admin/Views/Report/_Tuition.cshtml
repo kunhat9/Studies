@@ -59,12 +59,7 @@
                             total += @item.TotalCount.Sum(x => x.TuitionStudies);
                             <tr class="text-center">
                                 <td>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</td>
-                                <td>
-                                    @listSubject.Where(x => x.SubjectId ==
-                               (listBoxSujbect.Where(t => t.BoxSubjectSubjectId ==
-                               (list.Where(y => y.ScheduleId == item.SchedulesId)).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault()
-                               .BoxSubjectSubjectId)).FirstOrDefault().SubjectName
-                                </td>
+                                <td>@listSubject.Where(t => t.SubjectId == listBoxSujbect.Where(x => x.BoxSubjectId == list.Where(y => y.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId).FirstOrDefault().SubjectName</td>
                                 <td>@item.TotalCount.Sum(x => x.CountNumber)</td>
                                 <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.TuitionStudies))</td>
                                 <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.TuitionStudies))</td>

@@ -32,8 +32,8 @@
 
                             <td class="text-center">
                                 <ul class="icons-list">
-                                    <li class="btnEdit" data-index=@i>
-                                        <button type="button" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
+                                    <li class="btnEdit" onclick="onEdit(this)" data-index=@i>
+                                        <button type="button" data-toggle="modal" data-target="#modal_default" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
                                     </li>
                                     <li class="btnDelete" data-id='@Model[i].BoxSubjectId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
                                         <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
@@ -54,6 +54,23 @@
 <script>
     let url_get = "/Admin/Subject/_Index";
     let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
+    let data = @Html.Raw(Json.Encode(Model));
+   
+    function onEdit(event){
+        var stt=  event.dataset.index;
+        var dataEdit = data[stt];
+        setValueForEdit(dataEdit);
+    }
+    function setValueForEdit(list){
+        console.log(list);
+        $('#boxId').val(list.BoxId);
+        var arr = [];
+        arr.push(list.SubjectId);
+        $('#subjects').val(arr);
+        $("#subjects").multiselect("refresh");
+        $('#boxSubjectId').val(list.BoxSubjectId);
+       
+    }
     let getParamsForSearch = (pageNumber,isNext)=>{
         return {
             "keyText": $(".txtSearch").val() ,
@@ -61,23 +78,23 @@
             "pageSize": $(".select2-selection--single.select2-selection__rendered.d-inline page-size").val() ,
         };
     }
-    
+
     let subParams = ()=>{
         return {
             box_id:$("#boxId").val(),
             listSubjectId: getSelected()
         }
     }
-    
+
     let getSelected = ()=>{
         const selected = $("#subjects").find("option:selected"); //get current selected value
         const arr = []; //Array to store your multiple value in stack
         selected.each(function(){
              arr.push($(this).val()); //Stack the value
         });
-        return arr;     
+        return arr;
     }
 
      var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
-    
+
 </script>

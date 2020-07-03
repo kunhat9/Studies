@@ -78,12 +78,12 @@ namespace WebAdmin.Areas.Admin.AdminController
             return Json(new JsonResult() { Data = Result });
         }
         
-        public JsonResult InsertOrUpdateSubjectBox(List<string> listSubjectId,int box_id=0)
+        public JsonResult InsertOrUpdateSubjectBox(List<string> listSubjectId,int box_id=0, string boxSubjectId="")
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
-                bool check = Subjects_Boxes_Service.InsertOrUpdate(box_id,listSubjectId);
+                bool check = Subjects_Boxes_Service.InsertOrUpdate(box_id,listSubjectId, boxSubjectId);
                 
                 
                 if (check)
@@ -140,11 +140,11 @@ namespace WebAdmin.Areas.Admin.AdminController
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
-                value.Status = value.Status.Equals("1") ? "A" : "D";
+                //value.Status = value.Status.Equals("active") ? "A" : "D";
 
                 var scheduleId = value.ScheduleId.Equals(0) ? "" : value.ScheduleId.ToString();
                 
-                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId,value.BoxId.ToString(),value.Price,value.DateStart,value.DateEnd,value.SubjectId.ToString(),"",value.TimeStart,value.TimeEnd,value.Status,value.UserId,value.UserNote);
+                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId,value.BoxSubjectId.ToString(),value.Price,value.DateStart,value.DateEnd,value.DayOfWeek,value.TimeStart,value.TimeEnd,value.Status,value.UserId,value.UserNote);
 
 
                 if (check)

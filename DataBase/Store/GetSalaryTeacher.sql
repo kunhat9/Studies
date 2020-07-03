@@ -36,7 +36,8 @@ BEGIN
 	AND (@scheduleId ='' OR TrackingScheduleId = @scheduleId)
 	GROUP BY TrackingScheduleId , TrackingDate
 	-- tinh luong giao vien  : gia tien 1 buoi lop * so luong hoc sinh theoo buoi * he so luong 
-	SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(u.UserNumberSalary * s.SchedulePrice* t.CountStudies)) SalaryTeacher 
+	--SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(u.UserNumberSalary * s.SchedulePrice* t.CountStudies)) SalaryTeacher
+	SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(u.UserNumberSalary * s.SchedulePrice)) SalaryTeacher 
 	FROM #TempCountStudies t
 	JOIN TB_SCHEDULES s
 	ON t.ScheduleId = s.ScheduleId

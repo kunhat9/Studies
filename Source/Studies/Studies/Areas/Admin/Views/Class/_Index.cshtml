@@ -1,6 +1,6 @@
 @using System.Web.Mvc.Html
 @using CORE.Tables
-@model System.Collections.Generic.List<CORE.Views.V_SCHEDULE_DETAILS>
+@model System.Collections.Generic.List<CORE.Views.V_CLASS>
 
 
 @{
@@ -9,8 +9,8 @@
     serializer.MaxJsonLength = Int32.MaxValue;
     var jsonModel = serializer.Serialize(Model);
     var ok = jsonModel;
-    var boxSubjects = (List<TB_BOX_SUBJECTS>) ViewBag.boxSubjects;
-    var users = (List<TB_USERS>) ViewBag.users;
+    var boxSubjects = (List<CORE.Views.V_BOX_SUBJECT>)ViewBag.boxSubjects;
+    var users = (List<TB_USERS>)ViewBag.users;
 }
 
 <div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
@@ -22,7 +22,7 @@
                         <th class="fixed-col">STT</th>
                         <th>Mã lớp</th>
                         <th>Mã khôi</th>
-                        <th>Mã môn học</th>
+                        <th>Tên môn học</th>
                         <th>Giờ bắt đầu - Giờ kết thúc</th>
                         <th>Giá</th>
                         <th>Giáo viên chính</th>
@@ -37,12 +37,12 @@
                             <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
                             <td>@Model[i].ScheduleCode</td>
 
-                            @foreach(var boxSubject in boxSubjects)
+                            @foreach (var boxSubject in boxSubjects)
                             {
                                 if (boxSubject.BoxSubjectId.Equals(Model[i].ScheduleIdBoxSubjectId))
                                 {
-                                    <td>@boxSubject.BoxSubjectBoxId</td>
-                                    <td>@boxSubject.BoxSubjectSubjectId</td>
+                                    <td>@boxSubject.BoxId</td>
+                                    <td>@boxSubject.SubjectName</td>
                                 }
                             }
                             <td>@Model[i].ScheduleDetailTimeFrom - @Model[i].ScheduleDetailTimeTo</td>
@@ -55,14 +55,17 @@
 
                                 }
                             }
-                            <td>@Model[i].ScheduleDetailNote</td>
+                            <td>@(Model[i].ScheduleDetailNote.ToArray().Length > 30 ? Model[i].ScheduleDetailNote.Substring(0, 30) + "...." : Model[i].ScheduleDetailNote)</td>
 
                             <td class="text-center">
-                                <ul class="icons-list">
-                                    <li>
-                                        <a href="Class/Class_Detail?id=@Model[i].ScheduleId" class="btn btn-default btn-sm text-primary-600" ><i class="icon-pencil7"></i></a>
+                                <ul class="icons-list" style="display:flex">
+                                    <li class="btnEdit" onclick="onEdit(this)" data-index=@i>
+                                        <button type="button" data-toggle="modal" data-target="#modal_default" class="btn btn-default btn-sm text-danger-600" title="Thông tin chi tiết lớp học"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button>
                                     </li>
-                                    <li class="btnDelete" data-id='@Model[i].ScheduleId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                    <li>
+                                        <a href="Class/Class_Detail?id=@Model[i].ScheduleId" title="Thông tin học sinh trong lớp học" class="btn btn-default btn-sm text-primary-600"><i class="icon-pencil7"></i></a>
+                                    </li>
+                                    <li class="btnDelete" data-id='@Model[i].ScheduleId' title="Xóa lớp học" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
                                         <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
                                     </li>
                                 </ul>
@@ -79,7 +82,30 @@
 </div>
 
 <script>
-    let url_get = "/Admin/User/_Students";
+    let url_get = "/Admin/Class/_Index";
+    let data = @Html.Raw(Json.Encode(Model));
+    let box =@Html.Raw(Json.Encode(boxSubjects)); 
+    function onEdit(event){
+        var stt = event.dataset.index;
+        var dataEdit = data[stt];
+        setValueForEdit(dataEdit);
+    }
+    function setValueForEdit(list){
+        
+        $('#ScheduleId').val(list.ScheduleId);
+        $('#BoxId').val(box.filter(x=>x.BoxSubjectId ==list.ScheduleIdBoxSubjectId)[0].BoxId).change();;  
+        $('#BoxSubjectId').val(list.ScheduleIdBoxSubjectId).change();
+        $('#TimeStart').val(list.ScheduleDetailTimeFrom.Hours +":"+list.ScheduleDetailTimeFrom.Minutes+":"+list.ScheduleDetailTimeFrom.Seconds);
+        $('#TimeEnd').val(list.ScheduleDetailTimeTo.Hours +":"+list.ScheduleDetailTimeTo.Minutes+":"+list.ScheduleDetailTimeTo.Seconds);
+        $('#DateStart').val(list.ScheduleDateBegin.split('-').reverse().join('/'));
+        $('#DateEnd').val(list.ScheduleDateEnd.split('-').reverse().join('/'));
+        $('#Price').val(list.SchedulePrice);
+        $('#dayOfWeek').val(list.ScheduleDetailDayOfWeek).change();
+        $('#Status').val(list.ScheduleStatus).change();
+        $('#UserId').val(list.ScheduleUserId).change();
+        $('#UserNote').val(list.ScheduleDetailNote);
+        console.log(list);
+    }
     let getParamsForSearch = (pageNumber,isNext)=>{
         return {
             "keyText": $(".txtSearch").val() ,
@@ -88,7 +114,7 @@
             "status" : $("#user-status").val()
         };
     }
-    
+
     let getSubParam = ()=>{
         return {
             DateStart : convertToYYMMDD($("#DateStart").val()),
@@ -97,8 +123,8 @@
         }
     }
 
-     var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
-     features.CheckUpdateAndFillInfo();
-     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", getSubParam, getParamsForSearch);
-     features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
+    var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+    //features.CheckUpdateAndFillInfo();
+    //features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", getSubParam, getParamsForSearch);
+    //features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
 </script>

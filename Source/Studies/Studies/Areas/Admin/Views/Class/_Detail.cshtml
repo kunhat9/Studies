@@ -1,9 +1,9 @@
 @using CORE.Tables
 @{
-    var boxes = (List<TB_BOXES>) ViewBag.boxes;
-    var subjects = (List<TB_SUBJECTS>) ViewBag.subjects;
-    var teachers = (List<TB_USERS>) ViewBag.teachers;
-
+    var boxes = (List<TB_BOXES>)ViewBag.boxes;
+    var subjects = (List<TB_SUBJECTS>)ViewBag.subjects;
+    var teachers = (List<TB_USERS>)ViewBag.teachers;
+    var boxSubject = (List<CORE.Views.V_BOX_SUBJECT>)ViewBag.BoxSubject;
 }
 
 <div class="modal-dialog">
@@ -24,32 +24,33 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
-                            
+
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Tên môn học:</label>
-                                    <select class="form-control select-search" id="SubjectId">
-                                        @foreach (var subject in subjects)
-                                        {
-                                            <option value="@subject.SubjectId">@subject.SubjectName</option>
-                                        }
-
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
                                     <label>Khối</label>
-                                    <select class="form-control select-search" id="BoxId">
+                                    <select class="form-control select-search" id="BoxId" onchange="changeBox()">
                                         @foreach (var box in boxes)
                                         {
                                             <option value="@box.BoxId">@box.BoxCode</option>
                                         }
                                     </select>
                                 </div>
+                                <div class="col-md-6">
+                                    <label>Tên môn học:</label>
+                                    <select class="form-control select-search" id="BoxSubjectId" disabled>
+                                        @foreach (var subject in boxSubject)
+                                            {
+                                                <option value="@subject.SubjectId">@subject.SubjectName</option>
+                                            }
+
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
@@ -58,7 +59,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="icon-alarm"></i></span>
                                             <div class="input-group">
-                                                <input type="text" placeholder="dd/mm/yyyy" class="form-control pickatime" id="TimeStart">
+                                                <input type="text" class="form-control pickatime" id="TimeStart">
                                             </div>
                                         </div>
                                     </div>
@@ -68,13 +69,13 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="icon-alarm"></i></span>
                                         <div class="input-group">
-                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control pickatime" id="TimeEnd">
+                                            <input type="text"  class="form-control pickatime" id="TimeEnd">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
@@ -82,7 +83,7 @@
                                     <div class="input-group">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="icon-alarm"></i></span>
-                                            <input type="text" class="form-control pickadate" id="DateStart" >
+                                            <input type="text"placeholder="dd/mm/yyyy" class="form-control pickadate" id="DateStart">
                                         </div>
                                     </div>
                                 </div>
@@ -90,27 +91,42 @@
                                     <label>Giờ kết thúc</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="icon-alarm"></i></span>
-                                        <input type="text" id="DateEnd" class="form-control pickadate " >
+                                        <input type="text" placeholder="dd/mm/yyyy" id="DateEnd" class="form-control pickadate ">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            
+
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label>Giá</label>
                                     <input type="text" class="form-control not-empty" id="Price" onchange="checkNumber">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Ngày học</label>
+                                    <select class="form-control select-search" id="dayOfWeek">
+                                        <option value="">Chọn ngày học</option>
+                                        <option value="THU2">Thứ 2</option>
+                                        <option value="THU3">Thứ 3</option>
+                                        <option value="THU4">Thứ 4</option>
+                                        <option value="THU5">Thứ 5</option>
+                                        <option value="THU6">Thứ 6</option>
+                                        <option value="THU7">Thứ 7 </option>
+                                        <option value="CN">Chủ nhật</option>
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Trạng thái:</label>
                                     <select class="form-control select-search" id="Status">
-                                        <option value="active" selected="selected">ACTIVE</option>
+                                        <option value="A" selected="selected">Kích hoạt</option>
+                                        <option value="D" selected="selected">Không kích hoạt</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -125,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
@@ -147,21 +163,21 @@
 </div>
 
 <script>
-    // $("#PACKAGE_TYPE").change(function () {
-    //     let state = $(this).val();
-    //
-    //     if (state == "") {
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").val("0");
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").prop("disabled", true);
-    //     } else if (state == 0) {
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").val("0");
-    //         $("#PACKAGE_TIMES").prop("disabled", false);
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", true);
-    //     } else {
-    //         $("#PACKAGE_TIMES").val("0")
-    //         $("#PACKAGE_TIMES").prop("disabled", true);
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", false);
-    //     }
-    // });
+    let boxSubject = @Html.Raw(Json.Encode(boxSubject));
+    function changeBox(){
+        $('#BoxSubjectId').html('');
+        var boxId = $('#BoxId').val();
+        var arr = boxSubject.filter(x=>x.BoxId == boxId);
+        var html = "";
+        for(var i =0;i<arr.length;i++){
+            html+= "<option value = "+arr[i].BoxSubjectId+">" + arr[i].SubjectName+"</option>";
+        }
+        $('#BoxSubjectId').html(html);
+        $('#BoxSubjectId').removeAttr("disabled","false");
+    }
+    
+
+
     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateClass", getSubParam, getParamsForSearch);
+   
 </script>
