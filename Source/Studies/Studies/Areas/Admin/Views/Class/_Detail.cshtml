@@ -41,9 +41,9 @@
                                     <label>Tên môn học:</label>
                                     <select class="form-control select-search" id="BoxSubjectId" disabled>
                                         @foreach (var subject in boxSubject)
-                                            {
-                                                <option value="@subject.SubjectId">@subject.SubjectName</option>
-                                            }
+                                        {
+                                            <option value="@subject.SubjectId">@subject.SubjectName</option>
+                                        }
 
                                     </select>
                                 </div>
@@ -59,7 +59,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="icon-alarm"></i></span>
                                             <div class="input-group">
-                                                <input type="text" class="form-control pickatime" id="TimeStart">
+                                                <input type="text" onchange="CheckValue()" class="form-control pickatime" id="TimeStart">
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="icon-alarm"></i></span>
                                         <div class="input-group">
-                                            <input type="text"  class="form-control pickatime" id="TimeEnd">
+                                            <input type="text" onchange="CheckValue()" class="form-control pickatime" id="TimeEnd">
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                     <div class="input-group">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="icon-alarm"></i></span>
-                                            <input type="text"placeholder="dd/mm/yyyy" class="form-control pickadate" id="DateStart">
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control pickadate" id="DateStart">
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label>Ngày học</label>
-                                    <select class="form-control select-search" id="dayOfWeek">
+                                    <select class="form-control select-search" onchange="CheckValue()" id="dayOfWeek">
                                         <option value="">Chọn ngày học</option>
                                         <option value="THU2">Thứ 2</option>
                                         <option value="THU3">Thứ 3</option>
@@ -131,12 +131,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label>Giáo viên chính</label>
-                                    <select class="form-control select-search txtboxes text-center no-padding" id="UserId">
+                                    <select class="form-control select-search txtboxes text-center no-padding" id="UserId" disabled>
                                         <option value="">-- Chọn giáo viên --</option>
                                         @for (int i = 0; i < teachers.Count; i++)
-                                        {
-                                            <option value="@teachers[i].UserId">@teachers[i].UserFullName</option>
-                                        }
+                                            {
+                                                <option value="@teachers[i].UserId">@teachers[i].UserFullName</option>
+                                            }
                                     </select>
                                 </div>
                             </div>
@@ -175,9 +175,67 @@
         $('#BoxSubjectId').html(html);
         $('#BoxSubjectId').removeAttr("disabled","false");
     }
-    
+
+    function CheckValue(){
+        CheckValidateTeacher();
+    }
+    function CheckValidateTeacher(){
+        if($('#UserId').val() != null){
+            //if($('#UserId').val().length ==0){
+                var timeFrom = ConvertTime($('#TimeStart').val());
+                var timeTo = ConvertTime($('#TimeEnd').val());
+                var dayOfWeek = $('#dayOfWeek').val();
+                if(timeFrom.length >0 &&  timeTo.length >0 && dayOfWeek.length >0){
+                    GetTeacher(dayOfWeek , timeFrom, timeTo);
+                }
+
+            //}
+        }
+       
+    }
+    function ConvertTime(time){
+        var result="";
+        var am = time.indexOf("AM");
+        var pm = time.indexOf("PM");
+        if(am != -1){
+            var time = time.split('AM')[0].trim();
+            result = time + ":00";
+        }else if(pm != -1){
+            var time = time.split('PM')[0].trim();
+            var arr = time.split(':');
+            result = (parseInt(arr[0])+12) + ":"+arr[1]+":"+"00";
+        }
+        return result;
+    }
+    function GetTeacher(dayOfweek , timeFrom, timeTo){
+      
+        var params = {
+            dayOfWeek: dayOfweek,
+            timeFrom: timeFrom,
+            timeTo: timeTo
+        };
+        console.log(params);
+        $.ajax({
+            url: "/Admin/Ajax/GetTeacherByDateWeekTime",
+            type: "Post",
+            data:params,
+        }).done(function (result) {
+            console.log(result);
+            if (result.Data.Code == "0") {
+                $('#UserId').html('');
+                var arr = result.Data.Result;
+                var html = "";
+                for(var i =0;i<arr.length;i++){
+
+                    html+= "<option value = "+arr[i].UserId+">" + arr[i].UserFullName+"</option>";
+                }
+                $('#UserId').html(html);
+                $('#UserId').removeAttr("disabled","false");
+            } 
+        });
 
 
+    }
     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateClass", getSubParam, getParamsForSearch);
-   
+
 </script>

@@ -246,7 +246,25 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
+        public JsonResult GetTeacherByDateWeekTime(string dayOfWeek, string timeFrom , string timeTo)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                List<TB_USERS> listTeacher = new List<TB_USERS>();
+                listTeacher = User_Service.GetTeacherByDateWeekTime(dayOfWeek, timeFrom, timeTo);
+                Result.Code = 0;
+                Result.Result = listTeacher;
+              
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = new List<TB_USERS>();
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
 
-        
     }
 }

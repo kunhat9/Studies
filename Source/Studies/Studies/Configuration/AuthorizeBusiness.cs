@@ -26,6 +26,7 @@ namespace WebAdmin.Configuration
                 "/Home/Logout",
                   "/Home/_HomeHeader",
                 "/Home/_HomeFooter",
+                "/Home/Register",
                 "/Home/_HomeMenuLeft",
                 "/Home/_Pagination",
                 "/Home/NotPermission",

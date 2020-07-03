@@ -12,7 +12,7 @@ namespace CORE.Views
         public int CountNewClass { get; set; }
         public int CountNewStudies { get; set; }
         public int CountNewTeacher { get; set; }
-        public int TotalRevenue { get; set; }
+        public decimal TotalRevenue { get; set; }
         public HomePage() { }
 
     }

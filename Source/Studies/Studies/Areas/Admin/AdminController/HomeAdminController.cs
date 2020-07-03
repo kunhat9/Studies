@@ -25,7 +25,7 @@ namespace WebAdmin.Areas.Admin.AdminController
 
                 foreach (var user in users)
                 {
-                    if (user.UserType.Equals("TEACHERS") && user.UserStatus.Equals("D"))
+                    if (user.UserType.Equals("TEACHER") && user.UserStatus.Equals("D"))
                     {
                         teachers.Add(user);
                     }

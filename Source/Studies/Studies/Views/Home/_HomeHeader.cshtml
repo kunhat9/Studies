@@ -183,9 +183,25 @@
                         <label for="password">Xác nhận mật khẩu</label>
                         <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password">
                     </div>
+                    <div class="form-group">
+                        <label for="type">Bạn đang là :</label>
+                        <select class="form-control select-search userType" name="type">
+                            <option value="TEACHER">Giáo viên</option>
+                            <option value="STUDIES">Học sinh</option>
+                        </select>
+                    </div>
+                    <div class="form-group numberSalary">
+                        <label for="numberSalary">Hệ số lương yêu cầu</label>
+                        <input type="text" class="form-control " name="numberSalary" placeholder="Hệ số lương">
+                    </div>
+                    <div class="form-group address">
+                        <label for="address">Học vị cao nhất</label>
+                        <input type="text" class="form-control " name="address" placeholder="Học vị">
+                    </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary">Đăng ký</button>
                     </div>
+
                 </form>
             </div>
 
@@ -388,6 +404,17 @@
 @* END TEACHING SCHEDULES *@
 
 <script >
+    $('.userType').change(function(){
+        debugger;
+        var a = $('.userType').val();
+        if(a=='TEACHER'){
+            $('.address').show();
+            $('.numberSalary').show();
+        }else {
+            $('.address').hide();
+            $('.numberSalary').hide();
+        }
+    });
     async function registerTeachingSchedules() {
       const elements = document.querySelectorAll(".teaching-schedules input:checked")
       const schedules = []
@@ -415,11 +442,11 @@
       if(Data && Data.Code == 0){
           
           $("#teachingModal").modal('toggle')
-          toastr.success("Register Successfully","Notifications")
+          toastr.success("Đăng kí lịch dạy thành công","Thông báo")
           
       } else {
           
-          toastr.error(Data.Result,"Notifications")
+          toastr.error(Data.Result,"Thông báo")
           
       }
     }
@@ -446,11 +473,11 @@
       if(Data && Data.Code == 0){
           
           $("#enrollmentModal").modal('toggle')
-          toastr.success("Register Successfully","Notifications")
+          toastr.success("Thao tác thành công","Thông báo")
           
       } else {
           
-          toastr.error(Data.Result,"Notifications")
+          toastr.error(Data.Result,"Thông báo")
           
       }
     }

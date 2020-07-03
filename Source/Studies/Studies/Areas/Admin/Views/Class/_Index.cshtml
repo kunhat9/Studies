@@ -84,25 +84,58 @@
 <script>
     let url_get = "/Admin/Class/_Index";
     let data = @Html.Raw(Json.Encode(Model));
-    let box =@Html.Raw(Json.Encode(boxSubjects)); 
+    let box =@Html.Raw(Json.Encode(boxSubjects));
     function onEdit(event){
         var stt = event.dataset.index;
         var dataEdit = data[stt];
         setValueForEdit(dataEdit);
     }
+    $('.btnAdd').click(function(){
+        $('#UserId').attr('disabled','true');
+        $('#ScheduleId').val("");
+        $('#BoxId').val("").change();;
+        $('#BoxSubjectId').val("").change();
+        $('#TimeStart').val("");
+        $('#TimeEnd').val("");
+        $('#DateStart').val("");
+        $('#DateEnd').val("");
+        $('#Price').val("");
+        $('#UserId').val("").change();
+        $('#dayOfWeek').val("").change();
+        $('#Status').val('A').change();
+
+        $('#UserNote').val("");
+    });
+    function GetTimeSpan(number){
+        var seconds = number / 1000;
+        var hour = Math.floor(seconds / 3600);
+        var check = Math.floor(hour/10000);
+        var mm = Math.floor((number % 3600) / 60);
+        var result = "";
+        if(check - 12 >0 ){
+            result = ((check-12)>10?""+check:"0"+(check-12)) + ":" + (mm>10?""+mm:"0"+mm) + " PM";
+        }else if(check ==12){
+            result = (check>10?""+check:"0"+check) + ":" +(mm>10?(""+mm):("0"+mm)) + " PM";
+        }
+        else {
+            result = (check>10?""+check:"0"+check) + ":" +(mm>10?(""+mm):("0"+mm)) + " AM";
+        }
+        return result;
+    }
     function setValueForEdit(list){
-        
+        $('#UserId').removeAttr('disabled','false');
         $('#ScheduleId').val(list.ScheduleId);
-        $('#BoxId').val(box.filter(x=>x.BoxSubjectId ==list.ScheduleIdBoxSubjectId)[0].BoxId).change();;  
+        $('#BoxId').val(box.filter(x=>x.BoxSubjectId ==list.ScheduleIdBoxSubjectId)[0].BoxId).change();;
         $('#BoxSubjectId').val(list.ScheduleIdBoxSubjectId).change();
-        $('#TimeStart').val(list.ScheduleDetailTimeFrom.Hours +":"+list.ScheduleDetailTimeFrom.Minutes+":"+list.ScheduleDetailTimeFrom.Seconds);
-        $('#TimeEnd').val(list.ScheduleDetailTimeTo.Hours +":"+list.ScheduleDetailTimeTo.Minutes+":"+list.ScheduleDetailTimeTo.Seconds);
+        $('#TimeStart').val(GetTimeSpan(list.ScheduleDetailTimeFrom.Ticks));
+        $('#TimeEnd').val(GetTimeSpan(list.ScheduleDetailTimeTo.Ticks));
         $('#DateStart').val(list.ScheduleDateBegin.split('-').reverse().join('/'));
         $('#DateEnd').val(list.ScheduleDateEnd.split('-').reverse().join('/'));
         $('#Price').val(list.SchedulePrice);
+        $('#UserId').val(list.ScheduleUserId).change();
         $('#dayOfWeek').val(list.ScheduleDetailDayOfWeek).change();
         $('#Status').val(list.ScheduleStatus).change();
-        $('#UserId').val(list.ScheduleUserId).change();
+
         $('#UserNote').val(list.ScheduleDetailNote);
         console.log(list);
     }

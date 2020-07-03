@@ -55,6 +55,10 @@ namespace CORE.Services
             string ecode, edesc;
             List<TB_USERS> list = new List<TB_USERS>();
             list = new TB_USERSSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.CHECK_LOGIN_CLIENT, userName, passWord, type);
+            if(list == null)
+            {
+                list = new List<TB_USERS>();
+            }
             V_INFO_LOGIN_CLIENT result = new V_INFO_LOGIN_CLIENT();
             result = list.Select(x => new V_INFO_LOGIN_CLIENT
             {
@@ -103,6 +107,11 @@ namespace CORE.Services
             list = new V_USER_TRACKEDSql().SelectFromStoreOutParam(AppSettingKeys.GET_USER_TRACKED, out cTemp, schedulesId, createdDate, pageNumber, pageSize);
             count = (int)cTemp;
             return list;
+        }
+
+        public List<TB_USERS> GetTeacherByDateWeekTime(string dayOfWeek, string timeFrom ,string timeTo)
+        {
+            return new TB_USERSSql().SelectFromStore(AppSettingKeys.GET_TEACHER_WEEK_TIME,dayOfWeek,timeFrom,timeTo);
         }
     }
 }

@@ -78,11 +78,12 @@ namespace WebAdmin.Controllers
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
+                schedules.RemoveAt(0);
                 TB_USERS user = User_Service.GetById(userid);
 
                 int quantity = TeachingSchedules_Service.InsertTeacherAndSchedule(user, schedules);
 
-                if (quantity > 0)
+                if (quantity == 0)
                 {
                     Result.Code = 0;
                     Result.Result = "Đăng kí lịch học thành công";

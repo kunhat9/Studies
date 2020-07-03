@@ -93,14 +93,14 @@ namespace WebAdmin.Controllers
         #endregion
 
         [HttpPost]
-        public ActionResult Login(String username,String password)
+        public ActionResult Login(String username,string password)
         {
             try
             {
                 V_INFO_LOGIN_CLIENT info = User_Service.CheckLogin(username, password,"CLIENT");
                 if (info == null)
                 {
-                    ViewBag.error = "Tài khoản hoặc mật khẩu không chính xác";
+                    ViewBag.error = "Tài khoản hoặc mật khẩu không chính xác hoặc chưa được kích hoạt.";
                 }
                 else if (info.ecode.Equals("200"))
                 {
@@ -119,7 +119,7 @@ namespace WebAdmin.Controllers
             return RedirectToAction("Index",new {@error=ViewBag.error});
         }
         [HttpPost]
-        public ActionResult Register(String username,String password,String fullname,String phone,String confirmpassword)
+        public ActionResult Register(string username,string password,string fullname,string phone,string confirmpassword, string type, decimal numberSalary, string address)
         {
             try
             {
@@ -134,6 +134,10 @@ namespace WebAdmin.Controllers
                 {
                     ViewBag.error = "Vui lòng điền tất cả các trường";
                     check = false;
+                }else if(numberSalary > 1)
+                {
+                    ViewBag.error = "Hệ số lương không vượt quá 1";
+                    check = false;
                 }
 
             
@@ -143,8 +147,11 @@ namespace WebAdmin.Controllers
                         UserPassword = password,
                         UserFullName = fullname,
                         UserPhone =  phone,
-                        UserType = "STUDIES",
-                        UserDateCreated = DateTime.Now
+                        UserType = type,
+                        UserStatus = "D",
+                        UserNumberSalary = (type.Equals("TEACHER")?numberSalary:default(decimal)),
+                        UserAcademicLevel = (type.Equals("TEACHER") ? address : ""),
+                    UserDateCreated = DateTime.Now
                     };
                 check = User_Service.Insert(users);
                 if (!check)
