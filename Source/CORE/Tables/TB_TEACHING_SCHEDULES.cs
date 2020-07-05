@@ -16,6 +16,7 @@ namespace CORE.Tables
         public TimeSpan TeachingScheduleTimeTo { get; set; }
         public string TeachingScheduleNote { get; set; }
         public int TeachingScheduleUserId { get; set; }
+        public int TeachingScheduleBoxSubjectId { get; set; }
         public TB_TEACHING_SCHEDULES() { }
 
     }

@@ -87,9 +87,10 @@
                             <tr>
                                 <th>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</th>
                                 <th>@listSubject.Where(x=>x.SubjectId == 
-                               (listBoxSujbect.Where(t=>t.BoxSubjectSubjectId == 
+                               (listBoxSujbect.Where(t=>t.BoxSubjectId == 
                                (list.Where(y=>y.ScheduleId==item.SchedulesId)).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault()
                                .BoxSubjectSubjectId)).FirstOrDefault().SubjectName</th>
+
                                 <th>@item.TotalCount.Sum(x => x.CountNumber)</th>
                                 <th>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.TuitionStudies))</th>
                             </tr>
@@ -109,7 +110,7 @@
                                 <th>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</th>
                                 <th>
                                     @listSubject.Where(x => x.SubjectId ==
-                               (listBoxSujbect.Where(t => t.BoxSubjectSubjectId ==
+                               (listBoxSujbect.Where(t => t.BoxSubjectId ==
                                (list.Where(y => y.ScheduleId == item.SchedulesId)).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName
                             </th>
                                 <th>@item.TotalCount.Sum(x => x.CountStudies)</th>

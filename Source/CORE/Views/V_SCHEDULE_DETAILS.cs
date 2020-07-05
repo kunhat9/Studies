@@ -19,12 +19,13 @@ namespace CORE.Views
         public int ScheduleUserId { get; set; }
         public int ScheduleIdBoxSubjectId { get; set; }
         public int ScheduleDetailId { get; set; }
+        public string ScheduleFileId { get; set; }
         public string ScheduleDetailDayOfWeek { get; set; }
         public TimeSpan ScheduleDetailTimeFrom { get; set; }
         public TimeSpan ScheduleDetailTimeTo { get; set; }
         public string ScheduleDetailNote { get; set; }
         public int ScheduleDetailScheduleId { get; set; }
-       
+
         public V_SCHEDULE_DETAILS() { }
     }
 }

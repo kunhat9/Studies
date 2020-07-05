@@ -30,6 +30,10 @@ namespace CORE.Services
         {
             return new TB_TEACHING_SCHEDULESSql().SelectAll();
         }
+        public List<TB_TEACHING_SCHEDULES> GetByUserId(int userId)
+        {
+            return new TB_TEACHING_SCHEDULESSql().FilterByField("TeachingScheduleUserId", userId);
+        }
         // đăng kí lịch dạy giáo viên
         public int InsertTeacherAndSchedule(TB_USERS user , List<TB_TEACHING_SCHEDULES> listSchedule)
         {

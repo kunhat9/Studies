@@ -35,6 +35,7 @@ BEGIN TRY
 		,TeachingScheduleTimeTo	time(7)
 		,TeachingScheduleNote	nvarchar(MAX)
 		,TeachingScheduleUserId	int
+		,TeachingScheduleBoxSubjectId int
 	
 	)
 	DECLARE @XML XML
@@ -71,6 +72,7 @@ BEGIN TRY
 		,TeachingScheduleTimeTo	time(7)
 		,TeachingScheduleNote	nvarchar(MAX)
 		,TeachingScheduleUserId	int
+		,TeachingScheduleBoxSubjectId int
     )
 	-- end detect 
 	CREATE TABLE #TempUserId(
@@ -133,12 +135,15 @@ BEGIN TRY
       ,[TeachingScheduleTimeTo]
       ,[TeachingScheduleNote]
       ,[TeachingScheduleUserId]
+	  ,TeachingScheduleBoxSubjectId 
 	)
 	SELECT [TeachingScheduleDayOfWeek]
       ,[TeachingScheduleTimeFrom]
       ,[TeachingScheduleTimeTo]
       ,[TeachingScheduleNote]
-      ,[TeachingScheduleUserId] FROM #TempSchedule
+      ,[TeachingScheduleUserId] 
+	  ,TeachingScheduleBoxSubjectId int
+	  FROM #TempSchedule
 	SET @ecode = '00'
 	SELECT @ecode ecode , 'suscess' edesc
 	DROP TABLE #TempUser

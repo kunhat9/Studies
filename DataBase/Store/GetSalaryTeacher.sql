@@ -20,7 +20,7 @@ BEGIN
 	DECLARE @start int, @end int
 	SET @start = (((@pageNumber - 1) * @pageSize) + 1)
 	SET @end = (@start + @pageSize - 1)
-	-- lay ra so hoc sinh theo buoi tung ngay cua giao vien do day theo lop
+	-- 
 	CREATE TABLE #TempCountStudies(
 	[ROW] int IDENTITY(1,1) PRIMARY KEY,
 		ScheduleId INT -- lop
@@ -35,9 +35,9 @@ BEGIN
 	AND (@endDate ='' OR CONVERT(DATE,TrackingDate) <= CONVERT(DATE,@endDate))
 	AND (@scheduleId ='' OR TrackingScheduleId = @scheduleId)
 	GROUP BY TrackingScheduleId , TrackingDate
+	
 	-- tinh luong giao vien  : gia tien 1 buoi lop * so luong hoc sinh theoo buoi * he so luong 
-	--SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(u.UserNumberSalary * s.SchedulePrice* t.CountStudies)) SalaryTeacher
-	SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(u.UserNumberSalary * s.SchedulePrice)) SalaryTeacher 
+	SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(0.7 * s.SchedulePrice* t.CountStudies)) SalaryTeacher
 	FROM #TempCountStudies t
 	JOIN TB_SCHEDULES s
 	ON t.ScheduleId = s.ScheduleId

@@ -96,7 +96,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             {
                 subjects = Subjects_Service.GetAll();
                 boxes = Boxes_Service.GetAll();
-                users = User_Service.GetAll();
+                users = User_Service.GetUserRegister(id.ToString());
                 int count = 0;
                 details = Classes_Service.GetClassBy("", "", "", "", "", "", 1, Int16.MaxValue, out count);
 

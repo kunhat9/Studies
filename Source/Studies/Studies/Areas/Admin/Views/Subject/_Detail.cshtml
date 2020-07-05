@@ -43,6 +43,11 @@
                                 }
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Giá</label>
+                            <input type="text" class="form-control not-empty" id="BoxSubjectPrice">
+                        </div>
+                        
 
                     </form>
                 </div>
@@ -58,7 +63,11 @@
 
 <script>
     $('#subjects').multiselect();
-
+    $('.btnAdd').click(() => {
+        $("#boxId").val('');
+        $('#boxSubjectId').val('');
+        $('#BoxSubjectPrice').val('');
+    });
     $(".btnSave").click(() => {
         $.ajax({
             url: "/Admin/Ajax/InsertOrUpdateSubjectBox",
@@ -66,18 +75,19 @@
             data: {
                 box_id: $("#boxId").val(),
                 listSubjectId: getSelected(),
-                boxSubjectId: $('#boxSubjectId').val()
+                boxSubjectId: $('#boxSubjectId').val(),
+                price: $('#BoxSubjectPrice').val()
             },
         }).done(function (Data) {
-            if (Data.Code == 0) {
-                toastr.success(Data.Result);
+            if (Data.Data.Code == 0) {
+                toastr.success(Data.Data.Result);
                 setTimeout(function () {
 
                     window.location.reload();
 
                 }, 1500);
             } else {
-                toastr.error(Data.Result);
+                toastr.error(Data.Data.Result);
             }
         });
     })

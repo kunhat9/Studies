@@ -81,7 +81,32 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Ảnh đại diện: </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="file" class="form-control-file" onchange="encodeImageFileAsURL(this)" id="image">
+                                </div>
+                                <div class="col-md-9" hidden>
+                                    <input type="text" class="form-control-file"  id="UserFilesId">
+                                </div>
+                                <div class="col-md-9" hidden>
+                                    <input type="text" class="form-control-file" id="UserDateCreated">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" hidden id="imageHidden">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Hình ảnh mô tả tạm thời : </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <img src="" width="80" id="fileImage">
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="form-group">
                             <div class="row">
@@ -120,7 +145,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-link" data-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary btnSave">Lưu</button>
+            <button type="button" onclick="UploadFile()" class="btn btn-primary btnSave">Lưu</button>
         </div>
     </div>
 </div>
@@ -128,26 +153,86 @@
 <script>
     function checkHeSo(evt) {
         var data = $('#UserNumberSalary').val();
-        if (data > 1) {
+        if (data < 0 ) {
             $('#UserNumberSalary').val('');
-            toastr.info("Hệ số lương không quá 1");
+            toastr.info("Hệ số lương không được nhỏ hơn 0");
         }
     }
-    // $("#PACKAGE_TYPE").change(function () {
-    //     let state = $(this).val();
-    //
-    //     if (state == "") {
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").val("0");
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS,#PACKAGE_TIMES").prop("disabled", true);
-    //     } else if (state == 0) {
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").val("0");
-    //         $("#PACKAGE_TIMES").prop("disabled", false);
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", true);
-    //     } else {
-    //         $("#PACKAGE_TIMES").val("0")
-    //         $("#PACKAGE_TIMES").prop("disabled", true);
-    //         $("#PACKAGE_MONTH,#PACKAGE_DAYS").prop("disabled", false);
-    //     }
-    // });
-    features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
+    function encodeImageFileAsURL(element) {
+        image = "";
+        var file = element.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            image = reader.result;
+            $('#imageHidden').removeAttr('hidden');
+            $('#fileImage')[0].src = image;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    $(".btnAdd").click(function () {
+        $(".modal-title").text("Thêm mới nhân viên");
+        $('#imageHidden').attr('hidden', true);
+        $('#image')[0].src = '';
+    })
+    
+    function UploadFile() {
+        //if (validate()) {
+        var file = $('#image').get(0).files[0];
+            if (file == undefined) {
+                saveData('');
+            } else {
+                var data = new FormData();
+                data.append('files', file);
+                console.log("data", data);
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/Ajax/UploadFiles",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        console.log(result);
+                        if (result.Data.Code == 0) {
+                            $('#UserFilesId').val(result.Data.Result);
+                            //$('.btnSave').click();
+                            saveData(result.Data.Result);
+                           
+                        } else {
+                            toastr.info('Có lỗi xảy ra khi Upload ảnh');
+                        }
+
+                    }
+                });
+            }
+
+        //}
+    }
+
+    function saveData(idFile) {
+        var param = features.getValueFromModal();
+        var url = "/Admin/Ajax/InsertOrUpdateUser";
+        var isUpdate = false;
+        if (param.UserId > 0 ) {
+            isUpdate = true;
+        }
+        var params = {
+            value: param,
+            isUpdate : isUpdate
+        };
+        $.ajax({
+            url: url,
+            type: "post",
+            data: params,
+        }).done(function (result) {
+            if (result.Data.Code == "0") {
+                toastr.success(result.Data.Result);
+                location.href = "/Admin/User/_Teachers";
+            } else {
+                toastr.info(result.Data.Result);
+            }
+
+        });
+    }
+   
 </script>

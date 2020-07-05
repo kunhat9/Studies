@@ -16,6 +16,7 @@ CREATE PROCEDURE InsertOrUpdateClassFromAdmin
 	,@status varchar(50)
 	,@userId varchar(50)
 	,@note nvarchar(max)
+	,@scheduleFileId varchar(50)
 	
 ) AS
 BEGIN
@@ -25,10 +26,10 @@ BEGIN
 	BEGIN TRY
 		DECLARE @classCode VARCHAR(50)
 		DECLARE @demo VARCHAR(50) = (SELECT CONVERT(varchar(50),DATEPART(DAY, GETDATE())))+(SELECT CONVERT(varchar(50),DATEPART(MONTH, GETDATE())))+(SELECT CONVERT(varchar(50),DATEPART(YEAR, GETDATE())))
-		SET @classCode = (@demo+'CL'+RIGHT('00000000' + CAST(NEXT VALUE FOR TB_SCHEDULESEQ AS varchar), 8))
+		SET @classCode = (@demo+'CL'+RIGHT('0' + CAST(NEXT VALUE FOR TB_SCHEDULESEQ AS varchar), 8))
 		-- kiem tra xem co lop day chua
 		DECLARE @count INT = (SELECT COUNT(1) FROM TB_SCHEDULES WHERE ScheduleId = @scheduleId)
-		
+		DECLARE @tuition decimal(18,0) = (SELECT CONVERT(decimal(18,0),@price*UserNumberSalary) FROM TB_USERS where UserId = @userId)
 		IF @count > 0
 			BEGIN
 				-- da co roi thy chi can update lai thoi 
@@ -39,6 +40,7 @@ BEGIN
 						  ,[SchedulePrice] = CONVERT(decimal(18,0),@price)
 						  ,[ScheduleIdBoxSubjectId] = @boxSubjectId
 						  ,[ScheduleUserId] = @userId
+						  , ScheduleFileId = @scheduleFileId
 				WHERE ScheduleId = @scheduleId
 
 			END
@@ -55,7 +57,8 @@ BEGIN
 										  ,[ScheduleDateEnd]
 										  ,[SchedulePrice]
 										  ,[ScheduleIdBoxSubjectId]
-										  ,[ScheduleUserId])
+										  ,[ScheduleUserId]
+										  ,[ScheduleFileId])
 				OUTPUT INSERTED.ScheduleId INTO #TempId
 				VALUES(@classCode
 						,GETDATE()
@@ -65,6 +68,7 @@ BEGIN
 						,CONVERT(decimal(18,0),@price)
 						,@boxSubjectId
 						,@userId
+						,@scheduleFileId
 				)
 			SET @scheduleId = (SELECT TOP 1 ScheduleId FROM #TempId)
 			DROP TABLE #TempId

@@ -7,7 +7,8 @@ CREATE PROCEDURE InsertOrUpdateSubjectToBox
 (
 	@boxId nvarchar(50),
 	@listSubjectId varchar(500),
-	@boxSubjectId varchar(50)
+	@boxSubjectId varchar(50),
+	@price varchar(50)
 	
 ) AS
 BEGIN
@@ -21,21 +22,35 @@ BEGIN
 	SET XACT_ABORT ON
 	BEGIN TRAN
 	BEGIN TRY
-		DECLARE @count INT = (SELECT COUNT(1) FROM TB_BOX_SUBJECTS WHERE BoxSubjectBoxId = @boxId)
-		IF @count >0 
-			BEGIN
-			 -- NEU MA CO ROI THY XOA DI LAM LAI
-			 DELETE TB_BOX_SUBJECTS WHERE BoxSubjectBoxId = @boxId
-			 INSERT INTO TB_BOX_SUBJECTS(BoxSubjectBoxId,BoxSubjectSubjectId)
-			 SELECT @boxId BoxSubjectBoxId, * FROM #ListSubjectId
+		IF @boxSubjectId IS NULL OR @boxSubjectId =''
+		BEGIN
+			
+			DECLARE @count INT = (SELECT COUNT(1) FROM TB_BOX_SUBJECTS WHERE BoxSubjectBoxId = @boxId)
+			IF @count >0 
+				BEGIN
+				 -- NEU MA CO ROI THY XOA DI LAM LAI
+				 DELETE TB_BOX_SUBJECTS WHERE BoxSubjectBoxId = @boxId
+				 INSERT INTO TB_BOX_SUBJECTS(BoxSubjectBoxId,BoxSubjectPrice,BoxSubjectSubjectId)
+				 SELECT @boxId BoxSubjectBoxId,@price BoxSubjectPrice, * FROM #ListSubjectId
 		 
-			END
-		ELSE
-			BEGIN
-				INSERT INTO TB_BOX_SUBJECTS(BoxSubjectBoxId,BoxSubjectSubjectId)
-				SELECT @boxId BoxSubjectBoxId, * FROM #ListSubjectId
+				END
+			ELSE
+				BEGIN
+					INSERT INTO TB_BOX_SUBJECTS(BoxSubjectBoxId,BoxSubjectPrice,BoxSubjectSubjectId)
+				 SELECT @boxId BoxSubjectBoxId,@price BoxSubjectPrice, * FROM #ListSubjectId
 
+				END
+		END
+		ELSE 
+			BEGIN
+				
+				UPDATE TB_BOX_SUBJECTS 
+					SET BoxSubjectBoxId = @boxId,
+						BoxSubjectPrice = @price,
+						BoxSubjectSubjectId = (SELECT TOP 1 SubjectId FROM #ListSubjectId)
+				WHERE BoxSubjectId = @boxSubjectId
 			END
+		
 		SET @ecode = '00'
 		SET @edesc ='Suscess'
 	COMMIT

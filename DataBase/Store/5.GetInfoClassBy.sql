@@ -59,6 +59,7 @@ BEGIN
       ,[ScheduleDetailTimeTo]
       ,[ScheduleDetailNote]
       ,[ScheduleDetailScheduleId]
+	  ,[ScheduleFileId]
 	FROM [dbo].[TB_SCHEDULES] s
 	JOIN [dbo].[TB_SCHEDULE_DETAILS] d
 	ON s.ScheduleId = d.ScheduleDetailScheduleId

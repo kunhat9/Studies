@@ -67,6 +67,7 @@ BEGIN
       ,[UserNote]
       ,[UserNumberSalary]
       ,[UserDateCreated]
+      ,[UserFilesId]
 	FROM [dbo].[TB_USERS]
 	WHERE [UserId] IN
 		(SELECT [UserId]

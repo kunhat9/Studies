@@ -20,6 +20,7 @@ namespace CORE.Tables
         public int BoxSubjectId { get; set; }
         public int BoxSubjectBoxId { get; set; }
         public int BoxSubjectSubjectId { get; set; }
+        public decimal BoxSubjectPrice { get; set; }
         public TB_BOX_SUBJECTS() { }
 
     }

@@ -19,6 +19,7 @@
                         <th class="fixed-col">STT</th>
                         <th>Tên môn học</th>
                         <th>Tên khối</th>
+                        <th>Học phí</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -29,7 +30,7 @@
                             <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
                             <td>@Model[i].SubjectName</td>
                             <td>@Model[i].BoxCode</td>
-
+                            <td>@Model[i].BoxSubjectPrice</td>
                             <td class="text-center">
                                 <ul class="icons-list">
                                     <li class="btnEdit" onclick="onEdit(this)" data-index=@i>
@@ -69,6 +70,7 @@
         $('#subjects').val(arr);
         $("#subjects").multiselect("refresh");
         $('#boxSubjectId').val(list.BoxSubjectId);
+        $('#BoxSubjectPrice').val(list.BoxSubjectPrice);
        
     }
     let getParamsForSearch = (pageNumber,isNext)=>{

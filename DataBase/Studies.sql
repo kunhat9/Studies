@@ -19,6 +19,7 @@ CREATE TABLE TB_USERS		-- Người dùng
 	, UserDateCreated datetime 
 	, UserAcademicLevel varchar(50)
 	, UserStatus nvarchar(20) DEFAULT('D')	-- Trạng thái - A/D
+	, UserFilesId varchar(50)                -- Files 
 	, UserNote nvarchar(100)	DEFAULT ('HE THONG TU SINH')-- Ghi chú
 	, UserNumberSalary decimal(18,2) DEFAULT(0.00)        -- hệ số lương nếu type = teacher
 )
@@ -53,6 +54,7 @@ CREATE TABLE TB_BOX_SUBJECTS -- Môn học của khối
 	BoxSubjectId INT IDENTITY PRIMARY KEY
 	,BoxSubjectBoxId INT NOT NULL
 	,BoxSubjectSubjectId INT NOT NULL
+	,BoxSubjectPrice decimal(18,0)
 	, CONSTRAINT FK_BoxSubjectBoxId FOREIGN KEY (BoxSubjectBoxId) REFERENCES TB_BOXES(BoxId)
 	, CONSTRAINT FK_BoxSubjectSubjectId FOREIGN KEY (BoxSubjectSubjectId) REFERENCES TB_SUBJECTS(SubjectId)
 	, CONSTRAINT Unique_BoxSubjectBoxId_BoxSubjectSubjectId UNIQUE(BoxSubjectBoxId,BoxSubjectSubjectId)
@@ -67,6 +69,8 @@ CREATE TABLE TB_TEACHING_SCHEDULES -- ĐĂNG KÍ LỊCH DẠY CỦA GIÁO VIÊN
 	, TeachingScheduleNote nvarchar(max)           -- MÔ TẢ
 	, TeachingScheduleUserId INT                   -- GẮN VỚI GIÁO VIÊN NÀO 
 	, CONSTRAINT FK_TeachingScheduleUserId FOREIGN KEY (TeachingScheduleUserId) REFERENCES TB_USERS(UserId) 
+	, TeachingScheduleBoxSubjectId INT			   -- Gắn với môn nào , khối nào
+	, CONSTRAINT FK_TeachingScheduleBoxSubjectId FOREIGN KEY (TeachingScheduleBoxSubjectId) REFERENCES TB_BOX_SUBJECTS(BoxSubjectId) 
 )
 GO
 CREATE TABLE TB_SCHEDULES	-- Lớp dạy của giáo viên
@@ -79,6 +83,7 @@ CREATE TABLE TB_SCHEDULES	-- Lớp dạy của giáo viên
 	, ScheduleDateEnd nvarchar(10)		-- Ngày kết thúc
 	, SchedulePrice decimal(18,0)		-- Giá tiền
 	, ScheduleIdBoxSubjectId INT
+	, ScheduleFileId varchar(50)        -- FileId
 	, CONSTRAINT FK_ScheduleIdBoxSubjectId FOREIGN KEY (ScheduleIdBoxSubjectId) REFERENCES TB_BOX_SUBJECTS(BoxSubjectId) 
 	, ScheduleUserId int
 	, CONSTRAINT FK_ScheduleUserId FOREIGN KEY (ScheduleUserId) REFERENCES TB_USERS(UserId)
@@ -117,11 +122,10 @@ GO
 CREATE TABLE TB_REGISTERS	-- Đăng ký học
 (
 	RegisterId int IDENTITY PRIMARY KEY
-	, RegisterName nvarchar(50)		-- Tên đăng ký*
-	, RegisterPlace nvarchar(MAX)	-- Nơi đang học
-	, RegisterPhone nvarchar(20)	-- Sđt phụ huynh*
-	, RegisterBoxSubjectId INT
-	, CONSTRAINT FK_RegisterBoxSubjectId FOREIGN KEY (RegisterBoxSubjectId) REFERENCES TB_BOX_SUBJECTS(BoxSubjectId) 
+	,RegisterUserId INT 
+	, CONSTRAINT FK_RegisterUserId FOREIGN KEY (RegisterUserId) REFERENCES TB_USERS(UserId) 
+	, RegisterScheduleId INT
+	, CONSTRAINT FK_RegisterScheduleId FOREIGN KEY (RegisterScheduleId) REFERENCES TB_SCHEDULES(ScheduleId) 
 	, RegisterDateCreate datetime	-- Ngày đk
 )
 GO

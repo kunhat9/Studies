@@ -19,7 +19,7 @@ namespace CORE.Views
         public decimal SchedulePrice { get; set; }
         public int ScheduleUserId { get; set; }
         public int ScheduleIdBoxSubjectId { get; set; }
-
+        public string ScheduleFileId { get; set; }
         public string UserName { get; set; }
         public string UserFullName { get; set; }
         public int ScheduleDetailId { get; set; }

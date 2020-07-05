@@ -44,26 +44,24 @@ namespace WebAdmin.Controllers
         {
             List<TB_BOXES> lstBoxes = new List<TB_BOXES>();
             TB_USERS user = null;
-
+            List<V_BOX_SUBJECT> boxSubject = new List<V_BOX_SUBJECT>();
+            int count = 0;
             try
             {
                 lstBoxes = Boxes_Service.GetAll();
                 ViewBag.boxes = lstBoxes;
-                
-                if(Session[AppSessionKeys.USER_INFO] != null){
+                boxSubject = Subjects_Boxes_Service.GetAllBy("",1,short.MaxValue,out count);
+                if (Session[AppSessionKeys.USER_INFO] != null){
                     user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
                     ViewBag.id = user.UserId;
-
                 }
-                
-                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-            
+            ViewBag.BoxSubject = boxSubject;
             return PartialView(user);
         }
 
@@ -133,10 +131,6 @@ namespace WebAdmin.Controllers
                 else if (username.Equals("") || fullname.Equals("") || password.Equals(""))
                 {
                     ViewBag.error = "Vui lòng điền tất cả các trường";
-                    check = false;
-                }else if(numberSalary > 1)
-                {
-                    ViewBag.error = "Hệ số lương không vượt quá 1";
                     check = false;
                 }
 

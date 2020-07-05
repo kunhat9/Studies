@@ -25,6 +25,7 @@ BEGIN
       ,[UserNote]
       ,[UserNumberSalary]
       ,[UserDateCreated]
+      ,[UserFilesId]
 	 FROM TB_USERS u
 	JOIN TB_TEACHING_SCHEDULES t
 	ON u.UserId = t.TeachingScheduleUserId

@@ -1,6 +1,7 @@
 @{
     ViewBag.Title = "Teacher";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    List<CORE.Tables.TB_FILES> files = ViewBag.File;
 }
 
 @model List<CORE.Tables.TB_USERS>
@@ -42,7 +43,15 @@
                     {
                         <div class="col-xs-12">
                             <div class="single-teacher text-center">
-                                <img src="~/Assets/img/teacher/1.jpg" alt="">
+                                @if (string.IsNullOrEmpty(user.UserFilesId))
+                                {
+                                    <img src="~/Assets/img/teacher/1.jpg" alt="">
+                                }
+                                else
+                                {
+                                    <img style="height:309px;" src="@files.Where(x=>x.FileId.ToString().Equals(user.UserFilesId)).FirstOrDefault().FileUrl"/>
+                                }
+                               
                                 <div class="content">
                                     <h4>@user.UserFullName</h4>
                                     <h5>Giáo viên</h5>

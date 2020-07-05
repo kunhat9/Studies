@@ -33,7 +33,7 @@ BEGIN
 		
 	
 	
-	SELECT bs.BoxSubjectId,box.BoxCode, box.BoxId,s.SubjectName, s.SubjectId
+	SELECT bs.BoxSubjectId,box.BoxCode, box.BoxId,s.SubjectName, s.SubjectId, bs.BoxSubjectPrice
 	FROM TB_BOX_SUBJECTS bs,TB_BOXES box , TB_SUBJECTS s
 	WHERE bs.BoxSubjectBoxId = box.BoxId
 	AND bs.BoxSubjectSubjectId = s.SubjectId

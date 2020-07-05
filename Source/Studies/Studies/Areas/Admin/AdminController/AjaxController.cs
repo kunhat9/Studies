@@ -6,11 +6,72 @@ using CORE.Tables;
 using CORE.Views;
 using WebAdmin.Controllers;
 using WebAdmin.Models;
+using System.Web;
+using System.IO;
 
 namespace WebAdmin.Areas.Admin.AdminController
 {
     public class AjaxController : BaseController
     {
+
+        public JsonResult UploadFiles(List<HttpPostedFileBase> files)
+        {
+            string folderPath = Server.MapPath("~/Files");
+            string filePath = "";
+            AjaxResultModel Result = new AjaxResultModel();
+            List<TB_FILES> data = new List<TB_FILES>();
+            try
+            {
+                if (!folderPath.EndsWith("/"))
+                    filePath += "/" + DateTime.Now.ToString("yyyy_MM_dd") + "/";
+                else
+                    filePath += DateTime.Now.ToString("yyyy_MM_dd") + "/";
+                IOHelper.CreateFolder(folderPath + filePath);
+                int value = -1;
+                if (files != null)
+                {
+                    foreach (var file in files)
+                    {
+                        var InputFileName = DateTime.Now.ToString("yyyyMMddHHmmss_") + Path.GetFileName(file.FileName);
+                        //var ServerSavePath = Path.Combine(Server.MapPath("~/Files/") + InputFileName);
+                        TB_FILES fTemp = new TB_FILES();
+                        fTemp.FileName = Path.GetFileName(file.FileName);
+                        fTemp.FileUrl = "/Files" + filePath + InputFileName;
+                        fTemp.FileRef = InputFileName;
+                        fTemp.FileType = file.ContentType;
+                        fTemp.FileService = "USER";
+                        file.SaveAs(folderPath + filePath + InputFileName);
+                        value = Files_Service.AddFile(fTemp);
+                        if (value != -1)
+                        {
+                            data.Add(fTemp);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if (value != -1)
+                    {
+                        Result.Code = 0;
+                        Result.Result = value;
+                    }
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 0;
+                IOHelper.WriteLog(StartUpPath, IpAddress, "Product::_ChiTiet:GetAllProvider:", Ex.Message, Ex.ToString());
+                throw;
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+
         public JsonResult InsertOrUpdateUser(TB_USERS value,bool isUpdate)
         {
             AjaxResultModel Result = new AjaxResultModel();
@@ -78,12 +139,12 @@ namespace WebAdmin.Areas.Admin.AdminController
             return Json(new JsonResult() { Data = Result });
         }
         
-        public JsonResult InsertOrUpdateSubjectBox(List<string> listSubjectId,int box_id=0, string boxSubjectId="")
+        public JsonResult InsertOrUpdateSubjectBox(List<string> listSubjectId,int box_id=0, string boxSubjectId="", string price="")
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
-                bool check = Subjects_Boxes_Service.InsertOrUpdate(box_id,listSubjectId, boxSubjectId);
+                bool check = Subjects_Boxes_Service.InsertOrUpdate(box_id,listSubjectId, boxSubjectId,price);
                 
                 
                 if (check)
@@ -135,6 +196,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             return Json(new JsonResult() { Data = Result });
         }
         
+        
         public JsonResult InsertOrUpdateClass(ClassModel value,bool isUpdate)
         {
             AjaxResultModel Result = new AjaxResultModel();
@@ -144,7 +206,7 @@ namespace WebAdmin.Areas.Admin.AdminController
 
                 var scheduleId = value.ScheduleId.Equals(0) ? "" : value.ScheduleId.ToString();
                 
-                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId,value.BoxSubjectId.ToString(),value.Price,value.DateStart,value.DateEnd,value.DayOfWeek,value.TimeStart,value.TimeEnd,value.Status,value.UserId,value.UserNote);
+                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId,value.BoxSubjectId.ToString(),value.Price,value.DateStart,value.DateEnd,value.DayOfWeek,value.TimeStart,value.TimeEnd,value.Status,value.UserId,value.UserNote,value.ScheduleFileId);
 
 
                 if (check)

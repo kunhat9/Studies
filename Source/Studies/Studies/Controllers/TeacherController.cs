@@ -13,8 +13,10 @@ namespace WebAdmin.Controllers
         public ActionResult Index()
         {
             List<TB_USERS> list = new List<TB_USERS>();
+            List<TB_FILES> files = new List<TB_FILES>();
             try
             {
+                files = Files_Service.GetAll();
                 list = User_Service.GetAll();
             }
             catch (Exception e)
@@ -22,6 +24,7 @@ namespace WebAdmin.Controllers
                 Console.WriteLine(e);
                 throw;
             }
+            ViewBag.File = files;
             return View(list);
         }
     }

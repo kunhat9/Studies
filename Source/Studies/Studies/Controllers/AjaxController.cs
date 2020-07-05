@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAdmin.AppSession;
 using WebAdmin.Configuration;
 using WebAdmin.Models;
 
@@ -71,9 +72,9 @@ namespace WebAdmin.Controllers
         }
 
         #endregion
-        
 
-        public JsonResult TeachingSchedules(List<TB_TEACHING_SCHEDULES> schedules,int userid)
+
+        public JsonResult TeachingSchedules(List<TB_TEACHING_SCHEDULES> schedules, int userid)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
@@ -102,24 +103,43 @@ namespace WebAdmin.Controllers
             }
             return Json(new JsonResult() { Data = Result });
         }
-        
-        public JsonResult Enrollment(TB_REGISTERS register)
+
+        public JsonResult Enrollment(int RegisterScheduleId)
         {
+            TB_REGISTERS register = new TB_REGISTERS();
+          
             AjaxResultModel Result = new AjaxResultModel();
+            TB_USERS user = null;
+            
             try
             {
-                bool check = Registers_Service.Insert(register);
+                register.RegisterScheduleId = RegisterScheduleId;
+                register.RegisterDateCreate = DateTime.Now;
+                if (Session[AppSessionKeys.USER_INFO] != null)
+                {
+                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                    register.RegisterUserId = user.UserId;
+                }
+                if(user != null)
+                {
+                    bool check = Registers_Service.Insert(register);
 
-                if (check)
+                    if (check)
+                    {
+                        Result.Code = 0;
+                        Result.Result = "Đăng kí lịch học thành công";
+                    }
+                    else
+                    {
+                        Result.Code = 1;
+                        Result.Result = "Thao tác không thành công";
+                    }
+                }else
                 {
-                    Result.Code = 0;
-                    Result.Result = "Đăng kí lịch học thành công";
+                    Result.Code = 500;
+                    Result.Result = "Bạn phải đăng nhập để đăng kí học";
                 }
-                else
-                {
-                    Result.Code = 1;
-                    Result.Result = "Thao tác không thành công";
-                }
+                
             }
             catch (Exception Ex)
             {
@@ -128,6 +148,48 @@ namespace WebAdmin.Controllers
                 throw;
             }
             return Json(new JsonResult() { Data = Result });
+        }
+
+        public JsonResult GetTeachingSchedule()
+        {
+            TB_USERS user = null;
+            AjaxResultModel Result = new AjaxResultModel();
+            List<TB_TEACHING_SCHEDULES> list = new List<TB_TEACHING_SCHEDULES>();
+            try
+            {
+                if (Session[AppSessionKeys.USER_INFO] != null)
+                {
+                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                }
+                if (user != null)
+                {
+                    list = TeachingSchedules_Service.GetByUserId(user.UserId);
+                    if(list.Count > 0)
+                    {
+                        Result.Code = 0;
+                        Result.Result = list;
+                    }
+                    else
+                    {
+                        Result.Code = 1;
+                        Result.Result = "Bạn chưa đăng kí lịch dạy nào. Vui lòng đăng kí lại lịch dạy";
+                    }
+                }
+                else
+                {
+                    Result.Code = 500;
+                    Result.Result = "Bạn phải đăng nhập để đăng kí học";
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                IOHelper.WriteLog(StartUpPath, IpAddress, "Product::_ChiTiet:GetAllProvider:", Ex.Message, Ex.ToString());
+                throw;
+            }
+            return Json(new JsonResult() { Data = Result });
+
         }
     }
 

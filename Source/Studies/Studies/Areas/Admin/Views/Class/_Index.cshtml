@@ -113,12 +113,12 @@
         var mm = Math.floor((number % 3600) / 60);
         var result = "";
         if(check - 12 >0 ){
-            result = ((check-12)>10?""+check:"0"+(check-12)) + ":" + (mm>10?""+mm:"0"+mm) + " PM";
+            result = ((check-12)>=10?""+check:"0"+(check-12)) + ":" + (mm>10?""+mm:"0"+mm) + " PM";
         }else if(check ==12){
-            result = (check>10?""+check:"0"+check) + ":" +(mm>10?(""+mm):("0"+mm)) + " PM";
+            result = (check>=10?""+check:"0"+check) + ":" +(mm>10?(""+mm):("0"+mm)) + " PM";
         }
         else {
-            result = (check>10?""+check:"0"+check) + ":" +(mm>10?(""+mm):("0"+mm)) + " AM";
+            result = (check>=10?""+check:"0"+check) + ":" +(mm>10?(""+mm):("0"+mm)) + " AM";
         }
         return result;
     }
@@ -135,7 +135,7 @@
         $('#UserId').val(list.ScheduleUserId).change();
         $('#dayOfWeek').val(list.ScheduleDetailDayOfWeek).change();
         $('#Status').val(list.ScheduleStatus).change();
-
+        $('#ScheduleFileId').val(list.ScheduleFileId);
         $('#UserNote').val(list.ScheduleDetailNote);
         console.log(list);
     }

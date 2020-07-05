@@ -4,8 +4,8 @@
 
 @{
     List<TB_BOXES> lstBoxes = (List<TB_BOXES>)ViewBag.boxes;
+    List<CORE.Views.V_BOX_SUBJECT> boxSubject = ViewBag.BoxSubject;
 }
-
 <!-- Header Area Start -->
 <header class="header-area section" xmlns="http://www.w3.org/1999/html">
     <!-- Header Top -->
@@ -36,6 +36,7 @@
                                         <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Schedules">Lịch dạy</a></li>
                                         <li style="float: none"><a style="color: #337ab7;" href="/Infomation/Tuition">Lương</a></li>
                                         <li style="float: none"> <a style="color: #337ab7;" href="/Infomation/Tracking">Điểm danh</a></li>
+                                        <li style="float: none"> <a style="color: #337ab7;" data-toggle="modal" data-target="#teachingModal" onclick="selectRegister()" >Lịch đăng kí</a></li>
                                     }
                                     @if (Model.UserType.Equals("STUDIES"))
                                     {
@@ -89,10 +90,10 @@
                                 {
                                     <li><a href="#" data-toggle="modal" data-target="#teachingModal">Đăng ký dạy học</a></li>
                                 } 
-                                @if (Model != null && Model.UserType.Equals("STUDIES"))
+                                @*@if (Model != null && Model.UserType.Equals("STUDIES"))
                                 {
                                     <li><a href="#" data-toggle="modal" data-target="#enrollmentModal">Đăng ký học</a></li>
-                                }
+                                }*@
 
                                 
 
@@ -239,12 +240,22 @@
                     </div>                    
                     <div class="form-group">
                         <label for="password">Lớp</label>
-                        <select id="box-subject" class="form-control form-control-sm">
-                            <option>Select</option>
+                        <select id="box-subject" class="form-control form-control-sm" onchange="changeBox()">
+                            <option>Chọn khối</option>
                             @foreach (var box in lstBoxes)
                             {
                                 <option>@box.BoxCode</option>
                             }
+                        </select>
+                    </div> 
+                    <div class="form-group" >
+                        <label for="password">Lớp</label>
+                        <select id="BoxSubjectId" class="form-control form-control-sm" disabled>
+                            <option>Chọn môn học</option>
+                            @*@foreach (var box in lstBoxes)
+                            {
+                                <option>@box.BoxCode</option>
+                            }*@
                         </select>
                     </div>     
                 </form>
@@ -272,7 +283,7 @@
             </div>
             <div class="modal-body">
                 <form class="teaching-schedules">
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label >Trình độ </label>
                         <br/>
                         <input class="form-check-input position-static" id="primary-school" type="radio" name="blankRadio" value="primary-school" >
@@ -283,40 +294,20 @@
                         <br/>
                         <input class="form-check-input position-static" id="high-school" type="radio" name="blankRadio" value="high-school" >
                         <label for="high-school">High School</label>
-                    </div>
+                    </div>*@
                     <div class="form-group">
-                        <label for="grade">Grade</label>
-                        <select class="form-control form-control-sm" id="grade">
-                            <option>Select</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
+                        <label for="grade">Chọn khối</label>
+                        <select class="form-control form-control-sm" id="boxId" onchange="changeBox1()">
+                            <option value="">Khối</option>
+                           @foreach(var item in lstBoxes)
+                           {
+                               <option value="@item.BoxId">@item.BoxCode</option>
+                           }
                         </select>
-                    </div>     
-                    <div class="form-group"><label for="subjects">Subjects</label>
-                        <select class="form-control form-control-sm" id="subjects">
-                            <option>Select</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option> 
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
+                    </div>
+                    <div class="form-group"><label for="subjects">Môn học</label>
+                        <select class="form-control form-control-sm" id="subjects" disabled>
+                            
                         </select>
                     </div> 
                     <div class="form-group"><label for="password">Lịch dạy</label>
@@ -324,69 +315,77 @@
                             <thead>
                             <tr class="text-center">
                                 <th></th>
-                                <th class="text-center">07:30 - 09:30</th>
-                                <th class="text-center">09:30 - 11:30</th>
+                                <th class="text-center">07:00 - 09:00</th>
+                                <th class="text-center">09:00 - 11:00</th>
                                 <th class="text-center">14:00 - 16:00</th>
                                 <th class="text-center">16:00 - 18:00</th>
                                 <th class="text-center">18:00 - 20:00</th>
+                                <th class="text-center">20:00 - 22:00</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="text-center">
                                 <td>Thứ hai</td>
-                                <td><input type="checkbox" data-day="THU2" data-start="07:30" data-end="09:30" class="schedule-checkbox"/></td>
-                                <td><input type="checkbox" data-day="THU2" data-start="09:30 " data-end="11:30" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU2" data-start="07:00" data-end="09:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU2" data-start="09:00 " data-end="11:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU2" data-start="14:00 " data-end="16:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU2" data-start="16:00" data-end="18:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU2" data-start="18:00" data-end="20:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU2" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
                             </tr>
                             <tr class="text-center">
                                 <td>Thứ ba</td>
-                                <td><input type="checkbox" data-day="THU3" data-start="07:30" data-end="09:30" class="schedule-checkbox"/></td>
-                                <td><input type="checkbox" data-day="THU3" data-start="09:30 " data-end="11:30" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU3" data-start="07:00" data-end="09:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU3" data-start="09:00 " data-end="11:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU3" data-start="14:00 " data-end="16:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU3" data-start="16:00" data-end="18:00" class="schedule-checkbox"/></td>
-                                <td><input type="checkbox" data-day="THU3" data-start="18:00" data-end="20:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU3" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                                <td><input type="checkbox" data-day="THU3" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
                             </tr>
                             <tr class="text-center">
                                 <td>Thứ tư</td>
-                                <td><input type="checkbox" data-day="THU4" data-start="07:30" data-end="09:30" class="schedule-checkbox"/></td>
-                                <td><input type="checkbox" data-day="THU4" data-start="09:30 " data-end="11:30" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU4" data-start="07:00" data-end="09:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU4" data-start="09:00 " data-end="11:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU4" data-start="14:00 " data-end="16:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU4" data-start="16:00" data-end="18:00" class="schedule-checkbox"/></td>
-                                <td><input type="checkbox" data-day="THU4" data-start="18:00" data-end="20:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU4" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                                <td><input type="checkbox" data-day="THU4" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
                                 </tr>
                             <tr class="text-center">
                                     <td>Thứ năm</td>
-                                    <td><input type="checkbox" data-day="THU5" data-start="07:30" data-end="09:30" class="schedule-checkbox"/></td>
-                                    <td><input type="checkbox" data-day="THU5" data-start="09:30 " data-end="11:30" class="schedule-checkbox"/></td>
+                                    <td><input type="checkbox" data-day="THU5" data-start="07:00" data-end="09:00" class="schedule-checkbox"/></td>
+                                    <td><input type="checkbox" data-day="THU5" data-start="09:00 " data-end="11:00" class="schedule-checkbox"/></td>
                                     <td><input type="checkbox" data-day="THU5" data-start="14:00 " data-end="16:00" class="schedule-checkbox"/></td>
                                     <td><input type="checkbox" data-day="THU5" data-start="16:00" data-end="18:00" class="schedule-checkbox"/></td>
                                     <td><input type="checkbox" data-day="THU5" data-start="18:00" data-end="20:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU5" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
                             </tr>
                             <tr class="text-center">
                                 <td>Thứ sáu</td>
-                                    <td><input type="checkbox" data-day="THU6" data-start="07:30" data-end="09:30" class="schedule-checkbox"/></td>
-                                    <td><input type="checkbox" data-day="THU6" data-start="09:30 " data-end="11:30" class="schedule-checkbox"/></td>
+                                    <td><input type="checkbox" data-day="THU6" data-start="07:00" data-end="09:00" class="schedule-checkbox"/></td>
+                                    <td><input type="checkbox" data-day="THU6" data-start="09:00 " data-end="11:00" class="schedule-checkbox"/></td>
                                     <td><input type="checkbox" data-day="THU6" data-start="14:00 " data-end="16:00" class="schedule-checkbox"/></td>
                                     <td><input type="checkbox" data-day="THU6" data-start="16:00" data-end="18:00" class="schedule-checkbox"/></td>
                                     <td><input type="checkbox" data-day="THU6" data-start="18:00" data-end="20:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU6" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
                                 </tr>
                             <tr class="text-center">
                                 <td>Thứ bảy</td>
-                                <td><input type="checkbox" data-day="THU7" data-start="07:30" data-end="09:30" class="schedule-checkbox"/></td>
-                                <td><input type="checkbox" data-day="THU7" data-start="09:30 " data-end="11:30" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU7" data-start="07:00" data-end="09:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU7" data-start="09:00 " data-end="11:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU7" data-start="14:00 " data-end="16:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU7" data-start="16:00" data-end="18:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="THU7" data-start="18:00" data-end="20:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="THU7" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
                                 </tr>
                             <tr class="text-center">
                                 <td>Chủ nhật</td>
-                                <td><input type="checkbox" data-day="CN" data-start="07:30" data-end="09:30" class="schedule-checkbox"/></td>
-                                <td><input type="checkbox" data-day="CN" data-start="09:30 " data-end="11:30" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="CN" data-start="07:00" data-end="09:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="CN" data-start="09:00 " data-end="11:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="CN" data-start="14:00 " data-end="16:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="CN" data-start="16:00" data-end="18:00" class="schedule-checkbox"/></td>
                                 <td><input type="checkbox" data-day="CN" data-start="18:00" data-end="20:00" class="schedule-checkbox"/></td>
+                                <td><input type="checkbox" data-day="CN" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
                             </tr>
                             </tbody>
                         </table>
@@ -404,6 +403,74 @@
 @* END TEACHING SCHEDULES *@
 
 <script >
+
+    function selectRegister(){
+        $.ajax({
+            url: "/Ajax/GetTeachingSchedule",
+            type: "post",
+            data: {
+            },
+        }).done(function (Data) {
+            if (Data.Data.Code == 0) {
+                debugger;
+                var data = Data.Data.Result;
+                $('#boxId').val(boxSubject.filter(x=>x.BoxSubjectId == data[0].TeachingScheduleBoxSubjectId)[0].BoxId).change();
+                $('#subjects').val(data[0].TeachingScheduleBoxSubjectId).change();
+                $('#subjects').attr('disabled','true');
+                $('#boxId').attr('disabled','true');
+                const elements = document.querySelectorAll(".teaching-schedules input");
+                elements.forEach((element)=> {
+
+                    var day = element.getAttribute("data-day");
+                    var timeStart = element.getAttribute("data-start");
+                    var timeEnd = element.getAttribute("data-end");
+                    for(var i=0;i<data.length;i++){
+                        var value = data[i];
+                        if(value.TeachingScheduleDayOfWeek == day && value.TeachingScheduleTimeFrom.Hours == parseInt(timeStart.split(':')[0]) && value.TeachingScheduleTimeTo.Hours == parseInt(timeEnd.split(':')[0])){
+                            element.checked= true;
+                        }
+                    }
+
+                })
+
+            } else {
+                toastr.info(Data.Data.Result);
+            }
+        });
+    }
+    let boxSubject = @Html.Raw(Json.Encode(boxSubject));
+    function changeBox1(){
+        debugger;
+        $('#subjects').html('');
+        var boxId = $('#boxId').val();
+        var arr = boxSubject.filter(x=>x.BoxId == boxId);
+        var html = "";
+        for(var i =0;i<arr.length;i++){
+            html+= "<option value = "+arr[i].BoxSubjectId+">" + arr[i].SubjectName+"</option>";
+        }
+        $('#subjects').html(html);
+
+        $('#subjects').removeAttr("disabled","false");
+
+
+    }
+    function changeBox(){
+        debugger;
+        $('#BoxSubjectId').html('');
+
+        var boxId = $('#box-subject').val();
+        var arr = boxSubject.filter(x=>x.BoxId == boxId);
+        var html = "";
+        for(var i =0;i<arr.length;i++){
+            html+= "<option value = "+arr[i].BoxSubjectId+">" + arr[i].SubjectName+"</option>";
+        }
+        $('#BoxSubjectId').html(html);
+
+        $('#BoxSubjectId').removeAttr("disabled","false");
+
+
+
+    }
     $('.userType').change(function(){
         debugger;
         var a = $('.userType').val();
@@ -418,7 +485,7 @@
     async function registerTeachingSchedules() {
       const elements = document.querySelectorAll(".teaching-schedules input:checked")
       const schedules = []
-      
+
       elements.forEach((element)=> {
 
           const tmp = {}
@@ -426,10 +493,11 @@
           tmp.TeachingScheduleTimeFrom = element.getAttribute("data-start")
           tmp.TeachingScheduleTimeTo = element.getAttribute("data-end")
           tmp.TeachingScheduleUserId = '@ViewBag.id'
-          
+          tmp.TeachingScheduleBoxSubjectId = $('#subjects').val()
+
           schedules.push(tmp)
       })
-      
+
       const { Data } = await $.ajax({
         url: "/Ajax/TeachingSchedules",
         type: "post",
@@ -438,30 +506,29 @@
             userid: '@ViewBag.id'
             },
       })
-      
+
       if(Data && Data.Code == 0){
-          
+
           $("#teachingModal").modal('toggle')
           toastr.success("Đăng kí lịch dạy thành công","Thông báo")
-          
+
       } else {
-          
+
           toastr.error(Data.Result,"Thông báo")
-          
-      }
-    }
-    
-    async function registerEnrollments(){
-      const schedules = []
-      
-      const register = {
-          RegisterName: document.getElementById("fullname").value,
-          RegisterPlace: document.getElementById("studying-at").value,
-          RegisterPhone: document.getElementById("phone-parent").value,
-          RegisterBoxSubjectId: document.getElementById("box-subject").value,
 
       }
-      
+    }
+
+    async function registerEnrollments(){
+        debugger;
+      const schedules = []
+
+      const register = {
+
+          RegisterBoxSubjectId: document.getElementById("BoxSubjectId").value
+
+      }
+
       const { Data } = await $.ajax({
         url: "/Ajax/Enrollment",
         type: "post",
@@ -469,16 +536,16 @@
             register,
             },
       })
-      
+
       if(Data && Data.Code == 0){
-          
+
           $("#enrollmentModal").modal('toggle')
           toastr.success("Thao tác thành công","Thông báo")
-          
+
       } else {
-          
+
           toastr.error(Data.Result,"Thông báo")
-          
+
       }
     }
 </script>

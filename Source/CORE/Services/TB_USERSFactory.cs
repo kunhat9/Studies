@@ -113,5 +113,10 @@ namespace CORE.Services
         {
             return new TB_USERSSql().SelectFromStore(AppSettingKeys.GET_TEACHER_WEEK_TIME,dayOfWeek,timeFrom,timeTo);
         }
+
+        public List<TB_USERS> GetUserRegister(string scheduleId)
+        {
+            return new TB_USERSSql().SelectFromStore(AppSettingKeys.GET_USER_REGISTER, scheduleId);
+        }
     }
 }

@@ -30,30 +30,31 @@ BEGIN
 		(
 			SELECT COALESCE (FORMAT(CTE.sDate,'dd/MM/yyyy'),FORMAT(tbTemp.NgayLamViec,'dd/MM/yyyy')) NgayLamViec , ISNULL(tbTemp.Thu,0.00) Thu , ISNULL(tbTemp.Chi,0.00) Chi FROM 
 			(
-			SELECT SUM(tbChi.Thu) Chi , SUM(tbThu.Chi) Thu, tbChi.TrackingDate NgayLamViec FROM 
-			(SELECT 
-					(u.UserNumberSalary*SUM(s.[SchedulePrice])) Chi
-				  , s.ScheduleUserId
+			
+SELECT tbThu.Thu, tbChi.Chi ,tbChi.TrackingDate NgayLamViec FROM
+(
+SELECT				
+				SUM(s.SchedulePrice) Thu
+				   ,s.ScheduleUserId
 				  , t.TrackingDate
 			  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
 			  JOIN TB_TRACKINGS t
 			  ON s.ScheduleId = t.TrackingScheduleId
 			  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
-   
-			  GROUP BY s.ScheduleUserId , u.UserNumberSalary, t.TrackingDate
-			  ) tbThu
-			JOIN 
-			(SELECT 
-					(SUM(s.[SchedulePrice])) Thu
-				  , s.ScheduleUserId
-				  , t.TrackingDate
-			  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
-			  JOIN TB_TRACKINGS t
-			  ON s.ScheduleId = t.TrackingScheduleId
-			  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
-			  GROUP BY s.ScheduleUserId , u.UserNumberSalary, t.TrackingDate) tbChi
-			ON tbThu.ScheduleUserId = tbChi.ScheduleUserId
-			GROUP BY tbChi.TrackingDate
+			GROUP BY s.ScheduleUserId,t.TrackingDate) tbThu
+
+FULL JOIN
+			(
+			SELECT				
+			(0.7*SUM(s.SchedulePrice)) Chi
+							   ,s.ScheduleUserId
+							  , t.TrackingDate
+						  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
+						  JOIN TB_TRACKINGS t
+						  ON s.ScheduleId = t.TrackingScheduleId
+						  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
+						  GROUP BY s.ScheduleUserId,t.TrackingDate) tbChi
+			ON CONVERT(DATE,tbThu.TrackingDate) = CONVERT(DATE,tbChi.TrackingDate)
 			) tbTemp
 			RIGHT JOIN CTE 
 			ON CONVERT(DATE,CTE.sDate) = CONVERT(DATE,tbTemp.NgayLamViec)
@@ -78,30 +79,30 @@ BEGIN
 		(
 			SELECT COALESCE(tbTemp.NgayLamViec,FORMAT(CTE.sDate,'MM/yyyy')) NgayLamViec ,ISNULL(SUM(tbTemp.Thu),0.00) Thu , ISNULL(SUM(tbTemp.Chi),0.00) Chi FROM 
 			(
-			SELECT SUM(tbChi.Thu) Chi , SUM(tbThu.Chi) Thu, FORMAT(tbChi.TrackingDate,'MM/yyyy') NgayLamViec FROM 
-			(SELECT 
-					(u.UserNumberSalary*SUM(s.[SchedulePrice])) Chi
-				  , s.ScheduleUserId
-				  , t.TrackingDate
+						
+SELECT tbThu.Thu, tbChi.Chi ,tbChi.TrackingDate NgayLamViec FROM
+(SELECT				
+				SUM(s.SchedulePrice) Thu
+				   ,s.ScheduleUserId
+				  , FORMAT(t.TrackingDate,'MM/yyyy') TrackingDate
 			  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
 			  JOIN TB_TRACKINGS t
 			  ON s.ScheduleId = t.TrackingScheduleId
 			  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
-   
-			  GROUP BY s.ScheduleUserId , u.UserNumberSalary, t.TrackingDate
-			  ) tbThu
-			JOIN 
-			(SELECT 
-					(SUM(s.[SchedulePrice])) Thu
-				  , s.ScheduleUserId
-				  , t.TrackingDate
-			  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
-			  JOIN TB_TRACKINGS t
-			  ON s.ScheduleId = t.TrackingScheduleId
-			  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
-			  GROUP BY s.ScheduleUserId , u.UserNumberSalary, t.TrackingDate) tbChi
-			ON tbThu.ScheduleUserId = tbChi.ScheduleUserId
-			GROUP BY FORMAT(tbChi.TrackingDate,'MM/yyyy')
+			GROUP BY s.ScheduleUserId,FORMAT(t.TrackingDate,'MM/yyyy')) tbThu
+
+FULL JOIN
+			(
+			SELECT				
+			(0.7*SUM(s.SchedulePrice)) Chi
+							   ,s.ScheduleUserId
+							  , FORMAT(t.TrackingDate,'MM/yyyy') TrackingDate
+						  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
+						  JOIN TB_TRACKINGS t
+						  ON s.ScheduleId = t.TrackingScheduleId
+						  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
+						  GROUP BY s.ScheduleUserId,FORMAT(t.TrackingDate,'MM/yyyy') ) tbChi
+			ON tbThu.TrackingDate = tbChi.TrackingDate	
 			) tbTemp
 			RIGHT JOIN CTE 
 			ON FORMAT(CTE.sDate,'MM/yyyy') = tbTemp.NgayLamViec
@@ -125,31 +126,30 @@ BEGIN
 			),obj AS
 			(
 			SELECT COALESCE(tbTemp.NgayLamViec,FORMAT(CTE.sDate,'yyyy')) NgayLamViec ,ISNULL(SUM(tbTemp.Thu),0.00) Thu , ISNULL(SUM(tbTemp.Chi),0.00) Chi FROM 
+	(							
+SELECT tbThu.Thu, tbChi.Chi ,tbChi.TrackingDate NgayLamViec FROM
+(SELECT				
+				SUM(s.SchedulePrice) Thu
+				   ,s.ScheduleUserId
+				  , FORMAT(t.TrackingDate,'yyyy') TrackingDate
+			  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
+			  JOIN TB_TRACKINGS t
+			  ON s.ScheduleId = t.TrackingScheduleId
+			  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
+			GROUP BY s.ScheduleUserId,FORMAT(t.TrackingDate,'yyyy')) tbThu
+
+FULL JOIN
 			(
-			SELECT SUM(tbChi.Thu) Chi , SUM(tbThu.Chi) Thu, FORMAT(tbChi.TrackingDate,'yyyy') NgayLamViec FROM 
-			(SELECT 
-					(u.UserNumberSalary*SUM(s.[SchedulePrice])) Chi
-				  , s.ScheduleUserId
-				  , t.TrackingDate
-			  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
-			  JOIN TB_TRACKINGS t
-			  ON s.ScheduleId = t.TrackingScheduleId
-			  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
-   
-			  GROUP BY s.ScheduleUserId , u.UserNumberSalary, t.TrackingDate
-			  ) tbThu
-			JOIN 
-			(SELECT 
-					(SUM(s.[SchedulePrice])) Thu
-				  , s.ScheduleUserId
-				  , t.TrackingDate
-			  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
-			  JOIN TB_TRACKINGS t
-			  ON s.ScheduleId = t.TrackingScheduleId
-			  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
-			  GROUP BY s.ScheduleUserId , u.UserNumberSalary, t.TrackingDate) tbChi
-			ON tbThu.ScheduleUserId = tbChi.ScheduleUserId
-			GROUP BY FORMAT(tbChi.TrackingDate,'yyyy')
+			SELECT				
+			(0.7*SUM(s.SchedulePrice)) Chi
+							   ,s.ScheduleUserId
+							  , FORMAT(t.TrackingDate,'yyyy') TrackingDate
+						  FROM [DB_STUDIES].[dbo].[TB_SCHEDULES] s
+						  JOIN TB_TRACKINGS t
+						  ON s.ScheduleId = t.TrackingScheduleId
+						  JOIN TB_USERS u ON u.UserId = s.ScheduleUserId
+						  GROUP BY s.ScheduleUserId,FORMAT(t.TrackingDate,'yyyy') ) tbChi
+			ON tbThu.TrackingDate = tbChi.TrackingDate	
 			) tbTemp
 			RIGHT JOIN CTE 
 			ON FORMAT(CTE.sDate,'yyyy') = tbTemp.NgayLamViec

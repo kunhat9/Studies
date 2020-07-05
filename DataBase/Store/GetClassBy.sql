@@ -59,6 +59,7 @@ BEGIN
       ,[SchedulePrice]
       ,[ScheduleIdBoxSubjectId]
       ,[ScheduleUserId]
+	  ,[ScheduleFileId]
 	  ,[UserName]
 	  ,[UserFullName]
 	  ,[ScheduleDetailId]

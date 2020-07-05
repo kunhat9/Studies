@@ -23,6 +23,7 @@ namespace CORE.Tables
         public string UserAcademicLevel { get; set; }
         public decimal UserNumberSalary { get; set; }
         public string UserNote { get; set; }
+        public string UserFilesId { get; set; }
 
         public TB_USERS() { }
 

@@ -13,6 +13,7 @@ namespace CORE.Views
         public int BoxSubjectId { get; set; }
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
+        public decimal BoxSubjectPrice { get; set; }
         public int BoxId { get; set; }
         public string BoxCode { get; set; }
     }

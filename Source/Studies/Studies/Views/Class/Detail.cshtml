@@ -9,7 +9,7 @@
     List<CORE.Tables.TB_USERS> listUser = ViewBag.User;
 
     CORE.Tables.TB_USERS user = listUser.Where(x => x.UserId == Model.ScheduleUserId).FirstOrDefault();
-
+    List<CORE.Tables.TB_FILES> files = ViewBag.File;
 
 }
 @model CORE.Views.V_SCHEDULE_DETAILS
@@ -38,7 +38,17 @@
             <div class="col-lg-9 col-md-8 col-xs-12 mb-20">
                 <!-- Single Course Details -->
                 <div class="single-course-details">
-                    <div class="image"><img alt="" src="~/Assets/img/course/details.jpg"></div>
+                    <div class="image">
+                        @if (string.IsNullOrEmpty(Model.ScheduleFileId))
+                        {
+                            <img alt="" src="~/Assets/img/course/details.jpg">
+                        }
+                        else
+                        {
+                            <img style="height:410px;" src="@files.Where(x=>x.FileId.ToString().Equals(Model.ScheduleFileId)).FirstOrDefault().FileUrl" />
+                        }
+
+                    </div>
                     <div class="content">
                         <h4 class="title"> Mã lớp : @Model.ScheduleCode</h4>
                         <div class="course-info">
@@ -55,16 +65,22 @@
                             <div class="text"><span>Môn học</span> <span class="text-right">Khối</span></div>
                         </div>
                         <div class="duration-text">
-                            <div class="text"><span>@subject.Where(x=>x.SubjectId == 
-                                               (box_subject.Where(y=>y.BoxSubjectId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName</span>
-                             <span class="text-right">@box.Where(x => x.BoxId ==
-                                               (box_subject.Where(y => y.BoxSubjectBoxId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectBoxId)).FirstOrDefault().BoxCode</span></div>
-                           
+                            <div class="text">
+                                <span>
+                                    @subject.Where(x => x.SubjectId ==
+                                               (box_subject.Where(y => y.BoxSubjectId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName
+                                </span>
+                                <span class="text-right">
+                                    @box.Where(x => x.BoxId ==
+                                               (box_subject.Where(y => y.BoxSubjectId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectBoxId)).FirstOrDefault().BoxCode
+                                </span>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 <!-- Comment -->
-               
+
             </div>
 
             <!-- Sidebar Wrapper -->
@@ -72,7 +88,16 @@
                 <!-- Department Head -->
                 <div class="single-sidebar">
                     <div class="sidebar-teacher">
-                        <img src="~/Assets/img/teacher/head.jpg" alt="">
+                        @if (string.IsNullOrEmpty(user.UserFilesId))
+                        {
+                            <img src="~/Assets/img/teacher/head.jpg" alt="">
+                        }
+                        else
+                        {
+                            <img style="height:200px;" src="@files.Where(x=>x.FileId.ToString().Equals(user.UserFilesId)).FirstOrDefault().FileUrl" />
+                        }
+
+
                         <h4>@user.UserName</h4>
                         <h5>@user.UserFullName</h5>
                         <div class="social">
@@ -85,19 +110,44 @@
                 </div>
                 <!-- Category -->
                 <div class="single-sidebar">
-                    <h4>Danh mục</h4>
-                    <ul class="category">
-                        <li><a href="#">Toán</a></li>
-                        <li><a href="#">Lý</a></li>
-                        <li><a href="#">Hóa</a></li>
-                        <li><a href="#">Sinh</a></li>
-                        <li><a href="#">Văn</a></li>
-                        <li><a href="#">Ngoại ngữ</a></li>
-                    </ul>
+                    
+                    <div class="sidebar-teacher">
+                        <a class="btn-common bright-vc-theme-btn-primary btn btn-lg vc_btn3-color-grey btnRegister" href="#">ĐĂNG KÝ HỌC</a>
+                    </div>
+
                 </div>
-                
             </div>
         </div>
     </div>
 </div>
 <!--End of Course Area-->
+<script>
+    let data = @Html.Raw(Json.Encode(Model));
+    $('.btnRegister').click(() => {
+        console.log(data);
+        var params = {
+            RegisterScheduleId : data.ScheduleId
+        };
+        $.ajax({
+            url: "/Ajax/Enrollment",
+            type: "post",
+            data: params ,
+        }).done(function (Data) {
+            if(Data.Code !=undefined){
+                toastr.error("Bạn chưa đăng nhập");
+            }else {
+                if (Data.Data.Code == 0) {
+                    toastr.success(Data.Data.Result);
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    toastr.error(Data.Data.Result);
+                }
+            }
+            
+        });
+        
+
+    });
+</script>
