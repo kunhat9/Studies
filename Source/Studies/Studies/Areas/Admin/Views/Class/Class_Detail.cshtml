@@ -37,12 +37,11 @@
                 <div class="row">
                     <div class="col-md-1 " style="padding-top: 7px;">Mã lớp</div>
                     <div class="col-md-5">
-                        <input type="text" readonly="" value="@Model.ScheduleId" class="form-control" id="ScheduleId">
+                        <input type="text" readonly="" value="@Model.ScheduleId" class="form-control" id="ScheduleId" />
                     </div>
                     <div class="col-md-1 " style="padding-top: 7px;">Thời gian bắt đầu </div>
                     <div class="col-md-5">
-                        <input type="text" readonly="" value="@Model.ScheduleDateBegin" class="form-control" id="ScheduleId">
-
+                        <input type="text" readonly="" value="@Model.ScheduleDateBegin" class="form-control" id="ScheduleDateBegin" />
                     </div>
                 </div>
                 <div class="row mt-5">
@@ -60,7 +59,7 @@
                     </div>
                     <div class="col-md-1 " style="padding-top: 7px;">Thời gian kết thúc </div>
                     <div class="col-md-5">
-                        <input type="text" readonly="" value="@Model.ScheduleDateEnd" class="form-control" id="ScheduleId">
+                        <input type="text" readonly="" value="@Model.ScheduleDateEnd" class="form-control" id="ScheduleDateEnd">
                     
                     </div>
                     
@@ -164,7 +163,7 @@
                         Userids : userids,
                         type : "DELETE"
                     },
-                }).done(function ({Data}) {
+                }).done(function (Data) {
                     if (Data.Code == 0) {
                         toastr.success(Data.Result);
                            
@@ -191,7 +190,7 @@
                             Userids : userids,
                             type : "INSERT"
                         },
-                    }).done(function ({Data}) {
+                    }).done(function (Data) {
                         if (Data.Code == 0) {
                             toastr.success(Data.Result);
                            

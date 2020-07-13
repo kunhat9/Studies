@@ -2643,6 +2643,7 @@
     <Content Include="Areas\Admin\Views\User\_Accountant_Details.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Schedules.cshtml" />
     <Content Include="Areas\Admin\Views\Report\_Schedules.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_BaoCaoLayout.cshtml" />
     <None Include="Areas\Admin\Views\web.config">
       <SubType>Designer</SubType>
     </None>

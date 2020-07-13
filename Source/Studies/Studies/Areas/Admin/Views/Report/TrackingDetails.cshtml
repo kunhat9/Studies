@@ -4,7 +4,7 @@
 @model List<V_TRACKING_USER_CLASS>
 @{
     ViewBag.Title = "Điểm danh học sinh";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_BaoCaoLayout.cshtml";
 }
 @{
     var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
@@ -59,7 +59,7 @@
             </div>
 
         </div>
-        <div class="div-h100 div-top56">
+        <div class="div-h100 div-top69">
             <div class="div-h100-body table-responsive">
                 <div class="div-table-report data-table">
                     @{ Html.RenderAction("_TrackingDetails"); }

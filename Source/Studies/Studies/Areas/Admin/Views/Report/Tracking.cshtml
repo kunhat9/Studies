@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Báo cáo điểm danh học sinh";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_BaoCaoLayout.cshtml";
 }
 
 
@@ -9,6 +9,8 @@
     List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedule;
     List<CORE.Tables.TB_USERS> listUser = ViewBag.User;
 }
+
+
 
 <div class="page-header page-header-default">
     <div class="page-header-content" style="background-color: #fcfcfc;">
@@ -50,7 +52,7 @@
             </div>
 
         </div>
-        <div class="div-h100 div-top56">
+        <div class="div-h100 div-top105">
             <div class="div-h100-body table-responsive">
                 <div class="div-table-report data-table">
                     @{ Html.RenderAction("_Tracking"); }

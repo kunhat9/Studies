@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "BaoCao";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Assets/css/admin.css" rel="stylesheet" type="text/css">
+<div class="div-h100 div-top69">
+    <div class="panel-body div-h100-body">
+        @*<div class="two-columns form-group">
+            <div class="left-full">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" id="datefrom" value="" class="form-control datefrom" placeholder="Ngày bắt đầu">
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" value="" id="dateto" class="form-control dateto" placeholder="Ngày kết thúc">
+                    </div>
+                </div>
+            </div>
+            <div class="right-fixed">
+                <button type="button" id="" class="btn btn-primary btnStatistic">Thống kê</button>
+            </div>
+        </div>*@
+        <div class="div-h100 div-top56">
+            <div class="div-h100-body">
+                @*<div class="two-columns form-group">
+                    <div class="breadcrumb-elements">
+                        <button type="button" class="btn btn-success f-right" onclick="fnExcelReport();">In ra Excel</button>
+                    </div>
+                </div>*@
+                <div class="div-h100 div-top56">
+                    <div class="div-h100-body">
+                        <iframe id="txtArea1" style="display:none"></iframe>
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    table {
+        table-layout: fixed;
+    }
+    thead, tbody {
+        display: block;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.datefrom,.dateto').pickadate({
+            selectMonths: true,
+            selectYears: true,
+            format: "yyyy/mm/dd"
+        });
+    });
+</script>
