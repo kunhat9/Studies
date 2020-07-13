@@ -29,5 +29,9 @@ namespace CORE.Services
         {
             return new TB_TRANSACTIONSql().FilterByField("TransUserId", userId);
         }
+        public List<TB_TRANSACTION> GetAllBy(string userId, string startDate, string endDate, string type)
+        {
+            return new TB_TRANSACTIONSql().SelectFromStore(AppSettingKeys.GET_TRANSACTION_BY, userId, startDate, endDate,type);
+        }
     }
 }

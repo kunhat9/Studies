@@ -133,7 +133,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                 CORE.Helpers.IOHelper.WriteLog(StartUpPath, IpAddress, "Login :", ex.Message, ex.ToString());
             }
 
-            if (user.ecode == "200")
+            if (user != null &&  user.ecode == "200")
             {
                 Session[AppSessionKeys.USER_INFO] = user.user;
 

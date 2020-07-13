@@ -60,23 +60,30 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_SCHEDULES> listSche = new List<TB_SCHEDULES>();
             List<TB_SUBJECTS> listSuject = new List<TB_SUBJECTS>();
             List<TB_BOX_SUBJECTS> listBoxSubject = new List<TB_BOX_SUBJECTS>();
+            List<TB_TRANSACTION> listTran = new List<TB_TRANSACTION>();
+            List<TB_USERS> listUser = new List<TB_USERS>();
+            int total = 0;
             try
             {
+                listUser = User_Service.GetAllTeacher();
+                listTran = Transaction_Service.GetAllBy(userId, startDate, endDate, "TEACHER");
                 listSuject = Subjects_Service.GetAll();
                 listBoxSubject = Subjects_Boxes_Service.GetAll();
                 listSche = Schedules_Service.GetAll();
                 list = User_Service.GetSalaryTeacher(userId, scheduleId, startDate, endDate, pageNumber, pageSize, out count);
-
+                total = count + listTran.Count;
             }
             catch (Exception e)
             {
                 ViewBag.Error = e.ToString();
             }
-            ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
+            ViewBag.maxNumber = Math.Ceiling((double)total / pageSize);
             ViewBag.Salary = list;
             ViewBag.Subject = listSuject;
             ViewBag.SubjectBox = listBoxSubject;
             ViewBag.Schedule = listSche;
+            ViewBag.Transaction = listTran;
+            ViewBag.User = listUser;
             return PartialView();
         }
         public ActionResult Tracking()
@@ -236,23 +243,30 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_SCHEDULES> listSche = new List<TB_SCHEDULES>();
             List<TB_SUBJECTS> listSuject = new List<TB_SUBJECTS>();
             List<TB_BOX_SUBJECTS> listBoxSubject = new List<TB_BOX_SUBJECTS>();
+            List<TB_TRANSACTION> listTran = new List<TB_TRANSACTION>();
+            List<TB_USERS> listUser = new List<TB_USERS>();
+            int total = 0;
             try
             {
+                listUser = User_Service.GetAllStudies();
+                listTran = Transaction_Service.GetAllBy(userId,startDate,endDate,"STUDIES");
                 listSuject = Subjects_Service.GetAll();
                 listBoxSubject = Subjects_Boxes_Service.GetAll();
                 listSche = Schedules_Service.GetAll();
                 list = User_Service.GetReportTuition(userId, scheduleId, startDate, endDate, pageNumber, pageSize, out count);
-
+                total = count + listTran.Count;
             }
             catch (Exception e)
             {
                 ViewBag.Error = e.ToString();
             }
-            ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
+            ViewBag.maxNumber = Math.Ceiling((double)total / pageSize);
             ViewBag.Tuition = list;
             ViewBag.Subject = listSuject;
             ViewBag.SubjectBox = listBoxSubject;
             ViewBag.Schedule = listSche;
+            ViewBag.Transaction = listTran;
+            ViewBag.User  = listUser;
             return PartialView();
         }
 

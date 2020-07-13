@@ -34,6 +34,7 @@ namespace WebAdmin.Controllers
         protected ReportFactory ReportService = new ReportFactory();
         protected TB_SCHEDULE_DETAILSFactory Schedule_Detail_Service = new TB_SCHEDULE_DETAILSFactory();
         protected TB_ROOM_CLASSFactory RoomClass_Service = new TB_ROOM_CLASSFactory();
+        protected TB_TRANSACTIONFactory Transaction_Service = new TB_TRANSACTIONFactory();
         protected string GetMD5Hash(string rawString)
         {
             UnicodeEncoding encode = new UnicodeEncoding();
@@ -173,16 +174,25 @@ namespace WebAdmin.Controllers
             }
         }
 
-        protected string BillExport(string filePath,string userId ,string startDate, string endDate, string type)
+        protected string BillExport(string filePath, string userId, string startDate, string endDate, string type)
         {
             Application xlApp = new Application();
             if (xlApp == null)
             {
                 return "Lỗi không thể sử dụng được thư viện EXCEL";
             }
-            
+
             try
             {
+                if (string.IsNullOrEmpty(startDate))
+                {
+                    return "Vui lòng chọn ngày bắt đầu";
+                }
+                else if (string.IsNullOrEmpty(endDate))
+                {
+                    return "Vui lòng chọn ngày kết thúc";
+                }
+
 
                 List<V_REPORT_EXCEL_STUDIES> data = User_Service.ReportTutionStudies(userId, startDate, endDate);
                 if (data == null || data.Count == 0)
@@ -205,10 +215,10 @@ namespace WebAdmin.Controllers
                 DateTime dateEnd = new DateTime();
                 DateTime.TryParseExact(endDate, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out dateEnd);
                 //Info
-                ws.AddValue("B2", "E2", "Trung tâm bồi dưỡng kiến thức", fontSizeTieuDe, true, XlHAlign.xlHAlignCenter,false,20);
+                ws.AddValue("B2", "E2", "Trung tâm bồi dưỡng kiến thức", fontSizeTieuDe, true, XlHAlign.xlHAlignCenter, false, 20);
                 ws.AddValue("B3", "E3", "Trung tâm ", fontSizeTenTruong, true, XlHAlign.xlHAlignCenter, false);
 
-                ws.AddValue("H2", "K2", "Cộng hòa Xã hội Chủ nghĩa Việt Nam", fontSizeTieuDe, true, XlHAlign.xlHAlignCenter, false,20);
+                ws.AddValue("H2", "K2", "Cộng hòa Xã hội Chủ nghĩa Việt Nam", fontSizeTieuDe, true, XlHAlign.xlHAlignCenter, false, 20);
                 ws.AddValue("H3", "K3", "   Độc lập - Tự do - Hạnh phúc", fontSizeTenTruong, true, XlHAlign.xlHAlignCenter, false);
                 ws.AddValue("E5", "G5", "Thông báo", fontSizeTenTruong, true, XlHAlign.xlHAlignCenter);
                 ws.AddValue("E6", "G6", "Học phí từ " + dateStart.ToString("dd/MM/yyy") + " đến " + dateEnd.ToString("dd/MM/yyy"), fontSizeTenTruong, true, XlHAlign.xlHAlignCenter, false);
@@ -225,7 +235,7 @@ namespace WebAdmin.Controllers
                 rowIndex += 1;
                 decimal total = 0;
 
-               
+
 
                 //Body
 

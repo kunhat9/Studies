@@ -26,6 +26,8 @@
     List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedule;
     List<CORE.Tables.TB_SUBJECTS> listSubject = ViewBag.Subject;
     List<CORE.Tables.TB_BOX_SUBJECTS> listBoxSujbect = ViewBag.SubjectBox;
+    List<CORE.Tables.TB_TRANSACTION> listTran = ViewBag.Transaction;
+    List<CORE.Tables.TB_USERS> listUser = ViewBag.User;
 }
 <style>
     .table > thead > tr > td:first-child {
@@ -54,6 +56,7 @@
                         <th>Tên giáo viên</th>
                         <th>Tổng lương</th>
                         <th>Trạng thái</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -69,6 +72,38 @@
                                 <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
                                 <td>@item.UserFullName</td>
                                 <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</td>
+                                <td>Chưa thanh toán</td>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+
+                                        <li class="btnExport" data-index=@i>
+                                            <button type="button" class="btn btn-default btn-sm text-danger-600">Thanh toán</button>
+                                        </li>
+
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            i += 1;
+                        }
+                        foreach (var item in listTran)
+                        {
+                            total += item.TransNumber;
+                            <tr class="text-center">
+                                <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                                <td>@(listUser.Where(x => x.UserId == item.TransUserId).FirstOrDefault().UserFullName)</td>
+                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TransNumber)</td>
+                                <td>Đã thanh toán</td>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+
+                                        <li class="" data-index=@i>
+                                            <button type="button" disabled class="btn btn-default btn-sm text-danger-600" title="Xuất hóa đơn ra Exel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Xuất hóa đơn</button>
+                                        </li>
+
+
+                                    </ul>
+                                </td>
                             </tr>
                             i += 1;
                         }
@@ -92,7 +127,7 @@
 
 <script>
     let url_get = "/Admin/Report/_ReportSalary";
-    let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
+ let data = @Html.Raw(Json.Encode(resultSalary));
     let getParamsForSearch = (pageNumber,isNext)=>{
         return {
             "userId": $("#userId").val() ,
@@ -110,7 +145,34 @@
     }
 
     var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
-    //features.CheckUpdateAndFillInfo();
-    //features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
-    //features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
+    $(".btnExport").click(function () {
+        var stt  = $(this).data("index");
+        var dataEdit = data[stt];
+        var startDate = convertDate($("#startDate").val());
+        var endDate = convertDate($("#endDate").val());
+        if($("#startDate").val() ==''){
+            toastr.info("Ngày bắt đầu không được bỏ trắng");
+        }else  if($("#endDate").val() == ''){
+            toastr.info("Ngày kết thúc không được bỏ trắng");
+        }else {
+            $.ajax({
+                url: "/Admin/Ajax/ExportProduct",
+                type: "post",
+                data: {userId:dataEdit.UserId, startDate:startDate,endDate : endDate, type : "TEACHER"},
+            }).done(function (result) {
+                if (result.Code == "0") {
+                    toastr.success("Thao tác thành công");
+                    //window.open('http://' + window.location.host + result.Result, '_self');
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    }, 1500);
+                } else {
+                    toastr.info(result.Result);
+                }
+            });
+        }
+
+    });
 </script>

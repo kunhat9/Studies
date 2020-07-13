@@ -155,6 +155,7 @@ namespace CORE.Services
         // bao cao excel luong giao vien 
         public string ReportSalaryTeacher(string userId, string startDate, string endDate)
         {
+            
             string ecode = "", edesc = "";
             List<V_SALARY_TEACHER> list = new List<V_SALARY_TEACHER>();
             list = new V_SALARY_TEACHERSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.EXPORT_ORDER_TUITION, userId, startDate, endDate, "TEACHER");

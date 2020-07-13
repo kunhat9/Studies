@@ -28,8 +28,7 @@
         public const string GET_COUNT_STUDIES_CLASS = "GetCountStudiesInClass";
         public const string GET_REPORT_TUITION = "ReportTuition";
         public const string EXPORT_ORDER_TUITION = "ExportOrderTuition";
-
-
+        public const string GET_TRANSACTION_BY = "GetTransactionBy";
         public const string FOMAT_DATE_INPUT = "yyyy/MM/dd";
         public const string FOMAT_DATE_OUTPUT = "dd/MM/yyyy";
     }
