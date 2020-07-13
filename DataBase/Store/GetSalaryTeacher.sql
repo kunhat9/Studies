@@ -30,14 +30,15 @@ BEGIN
 	INSERT INTO #TempCountStudies(ScheduleId,TrackingDate,CountStudies)
 	SELECT TrackingScheduleId ScheduleId, TrackingDate, COUNT(TrackingUserId) CountStudies  FROM TB_TRACKINGS 
 	WHERE TrackingScheduleId
-	IN (SELECT ScheduleId FROM TB_SCHEDULES WHERE @userId ='' OR ScheduleUserId = @userId )
+	IN (SELECT ScheduleId FROM TB_SCHEDULES WHERE @userId ='' OR ScheduleUserId = @userId)
+	AND TrackingCheckSalary IS NULL
 	AND ( @startDate ='' OR CONVERT(DATE,@startDate) <= CONVERT(DATE,TrackingDate))
 	AND (@endDate ='' OR CONVERT(DATE,TrackingDate) <= CONVERT(DATE,@endDate))
 	AND (@scheduleId ='' OR TrackingScheduleId = @scheduleId)
 	GROUP BY TrackingScheduleId , TrackingDate
 	
 	-- tinh luong giao vien  : gia tien 1 buoi lop * so luong hoc sinh theoo buoi * he so luong 
-	SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(0.7 * s.SchedulePrice* t.CountStudies)) SalaryTeacher
+	SELECT t.ScheduleId,t.TrackingDate,t.CountStudies, CONVERT(decimal(18,2) ,(0.7 * s.SchedulePrice* t.CountStudies)) SalaryTeacher, u.UserId, u.UserFullName
 	FROM #TempCountStudies t
 	JOIN TB_SCHEDULES s
 	ON t.ScheduleId = s.ScheduleId

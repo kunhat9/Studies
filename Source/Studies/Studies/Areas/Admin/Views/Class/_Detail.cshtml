@@ -4,6 +4,7 @@
     var subjects = (List<TB_SUBJECTS>)ViewBag.subjects;
     var teachers = (List<TB_USERS>)ViewBag.teachers;
     var boxSubject = (List<CORE.Views.V_BOX_SUBJECT>)ViewBag.BoxSubject;
+    var room = (List<TB_ROOM_CLASS>)ViewBag.Room;
 }
 
 <div class="modal-dialog">
@@ -123,10 +124,13 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Trạng thái:</label>
-                                    <select class="form-control select-search" id="Status">
-                                        <option value="A" selected="selected">Kích hoạt</option>
-                                        <option value="D" selected="selected">Không kích hoạt</option>
+                                    <label>Chọn lớp học</label>
+                                    <select class="form-control select-search txtboxes text-center no-padding" onchange="selectRoomClass()" id="roomId">
+                                        <option value="">-- Chọn lớp học --</option>
+                                        @for (int i = 0; i < room.Count; i++)
+                                        {
+                                            <option value="@room[i].RoomId">@room[i].RoomName</option>
+                                        }
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -139,6 +143,19 @@
                                         }
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Trạng thái:</label>
+                                    <select class="form-control select-search" id="Status">
+                                        <option value="A" selected="selected">Kích hoạt</option>
+                                        <option value="D" selected="selected">Không kích hoạt</option>
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -212,8 +229,35 @@
             var teacher = $('#UserId').val();
             salary= parseFloat(teachers.filter(x=>x.UserId == teacher)[0].UserNumberSalary);
         }
-        
+
         $('#Price').val(price*salary);
+    }
+    function selectRoomClass(){
+        checkRoom = "";
+        var timeFrom = ConvertTime($('#TimeStart').val());
+        var timeTo = ConvertTime($('#TimeEnd').val());
+        var params = {
+            roomId : $('#roomId').val(),
+            dayOfWeek: $('#dayOfWeek').val(),
+            timeFrom: timeFrom.split(":")[0],
+            timeTo: timeTo.split(":")[0]
+        };
+        console.log(params);
+        $.ajax({
+            url: "/Admin/Ajax/CheckRoomClass",
+            type: "Post",
+            data:params,
+        }).done(function (result) {
+            console.log(result);
+            if (result.Data.Code != "0") {
+                if(checkRoom == ""){
+                    toastr.info("Phòng học đã có lớp học. Vui lòng lựa chọn phòng khác");
+                }
+
+                //$("#roomId option[value="+$('#roomId').val()+"]").remove();
+
+            }
+        });
     }
     function CheckValue(){
         CheckValidateTeacher();
@@ -262,16 +306,21 @@
             console.log(result);
             if (result.Data.Code == "0") {
                 $('#UserId').html('');
-                
+
                 var arr = result.Data.Result;
                 var html = "";
                 for(var i =0;i<arr.length;i++){
+                    if(arr[i].UserId == idGiaoVien){
+                        html+= "<option value = "+arr[i].UserId+" selected>" + arr[i].UserFullName+"</option>";
+                    }else {
+                        html+= "<option value = "+arr[i].UserId+">" + arr[i].UserFullName+"</option>";
+                    }
 
-                    html+= "<option value = "+arr[i].UserId+">" + arr[i].UserFullName+"</option>";
                 }
                 var a = "<option value = ''> Chọn giáo viên</option>";
                 $('#UserId').html(a+html);
                 $('#UserId').removeAttr("disabled","false");
+
             }
         });
 

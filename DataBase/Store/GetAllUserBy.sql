@@ -54,6 +54,19 @@ BEGIN
 				AND (@type IS NULL OR UserType = @type)
 				AND (@scheduleId IS NULL OR TB_CLASSES.ClassScheduleId = @scheduleId)
 		END
+	ELSE IF @type ='ACCOUNTANT'
+		BEGIN
+			INSERT INTO #TempUserId(UserID)
+			SELECT UserId
+			FROM TB_USERS
+			WHERE (UserFullName LIKE N'%' + @keyText + '%'
+					OR UserAddress LIKE N'%' + @keyText + '%'
+					OR UserPhone LIKE N'%' + @keyText + '%'
+					OR UserNote LIKE N'%' + @keyText + '%'
+					)
+				AND (@status IS NULL OR UserStatus = @status)
+				AND (@type IS NULL OR UserType = @type)
+		END
 	SELECT DISTINCT [UserId]
       ,[UserName]
       ,[UserFullName]

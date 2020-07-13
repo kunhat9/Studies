@@ -11,7 +11,8 @@
     List<CORE.Tables.TB_USERS> teacher = ViewBag.Teacher;
     List<CORE.Tables.TB_USERS> students = ViewBag.User;
     List<CORE.Views.V_SCHEDULE_DETAILS> details = ViewBag.Schedule;
-    List<CORE.Views.V_USER_TRACKED> studies = ViewBag.UserTracked;
+    List<CORE.Views.V_USER_TRACKED_Details> studies = ViewBag.UserTracked;
+    List<DateTime> date = ViewBag.ListDate;
 }
 
 @*<input type="hidden" id="scheduleId" value="@id">*@
@@ -35,7 +36,7 @@
 
             <div class="col-md-5">
 
-                <select class="form-control select-search w-100" id="scheduleId">
+                <select class="form-control select-search w-100" id="scheduleId" disabled>
                     <option value="" selected>Chọn lớp học</option>
                     @foreach (var a in details)
                     {
@@ -62,84 +63,45 @@
             </div>
             <div class="col-md-1 " style="padding-top: 7px;">Ngày điểm danh </div>
             <div class="col-md-3">
-                <input type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class="form-control pickadate" id="createdDate">
+                <input type="text" readonly value="@DateTime.Now.ToString("dd/MM/yyyy")" class="form-control pickadate" id="createdDate">
 
             </div>
 
         </div>
 
+        <div class="modal-body">
+            <form class="teaching-schedules-tracking">
 
-        <div class="data-table div-h100-body">
-            <p>Danh sách học sinh đã điểm danh</p>
-            <div class="div-h100 ">
-                <div class="div-h100-body">
-                    <div class="well">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="fixed-col">STT</th>
-                                    <th>Mã học sinh</th>
-                                    <th>Tên học sinh</th>
-                                    <th>Ngày đăng kí</th>
-                                    <th>Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (int i = 0; i < studies.Count; i++)
+                <div class="form-group">
+                    <label for="password">Lịch dạy</label>
+                    <table class="table text-center">
+                        <thead>
+                            <tr class="text-center">
+                                <th></th>
+                                @foreach (var item in date)
                                 {
-                                    <tr class="text-center">
-                                        <td class="fixed-col">@(i + 1)</td>
-                                        <td>@studies[i].UserId</td>
-                                        <td>@studies[i].UserFullName</td>
-                                        <td>@studies[i].UserDateCreated</td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li class="btnDelete" onclick="onDelete(this)" data-id="@studies[i].UserId" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
-                                                    <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i>Xóa điểm danh</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                    <th class="text-center">@item.ToString("dd/MM/yyyy")</th>
                                 }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="data-table div-h100-body">
 
-            <p>Danh sách học sinh chưa điểm danh </p>
-            <div class="div-h100 ">
-                <div class="div-h100-body">
-                    <div class="well">
-                        <table class="table">
-                            <thead>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var user in studies)
+                            {
                                 <tr class="text-center">
-                                    <th><input type="checkbox" id="checkAll" /></th>
-                                    <th class="fixed-col">STT</th>
-                                    <th>Mã học sinh</th>
-                                    <th>Tên học sinh</th>
-                                    <th>Ngày đăng kí</th>
+                                    <td>@user.UserFullName</td>
+                                    @foreach (var item in date)
+                                    {
+                                        <td><input type="checkbox" disabled data-day="@item.ToString("dd/MM/yyyy")" data-id="@user.UserId" name="userids" class="schedule-checkbox" /></td>
+                                    }
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @for (int i = 0; i < students.Count; i++)
-                                {
-                                    <tr class="text-center">
-                                        <td><input type="checkbox" name="userids" value="@students[i].UserId" /></td>
-                                        <td class="fixed-col">@(i + 1)</td>
-                                        <td>@students[i].UserId</td>
-                                        <td>@students[i].UserFullName</td>
-                                        <td>@students[i].UserDateCreated</td>
-
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 
@@ -150,9 +112,53 @@
     $("#checkAll").click(function(){
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
+    let data = @Html.Raw(Json.Encode(studies));
     $(document).ready(function(){
+        debugger;
         $('#scheduleId').change();
+        const elements = document.querySelectorAll(".teaching-schedules-tracking input");
+        elements.forEach((element)=> {
+            var day = element.getAttribute("data-day");
+            var userId = element.getAttribute("data-id");
+            for(var i=0;i<data.length;i++){
+                var value = data[i];
+                var check = new Date().toLocaleDateString();
+                for(var t = 0;t<value.TrackingDate.length;t++){
+                    var a = value.TrackingDate[t];
+                    var demo = '@DateTime.Now.ToString("dd/MM/yyyy")';
+                    var date = new Date(a.match(/\d+/)[0] * 1).toLocaleDateString();
+                    if(day == demo ){
+                        element.disabled = false;
+                       
+                        
+                    }
+                    if(day == ConvertJsonDateToDate(date) && userId == value.UserId){
+                        element.checked= true;
+                    }
+                }
+
+            }
+
+        })
+
+
     });
+    function ConvertJsonDateToDate(date){
+        var arr = date.split('/');
+        var day , month , year;
+        if(arr[0] > 10){
+            day = arr[0];
+        }else {
+            day = "0" + arr[0];
+        }
+        if(arr[1] > 10){
+            month = arr[1];
+        }else {
+            month = "0" + arr[1];
+        }
+        year = arr[2];
+        return day + "/" + month + "/"+ year;
+    }
     $('#scheduleId').change(()=>{
         let value = @Html.Raw(Json.Encode(details));
         let teacher = @Html.Raw(Json.Encode(teacher));
@@ -160,11 +166,19 @@
         var data = value[0];
         console.log(data);
         $('#teacher').val(teacher.filter(x=>x.UserId == data.ScheduleUserId)[0].UserFullName);
-        $('#startDate').val(data.ScheduleDetailTimeFrom.Hours + ":" +data.ScheduleDetailTimeFrom.Minutes+":"+data.ScheduleDetailTimeFrom.Seconds);
-        $('#endDate').val(data.ScheduleDetailTimeFrom.Hours + ":" +data.ScheduleDetailTimeFrom.Minutes+":"+data.ScheduleDetailTimeFrom.Seconds);
+        $('#startDate').val(ConvertTime(data.ScheduleDetailTimeFrom.Hours) + ":" +ConvertTime(data.ScheduleDetailTimeFrom.Minutes));
+        $('#endDate').val(ConvertTime(data.ScheduleDetailTimeTo.Hours) + ":" +ConvertTime(data.ScheduleDetailTimeTo.Minutes));
 
     });
-
+    function ConvertTime(time){
+        var result = "";
+        if(time < 10){
+            result = "0" + time;
+        }else {
+            result = time;
+        }
+        return result;
+    }
     function onDelete(event){
 
         if(confirm('Bạn chắc chắn muốn xóa học sinh ra khỏi lớp')){
@@ -172,7 +186,7 @@
             let userids = [];
             userids.push(id);
             $.ajax({
-                url: "/Admin/Ajax/AddTrackingSchedules",
+                url: "/Ajax/AddTrackingSchedules",
                 type: "post",
                 data: {
                     dateTracking:$('#createdDate').val().split('/').reverse().join('-'),
@@ -181,28 +195,39 @@
                     listUserId : userids,
                     type : "DELETE"
                 },
-            }).done(function ({Data}) {
-                if (Data.Code == 0) {
-                    toastr.success(Data.Result);
+            }).done(function (Data) {
+                if (Data.Data.Code == 0) {
+                    toastr.success(Data.Data.Result);
 
                     setTimeout(function () {
                         window.location.reload();
                     }, 1500);
                 } else {
-                    toastr.error(Data.Result);
+                    toastr.error(Data.Data.Result);
                 }
             });
         }
     }
 
+
+
+
+
+
+
     $("#btn-update-students").click(()=>{
         let userids = [];
-        $("input[name=userids]:checked").each(function() {
-            userids.push($(this).val());
-        });
-        console.log(userids);
+        const elements = document.querySelectorAll(".teaching-schedules-tracking input:checked")
+        elements.forEach((element)=> {
+            var day = element.getAttribute("data-day");
+            var demo = '@DateTime.Now.ToString("dd/MM/yyyy")';
+            if(day == demo){
+                userids.push(element.getAttribute("data-id"));
+            }
+          
+        })
         $.ajax({
-            url: "/Admin/Ajax/AddTrackingSchedules",
+            url: "/Ajax/AddTrackingSchedules",
             type: "post",
             data: {
                 dateTracking:$('#createdDate').val().split('/').reverse().join('-'),
@@ -211,15 +236,15 @@
                 listUserId : userids,
                 type : "INSERT"
             },
-        }).done(function ({Data}) {
-            if (Data.Code == 0) {
-                toastr.success(Data.Result);
+        }).done(function (Data) {
+            if (Data.Data.Code == 0) {
+                toastr.success(Data.Data.Result);
 
                 setTimeout(function () {
                     window.location.reload();
                 }, 1500);
             } else {
-                toastr.error(Data.Result);
+                toastr.error(Data.Data.Result);
             }
         });
     })

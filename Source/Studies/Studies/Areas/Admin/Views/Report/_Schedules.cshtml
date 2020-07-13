@@ -1,0 +1,454 @@
+﻿@using CORE.Views;
+
+@model List<V_SCHEDULE_DETAILS>
+@{
+
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+    var jsonModel = serializer.Serialize(Model);
+    var ok = jsonModel;
+
+    List<V_SCHEDULE_DETAILS> list = new List<V_SCHEDULE_DETAILS>();
+}
+<form class="teaching-schedules">
+    
+    <div class="form-group">
+        <table class="table text-center">
+            <thead>
+                <tr class="text-center">
+                    <th></th>
+                    <th class="text-center">07:00 - 09:00</th>
+                    <th class="text-center">09:00 - 11:00</th>
+                    <th class="text-center">14:00 - 16:00</th>
+                    <th class="text-center">16:00 - 18:00</th>
+                    <th class="text-center">18:00 - 20:00</th>
+                    <th class="text-center">20:00 - 22:00</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    <td>Thứ hai</td>
+                    @{
+                        list = new List<V_SCHEDULE_DETAILS>();
+                        list = Model.Where(x => x.ScheduleDetailDayOfWeek.Equals("THU2")).ToList();
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 7).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 9).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU2" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU2" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 9).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 11).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU2" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU2" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 14).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 16).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU2" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU2" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 16).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 18).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU2" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU2" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 18).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 20).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU2" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU2" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 20).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 22).ToList().Count > 0)
+                        {
+
+                            <td><input type="checkbox" data-day="THU2" data-start="20:00" data-end="22:00" class="schedule-checkbox"  checked/></td>
+                        }
+                        else
+                        {
+
+                            <td><input type="checkbox" data-day="THU2" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
+                        }
+
+                    }
+                </tr>
+                <tr class="text-center">
+                    <td>Thứ ba</td>
+                    @{
+                        list = new List<V_SCHEDULE_DETAILS>();
+                        list = Model.Where(x => x.ScheduleDetailDayOfWeek.Equals("THU3")).ToList();
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 7).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 9).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU3" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU3" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 9).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 11).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU3" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU3" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 14).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 16).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU3" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU3" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 16).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 18).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU3" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU3" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 18).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 20).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU3" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU3" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 20).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 22).ToList().Count > 0)
+                        {
+
+                            <td><input type="checkbox" data-day="THU2" data-start="20:00" data-end="22:00" class="schedule-checkbox" checked /></td>
+                        }
+                        else
+                        {
+
+                            <td><input type="checkbox" data-day="THU2" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
+                        }
+
+
+                    }
+                </tr>
+                <tr class="text-center">
+                    <td>Thứ tư</td>
+                    @{
+                        list = new List<V_SCHEDULE_DETAILS>();
+                        list = Model.Where(x => x.ScheduleDetailDayOfWeek.Equals("THU4")).ToList();
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 7).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 9).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU4" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU4" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 9).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 11).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU4" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU4" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 14).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 16).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU4" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU4" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 16).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 18).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU4" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU4" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 18).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 20).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU4" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU4" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 20).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 22).ToList().Count > 0)
+                        {
+
+                            <td><input type="checkbox" data-day="THU4" data-start="20:00" data-end="22:00" class="schedule-checkbox" checked /></td>
+                        }
+                        else
+                        {
+
+                            <td><input type="checkbox" data-day="THU4" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
+                        }
+                    }
+                </tr>
+                <tr class="text-center">
+                    <td>Thứ năm</td>
+                    @{
+                        list = new List<V_SCHEDULE_DETAILS>();
+                        list = Model.Where(x => x.ScheduleDetailDayOfWeek.Equals("THU5")).ToList();
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 7).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 9).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU5" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU5" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 9).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 11).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU5" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU5" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 14).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 16).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU5" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU5" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 16).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 18).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU5" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU5" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 18).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 20).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU5" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU5" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 20).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 22).ToList().Count > 0)
+                        {
+
+                            <td><input type="checkbox" data-day="THU5" data-start="20:00" data-end="22:00" class="schedule-checkbox" checked /></td>
+                        }
+                        else
+                        {
+
+                            <td><input type="checkbox" data-day="THU5" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
+                        }
+
+
+                    }
+                </tr>
+                <tr class="text-center">
+                    <td>Thứ sáu</td>
+                    @{
+                        list = new List<V_SCHEDULE_DETAILS>();
+                        list = Model.Where(x => x.ScheduleDetailDayOfWeek.Equals("THU6")).ToList();
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 7).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 9).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU6" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU6" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 9).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 11).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU6" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU6" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 14).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 16).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU6" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU6" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 16).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 18).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU6" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU6" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 18).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 20).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU6" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU6" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 20).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 22).ToList().Count > 0)
+                        {
+
+                            <td><input type="checkbox" data-day="THU6" data-start="20:00" data-end="22:00" class="schedule-checkbox" checked /></td>
+                        }
+                        else
+                        {
+
+                            <td><input type="checkbox" data-day="THU6" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
+                        }
+
+
+                    }
+                </tr>
+                <tr class="text-center">
+                    <td>Thứ bảy</td>
+                    @{
+                        list = new List<V_SCHEDULE_DETAILS>();
+                        list = Model.Where(x => x.ScheduleDetailDayOfWeek.Equals("THU7")).ToList();
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 7).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 9).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU7" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU7" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 9).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 11).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU7" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU7" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 14).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 16).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU7" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU7" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 16).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 18).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU7" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU7" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 18).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 20).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="THU7" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="THU7" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 20).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 22).ToList().Count > 0)
+                        {
+
+                            <td><input type="checkbox" data-day="THU7" data-start="20:00" data-end="22:00" class="schedule-checkbox" checked /></td>
+                        }
+                        else
+                        {
+
+                            <td><input type="checkbox" data-day="THU7" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
+                        }
+
+
+                    }
+                </tr>
+                <tr class="text-center">
+                    <td>Chủ nhật</td>
+                    @{
+                        list = new List<V_SCHEDULE_DETAILS>();
+                        list = Model.Where(x => x.ScheduleDetailDayOfWeek.Equals("CN")).ToList();
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 7).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 9).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="CN" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="CN" data-start="07:00" data-end="09:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 9).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 11).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="CN" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="CN" data-start="09:00 " data-end="11:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 14).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 16).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="CN" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="CN" data-start="14:00 " data-end="16:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 16).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 18).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="CN" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="CN" data-start="16:00" data-end="18:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 18).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 20).ToList().Count > 0)
+                        {
+                            <td><input type="checkbox" checked data-day="CN" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" data-day="CN" data-start="18:00" data-end="20:00" class="schedule-checkbox" /></td>
+                        }
+                        if (list.Where(x => x.ScheduleDetailTimeFrom.Hours == 20).ToList().Count > 0 && list.Where(x => x.ScheduleDetailTimeTo.Hours == 22).ToList().Count > 0)
+                        {
+
+                            <td><input type="checkbox" data-day="CN" data-start="20:00" data-end="22:00" class="schedule-checkbox" checked /></td>
+                        }
+                        else
+                        {
+
+                            <td><input type="checkbox" data-day="CN" data-start="20:00" data-end="22:00" class="schedule-checkbox" /></td>
+                        }
+
+
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</form>
+
+<script>
+    let url_get = "/Admin/Report/_Schedules";
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "userId":$("#userId").val()
+            
+        };
+    }
+    var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+</script>

@@ -1,0 +1,77 @@
+﻿@using System
+@using System.Web.Mvc.Html
+@model System.Collections.Generic.List<CORE.Tables.TB_USERS>
+
+
+@{
+    int? totalPage = (int?)ViewBag.maxNumber;
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+    var jsonModel = serializer.Serialize(Model);
+    var ok = jsonModel;
+}
+
+<div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
+    <div class="div-h100-body">
+        <div class="well">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fixed-col">STT</th>
+                        <th>Tên tài khoản</th>
+                        <th>Họ tên</th>
+                        <th>Trường </th>
+                        <th>Số điện thoại</th>
+                        <th>Mô tả </th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr class="text-center">
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@Model[i].UserName</td>
+                            <td>@Model[i].UserFullName</td>
+                            <td>@Model[i].UserAddress</td>
+                            <td>@Model[i].UserPhone</td>
+                            <td>@Model[i].UserNote</td>
+
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="btnEdit" data-index=@i>
+                                        <button type="button" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
+                                    </li>
+                                    <li class="btnDelete" data-id='@Model[i].UserId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                        <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="">
+    @{ Html.RenderAction("_Pagination", "HomeAdmin", new { maxNumber = ViewBag.maxNumber, pageNumber = ViewBag.pageNumber });}
+</div>
+
+<script>
+    let url_get = "/Admin/User/_Accountant";
+    let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
+    let getParamsForSearch = (pageNumber,isNext)=>{
+        return {
+            "keyText": $(".txtSearch").val() ,
+            "pageNumber": pageNumber + isNext,
+            "pageSize": $(".select2-selection--single.select2-selection__rendered.d-inline page-size").val() ,
+            "status" : $("#user-status").val()
+        };
+    }
+
+     var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+     features.CheckUpdateAndFillInfo();
+     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
+     features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
+</script>

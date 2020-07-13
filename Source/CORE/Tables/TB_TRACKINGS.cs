@@ -15,6 +15,8 @@ namespace CORE.Tables
         public string TrackingNote { get; set; }
         public int TrackingUserId { get; set; }
         public int TrackingScheduleId { get; set; }
+        public string TrackingCheckSalary { get; set; }
+        public string TrackingCheckTuition { get; set; }
         public TB_TRACKINGS() { }
 
     }

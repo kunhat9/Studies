@@ -88,6 +88,7 @@
                         <th>Tên giáo viên</th>
                         <th>Học vị</th>
                         <th>Hệ số lương yêu cầu</th>
+                        <th>Kích hoạt tài khoản</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -98,7 +99,14 @@
                             <td>@teachers[i].UserFullName</td>
                             <td>@teachers[i].UserAcademicLevel</td>
                             <td>@teachers[i].UserNumberSalary</td>
-
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="btnUnlock" onclick="onUnlock(this)" data-index=@i>
+                                        <button type="button"  class="btn btn-default btn-sm text-primary-600" >Kích hoạt</button>
+                                    </li>
+                                    
+                                </ul>
+                            </td>
                         </tr>
                     }
                     </tbody>
@@ -119,4 +127,29 @@
     $(".txtCurrency").each(function () {
         $(this).text(Features.FormatCurency($(this).text().split(",")[0]));
     });
+    function onUnlock(event){
+        
+        let data =@Html.Raw(Json.Encode(teachers));
+        var stt=  event.dataset.index;
+        var params = data[stt];
+        console.log(params);
+       
+        $.ajax({
+            url: "/Admin/Ajax/UpdateStatusUser",
+            type: "post",
+            data: params
+        }).done(function (Data) {
+            if (Data.Data.Code == 0) {
+                toastr.success(Data.Data.Result);
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                }, 1500);
+            } else {
+                toastr.error(Data.Data.Result);
+            }
+        });
+    }
+    
 </script>

@@ -24,7 +24,7 @@ namespace WebAdmin.Configuration
                 "/Home/Login",
                 "/Home/Index",
                 "/Home/Logout",
-                  "/Home/_HomeHeader",
+                "/Home/_HomeHeader",
                 "/Home/_HomeFooter",
                 "/Home/Register",
                 "/Home/_HomeMenuLeft",
@@ -39,7 +39,11 @@ namespace WebAdmin.Configuration
                 "/Infomation/Tracking",
                 "/Infomation/TrackingDetails",
                 "/Introduce/Index",
-                "/Teacher/Index"
+                "/Teacher/Index",
+                "/Ajax/AddUserInClass",
+                "/Ajax/GetTeachingSchedule",
+                "/Ajax/TeachingSchedules",
+                "/Ajax/AddTrackingSchedules"
 
 
             };

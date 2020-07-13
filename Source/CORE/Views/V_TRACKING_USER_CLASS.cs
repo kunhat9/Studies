@@ -13,4 +13,15 @@ namespace CORE.Views
         public int schedueId { get; set; }
         public List<DateTime> dateTracking { get; set; }
     }
+    public class V_TRACKING_SCHEDULE
+    {
+        public int schedulesId { get; set; }
+        public List<V_TRACKING_DETAILS> details { get; set; }
+
+    }
+    public class V_TRACKING_DETAILS
+    {
+        public DateTime dateTracking { get; set; }
+        public int TotalTracking { get; set; }
+    }
 }

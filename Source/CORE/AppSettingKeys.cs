@@ -25,6 +25,9 @@
         public const string GET_USER_TRACKED = "GetUserTracked";
         public const string GET_TEACHER_WEEK_TIME = "GetTeacherByDateWeekTime";
         public const string GET_USER_REGISTER = "GetUserRegisterClass";
+        public const string GET_COUNT_STUDIES_CLASS = "GetCountStudiesInClass";
+        public const string GET_REPORT_TUITION = "ReportTuition";
+        public const string EXPORT_ORDER_TUITION = "ExportOrderTuition";
 
 
         public const string FOMAT_DATE_INPUT = "yyyy/MM/dd";

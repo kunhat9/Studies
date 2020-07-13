@@ -41,6 +41,13 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
-        
+
+        public List<V_NUMBER_STUDIES> GetCountStudieInClass(string scheduleId)
+        {
+            List<V_NUMBER_STUDIES> list = new List<V_NUMBER_STUDIES>();
+            list = new V_NUMBER_STUDIESSql().SelectFromStore(AppSettingKeys.GET_COUNT_STUDIES_CLASS, scheduleId);
+            return list;
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CORE.Tables;
 using CORE.Views;
+using CORE.Helpers;
 using WebAdmin.AppSession;
 using WebAdmin.Models;
 
@@ -21,7 +22,7 @@ namespace WebAdmin.Controllers
         {
 
             List<V_SCHEDULE_DETAILS> list = new List<V_SCHEDULE_DETAILS>();
-            var user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+            var user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
             int count = 0;
             List<TB_USERS> listUser = new List<TB_USERS>();
             try
@@ -53,7 +54,7 @@ namespace WebAdmin.Controllers
             try
             {
                 listSchedules = Schedules_Service.GetAll();
-                var user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                var user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
                 list = Trackings_Service.GetTrackingUser(user.UserId.ToString(), null, null, null);
 
             }
@@ -70,7 +71,7 @@ namespace WebAdmin.Controllers
 
             List<V_TuitionStudies> listTuition = new List<V_TuitionStudies>();
             List<V_SALARY_TEACHER> listSalary = new List<V_SALARY_TEACHER>();
-            var user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+            var user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
             List<TB_SCHEDULES> list = new List<TB_SCHEDULES>();
             List<TB_SUBJECTS> listSuject = new List<TB_SUBJECTS>();
             List<TB_BOX_SUBJECTS> listBoxSubject = new List<TB_BOX_SUBJECTS>();
@@ -164,7 +165,7 @@ namespace WebAdmin.Controllers
             try
             {
                 ViewBag.boxSubjects = Subjects_Boxes_Service.GetAll();
-                TB_USERS user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                TB_USERS user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
                 list = Schedules_Service.GetInfoClassBy(user.UserId.ToString(),user.UserType,1,short.MaxValue,out count);
                 listUser = User_Service.GetAllTeacher();
                 ViewBag.maxNumber = Math.Ceiling((double)count / 10);
@@ -179,13 +180,15 @@ namespace WebAdmin.Controllers
         }
         public ActionResult TrackingDetails(string scheduleId="", string createdDate = "")
         {
+            List<DateTime> listDate = new List<DateTime>();
             List<V_SCHEDULE_DETAILS> details = new List<V_SCHEDULE_DETAILS>();
             List<TB_USERS> listUser = new List<TB_USERS>();
             List<TB_USERS> listTeacher = new List<TB_USERS>();
-            List<V_USER_TRACKED> listTracked = new List<V_USER_TRACKED>();
+            List<V_USER_TRACKED_Details> listTracked = new List<V_USER_TRACKED_Details>();
             int count = 0;
             try
             {
+               
                 if (string.IsNullOrEmpty(createdDate))
                 {
                     createdDate = DateTime.Now.ToString("yyyy-MM-dd");
@@ -193,7 +196,10 @@ namespace WebAdmin.Controllers
                 listTeacher = User_Service.GetAllTeacher();
                 listUser = User_Service.GetStudiesBySchedule(scheduleId, 1, short.MaxValue, out count);
                 details = Schedules_Service.GetInfoClassBy("", "STUDIES", 1, short.MaxValue, out count).Where(x => x.ScheduleId == Int32.Parse(scheduleId)).ToList();
-                listTracked = User_Service.GetUserTracked(scheduleId, createdDate, 1, short.MaxValue, out count);
+                string numberDayOfWeek = ConvertDataWithView.Convert_DayOfWeek_ToNumber(details.FirstOrDefault().ScheduleDetailDayOfWeek);
+                string numberOfMonth = DateTime.Now.Month.ToString();
+                listDate = DateTimeHelper.DaysOfMonth(DateTime.Now.Year, DateTime.Now.Month, ConvertDataWithView.Convert_DayOfWeek_ToTypeDayOfWeek(details.FirstOrDefault().ScheduleDetailDayOfWeek));
+                listTracked = User_Service.GetUserTracked(scheduleId,numberOfMonth, numberDayOfWeek, 1, short.MaxValue, out count);
             }
             catch (Exception e)
             {
@@ -208,6 +214,7 @@ namespace WebAdmin.Controllers
                     lst.Add(item);
                 }
             }
+            ViewBag.ListDate = listDate;
             ViewBag.UserTracked = listTracked;
             ViewBag.Teacher = listTeacher;
             ViewBag.User = lst;

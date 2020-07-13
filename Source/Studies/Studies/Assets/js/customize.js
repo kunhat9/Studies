@@ -42,7 +42,27 @@ $(document).ready(function () {
         format: "dd/mm/yyyy"
     });
 
-    $('.pickatime').pickatime();
+    $('.pickatime').pickatime({
+
+        interval: 60,
+        min: [7, 00],
+        max: [22, 0],
+        disable: [
+        [8,0],
+        [10,0],
+        [12,0],
+        [13,0],
+        [15,0],
+        [17,0],
+        [19,0],
+        [21,0]
+        ],
+        //formatSubmit: 'HH:i',
+       
+        hiddenName: true
+    });
+
+
     function setActive() {
         let baseUrl = location.pathname;
         let url = baseUrl.split("/");

@@ -96,6 +96,7 @@ CREATE TABLE TB_SCHEDULE_DETAILS	-- Chi tiết
 	,ScheduleDetailTimeFrom time  -- từ giờ 
 	,ScheduleDetailTimeTo time -- đến giờ
 	,ScheduleDetailNote nvarchar(500)-- mô tả
+	, ScheduleDetailRoomClass INT
 	,ScheduleDetailScheduleId INT
 	, CONSTRAINT FK_ScheduleDetailScheduleId FOREIGN KEY (ScheduleDetailScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)   
 )
@@ -138,6 +139,8 @@ CREATE TABLE TB_TRACKINGS	-- Điểm danh
 	, CONSTRAINT FK_TrackingUserId  FOREIGN KEY (TrackingUserId) REFERENCES TB_USERS(UserId)
 	, TrackingScheduleId INT
 	, CONSTRAINT FK_TrackingScheduleId FOREIGN KEY (TrackingScheduleId) REFERENCES TB_SCHEDULES(ScheduleId)
+	,TrackingCheckSalary varchar(50)
+	,TrackingCheckTuition varchar(50) 
 )
 GO
 CREATE TABLE TB_FILES	-- Hình ảnh
@@ -148,6 +151,25 @@ CREATE TABLE TB_FILES	-- Hình ảnh
 	,[FileName] nvarchar(100)
 	,FileType nvarchar(255)
 	,FileService varchar(50) -- dinh dang xem no la cua user , lop hoc, tin tuc hay cai gi 
+)
+GO
+CREATE TABLE TB_ROOM_CLASS
+(
+	RoomId INT IDENTITY PRIMARY KEY,
+	RoomName nvarchar(50)
+
+)
+GO
+CREATE TABLE TB_TRANSACTION
+(
+	TransId INT IDENTITY PRIMARY KEY
+	,TransNumber decimal(18,0) -- so luong
+	,TransType varchar(50)     -- loai hinh : tra luong , thu hoc phi
+	,TransUserId INT           -- tra cho user nao 
+	,TransNote nvarchar(max)   -- mo ta them neu co 
+	,TransDateCreated datetime -- ngay thuc hien lenh
+	,TransBeginTime datetime   -- ngay bat dau
+	,TransEndTime  datetime    -- ngay ket thuc
 )
 GO
 CREATE SEQUENCE TB_SCHEDULESEQ START WITH 1 INCREMENT BY 1

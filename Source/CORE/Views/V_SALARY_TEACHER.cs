@@ -13,5 +13,8 @@ namespace CORE.Views
         public DateTime TrackingDate { get; set; }
         public int CountStudies { get; set; }
         public decimal SalaryTeacher { get; set; }
+        public int UserId { get; set; }
+        public string UserFullName { get; set; }
     }
+   
 }

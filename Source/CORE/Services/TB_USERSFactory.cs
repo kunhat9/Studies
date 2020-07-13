@@ -1,4 +1,4 @@
-﻿    using CORE.Internal;
+﻿using CORE.Internal;
 using CORE.Internal.ViewSql;
 using CORE.Tables;
 using CORE.Views;
@@ -34,7 +34,7 @@ namespace CORE.Services
         }
         public List<TB_USERS> GetAllStudies()
         {
-            return new TB_USERSSql().FilterByField("UserType","STUDIES");
+            return new TB_USERSSql().FilterByField("UserType", "STUDIES");
         }
         public List<TB_USERS> GetAllTeacher()
         {
@@ -50,12 +50,12 @@ namespace CORE.Services
             return list;
         }
         // login vao webclient
-        public V_INFO_LOGIN_CLIENT CheckLogin(string userName, string passWord,string type)
+        public V_INFO_LOGIN_CLIENT CheckLogin(string userName, string passWord, string type)
         {
             string ecode, edesc;
             List<TB_USERS> list = new List<TB_USERS>();
             list = new TB_USERSSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.CHECK_LOGIN_CLIENT, userName, passWord, type);
-            if(list == null)
+            if (list == null)
             {
                 list = new List<TB_USERS>();
             }
@@ -69,15 +69,15 @@ namespace CORE.Services
             return result;
         }
         // tinh luogn cho giao vien
-        public List<V_SALARY_TEACHER> GetSalaryTeacher(string userId , string scheduleId , string startDate, string endDate , int pageNumber , int pageSize, out int count)
+        public List<V_SALARY_TEACHER> GetSalaryTeacher(string userId, string scheduleId, string startDate, string endDate, int pageNumber, int pageSize, out int count)
         {
             object cTemp;
-            List<V_SALARY_TEACHER> list =  new V_SALARY_TEACHERSql().SelectFromStoreOutParam(AppSettingKeys.GET_SALARY_TEACHER,out cTemp ,userId,scheduleId,startDate,endDate,pageNumber,pageSize);
+            List<V_SALARY_TEACHER> list = new V_SALARY_TEACHERSql().SelectFromStoreOutParam(AppSettingKeys.GET_SALARY_TEACHER, out cTemp, userId, scheduleId, startDate, endDate, pageNumber, pageSize);
             count = (int)cTemp;
             return list;
         }
 
-        public List<TB_USERS> GetAllBy(string keyText, string status , string scheduleId, string type , int pageNumber, int pageSize, out int count)
+        public List<TB_USERS> GetAllBy(string keyText, string status, string scheduleId, string type, int pageNumber, int pageSize, out int count)
         {
             object cTemp;
             List<TB_USERS> list = new List<TB_USERS>();
@@ -85,6 +85,15 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
+        // bao cao hoc phi hoc sinh 
+        public List<V_REPORT_TUITION> GetReportTuition(string userId, string scheduleId, string startDate, string endDate, int pageNumber, int pageSize, out int count)
+        {
+            object cTemp;
+            List<V_REPORT_TUITION> list = new V_REPORT_TUITIONSql().SelectFromStoreOutParam(AppSettingKeys.GET_REPORT_TUITION, out cTemp, userId, scheduleId, startDate, endDate, pageNumber, pageSize);
+            count = (int)cTemp;
+            return list;
+        }
+
 
         // lay danh danh thoi khoa bieu hoc sinh
         public List<V_TKBStudies> GetThoiKhoaBieu(string userId)
@@ -96,27 +105,60 @@ namespace CORE.Services
         {
             object cTemp;
             List<V_TuitionStudies> list = new List<V_TuitionStudies>();
-            list = new V_TuitionStudiesSql().SelectFromStoreOutParam(AppSettingKeys.GET_TUITION_STUDIES, out cTemp , userId, scheduleId, startDate, endDate, pageNumber, pageSize);
+            list = new V_TuitionStudiesSql().SelectFromStoreOutParam(AppSettingKeys.GET_TUITION_STUDIES, out cTemp, userId, scheduleId, startDate, endDate, pageNumber, pageSize);
             count = (int)cTemp;
             return list;
         }
-        public List<V_USER_TRACKED> GetUserTracked(string schedulesId,string createdDate, int pageNumber ,int pageSize, out int count)
+        public List<V_USER_TRACKED_Details> GetUserTracked(string schedulesId, string numberMonth, string numberDayOfWeek, int pageNumber, int pageSize, out int count)
         {
             object cTemp;
             List<V_USER_TRACKED> list = new List<V_USER_TRACKED>();
-            list = new V_USER_TRACKEDSql().SelectFromStoreOutParam(AppSettingKeys.GET_USER_TRACKED, out cTemp, schedulesId, createdDate, pageNumber, pageSize);
+            list = new V_USER_TRACKEDSql().SelectFromStoreOutParam(AppSettingKeys.GET_USER_TRACKED, out cTemp, schedulesId, numberMonth, numberDayOfWeek, pageNumber, pageSize);
             count = (int)cTemp;
-            return list;
+
+            List<V_USER_TRACKED_Details> result = new List<V_USER_TRACKED_Details>();
+
+            result = list.GroupBy(x => x.UserId).Select(y => new V_USER_TRACKED_Details
+            {
+                UserId = y.Key,
+                UserFullName = y.Where(t => t.UserId == y.Key).FirstOrDefault().UserFullName,
+                TrackingDate = y.Select(k => k.TrackingDate).ToList()
+
+            }).ToList();
+            return result;
         }
 
-        public List<TB_USERS> GetTeacherByDateWeekTime(string dayOfWeek, string timeFrom ,string timeTo)
+        public List<TB_USERS> GetTeacherByDateWeekTime(string dayOfWeek, string timeFrom, string timeTo)
         {
-            return new TB_USERSSql().SelectFromStore(AppSettingKeys.GET_TEACHER_WEEK_TIME,dayOfWeek,timeFrom,timeTo);
+            return new TB_USERSSql().SelectFromStore(AppSettingKeys.GET_TEACHER_WEEK_TIME, dayOfWeek, timeFrom, timeTo);
         }
 
         public List<TB_USERS> GetUserRegister(string scheduleId)
         {
             return new TB_USERSSql().SelectFromStore(AppSettingKeys.GET_USER_REGISTER, scheduleId);
+        }
+
+        // bao caoo excel chi phi hoc sinh
+        public List<V_REPORT_EXCEL_STUDIES> ReportTutionStudies(string userId, string startDate, string endDate)
+        {
+            string ecode ="", edesc= "";
+            List<V_REPORT_EXCEL_STUDIES> list = new List<V_REPORT_EXCEL_STUDIES>();
+            list =  new V_REPORT_EXCEL_STUDIESSql().SelectFromStoreOutEcode( out ecode, out edesc, AppSettingKeys.EXPORT_ORDER_TUITION, userId, startDate, endDate, "STUDIES");
+            if (ecode.Equals("00"))
+            {
+                return list;
+            }else
+            {
+                return new List<V_REPORT_EXCEL_STUDIES>();
+            }
+        }
+        // bao cao excel luong giao vien 
+        public string ReportSalaryTeacher(string userId, string startDate, string endDate)
+        {
+            string ecode = "", edesc = "";
+            List<V_SALARY_TEACHER> list = new List<V_SALARY_TEACHER>();
+            list = new V_SALARY_TEACHERSql().SelectFromStoreOutEcode(out ecode, out edesc, AppSettingKeys.EXPORT_ORDER_TUITION, userId, startDate, endDate, "TEACHER");
+            return ecode;
         }
     }
 }

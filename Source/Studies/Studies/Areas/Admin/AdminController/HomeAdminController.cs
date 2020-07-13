@@ -56,6 +56,11 @@ namespace WebAdmin.Areas.Admin.AdminController
         [ChildActionOnly]
         public PartialViewResult _HomeMenuLeft()
         {
+            if (Session[AppSessionKeys.USER_INFO] != null)
+            {
+                ViewBag.User = ((TB_USERS)Session[AppSessionKeys.USER_INFO]);
+
+            }
             return PartialView();
         }
 
@@ -74,7 +79,15 @@ namespace WebAdmin.Areas.Admin.AdminController
             {
                 if (string.IsNullOrEmpty(url))
                 {
-                    return RedirectToAction("/Index");
+                    TB_USERS user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                    if (user.UserType.Equals("ACCOUNTANT"))
+                    {
+                        return Redirect("/Admin/Report");
+                    }else
+                    {
+                        return RedirectToAction("/Index");
+                    }
+                    
                 }
                 else
                 {

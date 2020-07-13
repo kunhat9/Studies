@@ -16,6 +16,7 @@ namespace CORE.Tables
         public TimeSpan ScheduleDetailTimeTo { get; set; }
         public string ScheduleDetailNote { get; set; }
         public int ScheduleDetailScheduleId { get; set; }
+        public int ScheduleDetailRoomClass { get; set; }
         public TB_SCHEDULE_DETAILS() { }
 
     }

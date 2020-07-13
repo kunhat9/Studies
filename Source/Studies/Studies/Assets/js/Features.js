@@ -189,14 +189,14 @@ class Features {
         } else if (item.classList.contains("pickatime")) {
 
             if (item.value == "" || $("#PACKAGE_TIME_END_root .picker__list-item--highlighted").data("pick") < $("#PACKAGE_TIME_START_root .picker__list-item--highlighted").data("pick")) {
-                return { valid: false, message: "Vui lòng chọn thời gian tập hợp lệ" };
+                return { valid: false, message: "Thời gian kết thúc phải lớn hơn thời gian bắt đầu" };
             }
 
         }
         else if (item.classList.contains("pickadate")) {
 
             if (item.value == "" || $("#VOUCHER_BEGIN_table .picker__day--selected").data("pick") > $("#VOUCHER_END_table .picker__day--selected").data("pick")) {
-                return { valid: false, message: "Vui lòng chọn thời gian tập hợp lệ" };
+                return { valid: false, message: "Thời gian kết thúc phải lớn hơn thời gian bắt đầu" };
             }
 
         }

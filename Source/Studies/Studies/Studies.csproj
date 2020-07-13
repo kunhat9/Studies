@@ -53,6 +53,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -135,6 +140,7 @@
     <Content Include="Areas\Admin\Views\User\_Students_Details.cshtml" />
     <Content Include="Areas\Admin\Views\User\_Teachers.cshtml" />
     <Content Include="Areas\Admin\Views\User\_Teachers_Details.cshtml" />
+    <Content Include="Assets\css\admin.css" />
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\colors.css" />
@@ -147,13 +153,13 @@
     <Content Include="Assets\css\icons\glyphicons\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\css\icons\icomoon\fonts\icomoon.svg" />
     <Content Include="Assets\css\icons\icomoon\styles.css" />
-    <Content Include="Assets\demo_data\maps\vector\gdp_demo_data.js" />
-    <Content Include="Assets\demo_data\wizard\additional.html" />
-    <Content Include="Assets\demo_data\wizard\education.html" />
-    <Content Include="Assets\demo_data\wizard\experience.html" />
-    <Content Include="Assets\demo_data\wizard\json.html" />
-    <Content Include="Assets\demo_data\wizard\personal_data.html" />
-    <Content Include="Assets\demo_data\wizard\store_in_database.html" />
+    <Content Include="Assets\css\demo_data\maps\vector\gdp_demo_data.js" />
+    <Content Include="Assets\css\demo_data\wizard\additional.html" />
+    <Content Include="Assets\css\demo_data\wizard\education.html" />
+    <Content Include="Assets\css\demo_data\wizard\experience.html" />
+    <Content Include="Assets\css\demo_data\wizard\json.html" />
+    <Content Include="Assets\css\demo_data\wizard\personal_data.html" />
+    <Content Include="Assets\css\demo_data\wizard\store_in_database.html" />
     <Content Include="Assets\images\backgrounds\boxed_bg.png" />
     <Content Include="Assets\images\backgrounds\boxed_bg_retina.png" />
     <Content Include="Assets\images\backgrounds\seamless.png" />
@@ -2345,60 +2351,60 @@
     <Content Include="Assets\css\icons\summernote\summernote.eot" />
     <Content Include="Assets\css\icons\summernote\summernote.ttf" />
     <Content Include="Assets\css\icons\summernote\summernote.woff" />
-    <Content Include="Assets\demo_data\alpaca\optiontree-custom-options.json" />
-    <Content Include="Assets\demo_data\alpaca\optiontree-custom-schema.json" />
-    <Content Include="Assets\demo_data\alpaca\selects.json" />
-    <Content Include="Assets\demo_data\d3\bars\bars_basic.tsv" />
-    <Content Include="Assets\demo_data\d3\bars\bars_grouped.csv" />
-    <Content Include="Assets\demo_data\d3\bars\bars_hierarchical.json" />
-    <Content Include="Assets\demo_data\d3\bars\bars_horizontal.csv" />
-    <Content Include="Assets\demo_data\d3\bars\bars_stacked.csv" />
-    <Content Include="Assets\demo_data\d3\bars\bars_stacked_multiple.tsv" />
-    <Content Include="Assets\demo_data\d3\bars\bars_tooltip.tsv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_basic.tsv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_bivariate.tsv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_difference.tsv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_gradient.tsv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_multi_series.tsv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_small_multiples.csv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_stacked.tsv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_stacked_nest.csv" />
-    <Content Include="Assets\demo_data\d3\lines\lines_transitions.tsv" />
-    <Content Include="Assets\demo_data\d3\other\bubble.json" />
-    <Content Include="Assets\demo_data\d3\other\treemap.json" />
-    <Content Include="Assets\demo_data\d3\other\waterfall.csv" />
-    <Content Include="Assets\demo_data\d3\pies\donuts_update.tsv" />
-    <Content Include="Assets\demo_data\d3\pies\pies_basic.csv" />
-    <Content Include="Assets\demo_data\d3\pies\pies_nesting.csv" />
-    <Content Include="Assets\demo_data\d3\pies\pies_update.tsv" />
-    <Content Include="Assets\demo_data\d3\sunburst\sunburst_basic.json" />
-    <Content Include="Assets\demo_data\d3\tree\tree_bracket.json" />
-    <Content Include="Assets\demo_data\d3\tree\tree_data_basic.json" />
-    <Content Include="Assets\demo_data\d3\tree\tree_data_collapsible.json" />
-    <Content Include="Assets\demo_data\d3\tree\tree_data_dendrogram.json" />
-    <Content Include="Assets\demo_data\d3\tree\tree_data_dendrogram_radial.json" />
-    <Content Include="Assets\demo_data\d3\tree\tree_data_radial.json" />
-    <Content Include="Assets\demo_data\dashboard\app_sales.csv" />
-    <Content Include="Assets\demo_data\dashboard\app_sales_heatmap.csv" />
-    <Content Include="Assets\demo_data\dashboard\bullets.json" />
-    <Content Include="Assets\demo_data\dashboard\monthly_sales.json" />
-    <Content Include="Assets\demo_data\dashboard\traffic_sources.csv" />
-    <Content Include="Assets\demo_data\dimple\demo_data.tsv" />
-    <Content Include="Assets\demo_data\fancytree\fancytree.json" />
-    <Content Include="Assets\demo_data\handsontable\cars.json" />
-    <Content Include="Assets\demo_data\handsontable\colors.json" />
-    <Content Include="Assets\demo_data\jquery_ui\autocomplete.json" />
-    <Content Include="Assets\demo_data\jquery_ui\autocomplete.php" />
-    <Content Include="Assets\demo_data\maps\vector\unemployment.json" />
-    <Content Include="Assets\demo_data\tables\datatable_2500.json" />
-    <Content Include="Assets\demo_data\tables\datatable_ajax.json" />
-    <Content Include="Assets\demo_data\tables\datatable_nested.json" />
-    <Content Include="Assets\demo_data\tags_input\cities.json" />
-    <Content Include="Assets\demo_data\typeahead\countries.json" />
-    <Content Include="Assets\demo_data\typeahead\movies.json" />
-    <Content Include="Assets\demo_data\typeahead\nba.json" />
-    <Content Include="Assets\demo_data\typeahead\nhl.json" />
-    <Content Include="Assets\demo_data\uploader\plupload.json" />
+    <Content Include="Assets\css\demo_data\alpaca\optiontree-custom-options.json" />
+    <Content Include="Assets\css\demo_data\alpaca\optiontree-custom-schema.json" />
+    <Content Include="Assets\css\demo_data\alpaca\selects.json" />
+    <Content Include="Assets\css\demo_data\d3\bars\bars_basic.tsv" />
+    <Content Include="Assets\css\demo_data\d3\bars\bars_grouped.csv" />
+    <Content Include="Assets\css\demo_data\d3\bars\bars_hierarchical.json" />
+    <Content Include="Assets\css\demo_data\d3\bars\bars_horizontal.csv" />
+    <Content Include="Assets\css\demo_data\d3\bars\bars_stacked.csv" />
+    <Content Include="Assets\css\demo_data\d3\bars\bars_stacked_multiple.tsv" />
+    <Content Include="Assets\css\demo_data\d3\bars\bars_tooltip.tsv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_basic.tsv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_bivariate.tsv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_difference.tsv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_gradient.tsv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_multi_series.tsv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_small_multiples.csv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_stacked.tsv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_stacked_nest.csv" />
+    <Content Include="Assets\css\demo_data\d3\lines\lines_transitions.tsv" />
+    <Content Include="Assets\css\demo_data\d3\other\bubble.json" />
+    <Content Include="Assets\css\demo_data\d3\other\treemap.json" />
+    <Content Include="Assets\css\demo_data\d3\other\waterfall.csv" />
+    <Content Include="Assets\css\demo_data\d3\pies\donuts_update.tsv" />
+    <Content Include="Assets\css\demo_data\d3\pies\pies_basic.csv" />
+    <Content Include="Assets\css\demo_data\d3\pies\pies_nesting.csv" />
+    <Content Include="Assets\css\demo_data\d3\pies\pies_update.tsv" />
+    <Content Include="Assets\css\demo_data\d3\sunburst\sunburst_basic.json" />
+    <Content Include="Assets\css\demo_data\d3\tree\tree_bracket.json" />
+    <Content Include="Assets\css\demo_data\d3\tree\tree_data_basic.json" />
+    <Content Include="Assets\css\demo_data\d3\tree\tree_data_collapsible.json" />
+    <Content Include="Assets\css\demo_data\d3\tree\tree_data_dendrogram.json" />
+    <Content Include="Assets\css\demo_data\d3\tree\tree_data_dendrogram_radial.json" />
+    <Content Include="Assets\css\demo_data\d3\tree\tree_data_radial.json" />
+    <Content Include="Assets\css\demo_data\dashboard\app_sales.csv" />
+    <Content Include="Assets\css\demo_data\dashboard\app_sales_heatmap.csv" />
+    <Content Include="Assets\css\demo_data\dashboard\bullets.json" />
+    <Content Include="Assets\css\demo_data\dashboard\monthly_sales.json" />
+    <Content Include="Assets\css\demo_data\dashboard\traffic_sources.csv" />
+    <Content Include="Assets\css\demo_data\dimple\demo_data.tsv" />
+    <Content Include="Assets\css\demo_data\fancytree\fancytree.json" />
+    <Content Include="Assets\css\demo_data\handsontable\cars.json" />
+    <Content Include="Assets\css\demo_data\handsontable\colors.json" />
+    <Content Include="Assets\css\demo_data\jquery_ui\autocomplete.json" />
+    <Content Include="Assets\css\demo_data\jquery_ui\autocomplete.php" />
+    <Content Include="Assets\css\demo_data\maps\vector\unemployment.json" />
+    <Content Include="Assets\css\demo_data\tables\datatable_2500.json" />
+    <Content Include="Assets\css\demo_data\tables\datatable_ajax.json" />
+    <Content Include="Assets\css\demo_data\tables\datatable_nested.json" />
+    <Content Include="Assets\css\demo_data\tags_input\cities.json" />
+    <Content Include="Assets\css\demo_data\typeahead\countries.json" />
+    <Content Include="Assets\css\demo_data\typeahead\movies.json" />
+    <Content Include="Assets\css\demo_data\typeahead\nba.json" />
+    <Content Include="Assets\css\demo_data\typeahead\nhl.json" />
+    <Content Include="Assets\css\demo_data\uploader\plupload.json" />
     <Content Include="Assets\less\bootstrap-limitless\alerts.less" />
     <Content Include="Assets\less\bootstrap-limitless\badges.less" />
     <Content Include="Assets\less\bootstrap-limitless\breadcrumbs.less" />
@@ -2632,6 +2638,11 @@
     <Content Include="Areas\Admin\Views\Report\TrackingDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Report\_TrackingDetails.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Accountant.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Accountant.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Accountant_Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Schedules.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_Schedules.cshtml" />
     <None Include="Areas\Admin\Views\web.config">
       <SubType>Designer</SubType>
     </None>

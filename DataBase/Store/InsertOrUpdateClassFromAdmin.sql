@@ -17,6 +17,7 @@ CREATE PROCEDURE InsertOrUpdateClassFromAdmin
 	,@userId varchar(50)
 	,@note nvarchar(max)
 	,@scheduleFileId varchar(50)
+	,@roomId varchar(50)
 	
 ) AS
 BEGIN
@@ -80,6 +81,7 @@ BEGIN
 		  ,[ScheduleDetailTimeTo]
 		  ,[ScheduleDetailNote]
 		  ,[ScheduleDetailScheduleId]
+		  ,[ScheduleDetailRoomClass]
 		)
 		VALUES(
 		@dayOfWeek
@@ -87,6 +89,7 @@ BEGIN
 		,CONVERT(time,@timeEnd)
 		,@note
 		,@scheduleId
+		,@roomId
 		)
 		SET @ecode = '00'
 		SET @edesc ='Suscess'

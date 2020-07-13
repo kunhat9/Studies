@@ -51,8 +51,8 @@ namespace WebAdmin.Controllers
                 lstBoxes = Boxes_Service.GetAll();
                 ViewBag.boxes = lstBoxes;
                 boxSubject = Subjects_Boxes_Service.GetAllBy("",1,short.MaxValue,out count);
-                if (Session[AppSessionKeys.USER_INFO] != null){
-                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                if (Session[AppSessionKeys.USER_INFO_CLIENT] != null){
+                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
                     ViewBag.id = user.UserId;
                 }
             }
@@ -102,7 +102,7 @@ namespace WebAdmin.Controllers
                 }
                 else if (info.ecode.Equals("200"))
                 {
-                    Session[AppSessionKeys.USER_INFO] = info.user;
+                    Session[AppSessionKeys.USER_INFO_CLIENT] = info.user;
                 }
                 else
                 {

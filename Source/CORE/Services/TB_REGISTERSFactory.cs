@@ -1,5 +1,6 @@
 ﻿using CORE.Internal;
 using CORE.Tables;
+using CORE.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,39 @@ namespace CORE.Services
 {
     public class TB_REGISTERSFactory
     {
-        public bool Insert(TB_REGISTERS register)
+        public string Insert(TB_REGISTERS register)
         {
-            return new TB_REGISTERSSql().Insert(register);
+            string result = "";
+            List<V_NUMBER_STUDIES> list = new List<V_NUMBER_STUDIES>();
+            list = new TB_SCHEDULESFactory().GetCountStudieInClass(register.RegisterScheduleId.ToString());
+            if(list.Count > 0)
+            {
+                if(list[0].CountStudie >= 20)
+                {
+                    result = "150";
+                }else
+                {
+                    List<TB_REGISTERS> listRegis = new List<TB_REGISTERS>();
+                    listRegis = new TB_REGISTERSSql().FilterByField("RegisterUserId", register.RegisterUserId).Where(x => x.RegisterScheduleId == register.RegisterScheduleId).ToList();
+                    if(listRegis.Count == 0)
+                    {
+                        if (new TB_REGISTERSSql().Insert(register))
+                        {
+                            result = "00";
+                        }
+                        else
+                        {
+                            result = "200";
+                        }
+                    }
+                    else
+                    {
+                        result = "300";
+                    }
+                 
+                }
+            }
+            return result;
         }
         public bool Update(TB_REGISTERS register)
         {

@@ -104,7 +104,7 @@ namespace WebAdmin.Controllers
             return Json(new JsonResult() { Data = Result });
         }
 
-        public JsonResult Enrollment(int RegisterScheduleId)
+        public JsonResult AddUserInClass(int schedulesId)
         {
             TB_REGISTERS register = new TB_REGISTERS();
           
@@ -113,21 +113,31 @@ namespace WebAdmin.Controllers
             
             try
             {
-                register.RegisterScheduleId = RegisterScheduleId;
+                register.RegisterScheduleId = schedulesId;
                 register.RegisterDateCreate = DateTime.Now;
-                if (Session[AppSessionKeys.USER_INFO] != null)
+                if (Session[AppSessionKeys.USER_INFO_CLIENT] != null)
                 {
-                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
                     register.RegisterUserId = user.UserId;
                 }
                 if(user != null)
                 {
-                    bool check = Registers_Service.Insert(register);
+                    string check = Registers_Service.Insert(register);
 
-                    if (check)
+                    if (check.Equals("00"))
                     {
                         Result.Code = 0;
                         Result.Result = "Đăng kí lịch học thành công";
+                    }
+                    else if (check.Equals("150"))
+                    {
+                        Result.Code = 1;
+                        Result.Result = "Lớp học đã đủ số lượng thành viên";
+                    }
+                    else if (check.Equals("300"))
+                    {
+                        Result.Code = 1;
+                        Result.Result = "Bạn đã đăng kí vào lớp học. Vui lòng đợi trung tâm xác nhận";
                     }
                     else
                     {
@@ -149,7 +159,32 @@ namespace WebAdmin.Controllers
             }
             return Json(new JsonResult() { Data = Result });
         }
+        public JsonResult AddTrackingSchedules(string dateTracking, string note, List<string> listUserId, string schedulesId, string type)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                //bool check = true;
 
+                if (Trackings_Service.AddTrackingSchedules(dateTracking, note, listUserId, schedulesId, type))
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
         public JsonResult GetTeachingSchedule()
         {
             TB_USERS user = null;
@@ -157,9 +192,9 @@ namespace WebAdmin.Controllers
             List<TB_TEACHING_SCHEDULES> list = new List<TB_TEACHING_SCHEDULES>();
             try
             {
-                if (Session[AppSessionKeys.USER_INFO] != null)
+                if (Session[AppSessionKeys.USER_INFO_CLIENT] != null)
                 {
-                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO];
+                    user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
                 }
                 if (user != null)
                 {

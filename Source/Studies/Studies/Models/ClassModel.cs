@@ -16,6 +16,7 @@ namespace WebAdmin.Models
         public string UserNote { get; set; }
         public string ScheduleFileId { get; set; }
         public string DayOfWeek { get; set; }
+        public string RoomId { get; set; }
 
     }
 }

@@ -67,6 +67,7 @@ BEGIN
       ,[ScheduleDetailTimeFrom]
       ,[ScheduleDetailTimeTo]
       ,[ScheduleDetailNote]
+	  ,[ScheduleDetailRoomClass]
 	FROM TB_SCHEDULES s
 	JOIN TB_SCHEDULE_DETAILS d
 	ON s.ScheduleId = d.ScheduleDetailScheduleId

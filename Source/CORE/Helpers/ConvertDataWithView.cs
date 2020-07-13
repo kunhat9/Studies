@@ -46,6 +46,36 @@ namespace CORE.Helpers
             }
             return result;
         }
+        public static string Convert_DayOfWeek_ToNumber(string key)
+        {
+            string result = "";
+            switch (key)
+            {
+                case "THU2": result = "2"; break;
+                case "THU3": result = "3"; break;
+                case "THU4": result = "4"; break;
+                case "THU5": result = "5"; break;
+                case "THU6": result = "6"; break;
+                case "THU7": result = "7"; break;
+                case "CN": result = "1"; break;
+            }
+            return result;
+        }
+        public static DayOfWeek Convert_DayOfWeek_ToTypeDayOfWeek(string key)
+        {
+            DayOfWeek result = default(DayOfWeek);
+            switch (key)
+            {
+                case "THU2": result = DayOfWeek.Monday; break;
+                case "THU3": result = DayOfWeek.Tuesday; break;
+                case "THU4": result = DayOfWeek.Wednesday; break;
+                case "THU5": result = DayOfWeek.Thursday; break;
+                case "THU6": result = DayOfWeek.Friday; break;
+                case "THU7": result = DayOfWeek.Saturday; break;
+                case "CN": result = DayOfWeek.Sunday; break;
+            }
+            return result;
+        }
         public static string Int_ToView(this int i)
         {
             try
@@ -58,5 +88,6 @@ namespace CORE.Helpers
             }
         }
         
+    
     }
 }

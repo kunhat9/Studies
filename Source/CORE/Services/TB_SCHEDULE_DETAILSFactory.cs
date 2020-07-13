@@ -26,5 +26,29 @@ namespace CORE.Services
         {
             return new TB_SCHEDULE_DETAILSSql().SelectAll();
         }
+        public bool CheckRoomClass(string roomId, string timeStart, string timeEnd, string dayOfWeek)
+        {
+            bool check = false;
+            List<TB_SCHEDULE_DETAILS> list = new TB_SCHEDULE_DETAILSSql().FilterByField("ScheduleDetailRoomClass", roomId);
+            if(list.Count ==0)
+            {
+                check = true;
+            }else
+            {
+                var a = list.Where(x => x.ScheduleDetailDayOfWeek.Equals(dayOfWeek)).ToList();
+                if (a.Count ==  0)
+                {
+                    check = true;
+                }else
+                {
+                    var b = a.Where(x => x.ScheduleDetailTimeFrom.Hours == Int32.Parse(timeStart)).ToList();
+                    if(b.Count == 0)
+                    {
+                        check = true;
+                    }
+                }
+            }
+            return check;
+        }
     }
 }

@@ -23,7 +23,6 @@
                         <th>Đơn vị công tác </th>
                         <th>Số điện thoại</th>
                         <th>Học vị</th>
-                        <th>Hệ số lương</th>
                         <th>Mô tả </th>
                         <th>Hành động</th>
                     </tr>
@@ -37,8 +36,23 @@
                             <td>@Model[i].UserFullName</td>
                             <td>@Model[i].UserAddress</td>
                             <td>@Model[i].UserPhone</td>
-                            <td>@Model[i].UserAcademicLevel</td>
-                            <td>@Model[i].UserNumberSalary</td>
+                            <td>
+                                @{
+
+                                    var view = "";
+                                    switch (Model[i].UserAcademicLevel)
+                                    {
+                                        case "CUNHAN": view = "Cử nhân"; break;
+                                        case "DAIHOC": view = "Tốt nghiệp đại học";  break;
+                                        case "THACSI": view = "Thạc sĩ"; break;
+                                        case "TIENSI": view = "Tiến sĩ"; break;
+                                        case "PHOGIAOSU": view = "Phó giáo sư"; break;
+                                        case "GIAOSU": view = "Giáo sư"; break;
+                                    }
+                                    @view;
+                                }
+                            </td>
+                        
                             <td>@Model[i].UserNote</td>
                             <td class="text-center">
                                 <ul class="icons-list">
@@ -51,7 +65,7 @@
                                 </ul>
                             </td>
                         </tr>
-                    }
+                                    }
                 </tbody>
             </table>
         </div>
@@ -73,8 +87,8 @@
         };
     }
 
-     var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
-     features.CheckUpdateAndFillInfo();
-     features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
-     features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
+    var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
+    features.CheckUpdateAndFillInfo();
+    features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
+    features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
 </script>

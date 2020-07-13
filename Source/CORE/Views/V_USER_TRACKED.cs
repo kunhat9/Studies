@@ -14,5 +14,12 @@ namespace CORE.Views
         public string UserFullName { get; set; }
         public DateTime UserDateCreated { get; set; }
         public DateTime ClassDateCreated { get; set; }
+        public DateTime TrackingDate { get; set; }
+    }
+    public class V_USER_TRACKED_Details : BusinessObject
+    {
+        public int UserId { get; set; }
+        public string UserFullName { get; set; }
+        public List<DateTime> TrackingDate { get; set; }
     }
 }

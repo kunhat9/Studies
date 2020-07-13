@@ -103,5 +103,56 @@ namespace WebAdmin.Areas.Admin.AdminController
 
             return PartialView(user);
         }
+
+
+        // ke toan 
+        public ActionResult Accountant()
+        {
+            return View();
+        }
+
+        [AjaxChildActionOnly]
+        public PartialViewResult _Accountant(string status = "", string keyText = "", int pageNumber = 1, int pageSize = 10)
+        {
+            ViewBag.pageNumber = pageNumber;
+            ViewBag.pageSize = pageSize;
+            ViewBag.maxNumber = 0;
+            var users = new List<TB_USERS>();
+            try
+            {
+                int count = 0;
+                users = User_Service.GetAllBy(keyText, status, "", "ACCOUNTANT", pageNumber, pageSize, out count);
+
+                foreach (var user in users)
+                {
+                    user.UserStatus = user.UserStatus.Equals("A") ? "1" : "0";
+                }
+
+                ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
+            }
+            catch (Exception ex)
+            {
+                CORE.Helpers.IOHelper.WriteLog(StartUpPath, "UserController :", ex.Message, ex.ToString());
+            }
+
+            return PartialView(users);
+        }
+        [ChildActionOnly]
+        public PartialViewResult _Accountant_Details(string userID)
+        {
+            TB_USERS user = new TB_USERS();
+
+            try
+            {
+                user = User_Service.GetById(int.Parse(userID));
+                user.UserStatus = user.UserStatus.Equals("A") ? "1" : "0";
+            }
+            catch (Exception ex)
+            {
+                CORE.Helpers.IOHelper.WriteLog(StartUpPath, "UserController :", ex.Message, ex.ToString());
+            }
+
+            return PartialView(user);
+        }
     }
 }

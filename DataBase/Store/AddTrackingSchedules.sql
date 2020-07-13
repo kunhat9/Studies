@@ -15,11 +15,18 @@ BEGIN
 BEGIN TRAN
 BEGIN TRY
 	CREATE TABLE #ListUserId(
-		TrackingDate	datetime
+		Id int identity
+		,TrackingDate	datetime
 		,TrackingNote	nvarchar(500)
 		,TrackingUserId	int
 		,TrackingScheduleId	int
-	
+	)
+	CREATE TABLE #ListTemp(
+		Id int identity
+		,TrackingDate	datetime
+		,TrackingNote	nvarchar(500)
+		,TrackingUserId	int
+		,TrackingScheduleId	int
 	)
 	DECLARE @ecode VARCHAR(50), @edesc VARCHAR(50)
 	INSERT INTO #ListUserId(TrackingUserId)
@@ -28,21 +35,46 @@ BEGIN TRY
 		SET TrackingDate = GETDATE(),
 		TrackingNote = @note,
 		TrackingScheduleId = @schedulesId
-	IF @type ='INSERT'
-		BEGIN
-			INSERT INTO [dbo].[TB_TRACKINGS](
-				[TrackingDate]
+
+	INSERT INTO #ListTemp ([TrackingDate]
 			  ,[TrackingNote]
 			  ,[TrackingUserId]
-			  ,[TrackingScheduleId]
-			)
-			SELECT * FROM #ListUserId
+			  ,[TrackingScheduleId])
+	SELECT DISTINCT [TrackingDate]
+			  ,[TrackingNote]
+			  ,[TrackingUserId]
+			  ,[TrackingScheduleId] FROM #ListUserId
+
+	DELETE TB_TRACKINGS WHERE TrackingScheduleId = @schedulesId AND CONVERT(DATE,TrackingDate) = CONVERT(DATE,@dateTracking)
+	IF @type ='INSERT'
+		BEGIN
+			DECLARE @index int = 1
+			DECLARE @count int  = (SELECT COUNT(1) FROM #ListTemp)
+			WHILE @index <= @count
+				BEGIN
+					DECLARE @check VARCHAR(50) = (SELECT TrackingId FROM TB_TRACKINGS t JOIN #ListTemp u ON t.TrackingUserId = u.TrackingUserId AND t.TrackingScheduleId = u.TrackingScheduleId AND CONVERT(DATE,t.TrackingDate) = CONVERT(DATE,u.TrackingDate) AND u.Id = @index)
+					IF @check IS NULL OR @check =''
+						BEGIN
+							INSERT INTO [dbo].[TB_TRACKINGS](
+								[TrackingDate]
+							  ,[TrackingNote]
+							  ,[TrackingUserId]
+							  ,[TrackingScheduleId]
+							)
+							SELECT DISTINCT [TrackingDate]
+							  ,[TrackingNote]
+							  ,[TrackingUserId]
+							  ,[TrackingScheduleId]
+							FROM #ListTemp  WHERE Id = @index
+						END
+				SET @index = @index +1 
+				END
 			SET @ecode = '00'
 			SELECT @ecode ECODE , 'SUSCESS' edesc
 		END
 	ELSE IF @type ='DELETE'
 		BEGIN
-			DELETE TB_TRACKINGS WHERE TrackingUserId IN (SELECT TrackingUserId FROM #ListUserId ) AND TrackingScheduleId = @schedulesId
+			DELETE TB_TRACKINGS WHERE TrackingUserId IN (SELECT TrackingUserId FROM #ListUserId ) AND TrackingScheduleId = @schedulesId AND CONVERT(DATE,TrackingDate) = CONVERT(DATE,@dateTracking)
 			SET @ecode = '00'
 			SELECT @ecode ECODE , 'SUSCESS' edesc
 		END

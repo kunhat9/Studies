@@ -40,26 +40,11 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
-        public bool InsertOrUpdateClassFromAdmin(string scheduleId, string boxSubjectId,string price, string startDate, string endDate, string dayOfWeek, string timeIn , string timeEnd, string status, string userId,string note, string fileId)
+        public bool InsertOrUpdateClassFromAdmin(string scheduleId, string boxSubjectId,string price, string startDate, string endDate, string dayOfWeek, string timeIn , string timeEnd, string status, string userId,string note, string fileId, string roomId)
         {
             string ecode, edesc;
             TB_CLASSESSql sql = new TB_CLASSESSql();
-            sql.SelectFromStore(out ecode, out edesc,AppSettingKeys.INSERT_OR_UPDATE_CLASS_FROM_ADMIN, scheduleId,boxSubjectId,price,startDate,endDate, dayOfWeek, timeIn, timeEnd, status, userId, note, fileId);          
-            if (ecode.Equals("00"))
-            {
-                return true;
-            }else
-            {
-                return false;
-            }
-        }
-
-        public bool InsertStudiesToClass(int ScheduleId, List<string> Userids, string type)
-        {
-            string ecode, edesc;
-            TB_CLASSESSql sql = new TB_CLASSESSql();
-            string listUserId = String.Join(",", Userids);
-            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.INSERT_STUDIES_TO_CLASS, ScheduleId, listUserId, type);
+            sql.SelectFromStore(out ecode, out edesc,AppSettingKeys.INSERT_OR_UPDATE_CLASS_FROM_ADMIN, scheduleId,boxSubjectId,price,startDate,endDate, dayOfWeek, timeIn, timeEnd, status, userId, note, fileId, roomId);
             if (ecode.Equals("00"))
             {
                 return true;
@@ -68,6 +53,16 @@ namespace CORE.Services
             {
                 return false;
             }
+        }
+
+        public string InsertStudiesToClass(int ScheduleId, List<string> Userids, string type)
+        {
+            string ecode, edesc;
+            TB_CLASSESSql sql = new TB_CLASSESSql();
+            string listUserId = String.Join(",", Userids);
+            sql.SelectFromStore(out ecode, out edesc, AppSettingKeys.INSERT_STUDIES_TO_CLASS, ScheduleId, listUserId, type);
+            return ecode;
+           
         }
     }
 }

@@ -19,17 +19,19 @@ namespace WebAdmin.Areas.Admin.AdminController
             return View();
         }
         [AjaxChildActionOnly]
-        public PartialViewResult _Index(string keyText="", string boxId="", string subjectId="", string timeIn="", string timeEnd="", string status="", int pageNumber=1, int pageSize=10)
+        public PartialViewResult _Index(string keyText = "", string boxId = "", string subjectId = "", string timeIn = "", string timeEnd = "", string status = "", int pageNumber = 1, int pageSize = 10)
         {
             ViewBag.pageNumber = pageNumber;
             ViewBag.pageSize = pageSize;
             ViewBag.maxNumber = 0;
             var classes = new List<V_CLASS>();
+            List<V_NUMBER_STUDIES> listCount = new List<V_NUMBER_STUDIES>();
 
             try
             {
+                listCount = Schedules_Service.GetCountStudieInClass("");
                 int count = 0;
-                classes = Classes_Service.GetClassBy(keyText,boxId,subjectId,timeIn,timeEnd,status ,pageNumber, pageSize, out count);
+                classes = Classes_Service.GetClassBy(keyText, boxId, subjectId, timeIn, timeEnd, status, pageNumber, pageSize, out count);
                 ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
                 ViewBag.users = User_Service.GetAll();
                 int count1 = 0;
@@ -39,7 +41,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             {
                 CORE.Helpers.IOHelper.WriteLog(StartUpPath, "ClassController :", ex.Message, ex.ToString());
             }
-
+            ViewBag.Count = listCount;
             return PartialView(classes);
         }
 
@@ -50,11 +52,12 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_USERS> users = new List<TB_USERS>();
             List<TB_USERS> teachers = new List<TB_USERS>();
             List<V_BOX_SUBJECT> boxSubject = new List<V_BOX_SUBJECT>();
-           
+            List<TB_ROOM_CLASS> room = new List<TB_ROOM_CLASS>();
             int count = 0;
             try
             {
-                boxSubject = Subjects_Boxes_Service.GetAllBy("", 1, short.MaxValue,out count);
+                room = RoomClass_Service.GetAll();
+                boxSubject = Subjects_Boxes_Service.GetAllBy("", 1, short.MaxValue, out count);
                 subjects = Subjects_Service.GetAll();
                 boxes = Boxes_Service.GetAll();
                 users = User_Service.GetAll();
@@ -77,7 +80,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             ViewBag.subjects = subjects;
             ViewBag.boxes = boxes;
             ViewBag.teachers = teachers;
-
+            ViewBag.Room = room;
             return PartialView();
         }
 
@@ -89,11 +92,13 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_USERS> teachers = new List<TB_USERS>();
             List<TB_USERS> studies = new List<TB_USERS>();
             List<TB_USERS> students = new List<TB_USERS>();
+
             var detail = new V_CLASS();
             var classes = new TB_SCHEDULES();
             var details = new List<V_CLASS>();
             try
             {
+
                 subjects = Subjects_Service.GetAll();
                 boxes = Boxes_Service.GetAll();
                 users = User_Service.GetUserRegister(id.ToString());
@@ -135,13 +140,13 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_USERS> lst = new List<TB_USERS>();
             foreach (var item in students)
             {
-                
-                if(studies.Where(x=>x.UserId == item.UserId).ToList().Count == 0)
+
+                if (studies.Where(x => x.UserId == item.UserId).ToList().Count == 0)
                 {
                     lst.Add(item);
                 }
             }
-            
+
             ViewBag.subjects = subjects;
             ViewBag.boxes = boxes;
             ViewBag.teachers = teachers;
@@ -149,6 +154,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             ViewBag.studies = studies;
             ViewBag.students = lst;
             ViewBag.id = id;
+
 
 
             return PartialView(classes);

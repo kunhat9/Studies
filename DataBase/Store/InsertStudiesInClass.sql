@@ -24,11 +24,19 @@ BEGIN
 		IF @type = 'INSERT' 
 			BEGIN
 			 -- NEU MA CO ROI THY XOA DI LAM LAI
-			 
-			 INSERT INTO TB_CLASSES(ClassScheduleId,ClassUserId)
-				 SELECT @scheduleId ClassScheduleId, * FROM #ListUserId
-				SET @ecode = '00'
-			SET @edesc ='Suscess'
+			 IF @count >= 20
+				BEGIN
+					SET @ecode = '150'
+					SET @edesc ='Lop hoc da du so luong'
+				END
+			ELSE
+				BEGIN
+					 INSERT INTO TB_CLASSES(ClassScheduleId,ClassUserId)
+						SELECT @scheduleId ClassScheduleId, * FROM #ListUserId
+					SET @ecode = '00'
+					SET @edesc ='Suscess'
+				END
+			
 		 
 			END
 		ELSE IF @type ='DELETE'

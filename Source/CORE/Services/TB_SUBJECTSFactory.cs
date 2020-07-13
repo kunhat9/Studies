@@ -34,6 +34,16 @@ namespace CORE.Services
         {
             return new TB_SUBJECTSSql().SelectFromStore(AppSettingKeys.GET_SUBJECT_BY_BOX_ID, boxId);
         }
+        public TB_SUBJECTS GetByBoxScheduleId(int scheduleId)
+        {
+            TB_SUBJECTS result = new TB_SUBJECTS();
+            List<TB_SUBJECTS> list = new TB_SUBJECTSSql().SelectAll();
+            int box_schedule_id = new TB_SCHEDULESSql().SelectByPrimaryKey(scheduleId).ScheduleIdBoxSubjectId;
+            TB_BOX_SUBJECTS boxSubject = new TB_BOX_SUBJECTSSql().SelectByPrimaryKey(box_schedule_id);
+            result = list.Where(x => x.SubjectId == (boxSubject.BoxSubjectSubjectId)).FirstOrDefault();
+            return result;
+
+        }
        
     }
 }

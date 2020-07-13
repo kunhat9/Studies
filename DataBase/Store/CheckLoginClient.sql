@@ -15,7 +15,7 @@ BEGIN TRY
 	DECLARE @userId INT
 	IF @type ='ADMIN'
 		BEGIN
-			SET @userId= (SELECT UserId FROM TB_USERS WHERE UserName = @userName AND UserType=@type)
+			SET @userId= (SELECT UserId FROM TB_USERS WHERE UserName = @userName AND UserType IN ('ADMIN','ACCOUNTANT'))
 		END
 	ELSE 
 		BEGIN

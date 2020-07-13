@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
@@ -71,13 +71,24 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label>Hệ số lương</label>
-                                    <input type="number" class="form-control" onkeyup="checkHeSo(event)" id="UserNumberSalary">
-                                </div>
+
                                 <div class="col-md-6">
                                     <label>Học vị</label>
-                                    <input type="text" class="form-control" id="UserAcademicLevel">
+                                    <select class="form-control select-search" id="UserAcademicLevel">
+                                        <option value="" selected>Chọn học vị phù hợp</option>
+                                        <option value="CUNHAN">Cử nhân</option>
+                                        <option value="DAIHOC">Tốt nghiệp đại học</option>
+                                        <option value="THACSI">Thạc sĩ</option>
+                                        <option value="TIENSI">Tiến sĩ </option>
+                                        <option value="PHOGIAOSU">Phó giáo sư</option>
+                                        <option value="GIAOSU" >Giáo sư</option>
+                                      
+                                       
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Hệ số lương</label>
+                                    <input type="text" class="form-control" readonly id="UserNumberSalary">
                                 </div>
                             </div>
                         </div>
@@ -90,7 +101,7 @@
                                     <input type="file" class="form-control-file" onchange="encodeImageFileAsURL(this)" id="image">
                                 </div>
                                 <div class="col-md-9" hidden>
-                                    <input type="text" class="form-control-file"  id="UserFilesId">
+                                    <input type="text" class="form-control-file" id="UserFilesId">
                                 </div>
                                 <div class="col-md-9" hidden>
                                     <input type="text" class="form-control-file" id="UserDateCreated">
@@ -107,16 +118,17 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Loại tài khoản:</label>
                                     <select class="form-control select-search" id="UserType">
-                                        <option value="ADMIN">ADMIN</option>
-                                        <option value="STAFF">STAFF</option>
-                                        <option value="STUDIES" selected >STUDIES</option>
-                                        <option value="TEACHER">TEACHER</option>
+                                        <option value="TEACHER" selected>Giáo viên</option>
+                                        @*<option value="ADMIN">ADMIN</option>
+                                        <option value="ACCOUNTAN">Kế toán</option>
+                                        <option value="STUDIES">Học sinh</option>*@
+                                       
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -151,9 +163,21 @@
 </div>
 
 <script>
+    $('#UserAcademicLevel').change(() => {
+        var a = $('#UserAcademicLevel').val();
+        switch (a) {
+            case 'CUNHAN': $('#UserNumberSalary').val('1'); break;
+            case 'DAIHOC': $('#UserNumberSalary').val('2'); break;
+            case 'THACSI': $('#UserNumberSalary').val('3'); break;
+            case 'TIENSI': $('#UserNumberSalary').val('4'); break;
+            case 'PHOGIAOSU': $('#UserNumberSalary').val('5'); break;
+            case 'GIAOSU': $('#UserNumberSalary').val('6'); break;
+          
+        }
+    });
     function checkHeSo(evt) {
         var data = $('#UserNumberSalary').val();
-        if (data < 0 ) {
+        if (data < 0) {
             $('#UserNumberSalary').val('');
             toastr.info("Hệ số lương không được nhỏ hơn 0");
         }
@@ -175,36 +199,36 @@
         $('#imageHidden').attr('hidden', true);
         $('#image')[0].src = '';
     })
-    
+
     function UploadFile() {
         //if (validate()) {
         var file = $('#image').get(0).files[0];
-            if (file == undefined) {
-                saveData('');
-            } else {
-                var data = new FormData();
-                data.append('files', file);
-                console.log("data", data);
-                $.ajax({
-                    type: "Post",
-                    url: "/Admin/Ajax/UploadFiles",
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    success: function (result) {
-                        console.log(result);
-                        if (result.Data.Code == 0) {
-                            $('#UserFilesId').val(result.Data.Result);
-                            //$('.btnSave').click();
-                            saveData(result.Data.Result);
-                           
-                        } else {
-                            toastr.info('Có lỗi xảy ra khi Upload ảnh');
-                        }
+        if (file == undefined) {
+            saveData('');
+        } else {
+            var data = new FormData();
+            data.append('files', file);
+            console.log("data", data);
+            $.ajax({
+                type: "Post",
+                url: "/Admin/Ajax/UploadFiles",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    console.log(result);
+                    if (result.Data.Code == 0) {
+                        $('#UserFilesId').val(result.Data.Result);
+                        //$('.btnSave').click();
+                        saveData(result.Data.Result);
 
+                    } else {
+                        toastr.info('Có lỗi xảy ra khi Upload ảnh');
                     }
-                });
-            }
+
+                }
+            });
+        }
 
         //}
     }
@@ -213,12 +237,12 @@
         var param = features.getValueFromModal();
         var url = "/Admin/Ajax/InsertOrUpdateUser";
         var isUpdate = false;
-        if (param.UserId > 0 ) {
+        if (param.UserId > 0) {
             isUpdate = true;
         }
         var params = {
             value: param,
-            isUpdate : isUpdate
+            isUpdate: isUpdate
         };
         $.ajax({
             url: url,
@@ -227,12 +251,12 @@
         }).done(function (result) {
             if (result.Data.Code == "0") {
                 toastr.success(result.Data.Result);
-                location.href = "/Admin/User/_Teachers";
+                location.href = "/Admin/User/Teachers";
             } else {
                 toastr.info(result.Data.Result);
             }
 
         });
     }
-   
+
 </script>

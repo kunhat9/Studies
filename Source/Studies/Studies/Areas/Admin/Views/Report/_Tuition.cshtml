@@ -11,10 +11,15 @@
 
 }
 @{
-    List<V_TuitionStudies> listTuition = ViewBag.Tuition;
-    var resultTuition = listTuition.GroupBy(x => x.ScheduleId).Select(t => new
+    List<V_REPORT_TUITION> listTuition = ViewBag.Tuition;
+    var resultTuition = listTuition.GroupBy(x => new {
+        UserId = x.UserId,
+        UserFullName = x.UserFullName
+
+    }).Select(t => new
     {
-        SchedulesId = t.Key,
+        UserId = t.Key.UserId,
+        UserFullName  = t.Key.UserFullName,
         TotalCount = t.ToList()
     }).ToList();
     List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedule;
@@ -45,34 +50,48 @@
                 <thead>
                     <tr>
                         <th class="fixed-col">STT</th>
-                        <th>Tên lớp</th>
-                        <th>Tổng buổi</th>
+                        <th>Tên học sinh</th>
                         <th>Tổng học phí</th>
-                        <th>Lương</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    @{
-                        decimal total = 0;
-                        foreach (var item in resultTuition)
-                        {
-                            total += @item.TotalCount.Sum(x => x.TuitionStudies);
-                            <tr class="text-center">
-                                <td>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</td>
-                                <td>@listSubject.Where(t => t.SubjectId == listBoxSujbect.Where(x => x.BoxSubjectId == list.Where(y => y.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId).FirstOrDefault().SubjectName</td>
-                                <td>@item.TotalCount.Sum(x => x.CountNumber)</td>
-                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.TuitionStudies))</td>
-                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.TuitionStudies))</td>
-                            </tr>
-                        }
+                   @{
+                       decimal total = 0;
+                       int i = 0;
+                       foreach (var item in resultTuition)
+                       {
+
+
+                           total += item.TotalCount.Sum(x => x.TuitionStudies);
                         <tr class="text-center">
-                            <td class="text-right"></td>
-                            <td class="text-right"></td>
-                            <td class="text-right"></td>
-                            <td class="text-right">Tổng học phí</td>
-                            <td>@(total >0? CORE.Helpers.ConvertDataWithView.Currency_ToView(total):"0")</td>
+                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td>@item.UserFullName</td>
+                            <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.TuitionStudies))</td>
+                            <td>Đang làm việc </td>
+                            <td class="text-center">
+                                <ul class="icons-list" >
+                                   
+                                    <li class="btnExport" data-index=@i>
+                                        <button type="button" class="btn btn-default btn-sm text-danger-600" title="Xuất hóa đơn ra Exel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Xuất hóa đơn</button>
+                                    </li>
+                                   
+
+                                </ul>
+                            </td>
                         </tr>
-                    }
+                           i += 1;
+                       }
+                    <tr class="text-center">
+                        <td class="text-right"></td>
+
+                        <td class="text-right">Tổng chi</td>
+                        <td>@(total > 0 ? CORE.Helpers.ConvertDataWithView.Currency_ToView(total) : "0")</td>
+                        <td class="text-right"></td>
+                    </tr>
+
+                }
                 </tbody>
             </table>
         </div>
@@ -84,7 +103,7 @@
 
 <script>
     let url_get = "/Admin/Report/_Tuition";
-    let viewBag = @Html.Raw(Json.Encode(ViewBag.listCreateTime));
+    let data = @Html.Raw(Json.Encode(resultTuition));
     let getParamsForSearch = (pageNumber,isNext)=>{
         return {
             "userId":$("#userId").val() ,
@@ -102,7 +121,28 @@
     }
 
     var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
-    //features.CheckUpdateAndFillInfo();
-    //features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
-    //features.Delete("/Admin/Ajax/DeleteUser",getParamsForSearch);
+    $(".btnExport").click(function () {
+        var stt  = $(this).data("index");
+        var dataEdit = data[stt];
+        var startDate = convertDate($("#startDate").val());
+        var endDate = convertDate($("#endDate").val());
+        //console.log('startDate : ',startDate, 'endDate : ',endDate);
+        $.ajax({
+            url: "/Admin/Ajax/ExportProduct",
+            type: "post",
+            data: {userId:dataEdit.UserId, startDate:startDate,endDate : endDate, type : "STUDIES"},
+        }).done(function (result) {
+            if (result.Code == "0") {
+                toastr.success("Thao tác thành công");
+                window.open('http://' + window.location.host + result.Result, '_self');
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                }, 1500);
+            } else {
+                toastr.info(result.Result);
+            }
+        });
+    });
 </script>

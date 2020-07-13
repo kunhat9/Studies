@@ -1,0 +1,118 @@
+﻿@model CORE.Tables.TB_USERS
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">Chi tiết</h5>
+        </div>
+        <div class="modal-body">
+            <!-- Voucher info -->
+            <div class="panel panel-flat">
+                <div class="panel-body" style="max-height: 600px;overflow-y: auto;">
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" value="" class="form-control" id="UserId">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Tên tài khoản</label>
+                                    <input type="text" class="form-control not-empty" id="UserName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Họ tên</label>
+                                    <input type="text" class="form-control not-empty" id="UserFullName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Mật khẩu</label>
+                                    <input type="password" class="form-control not-empty" id="UserPassword">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Số diện thoại</label>
+                                    <input type="text" class="form-control not-empty" id="UserPhone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" id="UserEmail">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Địa chỉ</label>
+                                    <input type="text" class="form-control" id="UserAddress">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Loại tài khoản:</label>
+                                    <select class="form-control select-search" id="UserType">
+                                        <option value="ACCOUNTANT" selected>Kế toán</option>
+                                        @*<option value="STUDIES" selected>STUDIES</option>
+                                        <option value="ADMIN">ADMIN</option>
+                                            <option value="TEACHER">TEACHER</option>*@
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Trạng thái</label>
+                                    <br>
+                                    <div class="checkbox checkbox-switchery">
+                                        <label>
+                                            <input type="checkbox" class="switchery" id="UserStatus" style="display:inline-block">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Mô tả</label>
+                                    <textarea rows="8" id="UserNote" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Voucher info -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary btnSave">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+   
+    features.insertOrUpdate("/Admin/Ajax/InsertOrUpdateUser", null, getParamsForSearch);
+</script>

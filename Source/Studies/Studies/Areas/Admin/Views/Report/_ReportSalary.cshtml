@@ -12,9 +12,15 @@
 }
 @{
     List<V_SALARY_TEACHER> listSalary = ViewBag.Salary;
-    var resultSalary = listSalary.GroupBy(x => x.ScheduleId).Select(t => new
+    var resultSalary = listSalary.GroupBy(x => new
     {
-        SchedulesId = t.Key,
+        UserId = x.UserId,
+        UserFullName = x.UserFullName
+
+    }).Select(t => new
+    {
+        UserId = t.Key.UserId,
+        UserFullName = t.Key.UserFullName,
         TotalCount = t.ToList()
     }).ToList();
     List<CORE.Tables.TB_SCHEDULES> list = ViewBag.Schedule;
@@ -45,10 +51,9 @@
                 <thead>
                     <tr>
                         <th class="fixed-col">STT</th>
-                        <th>Tên lớp</th>
-                        <th>Tổng buổi</th>
-                        <th>Tổng học phí</th>
-                        <th>Lương</th>
+                        <th>Tên giáo viên</th>
+                        <th>Tổng lương</th>
+                        <th>Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -62,22 +67,17 @@
                             total += item.TotalCount.Sum(x => x.SalaryTeacher);
                             <tr class="text-center">
                                 <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
-
-                                @*<td>@(list.Where(x => x.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleCode)</td>*@
-                                <td>@listSubject.Where(t => t.SubjectId == listBoxSujbect.Where(x => x.BoxSubjectId == list.Where(y => y.ScheduleId == item.SchedulesId).FirstOrDefault().ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId).FirstOrDefault().SubjectName</td>
-
-                                <td>@item.TotalCount.Sum(x => x.CountStudies)</td>
-                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</td>
+                                <td>@item.UserFullName</td>
                                 <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.TotalCount.Sum(x => x.SalaryTeacher))</td>
                             </tr>
                             i += 1;
                         }
                         <tr class="text-center">
                             <td class="text-right"></td>
-                            <td class="text-right"></td>
-                            <td class="text-right"></td>
-                            <td class="text-right">Tổng lương</td>
+                            
+                            <td class="text-right">Tổng chi</td>
                             <td>@(total > 0 ? CORE.Helpers.ConvertDataWithView.Currency_ToView(total) : "0")</td>
+                            <td class="text-right"></td>
                         </tr>
 
                     }

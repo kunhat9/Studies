@@ -13,5 +13,6 @@ namespace CORE.Views
         public DateTime TrackingDate { get; set; }
         public int CountNumber { get; set; }
         public decimal TuitionStudies { get; set; }
+
     }
 }

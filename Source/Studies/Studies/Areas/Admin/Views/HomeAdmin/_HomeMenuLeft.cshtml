@@ -1,5 +1,8 @@
-﻿				
+﻿
 
+@{ 
+    CORE.Tables.TB_USERS user = ViewBag.User;
+}
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <div class="sidebar-content">
@@ -9,7 +12,7 @@
 							<div class="media">
 								<a href="#" class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
 								<div class="media-body">
-									<span class="media-heading text-semibold">@ViewBag.fullname</span>
+									<span class="media-heading text-semibold">@ViewBag.User.UserFullName</span>
 								</div>
 
 								<div class="media-right media-middle">
@@ -29,50 +32,62 @@
 					<div class="sidebar-category sidebar-category-visible">
 						<div class="category-content no-padding">
 							<ul class="navigation navigation-main navigation-accordion">
-
+                             
 								<!-- Main -->
-								<li><a href="/Admin/HomeAdmin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-								<li>
-									<a href="#"><i class="icon-stack-check"></i> <span>Quản lý tài khoản</span></a>
-									<ul>
-										<li>
-											<a href="/Admin/User/Students"><p>Danh sách học sinh</p></a>
-										</li>
-										<li>
-											<a href="/Admin/User/Teachers">Danh sách giáo viên</a>
-										</li>
-										
-									</ul>
-								</li>
-								<li>
-									<a href="#"><i class="icon-stack-check"></i> <span>Quản lý môn học</span></a>
-									<ul>
-										<li>
-											<a href="/Admin/Subject">Danh sách môn học</a>
-										</li>
+                                @if (user.UserType.Equals("ADMIN"))
+                                {
+                                    <li><a href="/Admin/HomeAdmin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                                    <li>
+                                        <a href="#"><i class="icon-stack-check"></i> <span>Quản lý tài khoản</span></a>
+                                        <ul>
+                                            <li>
+                                                <a href="/Admin/User/Students"><p>Danh sách học sinh</p></a>
+                                            </li>
+                                            <li>
+                                                <a href="/Admin/User/Teachers">Danh sách giáo viên</a>
+                                            </li>
+                                            <li>
+                                                <a href="/Admin/User/Accountant">Danh sách kế toán</a>
+                                            </li>
 
-									</ul>
-								</li>
-								<li>
-									<a href="#"><i class="icon-stack-check"></i> <span>Quản lý lớp học</span></a>
-									<ul>
-										<li>
-											<a href="/Admin/Class">Danh sách lớp học</a>
-										</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="icon-stack-check"></i> <span>Quản lý môn học</span></a>
+                                        <ul>
+                                            <li>
+                                                <a href="/Admin/Subject">Danh sách môn học</a>
+                                            </li>
 
-									</ul>
-								</li>
-								<li>
-									<a href="#"><i class="icon-stats-growth"></i> <span>Báo cáo thống kê</span></a>
-									<ul>
-										
-                                        
-                                        <li><a href="/Admin/Report/ReportSalary"><span>Thống kê lương giáo viên</span></a></li>
-                                        <li><a href="/Admin/Report/Tracking"><span>Báo cáo điểm danh học sinh</span></a></li>
-                                        <li><a href="/Admin/Report/Tuition"><span>Thống kê học phí học sinh</span></a></li>
-                                        <li><a href="/Admin/Report"><span>Biểu đồ chi phí hoạt động</span></a></li>
-									</ul>
-								</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="icon-stack-check"></i> <span>Quản lý lớp học</span></a>
+                                        <ul>
+                                            <li>
+                                                <a href="/Admin/Class">Danh sách lớp học</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                }
+                                else if (user.UserType.Equals("ACCOUNTANT"))
+                                {
+                                    <li>
+                                        <a href="#"><i class="icon-stats-growth"></i> <span>Báo cáo thống kê</span></a>
+                                        <ul>
+
+                                            <li><a href="/Admin/Report/Tracking"><span>Báo cáo điểm danh học sinh</span></a></li>
+                                            <li><a href="/Admin/Report/ReportSalary"><span>Thống kê lương giáo viên</span></a></li>
+                                            <li><a href="/Admin/Report/Tuition"><span>Thống kê học phí học sinh</span></a></li>
+                                            <li><a href="/Admin/Report/Schedules"><span>Thời khóa biểu giáo viên</span></a></li>
+                                            <li><a href="/Admin/Report"><span>Biểu đồ chi phí hoạt động</span></a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                
+
+								
 								<!-- /main -->
 							</ul>
 						</div>

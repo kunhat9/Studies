@@ -66,8 +66,8 @@ namespace CORE.Services
                 dateTracking = listTracking.
                 Where(t => t.TrackingUserId == y.Key.userId && t.TrackingScheduleId == y.Key.schedueId)
                 .Select(g => g.TrackingDate)
-                .Where(h => (!string.IsNullOrEmpty(startDate) ? h.ToString(AppSettingKeys.FOMAT_DATE_INPUT).Equals(startDate) : true)
-                && (!string.IsNullOrEmpty(startDate) ? h.ToString(AppSettingKeys.FOMAT_DATE_INPUT).Equals(endDate) : true))
+                .Where(h => (!string.IsNullOrEmpty(startDate) ? Int32.Parse(h.ToString("yyyyMMdd")) >= Int32.Parse(startDate) : true)
+                && (!string.IsNullOrEmpty(startDate) ? Int32.Parse(h.ToString("yyyyMMdd")) <= Int32.Parse(endDate) : true))
                 .ToList()
             }).Where(j => (!string.IsNullOrEmpty(userId) ? j.userId == Int32.Parse(userId) : true)
             && (!string.IsNullOrEmpty(scheduleId) ? j.schedueId == Int32.Parse(scheduleId) : true)
@@ -81,6 +81,45 @@ namespace CORE.Services
                 list.Add(v);
             }
 
+            return list;
+        }
+
+        public List<V_TRACKING_SCHEDULE> GetTotalTrackingBy(string scheduleId, string startDate, string endDate)
+        {
+            List<TB_TRACKINGS> listTracking = new List<TB_TRACKINGS>();
+            listTracking = GetAll();
+            List<V_TRACKING_SCHEDULE> list = new List<V_TRACKING_SCHEDULE>();
+            var result = listTracking.GroupBy(x => new
+            {
+                ScheduleId = x.TrackingScheduleId
+            }).Select(y => new
+            {
+                ScheduleId = y.Key.ScheduleId,
+                Details = listTracking.GroupBy(j=>new {
+                    dateTracking = j.TrackingDate
+                }).Select(t=> new {
+                    dateTracking = t.Key.dateTracking,
+                    total = y.Where(h => (!string.IsNullOrEmpty(startDate) ? h.TrackingDate.ToString(AppSettingKeys.FOMAT_DATE_INPUT).Equals(startDate) : true)
+                && (!string.IsNullOrEmpty(startDate) ? h.TrackingDate.ToString(AppSettingKeys.FOMAT_DATE_INPUT).Equals(endDate) : true) 
+                && h.TrackingDate.ToString("dd/MM/yyyy").Equals(t.Key.dateTracking.ToString("dd/MM/yyyy"))).Count()
+                    //.Where(k=>k.TrackingDate.ToString("dd/MM/yyyy").Equals(t.TrackingDate.ToString("dd/MM/yyyy"))).Count()
+                }).ToList()
+            }).Where(x=>(!string.IsNullOrEmpty(scheduleId)) ?x.ScheduleId.ToString().Equals(scheduleId):true).ToList();
+            foreach (var item in result)
+            {
+                V_TRACKING_SCHEDULE v = new V_TRACKING_SCHEDULE();
+                v.schedulesId = item.ScheduleId;
+                List<V_TRACKING_DETAILS> temp = new List<V_TRACKING_DETAILS>();
+                foreach(var d in item.Details)
+                {
+                    V_TRACKING_DETAILS c = new V_TRACKING_DETAILS();
+                    c.dateTracking = d.dateTracking;
+                    c.TotalTracking = d.total;
+                    temp.Add(c);
+                }
+                v.details = temp;
+                list.Add(v);
+            }
             return list;
         }
     }

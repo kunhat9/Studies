@@ -96,7 +96,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             ViewBag.User = listUser;
             return View();
         }
-        public PartialViewResult _Tracking(string userId = "", string scheduleId = "", string startDate = "", string endDate = "", int pageNumber = 1, int pageSize = 10)
+        public PartialViewResult _Tracking(string scheduleId = "", string startDate = "", string endDate = "", int pageNumber = 1, int pageSize = 10)
         {
             int count = 0;
             ViewBag.pageNumber = pageNumber;
@@ -105,73 +105,109 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<V_TRACKING_USER_CLASS> list = new List<V_TRACKING_USER_CLASS>();
             List<TB_USERS> listUser = new List<TB_USERS>();
             List<TB_SCHEDULES> listSchedules = new List<TB_SCHEDULES>();
+            List<DateTime> listDate = new List<DateTime>();
+            List<V_TRACKING_SCHEDULE> a = new List<V_TRACKING_SCHEDULE>();
             try
             {
+                a = Trackings_Service.GetTotalTrackingBy(scheduleId, startDate, endDate);
+                listDate = GetDateTimeToMonth(startDate, endDate);
                 listUser = User_Service.GetAllStudies();
                 listSchedules = Schedules_Service.GetAll();
-                list = Trackings_Service.GetTrackingUser(userId, scheduleId, startDate, endDate);
+               
             }
             catch (Exception e)
             {
                 ViewBag.Error = e.ToString();
             }
+            ViewBag.ListDate = listDate;
             ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
             ViewBag.User = listUser;
             ViewBag.Schedule = listSchedules;
-            return PartialView(list);
+            return PartialView(a);
         }
-        public ActionResult TrackingDetails()
+
+        private List<DateTime> GetDateTimeToMonth(string startDate, string endDate)
         {
-            List<TB_SCHEDULES> list = new List<TB_SCHEDULES>();
-            //List<V_SCHEDULE_DETAILS> list = new List<V_SCHEDULE_DETAILS>();      
-            //int count = 0;
-            try
+            List<DateTime> listDate = new List<DateTime>();
+            DateTime now = DateTime.Now;
+            DateTime parse, from, to;
+            if (!string.IsNullOrEmpty(endDate)
+                && DateTime.TryParseExact(endDate, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out parse))
             {
-                list = Schedules_Service.GetAll();
-                //list = Schedules_Service.GetInfoClassBy("","",1,short.MaxValue,out count);
-                
-            }catch(Exception e)
-            {
-                ViewBag.Error = e.ToString();
+                to = parse;
             }
-            ViewBag.Schedule = list;
-            return View();
+            else
+            {
+                to = now;
+            }
+            if (!string.IsNullOrEmpty(startDate)
+                && DateTime.TryParseExact(startDate, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out parse)
+                && parse <= to)
+            {
+                from = parse;
+            }
+            else
+            {
+                from = to.AddDays(-29);
+            }
+            while (Convert.ToInt32(from.ToString("yyyyMMdd")) <= Convert.ToInt32(to.ToString("yyyyMMdd")))
+            {
+                listDate.Add(from);
+                from = from.AddDays(1);
+            }
+            return listDate;
         }
-        public PartialViewResult _TrackingDetails(string scheduleId, string createdDate)
+        public ActionResult TrackingDetails(string scheduledId="", string startDate="", string endDate="", string userId = "")
         {
-            List<V_SCHEDULE_DETAILS> details = new List<V_SCHEDULE_DETAILS>();
+            string url = Request.RawUrl;
+            string query = Request.Url.Query;
+            scheduledId = Request.QueryString["scheduledId"];
+            List<DateTime> listDate = new List<DateTime>();
+            
             List<TB_USERS> listUser = new List<TB_USERS>();
-            List<TB_USERS> listTeacher = new List<TB_USERS>();
-            List<V_USER_TRACKED> listTracked = new List<V_USER_TRACKED>();
-            int count = 0;
+            List<TB_SCHEDULES> listSchedule = new List<TB_SCHEDULES>();
+            List<V_TRACKING_USER_CLASS> list = new List<V_TRACKING_USER_CLASS>();
             try
             {
-                listTeacher = User_Service.GetAllTeacher();
-                listUser = User_Service.GetStudiesBySchedule(scheduleId,1,short.MaxValue,out count);
-                details = Schedules_Service.GetInfoClassBy("","STUDIES",1,short.MaxValue,out count).Where(x=>x.ScheduleId == Int32.Parse(scheduleId)).ToList();
-                listTracked = User_Service.GetUserTracked(scheduleId, createdDate, 1, short.MaxValue, out count);
+                listDate = GetDateTimeToMonth(startDate, endDate);
+                listSchedule = Schedules_Service.GetAll();
+                list = Trackings_Service.GetTrackingUser(userId, scheduledId, startDate, endDate);
+                listUser = User_Service.GetAllStudies();
             }
             catch(Exception e)
             {
                 ViewBag.Error = e.ToString();
             }
-            List<TB_USERS> lst = new List<TB_USERS>();
-            foreach (var item in listUser)
+            ViewBag.ListDate = listDate;
+            ViewBag.Schedule = listSchedule;
+            ViewBag.User = listUser;
+            ViewBag.Url = url;
+            return View(list);
+        }
+        public PartialViewResult _TrackingDetails(string scheduledId = "", string startDate = "", string endDate = "", string userId = "")
+        {
+            List<DateTime> listDate = new List<DateTime>();
+            List<TB_SCHEDULES> details = new List<TB_SCHEDULES>();
+            List<TB_USERS> listUser = new List<TB_USERS>();
+            List<V_TRACKING_USER_CLASS> list = new List<V_TRACKING_USER_CLASS>();
+            try
             {
-
-                if (listTracked.Where(x => x.UserId == item.UserId).ToList().Count == 0)
-                {
-                    lst.Add(item);
-                }
+                listDate = GetDateTimeToMonth(startDate, endDate);
+                listUser = User_Service.GetAllStudies();
+                details = Schedules_Service.GetAll();
+                list = Trackings_Service.GetTrackingUser(userId, scheduledId, String.Join("", startDate.Split('/')) , String.Join("", endDate.Split('/')));
             }
-            ViewBag.UserTracked = listTracked;
-            ViewBag.Teacher = listTeacher;
-            ViewBag.User = lst;
+            catch(Exception e)
+            {
+                ViewBag.Error = e.ToString();
+            }
+            ViewBag.Id = scheduledId;
+            ViewBag.User = listUser;
             ViewBag.Schedule = details;
-            return PartialView();
+            ViewBag.ListDate = listDate;
+            return PartialView(list);
 
         }
-
 
         public ActionResult Tuition()
         {
@@ -196,7 +232,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             ViewBag.pageNumber = pageNumber;
             ViewBag.pageSize = pageSize;
             ViewBag.maxNumber = 0;
-            List<V_TuitionStudies> list = new List<V_TuitionStudies>();
+            List<V_REPORT_TUITION> list = new List<V_REPORT_TUITION>();
             List<TB_SCHEDULES> listSche = new List<TB_SCHEDULES>();
             List<TB_SUBJECTS> listSuject = new List<TB_SUBJECTS>();
             List<TB_BOX_SUBJECTS> listBoxSubject = new List<TB_BOX_SUBJECTS>();
@@ -205,7 +241,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                 listSuject = Subjects_Service.GetAll();
                 listBoxSubject = Subjects_Boxes_Service.GetAll();
                 listSche = Schedules_Service.GetAll();
-                list = User_Service.GetTuiTionStudies(userId, scheduleId, startDate, endDate, pageNumber, pageSize, out count);
+                list = User_Service.GetReportTuition(userId, scheduleId, startDate, endDate, pageNumber, pageSize, out count);
 
             }
             catch (Exception e)
@@ -219,5 +255,37 @@ namespace WebAdmin.Areas.Admin.AdminController
             ViewBag.Schedule = listSche;
             return PartialView();
         }
+
+        public ActionResult Schedules()
+        {
+            List<TB_USERS> list = new List<TB_USERS>();
+            try
+            {
+                list = User_Service.GetAllTeacher();
+            }catch(Exception e)
+            {
+                ViewBag.Error = e.ToString();
+            }
+            ViewBag.Teacher = list;
+            return View();
+        }
+        public PartialViewResult _Schedules(string userId)
+        {
+            List<V_SCHEDULE_DETAILS> list = new List<V_SCHEDULE_DETAILS>();
+            int count = 0;
+            try
+            {
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    list = Schedules_Service.GetInfoClassBy(userId, "TEACHER", 1, short.MaxValue, out count);
+                }
+                
+            }catch(Exception e)
+            {
+                ViewBag.Error = e.ToString();
+            }
+            return PartialView(list);
+        }
+
     }
 }

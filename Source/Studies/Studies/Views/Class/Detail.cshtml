@@ -112,7 +112,7 @@
                 <div class="single-sidebar">
                     
                     <div class="sidebar-teacher">
-                        <a class="btn-common bright-vc-theme-btn-primary btn btn-lg vc_btn3-color-grey btnRegister" href="#">ĐĂNG KÝ HỌC</a>
+                        <button class="btn-common bright-vc-theme-btn-primary btn btn-lg vc_btn3-color-grey btnRegister">ĐĂNG KÝ HỌC</button>
                     </div>
 
                 </div>
@@ -120,30 +120,27 @@
         </div>
     </div>
 </div>
+<div id="h"></div>
 <!--End of Course Area-->
 <script>
     let data = @Html.Raw(Json.Encode(Model));
     $('.btnRegister').click(() => {
         console.log(data);
         var params = {
-            RegisterScheduleId : data.ScheduleId
+            schedulesId : data.ScheduleId
         };
         $.ajax({
-            url: "/Ajax/Enrollment",
+            url: "/Ajax/AddUserInClass",
             type: "post",
             data: params ,
-        }).done(function (Data) {
-            if(Data.Code !=undefined){
-                toastr.error("Bạn chưa đăng nhập");
-            }else {
-                if (Data.Data.Code == 0) {
-                    toastr.success(Data.Data.Result);
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 1500);
-                } else {
-                    toastr.error(Data.Data.Result);
-                }
+        }).done(function (result) {
+            if (result.Data.Code == 0) {
+                toastr.success(result.Data.Result);
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1500);
+            } else {
+                toastr.error(result.Data.Result);
             }
             
         });

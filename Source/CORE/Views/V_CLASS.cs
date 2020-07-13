@@ -27,5 +27,7 @@ namespace CORE.Views
         public TimeSpan ScheduleDetailTimeFrom { get; set; }
         public TimeSpan ScheduleDetailTimeTo { get; set; }
         public string ScheduleDetailNote { get; set; }
+
+        public int ScheduleDetailRoomClass { get; set; }
     }
 }

@@ -72,7 +72,76 @@ namespace WebAdmin.Areas.Admin.AdminController
             return Json(new JsonResult() { Data = Result });
         }
 
-        public JsonResult InsertOrUpdateUser(TB_USERS value,bool isUpdate)
+        public JsonResult ExportProduct(string userId, string startDate, string endDate, string type )
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                TB_USERS user = new TB_USERS();
+                user = User_Service.GetById(Int32.Parse(userId));
+                string fileName = "\\Export\\HD" + user.UserFullName + "_" + startDate + "_" + endDate + ".xls";
+                string filePath = HttpContext.Server.MapPath("~" + fileName);
+                string err = "";
+                if (type.Equals("STUDIES"))
+                {
+                    err = BillExport(filePath, userId, startDate, endDate, type);
+                }else
+                {
+                    err = User_Service.ReportSalaryTeacher(userId, startDate, endDate);
+                    if (err.Equals("00"))
+                    {
+                        err = "";
+                    }
+                }
+
+                if (string.IsNullOrEmpty(err))
+                {
+                    Result.Code = 0;
+                    Result.Result = fileName;
+                }
+                else
+                {
+                    Result.Code = 999;
+                    Result.Result = err;
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 2000;
+                Result.Result = "Có lỗi xảy ra. Vui lòng thử lại sau hoặc liên hệ với người quản trị.";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "Ajax::ExportProduct :", Ex.Message, Ex.ToString());
+            }
+            return Json(Result);
+        }
+        public JsonResult UpdateStatusUser(TB_USERS value)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                value.UserStatus = "A";
+                value.UserDateCreated = DateTime.Now;
+                bool check = false;
+                check = User_Service.Update(value);
+                if (check)
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Thao tác không thành công";
+                }
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Thao tác không thành công";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+        public JsonResult InsertOrUpdateUser(TB_USERS value, bool isUpdate)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
@@ -89,8 +158,8 @@ namespace WebAdmin.Areas.Admin.AdminController
                     value.UserDateCreated = DateTime.Now;
                     check = User_Service.Insert(value);
                 }
-                
-                
+
+
                 if (check)
                 {
                     Result.Code = 0;
@@ -110,14 +179,14 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        
+
         public JsonResult DeleteUser(int id)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
                 bool check = User_Service.Delete(id);
-                
+
 
                 if (check)
                 {
@@ -138,15 +207,15 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        
-        public JsonResult InsertOrUpdateSubjectBox(List<string> listSubjectId,int box_id=0, string boxSubjectId="", string price="")
+
+        public JsonResult InsertOrUpdateSubjectBox(List<string> listSubjectId, int box_id = 0, string boxSubjectId = "", string price = "")
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
-                bool check = Subjects_Boxes_Service.InsertOrUpdate(box_id,listSubjectId, boxSubjectId,price);
-                
-                
+                bool check = Subjects_Boxes_Service.InsertOrUpdate(box_id, listSubjectId, boxSubjectId, price);
+
+
                 if (check)
                 {
                     Result.Code = 0;
@@ -157,7 +226,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                     Result.Code = 1;
                     Result.Result = "Thao tác không thành công";
                 }
-                
+
             }
             catch (Exception Ex)
             {
@@ -167,14 +236,14 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        
+
         public JsonResult DeleteSubjectBox(int id)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
                 bool check = User_Service.Delete(id);
-                
+
 
                 if (check)
                 {
@@ -195,9 +264,9 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        
-        
-        public JsonResult InsertOrUpdateClass(ClassModel value,bool isUpdate)
+
+
+        public JsonResult InsertOrUpdateClass(ClassModel value, bool isUpdate)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
@@ -205,9 +274,8 @@ namespace WebAdmin.Areas.Admin.AdminController
                 //value.Status = value.Status.Equals("active") ? "A" : "D";
 
                 var scheduleId = value.ScheduleId.Equals(0) ? "" : value.ScheduleId.ToString();
-                
-                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId,value.BoxSubjectId.ToString(),value.Price,value.DateStart,value.DateEnd,value.DayOfWeek,value.TimeStart,value.TimeEnd,value.Status,value.UserId,value.UserNote,value.ScheduleFileId);
 
+                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId, value.BoxSubjectId.ToString(), value.Price, value.DateStart, value.DateEnd, value.DayOfWeek, value.TimeStart, value.TimeEnd, value.Status, value.UserId, value.UserNote, value.ScheduleFileId,value.RoomId);
 
                 if (check)
                 {
@@ -216,9 +284,11 @@ namespace WebAdmin.Areas.Admin.AdminController
                 }
                 else
                 {
+
                     Result.Code = 1;
                     Result.Result = "Thao tác không thành công";
                 }
+
             }
             catch (Exception Ex)
             {
@@ -228,14 +298,14 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        
+
         public JsonResult DeleteClass(int id)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
                 bool check = Classes_Service.Delete(id);
-                
+
 
                 if (check)
                 {
@@ -256,23 +326,29 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        public JsonResult AddStudents(int ScheduleId,List<string> Userids, string type)
+        public JsonResult AddStudents(int ScheduleId, List<string> Userids, string type)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
                 //bool check = true;
-                
-                if (Classes_Service.InsertStudiesToClass(ScheduleId,Userids,type))
+                string check = Classes_Service.InsertStudiesToClass(ScheduleId, Userids, type);
+                if (check.Equals("00"))
                 {
                     Result.Code = 0;
                     Result.Result = "Thành công";
+                }
+                else if (check.Equals("150"))
+                {
+                    Result.Code = 1;
+                    Result.Result = "Lớp học đã đủ số lượng thành viên";
                 }
                 else
                 {
                     Result.Code = 1;
                     Result.Result = "Thao tác không thành công";
                 }
+
             }
             catch (Exception Ex)
             {
@@ -289,7 +365,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             {
                 //bool check = true;
 
-                if (Trackings_Service.AddTrackingSchedules(dateTracking,note,listUserId,schedulesId,type))
+                if (Trackings_Service.AddTrackingSchedules(dateTracking, note, listUserId, schedulesId, type))
                 {
                     Result.Code = 0;
                     Result.Result = "Thành công";
@@ -308,7 +384,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
-        public JsonResult GetTeacherByDateWeekTime(string dayOfWeek, string timeFrom , string timeTo)
+        public JsonResult GetTeacherByDateWeekTime(string dayOfWeek, string timeFrom, string timeTo)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
@@ -317,7 +393,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                 listTeacher = User_Service.GetTeacherByDateWeekTime(dayOfWeek, timeFrom, timeTo);
                 Result.Code = 0;
                 Result.Result = listTeacher;
-              
+
             }
             catch (Exception Ex)
             {
@@ -327,6 +403,33 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
+
+        public JsonResult CheckRoomClass(string roomId,string dayOfWeek, string timeFrom, string timeTo)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            try
+            {
+                if (Schedule_Detail_Service.CheckRoomClass(roomId, timeFrom, timeTo, dayOfWeek))
+                {
+                    Result.Code = 0;
+                    Result.Result = roomId;
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "";
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = new List<TB_USERS>();
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+
 
     }
 }

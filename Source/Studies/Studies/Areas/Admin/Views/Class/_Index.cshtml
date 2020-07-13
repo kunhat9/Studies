@@ -11,6 +11,7 @@
     var ok = jsonModel;
     var boxSubjects = (List<CORE.Views.V_BOX_SUBJECT>)ViewBag.boxSubjects;
     var users = (List<TB_USERS>)ViewBag.users;
+    var count = (List<CORE.Views.V_NUMBER_STUDIES>)ViewBag.Count;
 }
 
 <div class="div-h100 @if (totalPage.HasValue && totalPage.Value > 1) { <text>div-bottom56</text> }">
@@ -26,7 +27,7 @@
                         <th>Giờ bắt đầu - Giờ kết thúc</th>
                         <th>Giá</th>
                         <th>Giáo viên chính</th>
-                        <th>Mô tả</th>
+                        <th>Số học sinh đăng ký</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -55,7 +56,14 @@
 
                                 }
                             }
-                            <td>@(Model[i].ScheduleDetailNote.ToArray().Length > 30 ? Model[i].ScheduleDetailNote.Substring(0, 30) + "...." : Model[i].ScheduleDetailNote)</td>
+                            @foreach(var item in count)
+                            {
+                                if(item.ScheduleId == Model[i].ScheduleId)
+                                {
+                                    <td>@item.CountStudie</td>
+                                }
+                            }
+                            @*<td>@(Model[i].ScheduleDetailNote.ToArray().Length > 30 ? Model[i].ScheduleDetailNote.Substring(0, 30) + "...." : Model[i].ScheduleDetailNote)</td>*@
 
                             <td class="text-center">
                                 <ul class="icons-list" style="display:flex">
@@ -85,6 +93,8 @@
     let url_get = "/Admin/Class/_Index";
     let data = @Html.Raw(Json.Encode(Model));
     let box =@Html.Raw(Json.Encode(boxSubjects));
+    var idGiaoVien = "";
+    var checkRoom = "";
     function onEdit(event){
         var stt = event.dataset.index;
         var dataEdit = data[stt];
@@ -103,7 +113,7 @@
         $('#UserId').val("").change();
         $('#dayOfWeek').val("").change();
         $('#Status').val('A').change();
-
+        $('#roomId').val('').change();
         $('#UserNote').val("");
     });
     function GetTimeSpan(number){
@@ -137,6 +147,9 @@
         $('#Status').val(list.ScheduleStatus).change();
         $('#ScheduleFileId').val(list.ScheduleFileId);
         $('#UserNote').val(list.ScheduleDetailNote);
+        $('#roomId').val(list.ScheduleDetailRoomClass).change();
+        idGiaoVien = list.ScheduleUserId;
+        checkRoom = list.ScheduleDetailRoomClass;
         console.log(list);
     }
     let getParamsForSearch = (pageNumber,isNext)=>{
