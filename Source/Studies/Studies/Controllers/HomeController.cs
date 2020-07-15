@@ -25,18 +25,23 @@ namespace WebAdmin.Controllers
         public ActionResult Index(string error ="")
         {
             List<TB_SUBJECTS> list = new List<TB_SUBJECTS>();
+            List<TB_SCHEDULES> listScheDule = new List<TB_SCHEDULES>();
+            List<TB_BOX_SUBJECTS> boxSubject = new List<TB_BOX_SUBJECTS>();
             try
             {
                 list = Subjects_Service.GetAll();
+                listScheDule = Schedules_Service.GetAll();
+                boxSubject = Subjects_Boxes_Service.GetAll();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
+            ViewBag.Schedule = list;
+            ViewBag.BoxSubject = boxSubject;
             ViewBag.error = error;
-            return View(list);
+            return View(listScheDule);
         }
 
         [ChildActionOnly]

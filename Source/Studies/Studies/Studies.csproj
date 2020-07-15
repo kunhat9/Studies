@@ -147,7 +147,7 @@
     <Content Include="Assets\css\components.css" />
     <Content Include="Assets\css\core.css" />
     <Content Include="Assets\css\custom.css" />
-    <Content Include="Assets\css\extras\animate.min.css" />
+    <Content Include="Assets\css\icons\animate.min.css" />
     <Content Include="Assets\css\icons\fontawesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\css\icons\fontawesome\styles.min.css" />
     <Content Include="Assets\css\icons\glyphicons\glyphicons-halflings-regular.svg" />
@@ -2740,6 +2740,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\css\extras\" />
     <Folder Include="Assets\css\_main_full\" />
     <Folder Include="Files\icons\" />
     <Folder Include="Views\Ajax\" />
