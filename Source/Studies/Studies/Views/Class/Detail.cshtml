@@ -10,6 +10,12 @@
 
     CORE.Tables.TB_USERS user = listUser.Where(x => x.UserId == Model.ScheduleUserId).FirstOrDefault();
     List<CORE.Tables.TB_FILES> files = ViewBag.File;
+    CORE.Tables.TB_USERS userLogin = ViewBag.UserLogin;
+    string userType = "";
+    if(userLogin != null)
+    {
+        userType = userLogin.UserType;
+    }
 
 }
 @model CORE.Views.V_SCHEDULE_DETAILS
@@ -112,7 +118,8 @@
                 <div class="single-sidebar">
                     
                     <div class="sidebar-teacher">
-                        <button class="btn-common bright-vc-theme-btn-primary btn btn-lg vc_btn3-color-grey btnRegister">ĐĂNG KÝ HỌC</button>
+                        <button class="btn-common bright-vc-theme-btn-primary btn btn-lg vc_btn3-color-grey btnRegister"
+                                disabled="@userType.Equals("TEACHER")">ĐĂNG KÝ HỌC</button>
                     </div>
 
                 </div>

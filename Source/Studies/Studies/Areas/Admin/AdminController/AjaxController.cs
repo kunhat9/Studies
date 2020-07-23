@@ -275,7 +275,7 @@ namespace WebAdmin.Areas.Admin.AdminController
 
                 var scheduleId = value.ScheduleId.Equals(0) ? "" : value.ScheduleId.ToString();
 
-                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId, value.BoxSubjectId.ToString(), value.Price, value.DateStart, value.DateEnd, value.DayOfWeek, value.TimeStart, value.TimeEnd, value.Status, value.UserId, value.UserNote, value.ScheduleFileId,value.RoomId);
+                bool check = Classes_Service.InsertOrUpdateClassFromAdmin(scheduleId, value.BoxSubjectId.ToString(), value.Price, value.DateStart, value.DateEnd, value.DayOfWeek, value.TimeStart, value.TimeEnd, value.Status, value.UserId, value.UserNote, value.ScheduleFileId, value.RoomId,value.DayOfWeek2,value.TimeStart2,value.TimeEnd2);
 
                 if (check)
                 {
@@ -404,15 +404,43 @@ namespace WebAdmin.Areas.Admin.AdminController
             return Json(new JsonResult() { Data = Result });
         }
 
-        public JsonResult CheckRoomClass(string roomId,string dayOfWeek, string timeFrom, string timeTo)
+        public JsonResult CheckRoomClass(string roomId,string dayOfWeek, string timeFrom, string timeTo, string dayOfWeek2, string timeFrom2, string timeTo2)
         {
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
+             
                 if (Schedule_Detail_Service.CheckRoomClass(roomId, timeFrom, timeTo, dayOfWeek))
                 {
                     Result.Code = 0;
                     Result.Result = roomId;
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "";
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = new List<TB_USERS>();
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+        public JsonResult GetTeachingScheduleBy(string userId, string boxSubjectId)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+            List<TB_TEACHING_SCHEDULES> list = new List<TB_TEACHING_SCHEDULES>();
+            try
+            {
+                list = TeachingSchedules_Service.GetByUserIdAndBoxSubjectId(userId, boxSubjectId);
+                if(list.Count >0)
+                {
+                    Result.Code = 0;
+                    Result.Result = list;
                 }
                 else
                 {

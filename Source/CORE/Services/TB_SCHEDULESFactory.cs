@@ -41,6 +41,21 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
+        public List<V_SHEDULES_CLASS> GetInfoClassDetails(string userId, string userType, int pageNumber, int pageSize, out int count)
+        {
+            List<V_SCHEDULE_DETAILS> list = new List<V_SCHEDULE_DETAILS>();
+            List<V_SHEDULES_CLASS> result = new List<V_SHEDULES_CLASS>();
+            object cTemp;
+            list = new V_SCHEDULE_DETAILSSql().SelectFromStoreOutParam(AppSettingKeys.GET_INFO_CLASS_BY, out cTemp, userId, userType, pageNumber, pageSize);
+            count = (int)cTemp;
+            result = list.GroupBy(x => x.ScheduleId).Select(y => new V_SHEDULES_CLASS
+            {
+                ScheduleId = y.Key,
+                ScheDuleDetails = y.Where(t => t.ScheduleId == y.Key).ToList()
+            }).ToList();
+
+            return result;
+        }
 
         public List<V_NUMBER_STUDIES> GetCountStudieInClass(string scheduleId)
         {

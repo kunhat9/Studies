@@ -66,15 +66,20 @@
                     <tr>
                         <th>Mã lớp</th>
                         <th>Tên môn học</th>
-                        <th>Tổng số buổi</th>
+                        
                         @if (type.Equals("STUDIES"))
                         {
+                            <th>Tổng số buổi</th>
                             <th>Học phí</th>
+                            
                         }
                         else
                         {
+                            <th>Tổng học sinh</th>
                             <th>Lương</th>
+                           
                         }
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +101,9 @@
                             </tr>
                         }
                         <tr>
-                            <th class="text-right">Total</th>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">Total</td>
                             <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(total)</td>
                         </tr>
                     }
@@ -118,6 +125,8 @@
                             </tr>
                         }
                         <tr>
+                            <td></td>
+                            <td></td>
                             <th class="text-right">Total</th>
                             <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(total)</td>
                         </tr>

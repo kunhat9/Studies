@@ -18,6 +18,9 @@ CREATE PROCEDURE InsertOrUpdateClassFromAdmin
 	,@note nvarchar(max)
 	,@scheduleFileId varchar(50)
 	,@roomId varchar(50)
+	,@dayOfWeek2 varchar(50)
+	,@timeIn2 varchar(50)
+	,@timeEnd2 varchar(50)
 	
 ) AS
 BEGIN
@@ -91,6 +94,25 @@ BEGIN
 		,@scheduleId
 		,@roomId
 		)
+		IF @dayOfWeek2 IS NOT NULL AND @dayOfWeek2 != ''
+			BEGIN
+				INSERT INTO TB_SCHEDULE_DETAILS (
+						[ScheduleDetailDayOfWeek]
+					  ,[ScheduleDetailTimeFrom]
+					  ,[ScheduleDetailTimeTo]
+					  ,[ScheduleDetailNote]
+					  ,[ScheduleDetailScheduleId]
+					  ,[ScheduleDetailRoomClass]
+					)
+					VALUES(
+					@dayOfWeek2
+					,CONVERT(time,@timeIn2)
+					,CONVERT(time,@timeEnd2)
+					,@note
+					,@scheduleId
+					,@roomId
+					)
+			END
 		SET @ecode = '00'
 		SET @edesc ='Suscess'
 	COMMIT

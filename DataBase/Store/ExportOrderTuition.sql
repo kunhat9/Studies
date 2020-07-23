@@ -37,6 +37,16 @@ BEGIN TRY
 	)
 	IF @type = 'STUDIES'
 		BEGIN
+			
+			
+			INSERT INTO #TempCountStudies(ScheduleId,TrackingUserId,CountNumber)
+			SELECT  TrackingScheduleId,TrackingUserId,COUNT(TrackingDate) CountNumber FROM TB_TRACKINGS 
+			WHERE (@userId ='' OR TrackingUserId = @userId)
+			AND ( @startDate ='' OR CONVERT(DATE,@startDate) <= CONVERT(DATE,TrackingDate))
+			AND (@endDate ='' OR CONVERT(DATE,TrackingDate) <= CONVERT(DATE,@endDate)
+			AND TrackingCheckTuition IS NULL)
+			GROUP BY  TrackingUserId , TrackingScheduleId
+
 			UPDATE TB_TRACKINGS
 			SET TrackingCheckTuition = 'A'
 			WHERE TrackingId IN (
@@ -45,14 +55,7 @@ BEGIN TRY
 					AND ( @startDate ='' OR CONVERT(DATE,@startDate) <= CONVERT(DATE,TrackingDate))
 					AND (@endDate ='' OR CONVERT(DATE,TrackingDate) <= CONVERT(DATE,@endDate)) 
 			)
-			
-			INSERT INTO #TempCountStudies(ScheduleId,TrackingUserId,CountNumber)
-			SELECT  TrackingScheduleId,TrackingUserId,COUNT(TrackingDate) CountNumber FROM TB_TRACKINGS 
-			WHERE (@userId ='' OR TrackingUserId = @userId)
-			AND ( @startDate ='' OR CONVERT(DATE,@startDate) <= CONVERT(DATE,TrackingDate))
-			AND (@endDate ='' OR CONVERT(DATE,TrackingDate) <= CONVERT(DATE,@endDate)
-			AND TrackingCheckTuition ='A')
-			GROUP BY  TrackingUserId , TrackingScheduleId
+
 			INSERT INTO #TempResult
 			SELECT  SUM(CONVERT(decimal(18,2),(SchedulePrice* t.CountNumber))) TransNumber,'STUDIES' TransType, u.UserId TransUserId, N'he thong' TransNote, GETDATE() TransDateCreated, CONVERT(DATE,@startDate) TransBeginTime,CONVERT(DATE,@endDate) TransEndTime
 			FROM #TempCountStudies t

@@ -136,6 +136,7 @@
     <Compile Include="Views\HomePage.cs" />
     <Compile Include="Views\V_BOX_SUBJECT.cs" />
     <Compile Include="Views\V_CLASS.cs" />
+    <Compile Include="Views\V_CLASS_DETAILS.cs" />
     <Compile Include="Views\V_INFO_LOGIN_CLIENT.cs" />
     <Compile Include="Views\V_NUMBER_STUDIES.cs" />
     <Compile Include="Views\V_Point.cs" />

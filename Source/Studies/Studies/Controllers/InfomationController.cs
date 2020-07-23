@@ -161,12 +161,15 @@ namespace WebAdmin.Controllers
             ViewBag.pageNumber = 1;
             ViewBag.pageSize = 10;
             ViewBag.maxNumber = 0;
+            List<V_SHEDULES_CLASS> classes = new List<V_SHEDULES_CLASS>();
             int count = 0;
             try
             {
+                
                 ViewBag.boxSubjects = Subjects_Boxes_Service.GetAll();
                 TB_USERS user = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
                 list = Schedules_Service.GetInfoClassBy(user.UserId.ToString(),user.UserType,1,short.MaxValue,out count);
+                classes = Schedules_Service.GetInfoClassDetails(user.UserId.ToString(), user.UserType, 1, short.MaxValue, out count);
                 listUser = User_Service.GetAllTeacher();
                 ViewBag.maxNumber = Math.Ceiling((double)count / 10);
             }
@@ -176,7 +179,7 @@ namespace WebAdmin.Controllers
             }
             ViewBag.Schedule = list;
             ViewBag.users = listUser;
-            return View(list);
+            return View(classes);
         }
         public ActionResult TrackingDetails(string scheduleId="", string createdDate = "")
         {
@@ -196,10 +199,43 @@ namespace WebAdmin.Controllers
                 listTeacher = User_Service.GetAllTeacher();
                 listUser = User_Service.GetStudiesBySchedule(scheduleId, 1, short.MaxValue, out count);
                 details = Schedules_Service.GetInfoClassBy("", "STUDIES", 1, short.MaxValue, out count).Where(x => x.ScheduleId == Int32.Parse(scheduleId)).ToList();
-                string numberDayOfWeek = ConvertDataWithView.Convert_DayOfWeek_ToNumber(details.FirstOrDefault().ScheduleDetailDayOfWeek);
-                string numberOfMonth = DateTime.Now.Month.ToString();
-                listDate = DateTimeHelper.DaysOfMonth(DateTime.Now.Year, DateTime.Now.Month, ConvertDataWithView.Convert_DayOfWeek_ToTypeDayOfWeek(details.FirstOrDefault().ScheduleDetailDayOfWeek));
-                listTracked = User_Service.GetUserTracked(scheduleId,numberOfMonth, numberDayOfWeek, 1, short.MaxValue, out count);
+                foreach(var item in details)
+                {
+                    string numberDayOfWeek = ConvertDataWithView.Convert_DayOfWeek_ToNumber(item.ScheduleDetailDayOfWeek);
+                    string numberOfMonth = DateTime.Now.Month.ToString();
+                    List<DateTime> listDateTemp = new List<DateTime>();
+                    listDateTemp = DateTimeHelper.DaysOfMonth(DateTime.Now.Year, DateTime.Now.Month, ConvertDataWithView.Convert_DayOfWeek_ToTypeDayOfWeek(item.ScheduleDetailDayOfWeek));
+                    foreach(var date in listDateTemp)
+                    {
+                        if(listDate.Where(x=>x.ToString("ddMMyyyy").Equals(date.ToString("ddMMyyyy"))).ToList().Count == 0)
+                        {
+                            listDate.Add(date);
+                        }
+                    }
+                    List<V_USER_TRACKED_Details> listTrackedTemp = new List<V_USER_TRACKED_Details>();
+                    listTrackedTemp = User_Service.GetUserTracked(scheduleId, numberOfMonth, numberDayOfWeek, 1, short.MaxValue, out count);
+                    foreach(var data in listTrackedTemp)
+                    {
+                        if(listTracked.Where(x=>x.UserId == data.UserId).ToList().Count == 0)
+                        {
+                            listTracked.Add(data);
+                        }else
+                        {
+                            var tracked = listTracked.Where(x => x.UserId == data.UserId).FirstOrDefault();
+                            foreach (var date in data.TrackingDate)
+                            {
+
+                                if (tracked.TrackingDate.Where(x => x.ToString("ddMMyyyy").Equals(date.ToString("ddMMyyyy"))).ToList().Count == 0)
+                                {
+                                    tracked.TrackingDate.Add(date);
+                                }
+                            }
+                        }
+                    }
+
+                }
+               
+               
             }
             catch (Exception e)
             {

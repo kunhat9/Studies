@@ -17,6 +17,10 @@ namespace WebAdmin.Models
         public string ScheduleFileId { get; set; }
         public string DayOfWeek { get; set; }
         public string RoomId { get; set; }
+        // dot 2 
+        public string DayOfWeek2 { get; set; }
+        public string TimeStart2 { get; set; }
+        public string TimeEnd2 { get; set; }
 
     }
 }

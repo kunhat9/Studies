@@ -24,14 +24,15 @@ namespace WebAdmin.Areas.Admin.AdminController
             ViewBag.pageNumber = pageNumber;
             ViewBag.pageSize = pageSize;
             ViewBag.maxNumber = 0;
+            List<V_CLASS_DETAILS> cl = new List<V_CLASS_DETAILS>();
             var classes = new List<V_CLASS>();
             List<V_NUMBER_STUDIES> listCount = new List<V_NUMBER_STUDIES>();
-
+            int count = 0;
             try
             {
+                cl = Classes_Service.GetInfoClass(keyText, boxId, subjectId, timeIn, timeEnd, status, pageNumber, pageSize, out count);
                 listCount = Schedules_Service.GetCountStudieInClass("");
-                int count = 0;
-                classes = Classes_Service.GetClassBy(keyText, boxId, subjectId, timeIn, timeEnd, status, pageNumber, pageSize, out count);
+                //classes = Classes_Service.GetClassBy(keyText, boxId, subjectId, timeIn, timeEnd, status, pageNumber, pageSize, out count);
                 ViewBag.maxNumber = Math.Ceiling((double)count / pageSize);
                 ViewBag.users = User_Service.GetAll();
                 int count1 = 0;
@@ -42,14 +43,14 @@ namespace WebAdmin.Areas.Admin.AdminController
                 CORE.Helpers.IOHelper.WriteLog(StartUpPath, "ClassController :", ex.Message, ex.ToString());
             }
             ViewBag.Count = listCount;
-            return PartialView(classes);
+            return PartialView(cl);
         }
 
         public PartialViewResult _Detail()
         {
             List<TB_SUBJECTS> subjects = new List<TB_SUBJECTS>();
             List<TB_BOXES> boxes = new List<TB_BOXES>();
-            List<TB_USERS> users = new List<TB_USERS>();
+       
             List<TB_USERS> teachers = new List<TB_USERS>();
             List<V_BOX_SUBJECT> boxSubject = new List<V_BOX_SUBJECT>();
             List<TB_ROOM_CLASS> room = new List<TB_ROOM_CLASS>();
@@ -60,14 +61,8 @@ namespace WebAdmin.Areas.Admin.AdminController
                 boxSubject = Subjects_Boxes_Service.GetAllBy("", 1, short.MaxValue, out count);
                 subjects = Subjects_Service.GetAll();
                 boxes = Boxes_Service.GetAll();
-                users = User_Service.GetAll();
-                foreach (var user in users)
-                {
-                    if (user.UserType.Equals("TEACHER"))
-                    {
-                        teachers.Add(user);
-                    }
-                }
+                teachers = User_Service.GetAllTeacher();
+               
 
 
             }

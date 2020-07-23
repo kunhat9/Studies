@@ -9,7 +9,7 @@
 @using System.Web.Mvc.Html
 @using CORE.Views;
 @using CORE.Tables;
-@model List<CORE.Views.V_SCHEDULE_DETAILS>
+@model List<CORE.Views.V_SHEDULES_CLASS>
 @{
     int? totalPage = 0;
     totalPage = (int?)ViewBag.maxNumber;
@@ -19,7 +19,7 @@
     var ok = jsonModel;
 
     List<CORE.Tables.TB_USERS> listUser = ViewBag.User;
-    List<CORE.Views.V_SCHEDULE_DETAILS> listSchedule = ViewBag.Schedule;
+
 
     var boxSubjects = (List<TB_BOX_SUBJECTS>)ViewBag.boxSubjects;
     var users = (List<TB_USERS>)ViewBag.users;
@@ -72,49 +72,54 @@
                         <th>Mã lớp</th>
                         <th>Mã khôi</th>
                         <th>Mã môn học</th>
-                        <th>Giờ bắt đầu - Giờ kết thúc</th>
+                        @*<th>Giờ bắt đầu - Giờ kết thúc</th>*@
                         <th>Giá</th>
                         <th>Giáo viên chính</th>
-                        <th>Mô tả</th>
+                        @*<th>Mô tả</th>*@
                         <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     @for (int i = 0; i < Model.Count; i++)
                     {
-                        <tr class="text-center">
-                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
-                            <td>@Model[i].ScheduleCode</td>
+                        foreach (var item in Model[i].ScheDuleDetails)
+                        {
+                            <tr class="text-center">
+                                <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                                <td>@item.ScheduleCode</td>
 
-                            @foreach (var boxSubject in boxSubjects)
-                            {
-                                if (boxSubject.BoxSubjectId.Equals(Model[i].ScheduleIdBoxSubjectId))
+                                @foreach (var boxSubject in boxSubjects)
                                 {
-                                    <td>@boxSubject.BoxSubjectBoxId</td>
-                                    <td>@boxSubject.BoxSubjectSubjectId</td>
+                                    if (boxSubject.BoxSubjectId.Equals(item.ScheduleIdBoxSubjectId))
+                                    {
+                                        <td>@boxSubject.BoxSubjectBoxId</td>
+                                        <td>@boxSubject.BoxSubjectSubjectId</td>
+                                    }
                                 }
-                            }
-                            <td>@Model[i].ScheduleDetailTimeFrom - @Model[i].ScheduleDetailTimeTo</td>
-                            <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(Model[i].SchedulePrice)</td>
-                            @foreach (var user in users)
-                            {
-                                if (@Model[i].ScheduleUserId.Equals(user.UserId))
+                                @*<td>@Model[i].ScheduleDetailTimeFrom - @Model[i].ScheduleDetailTimeTo</td>*@
+                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.SchedulePrice)</td>
+                                @foreach (var user in users)
                                 {
-                                    <td>@user.UserFullName</td>
+                                    if (item.ScheduleUserId.Equals(user.UserId))
+                                    {
+                                        <td>@user.UserFullName</td>
 
+                                    }
                                 }
-                            }
-                            <td>@Model[i].ScheduleDetailNote</td>
+                                @*<td>@item.ScheduleDetailNote</td>*@
 
-                            <td class="text-center">
-                                <ul class="icons-list">
-                                    <li>
-                                        <a href="@Url.Action("TrackingDetails", new {scheduleId = Model[i].ScheduleId, createdDate = DateTime.Now.ToString("yyyy-MM-dd") })" class="btn btn-default btn-sm text-primary-600"><i class="icon-pencil7"></i> Điểm danh lớp học</a>
-                                    </li>
-                                  
-                                </ul>
-                            </td>
-                        </tr>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+                                        <li>
+                                            <a href="@Url.Action("TrackingDetails", new {scheduleId = Model[i].ScheduleId, createdDate = DateTime.Now.ToString("yyyy-MM-dd") })" class="btn btn-default btn-sm text-primary-600"><i class="icon-pencil7"></i> Điểm danh</a>
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            break;
+                        }
+
                     }
                 </tbody>
             </table>

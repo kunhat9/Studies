@@ -26,7 +26,7 @@ namespace CORE.Services
         {
             return new TB_SCHEDULE_DETAILSSql().SelectAll();
         }
-        public bool CheckRoomClass(string roomId, string timeStart, string timeEnd, string dayOfWeek)
+        public bool CheckRoomClass(string roomId, string timeStart, string timeEnd, string dayOfWeek, string dayOfWeek2, string timeStart2, string timeEnd2)
         {
             bool check = false;
             List<TB_SCHEDULE_DETAILS> list = new TB_SCHEDULE_DETAILSSql().FilterByField("ScheduleDetailRoomClass", roomId);
@@ -35,18 +35,40 @@ namespace CORE.Services
                 check = true;
             }else
             {
-                var a = list.Where(x => x.ScheduleDetailDayOfWeek.Equals(dayOfWeek)).ToList();
-                if (a.Count ==  0)
+                if (string.IsNullOrEmpty(dayOfWeek2))
                 {
-                    check = true;
-                }else
-                {
-                    var b = a.Where(x => x.ScheduleDetailTimeFrom.Hours == Int32.Parse(timeStart)).ToList();
-                    if(b.Count == 0)
+                    var a = list.Where(x => x.ScheduleDetailDayOfWeek.Equals(dayOfWeek)).ToList();
+                    if (a.Count == 0)
                     {
                         check = true;
                     }
+                    else
+                    {
+                        var b = a.Where(x => x.ScheduleDetailTimeFrom.Hours == Int32.Parse(timeStart)).ToList();
+                        if (b.Count == 0)
+                        {
+                            check = true;
+                        }
+                    }
+                }else
+                {
+                    var a = list.Where(x => x.ScheduleDetailDayOfWeek.Equals(dayOfWeek)).ToList();
+                    var a1 = list.Where(x => x.ScheduleDetailDayOfWeek.Equals(dayOfWeek2)).ToList();
+                    if (a.Count == 0 && a1.Count ==0)
+                    {
+                        check = true;
+                    }
+                    else
+                    {
+                        var b = a.Where(x => x.ScheduleDetailTimeFrom.Hours == Int32.Parse(timeStart)).ToList();
+                        var b1 = a.Where(x => x.ScheduleDetailTimeFrom.Hours == Int32.Parse(timeStart2)).ToList();
+                        if (b.Count == 0 && b.Count ==0)
+                        {
+                            check = true;
+                        }
+                    }
                 }
+                
             }
             return check;
         }

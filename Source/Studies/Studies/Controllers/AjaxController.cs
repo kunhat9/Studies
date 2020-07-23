@@ -79,7 +79,7 @@ namespace WebAdmin.Controllers
             AjaxResultModel Result = new AjaxResultModel();
             try
             {
-                schedules.RemoveAt(0);
+     
                 TB_USERS user = User_Service.GetById(userid);
 
                 int quantity = TeachingSchedules_Service.InsertTeacherAndSchedule(user, schedules);

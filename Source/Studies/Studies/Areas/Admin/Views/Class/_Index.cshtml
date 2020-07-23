@@ -1,6 +1,6 @@
 @using System.Web.Mvc.Html
 @using CORE.Tables
-@model System.Collections.Generic.List<CORE.Views.V_CLASS>
+@model System.Collections.Generic.List<CORE.Views.V_CLASS_DETAILS>
 
 
 @{
@@ -24,7 +24,7 @@
                         <th>Mã lớp</th>
                         <th>Mã khôi</th>
                         <th>Tên môn học</th>
-                        <th>Giờ bắt đầu - Giờ kết thúc</th>
+                        @*<th>Giờ bắt đầu - Giờ kết thúc</th>*@
                         <th>Giá</th>
                         <th>Giáo viên chính</th>
                         <th>Số học sinh đăng ký</th>
@@ -34,51 +34,56 @@
                 <tbody>
                     @for (int i = 0; i < Model.Count; i++)
                     {
-                        <tr class="text-center">
-                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
-                            <td>@Model[i].ScheduleCode</td>
+                        foreach (var item in Model[i].Class)
+                        {
+                            <tr class="text-center">
+                                <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                                <td>@item.ScheduleCode</td>
 
-                            @foreach (var boxSubject in boxSubjects)
-                            {
-                                if (boxSubject.BoxSubjectId.Equals(Model[i].ScheduleIdBoxSubjectId))
+                                @foreach (var boxSubject in boxSubjects)
                                 {
-                                    <td>@boxSubject.BoxId</td>
-                                    <td>@boxSubject.SubjectName</td>
+                                    if (boxSubject.BoxSubjectId.Equals(item.ScheduleIdBoxSubjectId))
+                                    {
+                                        <td>@boxSubject.BoxId</td>
+                                        <td>@boxSubject.SubjectName</td>
+                                    }
                                 }
-                            }
-                            <td>@Model[i].ScheduleDetailTimeFrom - @Model[i].ScheduleDetailTimeTo</td>
-                            <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(Model[i].SchedulePrice)</td>
-                            @foreach (var user in users)
-                            {
-                                if (@Model[i].ScheduleUserId.Equals(user.UserId))
+                                @*<td>@Model[i].ScheduleDetailTimeFrom - @Model[i].ScheduleDetailTimeTo</td>*@
+                                <td>@CORE.Helpers.ConvertDataWithView.Currency_ToView(item.SchedulePrice)</td>
+                                @foreach (var user in users)
                                 {
-                                    <td>@user.UserFullName</td>
+                                    if (item.ScheduleUserId.Equals(user.UserId))
+                                    {
+                                        <td>@user.UserFullName</td>
 
+                                    }
                                 }
-                            }
-                            @foreach(var item in count)
-                            {
-                                if(item.ScheduleId == Model[i].ScheduleId)
+                                @foreach (var value in count)
                                 {
-                                    <td>@item.CountStudie</td>
+                                    if (value.ScheduleId == item.ScheduleId)
+                                    {
+                                        <td>@value.CountStudie</td>
+                                    }
                                 }
-                            }
-                            @*<td>@(Model[i].ScheduleDetailNote.ToArray().Length > 30 ? Model[i].ScheduleDetailNote.Substring(0, 30) + "...." : Model[i].ScheduleDetailNote)</td>*@
+                                @*<td>@(Model[i].ScheduleDetailNote.ToArray().Length > 30 ? Model[i].ScheduleDetailNote.Substring(0, 30) + "...." : Model[i].ScheduleDetailNote)</td>*@
 
-                            <td class="text-center">
-                                <ul class="icons-list" style="display:flex">
-                                    <li class="btnEdit" onclick="onEdit(this)" data-index=@i>
-                                        <button type="button" data-toggle="modal" data-target="#modal_default" class="btn btn-default btn-sm text-danger-600" title="Thông tin chi tiết lớp học"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button>
-                                    </li>
-                                    <li>
-                                        <a href="Class/Class_Detail?id=@Model[i].ScheduleId" title="Thông tin học sinh trong lớp học" class="btn btn-default btn-sm text-primary-600"><i class="icon-pencil7"></i></a>
-                                    </li>
-                                    <li class="btnDelete" data-id='@Model[i].ScheduleId' title="Xóa lớp học" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
-                                        <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
+                                <td class="text-center">
+                                    <ul class="icons-list" style="display:flex">
+                                        <li class="btnEdit" onclick="onEdit(this)" data-index=@i>
+                                            <button type="button" data-toggle="modal" data-target="#modal_default" class="btn btn-default btn-sm text-danger-600" title="Thông tin chi tiết lớp học"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button>
+                                        </li>
+                                        <li>
+                                            <a href="Class/Class_Detail?id=@item.ScheduleId" title="Thông tin học sinh trong lớp học" class="btn btn-default btn-sm text-primary-600"><i class="icon-pencil7"></i></a>
+                                        </li>
+                                        <li class="btnDelete" data-id='@item.ScheduleId' title="Xóa lớp học" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                            <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            break;
+                        }
+
                     }
                 </tbody>
             </table>
@@ -90,6 +95,7 @@
 </div>
 
 <script>
+   
     let url_get = "/Admin/Class/_Index";
     let data = @Html.Raw(Json.Encode(Model));
     let box =@Html.Raw(Json.Encode(boxSubjects));
@@ -98,23 +104,46 @@
     function onEdit(event){
         var stt = event.dataset.index;
         var dataEdit = data[stt];
+        dataEditDisplay = dataEdit;
         setValueForEdit(dataEdit);
+
+    }
+    function ConvertDayOfWeekToView(key){
+        var result = "";
+        switch (key)
+        {
+            case "THU2": result = "Thứ 2"; break;
+            case "THU3": result = "Thứ 3"; break;
+            case "THU4": result = "Thứ 4"; break;
+            case "THU5": result = "Thứ 5"; break;
+            case "THU6": result = "Thứ 6"; break;
+            case "THU7": result = "Thứ 7"; break;
+            case "CN": result = "Chủ nhật"; break;
+        }
+        return result;
     }
     $('.btnAdd').click(function(){
         $('#UserId').attr('disabled','true');
+        $('#roomId').attr('disabled','true');
         $('#ScheduleId').val("");
         $('#BoxId').val("").change();;
         $('#BoxSubjectId').val("").change();
         $('#TimeStart').val("");
+        $('#TimeEnd2').val("");
+        $('#TimeStart2').val("");
         $('#TimeEnd').val("");
         $('#DateStart').val("");
         $('#DateEnd').val("");
         $('#Price').val("");
         $('#UserId').val("").change();
         $('#dayOfWeek').val("").change();
+        $('#dayOfWeek2').val("").change();
         $('#Status').val('A').change();
         $('#roomId').val('').change();
         $('#UserNote').val("");
+        dataEditDisplay = {};
+        $("input[name='studyCount'][value='1']").prop('checked', true);
+        $("input[name='studyCount'][value='1']").click();
     });
     function GetTimeSpan(number){
         var seconds = number / 1000;
@@ -132,24 +161,36 @@
         }
         return result;
     }
+    var dataEditDisplay = {};
     function setValueForEdit(list){
+        debugger;       
         $('#UserId').removeAttr('disabled','false');
-        $('#ScheduleId').val(list.ScheduleId);
-        $('#BoxId').val(box.filter(x=>x.BoxSubjectId ==list.ScheduleIdBoxSubjectId)[0].BoxId).change();;
-        $('#BoxSubjectId').val(list.ScheduleIdBoxSubjectId).change();
-        $('#TimeStart').val(GetTimeSpan(list.ScheduleDetailTimeFrom.Ticks));
-        $('#TimeEnd').val(GetTimeSpan(list.ScheduleDetailTimeTo.Ticks));
-        $('#DateStart').val(list.ScheduleDateBegin.split('-').reverse().join('/'));
-        $('#DateEnd').val(list.ScheduleDateEnd.split('-').reverse().join('/'));
-        $('#Price').val(list.SchedulePrice);
-        $('#UserId').val(list.ScheduleUserId).change();
-        $('#dayOfWeek').val(list.ScheduleDetailDayOfWeek).change();
-        $('#Status').val(list.ScheduleStatus).change();
-        $('#ScheduleFileId').val(list.ScheduleFileId);
-        $('#UserNote').val(list.ScheduleDetailNote);
-        $('#roomId').val(list.ScheduleDetailRoomClass).change();
-        idGiaoVien = list.ScheduleUserId;
-        checkRoom = list.ScheduleDetailRoomClass;
+        $('#ScheduleId').val(list.Class[0].ScheduleId);
+        $('#BoxId').val(box.filter(x=>x.BoxSubjectId ==list.Class[0].ScheduleIdBoxSubjectId)[0].BoxId).change();;
+        $('#BoxSubjectId').val(list.Class[0].ScheduleIdBoxSubjectId).change();
+        $('#UserId').val(list.Class[0].ScheduleUserId).change();
+        $('#dayOfWeek').val(list.Class[0].ScheduleDetailDayOfWeek).change();
+        $('#TimeStart').val(ConverTimeSpan(list.Class[0].ScheduleDetailTimeFrom.Ticks)).change();
+        $('#TimeEnd').val(ConverTimeSpan(list.Class[0].ScheduleDetailTimeTo.Ticks)).change();
+        $("input[name='studyCount'][value="+list.Class.length+"]").prop('checked', true);
+        $("input[name='studyCount'][value="+list.Class.length+"]").click();
+        if(list.Class.length == 2){
+            $('#dayOfWeek2').val(list.Class[1].ScheduleDetailDayOfWeek).change();
+            $('#TimeStart2').val(ConverTimeSpan(list.Class[1].ScheduleDetailTimeFrom.Ticks)).change();
+            $('#TimeEnd2').val(ConverTimeSpan(list.Class[1].ScheduleDetailTimeTo.Ticks)).change();
+           
+        }
+        $('#DateStart').val(list.Class[0].ScheduleDateBegin.split('-').reverse().join('/'));
+        $('#DateEnd').val(list.Class[0].ScheduleDateEnd.split('-').reverse().join('/'));
+        $('#Price').val(list.Class[0].SchedulePrice);
+      
+        
+        $('#Status').val(list.Class[0].ScheduleStatus).change();
+        $('#ScheduleFileId').val(list.Class[0].ScheduleFileId);
+        $('#UserNote').val(list.Class[0].ScheduleDetailNote);
+        $('#roomId').val(list.Class[0].ScheduleDetailRoomClass).change();
+        idGiaoVien = list.Class[0].ScheduleUserId;
+        checkRoom = list.Class[0].ScheduleDetailRoomClass;
         console.log(list);
     }
     let getParamsForSearch = (pageNumber,isNext)=>{

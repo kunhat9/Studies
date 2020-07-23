@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CORE.Views
 {
+   
     public class V_SCHEDULE_DETAILS : BusinessObject
     {
         public int ScheduleId { get; set; }
@@ -28,4 +29,12 @@ namespace CORE.Views
 
         public V_SCHEDULE_DETAILS() { }
     }
+
+    public class V_SHEDULES_CLASS
+    {
+        public List<V_SCHEDULE_DETAILS> ScheDuleDetails { get; set; }
+        public int ScheduleId { get; set; }
+    }
 }
+
+

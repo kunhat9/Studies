@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CORE.Helpers;
 using CORE.Views;
 using CORE.Tables;
+using WebAdmin.AppSession;
 
 namespace WebAdmin.Controllers
 {
@@ -38,6 +39,7 @@ namespace WebAdmin.Controllers
             List<TB_BOXES> listBox = new List<TB_BOXES>();
             List<TB_BOX_SUBJECTS> listBoxSubject = new List<TB_BOX_SUBJECTS>();
             List<TB_USERS> listUser = new List<TB_USERS>();
+            TB_USERS userLogin = (TB_USERS)Session[AppSessionKeys.USER_INFO_CLIENT];
             int count = 0;
             try
             {
@@ -53,6 +55,7 @@ namespace WebAdmin.Controllers
                 IOHelper.WriteLog(StartUpPath, IpAddress, "Class:", Ex.Message, Ex.ToString());
 
             }
+            ViewBag.UserLogin = userLogin;
             ViewBag.File = files;
             ViewBag.User = listUser;
             ViewBag.Box = listBox;
