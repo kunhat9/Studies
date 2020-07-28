@@ -198,7 +198,7 @@ namespace WebAdmin.Controllers
                 }
                 listTeacher = User_Service.GetAllTeacher();
                 listUser = User_Service.GetStudiesBySchedule(scheduleId, 1, short.MaxValue, out count);
-                details = Schedules_Service.GetInfoClassBy("", "STUDIES", 1, short.MaxValue, out count).Where(x => x.ScheduleId == Int32.Parse(scheduleId)).ToList();
+                details = Schedules_Service.GetInfoClassBy("", "TEACHER", 1, short.MaxValue, out count).Where(x => x.ScheduleId == Int32.Parse(scheduleId)).ToList();
                 foreach(var item in details)
                 {
                     string numberDayOfWeek = ConvertDataWithView.Convert_DayOfWeek_ToNumber(item.ScheduleDetailDayOfWeek);

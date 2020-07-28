@@ -17,9 +17,11 @@ namespace WebAdmin.Controllers
         {
             List<V_SCHEDULE_DETAILS> classes = new List<V_SCHEDULE_DETAILS>();
             List<TB_FILES> files = new List<TB_FILES>();
+            List<V_NUMBER_STUDIES> listCount = new List<V_NUMBER_STUDIES>();
             int count = 0;
             try
             {
+                listCount = Schedules_Service.GetCountStudieInClass("");
                 files = Files_Service.GetAll();
                 classes = Schedules_Service.GetInfoClassBy("", "TEACHER", 1, short.MaxValue, out count);
             }
@@ -28,6 +30,7 @@ namespace WebAdmin.Controllers
                 IOHelper.WriteLog(StartUpPath, IpAddress, "Class:", Ex.Message, Ex.ToString());
 
             }
+            ViewBag.Count = listCount;
             ViewBag.File = files;
             return View(classes);
         }

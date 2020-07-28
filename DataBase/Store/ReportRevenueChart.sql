@@ -17,7 +17,7 @@ BEGIN
 		BEGIN
 		IF (@endDate IS NULL OR CONVERT(date, @endDate) > GETDATE()) SET @to = GETDATE()
 		ELSE SET @to = (CONVERT(date, @endDate))
-		IF(@startDate IS NULL OR @startDate > @to) SET @from = (select DATEADD(DAY, -29, @to))
+		IF(@startDate IS NULL OR @startDate > @to) SET @from = (select DATEADD(DAY, -15, @to))
 		ELSE SET @from = (CONVERT(date, @startDate))
 		;WITH CTE AS
 		(
@@ -59,7 +59,7 @@ FULL JOIN
 			RIGHT JOIN CTE 
 			ON CONVERT(DATE,CTE.sDate) = CONVERT(DATE,tbTemp.NgayLamViec)
 		)
-		SELECT * FROM obj
+		SELECT * FROM obj order by obj.NgayLamViec
 		END
 	ELSE IF @type ='MONTH'
 		BEGIN
@@ -108,7 +108,7 @@ FULL JOIN
 			ON FORMAT(CTE.sDate,'MM/yyyy') = tbTemp.NgayLamViec
 			GROUP BY FORMAT(CTE.sDate,'MM/yyyy'),tbTemp.NgayLamViec
 		)
-		SELECT * FROM obj
+		SELECT * FROM obj order by obj.NgayLamViec
 		END
 	ELSE IF @type ='YEAR'
 		BEGIN
@@ -155,6 +155,6 @@ FULL JOIN
 			ON FORMAT(CTE.sDate,'yyyy') = tbTemp.NgayLamViec
 			GROUP BY FORMAT(CTE.sDate,'yyyy'),tbTemp.NgayLamViec
 		)
-		SELECT * FROM obj
+		SELECT * FROM obj order by obj.NgayLamViec
 		END
 END

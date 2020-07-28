@@ -410,7 +410,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             try
             {
              
-                if (Schedule_Detail_Service.CheckRoomClass(roomId, timeFrom, timeTo, dayOfWeek))
+                if (Schedule_Detail_Service.CheckRoomClass(roomId, timeFrom, timeTo, dayOfWeek,dayOfWeek2,timeFrom2,timeTo2))
                 {
                     Result.Code = 0;
                     Result.Result = roomId;

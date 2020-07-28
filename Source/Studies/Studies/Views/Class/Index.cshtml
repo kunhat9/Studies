@@ -2,6 +2,7 @@
     ViewBag.Title = "Class";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
     List<CORE.Tables.TB_FILES> file = ViewBag.File;
+    var count = (List<CORE.Views.V_NUMBER_STUDIES>)ViewBag.Count;
 }
 
 @model List<CORE.Views.V_SCHEDULE_DETAILS>
@@ -54,8 +55,8 @@
                                         <h4 class="title"><a href="@Url.Action("Detail",new {scheduleId = clas.ScheduleId })">Mã lớp : @clas.ScheduleCode</a></h4>
                                         <div class="news-meta fix">
                                             <span><i class="zmdi zmdi-calendar-check"></i>Thời gian học : @clas.ScheduleDetailTimeFrom - @clas.ScheduleDetailTimeTo</span>
-                                            <a href="#"><i class="zmdi zmdi-eye"></i>Số lượng học sinh trong lớp : 50</a>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>19</a>
+                                            <a href="#"><i class="zmdi zmdi-eye"></i>Số lượng học sinh trong lớp : @count.Where(x=>x.ScheduleId == @clas.ScheduleId).FirstOrDefault().CountStudie</a>
+                                          
                                         </div>
                                         <p>
                                             @{

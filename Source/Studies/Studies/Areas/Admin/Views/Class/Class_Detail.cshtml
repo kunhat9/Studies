@@ -164,14 +164,14 @@
                         type : "DELETE"
                     },
                 }).done(function (Data) {
-                    if (Data.Code == 0) {
-                        toastr.success(Data.Result);
+                    if (Data.Data.Code == 0) {
+                        toastr.success(Data.Data.Result);
                            
                         setTimeout(function () {
                             window.location.reload();
                         }, 1500);
                     } else {
-                        toastr.error(Data.Result);
+                        toastr.error(Data.Data.Result);
                     }
                 });
             }
@@ -191,8 +191,8 @@
                             type : "INSERT"
                         },
                     }).done(function (Data) {
-                        if (Data.Code == 0) {
-                            toastr.success(Data.Result);
+                        if (Data.Data.Code == 0) {
+                            toastr.success(Data.Data.Result);
                            
                             setTimeout(function () {
                                   window.location.reload();
