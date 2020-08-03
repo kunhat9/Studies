@@ -29,7 +29,7 @@ BEGIN
 			IF @count >0 
 				BEGIN
 				 -- NEU MA CO ROI THY XOA DI LAM LAI
-				 DELETE TB_BOX_SUBJECTS WHERE BoxSubjectBoxId = @boxId
+				 --DELETE TB_BOX_SUBJECTS WHERE BoxSubjectBoxId = @boxId
 				 INSERT INTO TB_BOX_SUBJECTS(BoxSubjectBoxId,BoxSubjectPrice,BoxSubjectSubjectId)
 				 SELECT @boxId BoxSubjectBoxId,@price BoxSubjectPrice, * FROM #ListSubjectId
 		 

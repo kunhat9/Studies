@@ -139,6 +139,11 @@ namespace WebAdmin.Controllers
                         Result.Code = 1;
                         Result.Result = "Bạn đã đăng kí vào lớp học. Vui lòng đợi trung tâm xác nhận";
                     }
+                    else if (check.Equals("400"))
+                    {
+                        Result.Code = 1;
+                        Result.Result = "Bạn đã đăng kí vào lịch học này rồi! Vui lòng kiểm tra lại";
+                    }
                     else
                     {
                         Result.Code = 1;

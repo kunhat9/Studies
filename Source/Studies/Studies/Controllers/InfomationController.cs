@@ -214,24 +214,39 @@ namespace WebAdmin.Controllers
                     }
                     List<V_USER_TRACKED_Details> listTrackedTemp = new List<V_USER_TRACKED_Details>();
                     listTrackedTemp = User_Service.GetUserTracked(scheduleId, numberOfMonth, numberDayOfWeek, 1, short.MaxValue, out count);
-                    foreach(var data in listTrackedTemp)
+                    if(listTrackedTemp.Count ==0)
                     {
-                        if(listTracked.Where(x=>x.UserId == data.UserId).ToList().Count == 0)
+                        foreach(var tracked in listUser)
                         {
-                            listTracked.Add(data);
-                        }else
+                            V_USER_TRACKED_Details a = new V_USER_TRACKED_Details();
+                            a.UserId = tracked.UserId;
+                            a.UserFullName = tracked.UserFullName;
+                        
+                            listTracked.Add(a);
+                        }
+                    }else
+                    {
+                        foreach (var data in listTrackedTemp)
                         {
-                            var tracked = listTracked.Where(x => x.UserId == data.UserId).FirstOrDefault();
-                            foreach (var date in data.TrackingDate)
+                            if (listTracked.Where(x => x.UserId == data.UserId).ToList().Count == 0)
                             {
-
-                                if (tracked.TrackingDate.Where(x => x.ToString("ddMMyyyy").Equals(date.ToString("ddMMyyyy"))).ToList().Count == 0)
+                                listTracked.Add(data);
+                            }
+                            else
+                            {
+                                var tracked = listTracked.Where(x => x.UserId == data.UserId).FirstOrDefault();
+                                foreach (var date in data.TrackingDate)
                                 {
-                                    tracked.TrackingDate.Add(date);
+
+                                    if (tracked.TrackingDate.Where(x => x.ToString("ddMMyyyy").Equals(date.ToString("ddMMyyyy"))).ToList().Count == 0)
+                                    {
+                                        tracked.TrackingDate.Add(date);
+                                    }
                                 }
                             }
                         }
                     }
+                    
 
                 }
                
@@ -250,7 +265,7 @@ namespace WebAdmin.Controllers
                     lst.Add(item);
                 }
             }
-            ViewBag.ListDate = listDate;
+            ViewBag.ListDate = listDate.OrderBy(x=>x).ToList();
             ViewBag.UserTracked = listTracked;
             ViewBag.Teacher = listTeacher;
             ViewBag.User = lst;

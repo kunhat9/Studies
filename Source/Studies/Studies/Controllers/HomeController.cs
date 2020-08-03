@@ -122,7 +122,7 @@ namespace WebAdmin.Controllers
             return RedirectToAction("Index",new {@error=ViewBag.error});
         }
         [HttpPost]
-        public ActionResult Register(string username,string password,string fullname,string phone,string confirmpassword, string type, decimal numberSalary, string address)
+        public ActionResult Register(string username,string password,string fullname,string phone,string confirmpassword, string type, string address)
         {
             try
             {
@@ -148,7 +148,6 @@ namespace WebAdmin.Controllers
                         UserPhone =  phone,
                         UserType = type,
                         UserStatus = "D",
-                        UserNumberSalary = (type.Equals("TEACHER")?numberSalary:default(decimal)),
                         UserAcademicLevel = (type.Equals("TEACHER") ? address : ""),
                     UserDateCreated = DateTime.Now
                     };

@@ -15,7 +15,7 @@ namespace WebAdmin.Controllers
         // GET: Class
         public ActionResult Index()
         {
-            List<V_SCHEDULE_DETAILS> classes = new List<V_SCHEDULE_DETAILS>();
+            List<V_SHEDULES_CLASS> classes = new List<V_SHEDULES_CLASS>();
             List<TB_FILES> files = new List<TB_FILES>();
             List<V_NUMBER_STUDIES> listCount = new List<V_NUMBER_STUDIES>();
             int count = 0;
@@ -23,7 +23,7 @@ namespace WebAdmin.Controllers
             {
                 listCount = Schedules_Service.GetCountStudieInClass("");
                 files = Files_Service.GetAll();
-                classes = Schedules_Service.GetInfoClassBy("", "TEACHER", 1, short.MaxValue, out count);
+                classes = Schedules_Service.GetInfoClassDetails("", "TEACHER", 1, short.MaxValue, out count);
             }
             catch (Exception Ex)
             {
@@ -37,7 +37,7 @@ namespace WebAdmin.Controllers
         public ActionResult Detail(int scheduleId)
         {
             List<TB_FILES> files = new List<TB_FILES>();
-            V_SCHEDULE_DETAILS classes = new V_SCHEDULE_DETAILS();
+            V_SHEDULES_CLASS classes = new V_SHEDULES_CLASS();
             List<TB_SUBJECTS> listSubject = new List<TB_SUBJECTS>();
             List<TB_BOXES> listBox = new List<TB_BOXES>();
             List<TB_BOX_SUBJECTS> listBoxSubject = new List<TB_BOX_SUBJECTS>();
@@ -51,7 +51,7 @@ namespace WebAdmin.Controllers
                 listBox = Boxes_Service.GetAll();
                 listSubject = Subjects_Service.GetAll();
                 listBoxSubject = Subjects_Boxes_Service.GetAll();
-                classes = Schedules_Service.GetInfoClassBy("", "TEACHER", 1, short.MaxValue, out count).Where(x=>x.ScheduleId == scheduleId).FirstOrDefault();
+                classes = Schedules_Service.GetInfoClassDetails("", "TEACHER", 1, short.MaxValue, out count).Where(x => x.ScheduleId == scheduleId).FirstOrDefault();
             }
             catch (Exception Ex)
             {

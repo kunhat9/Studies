@@ -49,13 +49,14 @@ BEGIN
 		[ROW] int IDENTITY(1,1) PRIMARY KEY
 		,UserID nvarchar(50)
 	)
-			INSERT INTO #TempUserId(UserID)
-			SELECT UserId
-			FROM TB_USERS u
-			JOIN TB_CLASSES  c
-			on u.UserId = c.ClassUserId
-			WHERE c.ClassScheduleId = @scheduleId 
-			ORDER BY [UserId]
+	INSERT INTO #TempUserId(UserID)
+	SELECT UserId
+	FROM TB_USERS u
+	JOIN TB_CLASSES  c
+	on u.UserId = c.ClassUserId
+	JOIN TB_TRACKINGS t ON u.UserId = t.TrackingUserId
+	WHERE t.TrackingScheduleId = @scheduleId 
+	ORDER BY [UserId]
 			--SELECT * FROM #TempUserId
 	SELECT DISTINCT [UserId]
       ,[UserName]
@@ -74,6 +75,7 @@ BEGIN
 		WHERE @start <= [ROW]
 			AND [ROW] <= @end)
 	AND (CONVERT(DATE,T.TrackingDate) IN (SELECT CONVERT(DATE,[Date]) FROM #TempDate ))
+	AND (t.TrackingScheduleId = @scheduleId)
 	UNION ALL
 	SELECT DISTINCT [UserId]
       ,[UserName]
@@ -89,6 +91,7 @@ BEGIN
 		FROM #TempUserId
 		WHERE @start <= [ROW]
 			AND [ROW] <= @end)
+	AND (c.ClassScheduleId = @scheduleId)
 
 
 	SELECT ISNULL(COUNT(1), 0) FROM #TempUserId

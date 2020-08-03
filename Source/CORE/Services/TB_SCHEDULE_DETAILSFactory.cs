@@ -26,6 +26,10 @@ namespace CORE.Services
         {
             return new TB_SCHEDULE_DETAILSSql().SelectAll();
         }
+        public List<TB_SCHEDULE_DETAILS> GetByScheduleId(string scheduleId)
+        {
+            return new TB_SCHEDULE_DETAILSSql().FilterByField("ScheduleDetailScheduleId", scheduleId);
+        }
         public bool CheckRoomClass(string roomId, string timeStart, string timeEnd, string dayOfWeek, string dayOfWeek2, string timeStart2, string timeEnd2)
         {
             bool check = false;

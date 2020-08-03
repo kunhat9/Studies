@@ -8,7 +8,7 @@
     List<CORE.Tables.TB_BOXES> box = ViewBag.Box;
     List<CORE.Tables.TB_USERS> listUser = ViewBag.User;
 
-    CORE.Tables.TB_USERS user = listUser.Where(x => x.UserId == Model.ScheduleUserId).FirstOrDefault();
+    CORE.Tables.TB_USERS user = listUser.Where(x => x.UserId == Model.ScheDuleDetails[0].ScheduleUserId).FirstOrDefault();
     List<CORE.Tables.TB_FILES> files = ViewBag.File;
     CORE.Tables.TB_USERS userLogin = ViewBag.UserLogin;
     string userType = "";
@@ -18,7 +18,7 @@
     }
 
 }
-@model CORE.Views.V_SCHEDULE_DETAILS
+@model CORE.Views.V_SHEDULES_CLASS
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
     <div class="container">
@@ -45,25 +45,41 @@
                 <!-- Single Course Details -->
                 <div class="single-course-details">
                     <div class="image">
-                        @if (string.IsNullOrEmpty(Model.ScheduleFileId))
+                        @if (string.IsNullOrEmpty(Model.ScheDuleDetails[0].ScheduleFileId))
                         {
                             <img alt="" src="~/Assets/img/course/details.jpg">
                         }
                         else
                         {
-                            <img style="height:410px;" src="@files.Where(x=>x.FileId.ToString().Equals(Model.ScheduleFileId)).FirstOrDefault().FileUrl" />
+                            <img style="height:410px;" src="@files.Where(x=>x.FileId.ToString().Equals(Model.ScheDuleDetails[0].ScheduleFileId)).FirstOrDefault().FileUrl" />
                         }
 
                     </div>
                     <div class="content">
-                        <h4 class="title"> Mã lớp : @Model.ScheduleCode</h4>
+                        <h4 class="title"> Mã lớp : @Model.ScheDuleDetails[0].ScheduleCode</h4>
                         <div class="course-info">
-                            <a href="#">Học phí : @CORE.Helpers.ConvertDataWithView.Currency_ToView(Model.SchedulePrice)</a>
-                            <span><i class="zmdi zmdi-calendar-check"></i> Thời gian học : @Model.ScheduleDetailTimeFrom - @Model.ScheduleDetailTimeTo @CORE.Helpers.ConvertDataWithView.Convert_DayOfweek(Model.ScheduleDetailDayOfWeek) các ngày trong tuần</span>
+                            <a href="#">Học phí : @CORE.Helpers.ConvertDataWithView.Currency_ToView(Model.ScheDuleDetails[0].SchedulePrice)</a>
+                            @{
+                                var time = "";
+                                for (var i = 0; i < Model.ScheDuleDetails.Count; i++)
+                                {
+                                    var a = Model.ScheDuleDetails[i];
+                                    if (i == Model.ScheDuleDetails.Count - 1)
+                                    {
+                                        time += a.ScheduleDetailTimeFrom +""+- a.ScheduleDetailTimeTo + " " + CORE.Helpers.ConvertDataWithView.Convert_DayOfweek(Model.ScheDuleDetails[i].ScheduleDetailDayOfWeek);
+                                    }
+                                    else
+                                    {
+                                        time += a.ScheduleDetailTimeFrom + ""+ - a.ScheduleDetailTimeTo +" "+ CORE.Helpers.ConvertDataWithView.Convert_DayOfweek(Model.ScheDuleDetails[i].ScheduleDetailDayOfWeek) + " và ";
+                                    }
+                                }
+
+                            }
+                            <span><i class="zmdi zmdi-calendar-check"></i> Thời gian học :@time trong tuần</span>
                         </div>
                         <div class="course-text-content">
                             <h3>Mô tả ngắn</h3>
-                            <p>@Model.ScheduleDetailNote</p>
+                            <p>@Model.ScheDuleDetails[0].ScheduleDetailNote</p>
                         </div>
                     </div>
                     <div class="course-duration mt-30">
@@ -74,11 +90,11 @@
                             <div class="text">
                                 <span>
                                     @subject.Where(x => x.SubjectId ==
-                                               (box_subject.Where(y => y.BoxSubjectId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName
+                                               (box_subject.Where(y => y.BoxSubjectId == Model.ScheDuleDetails[0].ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName
                                 </span>
                                 <span class="text-right">
                                     @box.Where(x => x.BoxId ==
-                                               (box_subject.Where(y => y.BoxSubjectId == Model.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectBoxId)).FirstOrDefault().BoxCode
+                                               (box_subject.Where(y => y.BoxSubjectId == Model.ScheDuleDetails[0].ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectBoxId)).FirstOrDefault().BoxCode
                                 </span>
                             </div>
 

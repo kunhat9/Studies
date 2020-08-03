@@ -5,7 +5,7 @@
     var count = (List<CORE.Views.V_NUMBER_STUDIES>)ViewBag.Count;
 }
 
-@model List<CORE.Views.V_SCHEDULE_DETAILS>
+@model List<CORE.Views.V_SHEDULES_CLASS>
 
 <!-- Page Banner Area Start -->
 <div class="page-banner-area overlay section">
@@ -41,33 +41,49 @@
                             <div class="col-md-4 col-sm-6 col-xs-12 mb-30">
                                 <div class="news-item">
                                     <a class="image" href="@Url.Action("Detail",new {scheduleId = clas.ScheduleId })">
-                                        @if (string.IsNullOrEmpty(clas.ScheduleFileId))
+                                        @if (string.IsNullOrEmpty(clas.ScheDuleDetails[0].ScheduleFileId))
                                         {
                                             <img src="~/Assets/img/course/1.jpg" alt="">
                                         }
                                         else
                                         {
-                                            <img style="height:250px;" src="@file.Where(x=>x.FileId.ToString().Equals(clas.ScheduleFileId)).FirstOrDefault().FileUrl" />
+                                            <img style="height:250px;" src="@file.Where(x=>x.FileId.ToString().Equals(clas.ScheDuleDetails[0].ScheduleFileId)).FirstOrDefault().FileUrl" />
                                         }
                                     
                                     </a>
                                     <div class="content">
-                                        <h4 class="title"><a href="@Url.Action("Detail",new {scheduleId = clas.ScheduleId })">Mã lớp : @clas.ScheduleCode</a></h4>
+                                        <h4 class="title"><a href="@Url.Action("Detail",new {scheduleId = clas.ScheduleId })">Mã lớp : @clas.ScheDuleDetails[0].ScheduleCode</a></h4>
                                         <div class="news-meta fix">
-                                            <span><i class="zmdi zmdi-calendar-check"></i>Thời gian học : @clas.ScheduleDetailTimeFrom - @clas.ScheduleDetailTimeTo</span>
-                                            <a href="#"><i class="zmdi zmdi-eye"></i>Số lượng học sinh trong lớp : @count.Where(x=>x.ScheduleId == @clas.ScheduleId).FirstOrDefault().CountStudie</a>
+                                            @{ 
+                                                var time = "";
+                                                for(var i = 0; i < clas.ScheDuleDetails.Count; i++)
+                                                {
+                                                    var a = clas.ScheDuleDetails[0];
+                                                    if (i == clas.ScheDuleDetails.Count - 1)
+                                                    {
+                                                        time += a.ScheduleDetailTimeFrom - a.ScheduleDetailTimeTo + "  ";
+                                                    }else
+                                                    {
+                                                        time += a.ScheduleDetailTimeFrom - a.ScheduleDetailTimeTo + " và ";
+                                                    }
+                                                }
+
+                                            }
+                                            
+                                            <span><i class="zmdi zmdi-calendar-check"></i>Thời gian học : @time</span>
+                                            <a href="#"><i class="zmdi zmdi-eye"></i>Số lượng học sinh trong lớp : @count.Where(x=>x.ScheduleId == clas.ScheduleId).FirstOrDefault().CountStudie</a>
                                           
                                         </div>
                                         <p>
                                             @{
                                                 var result = "";
-                                                if (clas.ScheduleDetailNote.ToArray().Length > 40)
+                                                if (clas.ScheDuleDetails[0].ScheduleDetailNote.ToArray().Length > 40)
                                                 {
-                                                    result = clas.ScheduleDetailNote.Substring(0, 35) + "....";
+                                                    result = clas.ScheDuleDetails[0].ScheduleDetailNote.Substring(0, 35) + "....";
                                                 }
                                                 else
                                                 {
-                                                    result = clas.ScheduleDetailNote;
+                                                    result = clas.ScheDuleDetails[0].ScheduleDetailNote;
 
                                                 }
                                                 @result

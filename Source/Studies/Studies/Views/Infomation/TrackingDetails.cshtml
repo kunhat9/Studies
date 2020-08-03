@@ -123,19 +123,26 @@
             for(var i=0;i<data.length;i++){
                 var value = data[i];
                 var check = new Date().toLocaleDateString();
-                for(var t = 0;t<value.TrackingDate.length;t++){
-                    var a = value.TrackingDate[t];
+                if(value.TrackingDate == null){
                     var demo = '@DateTime.Now.ToString("dd/MM/yyyy")';
-                    var date = new Date(a.match(/\d+/)[0] * 1).toLocaleDateString();
+                 
                     if(day == demo ){
                         element.disabled = false;
-                       
-                        
                     }
-                    if(day == ConvertJsonDateToDate(date) && userId == value.UserId){
-                        element.checked= true;
+                }else {
+                    for(var t = 0;t<value.TrackingDate.length;t++){
+                        var a = value.TrackingDate[t];
+                        var demo = '@DateTime.Now.ToString("dd/MM/yyyy")';
+                        var date = new Date(a.match(/\d+/)[0] * 1).toLocaleDateString();
+                        if(day == demo ){
+                            element.disabled = false;
+                        }
+                        if(day == ConvertJsonDateToDate(date) && userId == value.UserId){
+                            element.checked= true;
+                        }
                     }
                 }
+               
 
             }
 

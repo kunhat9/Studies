@@ -33,6 +33,7 @@ BEGIN
 	WHERE (@userId ='' OR TrackingUserId = @userId)
 	AND ( @startDate ='' OR CONVERT(DATE,@startDate) <= CONVERT(DATE,TrackingDate))
 	AND (@endDate ='' OR CONVERT(DATE,TrackingDate) <= CONVERT(DATE,@endDate))
+	AND TrackingCheckTuition IS NULL
 	GROUP BY TrackingScheduleId, TrackingDate
 	-- tinh hoc phi 
 	SELECT  t.ScheduleId,t.TrackingDate,t.CountNumber , CONVERT(decimal(18,2) ,(SchedulePrice* t.CountNumber)) TuitionStudies
