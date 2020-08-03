@@ -38,7 +38,9 @@ BEGIN
 	GROUP BY  TrackingUserId , TrackingScheduleId
 
 	-- tinh hoc phi 
-	SELECT  t.ScheduleId, SUM(CONVERT(decimal(18,2),(SchedulePrice* t.CountNumber))) TuitionStudies, u.UserId , u.UserFullName
+	SELECT  DISTINCT t.ScheduleId,
+	 --SUM(CONVERT(decimal(18,2),(SchedulePrice* t.CountNumber))) TuitionStudies,
+	 CONVERT(decimal(18,2),(SchedulePrice* t.CountNumber)) TuitionStudies, u.UserId , u.UserFullName
 	FROM #TempCountStudies t
 	JOIN TB_CLASSES c 
 	ON c.ClassScheduleId = t.ScheduleId
@@ -54,7 +56,7 @@ BEGIN
 		FROM #TempCountStudies
 		WHERE @start <= [ROW]
 			AND [ROW] <= @end)
-	GROUP BY  u.UserId , u.UserFullName,t.ScheduleId
+	--GROUP BY  u.UserId , u.UserFullName,t.ScheduleId
 	ORDER BY ScheduleId
 	SELECT ISNULL(COUNT(1), 0) FROM #TempCountStudies
 	DROP TABLE #TempCountStudies
