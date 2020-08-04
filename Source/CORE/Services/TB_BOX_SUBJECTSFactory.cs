@@ -43,5 +43,9 @@ namespace CORE.Services
             count = (int)cTemp;
             return list;
         }
+        public bool Delete(int boxSubjectId)
+        {
+            return new TB_BOX_SUBJECTSSql().Delete(boxSubjectId);
+        }
     }
 }

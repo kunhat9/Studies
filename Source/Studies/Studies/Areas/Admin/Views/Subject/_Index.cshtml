@@ -36,7 +36,7 @@
                                     <li class="btnEdit" onclick="onEdit(this)" data-index=@i>
                                         <button type="button" data-toggle="modal" data-target="#modal_default" class="btn btn-default btn-sm text-primary-600" data-toggle="modal" data-target="#modal_default"><i class="icon-pencil7"></i></button>
                                     </li>
-                                    <li class="btnDelete" data-id='@Model[i].BoxSubjectId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
+                                    <li class="btnDelete" onclick="onDelete(this)" data-id='@Model[i].BoxSubjectId' data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
                                         <button type="button" class="btn btn-default btn-sm text-danger-600"><i class="icon-trash"></i></button>
                                     </li>
                                 </ul>
@@ -96,7 +96,28 @@
         });
         return arr;
     }
+    function onDelete(evt){
+        if(confirm("Bạn có chắc chắn xóa lớp học")){
+            var id = evt.dataset.id;
+            var params = {
+                scheduleId : id
+            }
+            $.ajax({
+                url: "/Admin/Ajax/DeleteBoxSubject",
+                type: "post",
+                data: params,
+            }).done(function (result) {
+                if (result.Data.Code == "0") {
+                    toastr.success(result.Data.Result);
+                    location.href = "/Admin/Subject/Index";
+                } else {
+                    toastr.info(result.Data.Result);
+                }
 
+            });
+        }
+        
+    }
      var features = new Features(url_get,@Html.Raw(jsonModel),getParamsForSearch);
 
 </script>

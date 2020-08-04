@@ -457,7 +457,62 @@ namespace WebAdmin.Areas.Admin.AdminController
             }
             return Json(new JsonResult() { Data = Result });
         }
+        // delete schedule 
+        public JsonResult DeleteSchedule(string scheduleId)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+           
+            try
+            {
+               
+                if (Schedules_Service.Delete(Int32.Parse(scheduleId)))
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thao tác thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Lớp học đang được sử dụng. Vui lòng kiểm tra lại";
+                }
 
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Lớp học đang được sử dụng. Vui lòng kiểm tra lại";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
+        // delete boxSubject
+        public JsonResult DeleteBoxSubject(string boxSubjectId)
+        {
+            AjaxResultModel Result = new AjaxResultModel();
+
+            try
+            {
+
+                if (Subjects_Boxes_Service.Delete(Int32.Parse(boxSubjectId)))
+                {
+                    Result.Code = 0;
+                    Result.Result = "Thao tác thành công";
+                }
+                else
+                {
+                    Result.Code = 1;
+                    Result.Result = "Môn học đang được sử dụng. Vui lòng kiểm tra lại";
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                Result.Code = 1;
+                Result.Result = "Môn học đang được sử dụng. Vui lòng kiểm tra lại";
+                IOHelper.WriteLog(StartUpPath, IpAddress, "InsertOrUpdateUser:", Ex.Message, Ex.ToString());
+            }
+            return Json(new JsonResult() { Data = Result });
+        }
 
     }
 }

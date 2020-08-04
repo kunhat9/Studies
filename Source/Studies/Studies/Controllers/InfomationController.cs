@@ -95,9 +95,6 @@ namespace WebAdmin.Controllers
 
                     listSalary = User_Service.GetSalaryTeacher(user.UserId.ToString(), "", timeFrom.ToString("yyyy-MM-dd"), timeTo.ToString("yyyy-MM-dd"), 1, short.MaxValue, out count);
                 }
-
-
-
             }
             catch (Exception e)
             {

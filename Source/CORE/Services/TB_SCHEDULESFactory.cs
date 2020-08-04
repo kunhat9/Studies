@@ -22,7 +22,13 @@ namespace CORE.Services
         }
         public bool Delete(int schedulesId)
         {
-            return new TB_SCHEDULESSql().Delete(schedulesId);
+            bool result = true;   
+            result = new TB_SCHEDULE_DETAILSSql().DeleteByField("ScheduleDetailScheduleId", schedulesId);
+            if (result)
+            {
+                result = new TB_SCHEDULESSql().Delete(schedulesId);
+            }
+            return result;
         }
         public TB_SCHEDULES GetById(int schedulesId)
         {
