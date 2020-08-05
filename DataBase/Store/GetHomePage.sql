@@ -9,9 +9,9 @@ BEGIN
 	DECLARE @timeSpan INT = 7
 	DECLARE @countNewStudies INT , @countNewTeacher INT, @countNewClass INT, @totalRevenue decimal(18,0)
 	
-	SET @countNewTeacher = (SELECT COUNT(1) FROM TB_USERS WHERE DATEDIFF(day,CONVERT(DATE,UserDateCreated),CONVERT(DATE,GETDATE())) >=@timeSpan AND UserType ='TEACHER' AND UserStatus ='A')
-	SET @countNewStudies = (SELECT COUNT(1) FROM TB_USERS WHERE DATEDIFF(day,CONVERT(DATE,UserDateCreated),CONVERT(DATE,GETDATE())) >=@timeSpan AND UserType ='STUDIES' AND UserStatus ='A')
-	SET @countNewClass = (SELECT COUNT(1) FROM TB_SCHEDULES WHERE DATEDIFF(day,CONVERT(DATE,ScheduleDateCreate),CONVERT(DATE,GETDATE())) >=@timeSpan AND ScheduleStatus ='A')
+	SET @countNewTeacher = (SELECT COUNT(1) FROM TB_USERS WHERE DATEDIFF(day,CONVERT(DATE,UserDateCreated),CONVERT(DATE,GETDATE())) <= @timeSpan AND UserType ='TEACHER' AND UserStatus ='A')
+	SET @countNewStudies = (SELECT COUNT(1) FROM TB_USERS WHERE DATEDIFF(day,CONVERT(DATE,UserDateCreated),CONVERT(DATE,GETDATE())) <= @timeSpan AND UserType ='STUDIES' AND UserStatus ='A')
+	SET @countNewClass = (SELECT COUNT(1) FROM TB_SCHEDULES WHERE DATEDIFF(day,CONVERT(DATE,ScheduleDateCreate),CONVERT(DATE,GETDATE())) <=@timeSpan AND ScheduleStatus ='A')
 	SET @totalRevenue = (			
 SELECT SUM(tbThu.Thu -tbChi.Chi) TotalRevenue FROM
 (

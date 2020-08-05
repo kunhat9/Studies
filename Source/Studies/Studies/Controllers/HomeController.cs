@@ -27,17 +27,20 @@ namespace WebAdmin.Controllers
             List<TB_SUBJECTS> list = new List<TB_SUBJECTS>();
             List<TB_SCHEDULES> listScheDule = new List<TB_SCHEDULES>();
             List<TB_BOX_SUBJECTS> boxSubject = new List<TB_BOX_SUBJECTS>();
+            List<TB_FILES> listFile = new List<TB_FILES>();
             try
             {
                 list = Subjects_Service.GetAll();
                 listScheDule = Schedules_Service.GetAll();
                 boxSubject = Subjects_Boxes_Service.GetAll();
+                listFile = Files_Service.GetAll();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+            ViewBag.Files = listFile;
             ViewBag.Schedule = list;
             ViewBag.BoxSubject = boxSubject;
             ViewBag.error = error;
@@ -122,7 +125,7 @@ namespace WebAdmin.Controllers
             return RedirectToAction("Index",new {@error=ViewBag.error});
         }
         [HttpPost]
-        public ActionResult Register(string username,string password,string fullname,string phone,string confirmpassword, string type, string address)
+        public ActionResult Register(string username,string password,string fullname,string phone,decimal numberSalary,string confirmpassword, string type, string address)
         {
             try
             {
@@ -148,6 +151,7 @@ namespace WebAdmin.Controllers
                         UserPhone =  phone,
                         UserType = type,
                         UserStatus = "D",
+                        UserNumberSalary = numberSalary,
                         UserAcademicLevel = (type.Equals("TEACHER") ? address : ""),
                     UserDateCreated = DateTime.Now
                     };

@@ -164,14 +164,15 @@
 
 <script>
     $('#UserAcademicLevel').change(() => {
+
         var a = $('#UserAcademicLevel').val();
         switch (a) {
-            case 'CUNHAN': $('#UserNumberSalary').val('1'); break;
-            case 'DAIHOC': $('#UserNumberSalary').val('2'); break;
-            case 'THACSI': $('#UserNumberSalary').val('3'); break;
-            case 'TIENSI': $('#UserNumberSalary').val('4'); break;
-            case 'PHOGIAOSU': $('#UserNumberSalary').val('5'); break;
-            case 'GIAOSU': $('#UserNumberSalary').val('6'); break;
+            case 'CUNHAN': $('#UserNumberSalary').val('1.0'); break;
+            case 'DAIHOC': $('#UserNumberSalary').val('1.1'); break;
+            case 'THACSI': $('#UserNumberSalary').val('1.2'); break;
+            case 'TIENSI': $('#UserNumberSalary').val('1.3'); break;
+            case 'PHOGIAOSU': $('#UserNumberSalary').val('1.4'); break;
+            case 'GIAOSU': $('#UserNumberSalary').val('1.5'); break;
           
         }
     });

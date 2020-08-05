@@ -19,6 +19,7 @@ namespace CORE.Tables
         public decimal SchedulePrice { get; set; }
         public int ScheduleUserId { get; set; }
         public int ScheduleIdBoxSubjectId { get; set; }
+        public string ScheduleFileId { get; set; }
         public TB_SCHEDULES() { }
 
     }
