@@ -28,8 +28,10 @@ namespace WebAdmin.Controllers
             List<TB_SCHEDULES> listScheDule = new List<TB_SCHEDULES>();
             List<TB_BOX_SUBJECTS> boxSubject = new List<TB_BOX_SUBJECTS>();
             List<TB_FILES> listFile = new List<TB_FILES>();
+            List<TB_USERS> listTeacher = new List<TB_USERS>();
             try
             {
+                listTeacher = User_Service.GetAllTeacher();
                 list = Subjects_Service.GetAll();
                 listScheDule = Schedules_Service.GetAll();
                 boxSubject = Subjects_Boxes_Service.GetAll();
@@ -41,6 +43,7 @@ namespace WebAdmin.Controllers
                 throw;
             }
             ViewBag.Files = listFile;
+            ViewBag.Teacher = listTeacher;
             ViewBag.Schedule = list;
             ViewBag.BoxSubject = boxSubject;
             ViewBag.error = error;

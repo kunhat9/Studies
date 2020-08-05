@@ -5,6 +5,7 @@
     List<CORE.Tables.TB_SUBJECTS> list = ViewBag.Schedule;
     List<CORE.Tables.TB_BOX_SUBJECTS> listBox = ViewBag.BoxSubject;
     List<CORE.Tables.TB_FILES> listFile = ViewBag.Files;
+    List<CORE.Tables.TB_USERS> teacher = ViewBag.Teacher;
 }
 @model List<CORE.Tables.TB_SCHEDULES>
 
@@ -125,11 +126,12 @@
                         <div class="content">
                             <h4 class="title"><a  href="/Class/Detail?scheduleId=@course.ScheduleId">
                                 @list.Where(x=>x.SubjectId == (listBox.Where(y=>y.BoxSubjectId == course.ScheduleIdBoxSubjectId).FirstOrDefault().BoxSubjectSubjectId)).FirstOrDefault().SubjectName
+                                 - @teacher.Where(x => x.UserId == course.ScheduleUserId).FirstOrDefault().UserFullName
                                 </a></h4>
-                            @* <div class="course-info"> *@
-                            @*     <a href="#">Faculty of ME</a> *@
-                            @*     <span><i class="zmdi zmdi-calendar-check"></i> 4 years</span> *@
-                            @* </div> *@
+                             @*<div class="course-info"> 
+                                 <a href="#">Faculty of ME</a> 
+                                 <span><i class="zmdi zmdi-calendar-check"></i> 4 years</span> 
+                             </div>*@ 
                         </div>
                     </div>
                 </div>
