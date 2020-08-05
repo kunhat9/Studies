@@ -43,8 +43,8 @@ BEGIN
 			INSERT INTO #TempUserId(UserID)
 			SELECT UserId
 			FROM TB_USERS
-			LEFT JOIN TB_CLASSES 
-			ON TB_USERS.UserId = TB_CLASSES.ClassUserId
+			--LEFT JOIN TB_CLASSES 
+			--ON TB_USERS.UserId = TB_CLASSES.ClassUserId
 			WHERE (UserFullName LIKE N'%' + @keyText + '%'
 					OR UserAddress LIKE N'%' + @keyText + '%'
 					OR UserPhone LIKE N'%' + @keyText + '%'
@@ -52,7 +52,7 @@ BEGIN
 					)
 				AND (@status IS NULL OR UserStatus = @status)
 				AND (@type IS NULL OR UserType = @type)
-				AND (@scheduleId IS NULL OR TB_CLASSES.ClassScheduleId = @scheduleId)
+				--AND (@scheduleId IS NULL OR TB_CLASSES.ClassScheduleId = @scheduleId)
 		END
 	ELSE IF @type ='ACCOUNTANT'
 		BEGIN

@@ -1,0 +1,182 @@
+09:58:58
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+09:59:15
+192.168.56.1
+InsertOrUpdateUser:
+Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WebAdmin.Areas.Admin.AdminController.AjaxController.InsertOrUpdateUser(TB_USERS value, Boolean isUpdate) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\AjaxController.cs:line 149
+
+09:59:25
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:00:47
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:01:07
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:02:23
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:02:43
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:06:17
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 48
+
+10:06:26
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:06:38
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:07:23
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:07:43
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:12:44
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:13:34
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:13:37
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Students_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 48
+
+10:28:23
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96
+
+10:28:31
+UserController :
+Value cannot be null.
+Parameter name: String
+System.ArgumentNullException: Value cannot be null.
+Parameter name: String
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at WebAdmin.Areas.Admin.AdminController.UserController._Teachers_Details(String userID) in C:\Users\ADMIN\Desktop\DoAn\Rent\Studies\Source\Studies\Studies\Areas\Admin\AdminController\UserController.cs:line 96

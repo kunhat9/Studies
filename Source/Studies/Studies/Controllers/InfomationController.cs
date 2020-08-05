@@ -215,11 +215,14 @@ namespace WebAdmin.Controllers
                     {
                         foreach(var tracked in listUser)
                         {
-                            V_USER_TRACKED_Details a = new V_USER_TRACKED_Details();
-                            a.UserId = tracked.UserId;
-                            a.UserFullName = tracked.UserFullName;
-                        
-                            listTracked.Add(a);
+                            if(listTracked.Where(x=>x.UserId == tracked.UserId).ToList().Count ==0)
+                            {
+                                V_USER_TRACKED_Details a = new V_USER_TRACKED_Details();
+                                a.UserId = tracked.UserId;
+                                a.UserFullName = tracked.UserFullName;
+                                listTracked.Add(a);
+                            }
+                            
                         }
                     }else
                     {

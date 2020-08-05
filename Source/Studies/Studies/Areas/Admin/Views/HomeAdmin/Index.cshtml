@@ -87,7 +87,7 @@
                         <th class="fixed-col">STT</th>
                         <th>Tên giáo viên</th>
                         <th>Học vị</th>
-                        <th>Hệ số lương yêu cầu</th>
+                        <th>Số điện thoại</th>
                         <th>Kích hoạt tài khoản</th>
                     </tr>
                     </thead>
@@ -95,10 +95,24 @@
                     @for (int i = 0; i < teachers.Count; i++)
                     {
                         <tr class="text-center">
-                            <td class="fixed-col">@((ViewBag.pageNumber - 1) * ViewBag.pageSize + i + 1)</td>
+                            <td class="fixed-col">@(i + 1)</td>
                             <td>@teachers[i].UserFullName</td>
-                            <td>@teachers[i].UserAcademicLevel</td>
-                            <td>@teachers[i].UserNumberSalary</td>
+                            @{
+
+                                var view = "";
+                                switch (teachers[i].UserAcademicLevel)
+                                {
+                                    case "CUNHAN": view = "Cử nhân"; break;
+                                    case "DAIHOC": view = "Tốt nghiệp đại học"; break;
+                                    case "THACSI": view = "Thạc sĩ"; break;
+                                    case "TIENSI": view = "Tiến sĩ"; break;
+                                    case "PHOGIAOSU": view = "Phó giáo sư"; break;
+                                    case "GIAOSU": view = "Giáo sư"; break;
+                                }
+                               
+                            }
+                            <td>@view</td>
+                            <td>@teachers[i].UserPhone</td>
                             <td class="text-center">
                                 <ul class="icons-list">
                                     <li class="btnUnlock" onclick="onUnlock(this)" data-index=@i>
