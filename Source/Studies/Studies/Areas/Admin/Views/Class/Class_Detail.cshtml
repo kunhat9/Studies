@@ -14,6 +14,7 @@
     List<TB_USERS> studies =(List<TB_USERS>) ViewBag.studies;
     int id = (int) ViewBag.id;
     var detail = (V_CLASS)ViewBag.detail;
+    List<TB_REGISTERS> register = (List<TB_REGISTERS>)ViewBag.Register;
 }
 
 
@@ -87,7 +88,7 @@
                                             <td class="fixed-col">@(i+1)</td>
                                             <td>@studies[i].UserId</td>
                                             <td>@studies[i].UserFullName</td>
-                                            <td>@studies[i].UserDateCreated</td>
+                                            <td>@register.Where(x=>x.RegisterUserId == studies[i].UserId && x.RegisterScheduleId == Model.ScheduleId).FirstOrDefault().RegisterDateCreate.ToString("dd/MM/yyyy")</td>
                                             <td class="text-center">
                                                 <ul class="icons-list">
                                                     <li class="btnDelete" onclick="onDelete(this)" data-id="@studies[i].UserId" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
@@ -128,7 +129,7 @@
                                             <td class="fixed-col">@(i + 1)</td>
                                             <td>@students[i].UserId</td>
                                             <td>@students[i].UserFullName</td>
-                                            <td>@students[i].UserDateCreated</td>
+                                            <td>@register.Where(x => x.RegisterUserId == students[i].UserId && x.RegisterScheduleId == Model.ScheduleId).FirstOrDefault().RegisterDateCreate.ToString("dd/MM/yyyy")</td>
 
                                         </tr>
                                     }

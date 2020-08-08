@@ -87,7 +87,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_USERS> teachers = new List<TB_USERS>();
             List<TB_USERS> studies = new List<TB_USERS>();
             List<TB_USERS> students = new List<TB_USERS>();
-
+            List<TB_REGISTERS> register = new List<TB_REGISTERS>();
             var detail = new V_CLASS();
             var classes = new TB_SCHEDULES();
             var details = new List<V_CLASS>();
@@ -99,7 +99,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                 users = User_Service.GetUserRegister(id.ToString());
                 int count = 0;
                 details = Classes_Service.GetClassBy("", "", "", "", "", "", 1, Int16.MaxValue, out count);
-
+                register = Registers_Service.GetAll();
                 studies = User_Service.GetStudiesBySchedule(id.ToString(), 1, Int16.MaxValue, out count);
                 foreach (var tmp in details)
                 {
@@ -141,7 +141,7 @@ namespace WebAdmin.Areas.Admin.AdminController
                     lst.Add(item);
                 }
             }
-
+            ViewBag.Register = register;
             ViewBag.subjects = subjects;
             ViewBag.boxes = boxes;
             ViewBag.teachers = teachers;
