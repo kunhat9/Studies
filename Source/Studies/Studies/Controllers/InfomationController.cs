@@ -262,6 +262,10 @@ namespace WebAdmin.Controllers
 
                 if (listTracked.Where(x => x.UserId == item.UserId).ToList().Count == 0)
                 {
+                    V_USER_TRACKED_Details a = new V_USER_TRACKED_Details();
+                    a.UserFullName = item.UserFullName;
+                    a.UserId = item.UserId;
+                    listTracked.Add(a);
                     lst.Add(item);
                 }
             }

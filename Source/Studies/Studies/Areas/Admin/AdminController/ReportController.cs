@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CORE.Views;
 using WebAdmin.Controllers;
 using CORE.Tables;
+using CORE.Helpers;
 
 namespace WebAdmin.Areas.Admin.AdminController
 {
@@ -185,7 +186,7 @@ namespace WebAdmin.Areas.Admin.AdminController
             {
                 ViewBag.Error = e.ToString();
             }
-            ViewBag.ListDate = listDate;
+            ViewBag.ListDate = listDate.OrderByDescending(x=>x).ToList();
             ViewBag.Schedule = listSchedule;
             ViewBag.User = listUser;
             ViewBag.Url = url;
@@ -197,9 +198,23 @@ namespace WebAdmin.Areas.Admin.AdminController
             List<TB_SCHEDULES> details = new List<TB_SCHEDULES>();
             List<TB_USERS> listUser = new List<TB_USERS>();
             List<V_TRACKING_USER_CLASS> list = new List<V_TRACKING_USER_CLASS>();
+            List<TB_SCHEDULE_DETAILS> listDetails = new List<TB_SCHEDULE_DETAILS>();
             try
             {
-                listDate = GetDateTimeToMonth(startDate, endDate);
+                listDetails = Schedule_Detail_Service.GetByScheduleId(scheduledId);
+                foreach (var item in listDetails)
+                {
+                    List<DateTime> listDateTemp = new List<DateTime>();
+                    listDateTemp = DateTimeHelper.DaysOfMonth(DateTime.Now.Year, DateTime.Now.Month, ConvertDataWithView.Convert_DayOfWeek_ToTypeDayOfWeek(item.ScheduleDetailDayOfWeek));
+                    foreach (var date in listDateTemp)
+                    {
+                        if (listDate.Where(x => x.ToString("ddMMyyyy").Equals(date.ToString("ddMMyyyy"))).ToList().Count == 0)
+                        {
+                            listDate.Add(date);
+                        }
+                    }
+                }
+                //listDate = GetDateTimeToMonth(startDate, endDate);
                 listUser = User_Service.GetAllStudies();
                 details = Schedules_Service.GetAll();
                 list = Trackings_Service.GetTrackingUser(userId, scheduledId, String.Join("", startDate.Split('/')) , String.Join("", endDate.Split('/')));

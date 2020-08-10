@@ -86,18 +86,28 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                           
                             @foreach (var user in studies)
                             {
                                 <tr class="text-center">
-                                    <td>@user.UserFullName</td>
+                                    <td style="padding:5px;">@user.UserFullName</td>
                                     @foreach (var item in date)
                                     {
-                                        <td><input type="checkbox" disabled data-day="@item.ToString("dd/MM/yyyy")" data-id="@user.UserId" name="userids" class="schedule-checkbox" /></td>
+                                        <td style="padding:5px;"><input type="checkbox" disabled data-day="@item.ToString("dd/MM/yyyy")" data-id="@user.UserId" name="userids" class="schedule-checkbox" /></td>
+                                      
                                     }
                                 </tr>
                             }
+                            <tr>
+                               @foreach (var item in date)
+                               {
+                                <td></td>
+
+                               }
+                                <td><button class="btn btn-primary float-right btnAdd" style="right:40px;" type="button" id="btn-update-students"><i class="fa fa-edit"></i>Điểm danh</button></td>
+                            </tr>
                         </tbody>
+                      
                     </table>
                 </div>
 
@@ -105,7 +115,7 @@
         </div>
     </div>
 
-    <button class="btn btn-primary float-right btnAdd" style="right:40px;" type="button" id="btn-update-students"><i class="fa fa-edit"></i>Điểm danh</button>
+   
 </div>
 
 <script>

@@ -49,15 +49,16 @@
                             <th>@(list.Where(x=>x.ScheduleId== tracking.schedueId).FirstOrDefault().ScheduleCode)</th>
                             <th>@tracking.dateTracking.Count</th>
                             <th>
-                                @for (int i = 0; i < tracking.dateTracking.Count; i++)
+                                @for (int i = 0; i < tracking.dateTracking.OrderBy(x=>x).ToList().Count; i++)
                                 {
-                                    if(i == tracking.dateTracking.Count)
+                                    var a = tracking.dateTracking.OrderBy(x => x).ToList();
+                                    if (i == tracking.dateTracking.Count)
                                     {
-                                        result += @tracking.dateTracking[i].ToString("dd/MM/yyyy");
+                                        result += a[i].ToString("dd/MM/yyyy");
                                     }
                                     else
                                     {
-                                        result += @tracking.dateTracking[i].ToString("dd/MM/yyyy") + " - ";
+                                        result += a[i].ToString("dd/MM/yyyy") + " - ";
                                     }
 
 

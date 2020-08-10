@@ -88,7 +88,7 @@
                                             <td class="fixed-col">@(i+1)</td>
                                             <td>@studies[i].UserId</td>
                                             <td>@studies[i].UserFullName</td>
-                                            <td>@register.Where(x=>x.RegisterUserId == studies[i].UserId && x.RegisterScheduleId == Model.ScheduleId).FirstOrDefault().RegisterDateCreate.ToString("dd/MM/yyyy")</td>
+                                            <td>@(register == null ? "" : register.Where(x => x.RegisterUserId == studies[i].UserId && x.RegisterScheduleId == Model.ScheduleId).FirstOrDefault().RegisterDateCreate.ToString("dd/MM/yyyy HH:mm:ss"))</td>
                                             <td class="text-center">
                                                 <ul class="icons-list">
                                                     <li class="btnDelete" onclick="onDelete(this)" data-id="@studies[i].UserId" data-title="Bạn có chắc chắn muốn xóa bản ghi? ">
@@ -129,7 +129,7 @@
                                             <td class="fixed-col">@(i + 1)</td>
                                             <td>@students[i].UserId</td>
                                             <td>@students[i].UserFullName</td>
-                                            <td>@register.Where(x => x.RegisterUserId == students[i].UserId && x.RegisterScheduleId == Model.ScheduleId).FirstOrDefault().RegisterDateCreate.ToString("dd/MM/yyyy")</td>
+                                            <td>@(register == null?"": register.Where(x => x.RegisterUserId == students[i].UserId && x.RegisterScheduleId == Model.ScheduleId).FirstOrDefault().RegisterDateCreate.ToString("dd/MM/yyyy HH:mm:ss"))</td>
 
                                         </tr>
                                     }
